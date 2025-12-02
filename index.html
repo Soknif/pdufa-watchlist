@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PDUFA 2026 Watchlist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 1.5rem;
+      background: #f5f5f7;
+    }
+    h1 {
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      color: #555;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .controls {
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    input[type="text"], select {
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      font-size: 0.9rem;
+    }
+    thead {
+      background: #111827;
+      color: #f9fafb;
+    }
+    th, td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    th.sort-asc::after {
+      content: " ▲";
+      font-size: 0.7rem;
+    }
+    th.sort-desc::after {
+      content: " ▼";
+      font-size: 0.7rem;
+    }
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+    tr:hover td {
+      background: #eef2ff;
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .tag-orphan {
+      background: #ecfeff;
+      color: #0891b2;
+    }
+    .tag-high {
+      background: #ecfdf3;
+      color: #15803d;
+    }
+    .tag-medium {
+      background: #fef9c3;
+      color: #92400e;
+    }
+    .tag-low {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>PDUFA 2026 Run-Up Watchlist</h1>
+  <div class="subtitle">
+    Experimental watchlist for pre-PDUFA stock behaviour (run-up then exit before decision).
+  </div>
+
+  <div class="controls">
+    <label>
+      Search:
+      <input id="searchBox" type="text" placeholder="Filter by company, ticker, indication..." />
+    </label>
+    <label>
+      Min run-up score:
+      <select id="scoreFilter">
+        <option value="0">Any</option>
+        <option value="3">3+</option>
+        <option value="4">4+</option>
+        <option value="5">5 only</option>
+      </select>
+    </label>
+    <label>
+      Only orphan:
+      <select id="orphanFilter">
+        <option value="any">Any</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="pdufaTable">
+      <thead>
+        <tr>
+          <th data-key="pdufa_date">PDUFA Date</th>
+          <th data-key="company">Company</th>
+          <th data-key="ticker">Ticker</th>
+          <th data-key="drug">Drug</th>
+          <th data-key="indication">Indication</th>
+          <th data-key="orphan_drug">Orphan</th>
+          <th data-key="runup_priority_score_1to5">Run-up Score</th>
+          <th data-key="suggested_entry_window_days">Entry Window</th>
+          <th data-key="suggested_exit_window_days">Exit Window</th>
+          <th data-key="notes">Notes</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const csvHeader = [
+      "pdufa_date",
+      "drug",
+      "brand_name",
+      "company",
+      "ticker",
+      "indication",
+      "orphan_drug",
+      "therapy_type",
+      "market_cap_bucket",
+      "listing_region",
+      "liquidity_flag",
+      "runup_priority_score_1to5",
+      "suggested_entry_window_days",
+      "suggested_exit_window_days",
+      "notes"
+    ];
+
+    // Inline CSV data (same as our table)
+    const inlineCSV = `
+pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,market_cap_bucket,listing_region,liquidity_flag,runup_priority_score_1to5,suggested_entry_window_days,suggested_exit_window_days,notes
+2026-01-13,sparsentan,FILSPARI,Travere Therapeutics,TVTX,"FSGS (kidney disease)",Yes,"Small-molecule (dual ETAR/AT1R inhibitor)",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA for FSGS; already approved for IgAN"
+2026-01-13,imiglucerase,Cerezyme,Sanofi,SNY,"Gaucher disease type 3",Yes,"Enzyme replacement therapy",Large,"EU/US",Listed,1,"T-60 to T-30","T-30 to T-15","sBLA in a mega-cap; usually lower event-driven % moves"
+2026-01-31,leniolisib,Joenja,Pharming Group,PHARM.AS,"Pediatric APDS (4–11 years)",Yes,"Small-molecule PI3Kδ inhibitor","Small-Mid",EU,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA, priority review; rare immunodeficiency"
+2026-01-31,"epinephrine oral film",Anaphylm,Aquestive Therapeutics,AQST,"Anaphylaxis (allergic reactions)",No,"Small-molecule / oral film formulation",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","NDA for novel oral epinephrine film; retail/derisking interest"
+2026-02-08,"clemidsogene lanparvovec",RGX-121,REGENXBIO,RGNX,"Mucopolysaccharidosis II (MPS II)",Yes,"AAV gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","High-impact CNS gene therapy; classic binary catalyst"
+2026-02-25,"decitabine+cedazuridine + venetoclax","Inqovi + Venclexta","Taiho Oncology / Otsuka",OTSKY,"Acute myeloid leukemia",Yes,"Oral chemo + BCL-2 inhibitor combo",Large,JP/US,Listed,2,"T-60 to T-30","T-30 to T-10","sNDA combo in large-cap ecosystem"
+2026-02-28,pegvaliase,Palynziq,BioMarin,BMRN,"Phenylketonuria (PKU)",Yes,"Enzyme substitution (PEGylated)","Mid-Large",US,Listed,3,"T-90 to T-45","T-20 to T-10","sBLA/label refinement; BioMarin is moderately volatile"
+2026-02-28,navepegritide,"TransCon CNP",Ascendis Pharma,ASND,Achondroplasia (children),Yes,"Long-acting peptide hormone (CNP)",Mid,"US/EU",Listed,4,"T-120 to T-60","T-20 to T-10","Priority-review growth-disorder asset; attractive single-franchise story"
+2026-03-20,setmelanotide,Imcivree,"Rhythm Pharmaceuticals",RYTM,"Acquired hypothalamic obesity",Yes,"Peptide agonist (MC4R)","Small-Mid",US,Listed,4,"T-120 to T-60","T-20 to T-10","Label expansion in rare obesity; sentiment-sensitive"
+2026-03-24,linerixibat,,GSK,GSK,"Cholestatic pruritus in PBC",Yes,"Small-molecule IBAT inhibitor",Large,"UK/US",Listed,2,"T-60 to T-30","T-30 to T-10","NDA in rare liver disease; large-cap, lower % swing expected"
+2026-03-28,"marnetegragene autotemcel",KRESLADI,"Rocket Pharmaceuticals",RCKT,"LAD-I (ultra-rare immunodeficiency)",Yes,"Ex vivo gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","Ultra-rare gene therapy; high ‘event trader’ focus"
+2026-03-29,"Ga-68 edotreotide",LNTH-2501,Lantheus,LNTH,"SSTR+ neuroendocrine tumor PET imaging",No,"Diagnostic radiopharmaceutical",Mid,US,Listed,3,"T-90 to T-45","T-20 to T-10","Imaging agent complementing NET portfolio"
+2026-04-05,"tividenofusp alfa",DNL310,"Denali Therapeutics",DNLI,"Hunter syndrome (MPS II)",Yes,"Brain-penetrant enzyme replacement",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Priority-review CNS ERT; high-profile rare-disease catalyst"
+2026-04-06,Orca-T,,Orca Bio,,"AML / ALL / MDS (allogeneic transplant)",Yes,"Cell therapy (engineered graft)",Private,US,Unlisted,3,,,"Private company; equity not directly tradeable"
+2026-06-18,"nilotinib (505(b)(2))",XS003,"Xspray Pharma",XSPRAY.ST,"Chronic myeloid leukemia (CML)",No,"Small-molecule TKI reformulation",Small,"EU (Sweden)",Listed,4,"T-120 to T-60","T-20 to T-7","TKI reformulation; Swedish small-cap with clear event date"
+2026-07-03,"manganese chloride tetrahydrate",Orviglance,"Ascelia Pharma",ACE.ST,"Liver MRI contrast in renal impairment",Yes,"Imaging contrast agent",Small,"EU (Sweden)",Listed,4,"T-120 to T-60","T-20 to T-7","Orphan contrast agent; binary for a small Nordic biotech"
+2026-07-11,relacorilant,,Corcept Therapeutics,CORT,"Platinum-resistant ovarian cancer",Yes,"Cortisol receptor modulator",Mid,US,Listed,4,"T-120 to T-60","T-20 to T-7","Oncology indication; strong phase 3 data drove interest"
+2026-07-26,"furosemide autoinjector (SCP-111)","FUROSCIX ReadyFlow","MannKind / scPharmaceuticals partnership",MNKD,"Edema in CHF / CKD",No,"Device + small-molecule combo","Small-Mid",US,Listed,3,"T-90 to T-45","T-20 to T-10","sNDA for new autoinjector; device-formulation narrative"
+2026-08-28,177Lu-edotreotide,,ITM,,"GEP-NET (radioligand therapy)",Yes,"Therapeutic radioligand",Private,EU,Unlisted,3,,,"Radioligand; company not US-listed (access may be indirect)"
+2026-09-18,zidesamtinib,,Nuvalent,NUVL,"ROS1+ non-small cell lung cancer",Yes,"Small-molecule kinase inhibitor",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Targeted oncology with clean single-asset story; strong run-up candidate"
+2026-10-10,tabelecleucel,Tab-cel,"Pierre Fabre / Atara license",ATRA,"EBV+ PTLD (post-transplant lymphoma)",Yes,"Allogeneic T-cell therapy",Small,"US/EU","Listed/Partnered",3,"T-120 to T-60","T-20 to T-10","BLA held by private partner; Atara still sentiment-linked"
+`;
+
+    let rows = [];
+    let currentSort = { key: "pdufa_date", direction: "asc" };
+
+    function parseCSV(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const dataLines = lines.slice(1);
+      return dataLines.map(line => {
+        const cells = [];
+        let cur = "";
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const c = line[i];
+          if (c === '"') {
+            inQuotes = !inQuotes;
+          } else if (c === ',' && !inQuotes) {
+            cells.push(cur);
+            cur = "";
+          } else {
+            cur += c;
+          }
+        }
+        cells.push(cur);
+        const obj = {};
+        csvHeader.forEach((key, idx) => {
+          obj[key] = (cells[idx] || "").trim().replace(/^"|"$/g, "");
+        });
+        return obj;
+      });
+    }
+
+    function renderTable() {
+      const tbody = document.querySelector("#pdufaTable tbody");
+      const search = document.getElementById("searchBox").value.toLowerCase();
+      const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
+      const orphanFilter = document.getElementById("orphanFilter").value;
+
+      let filtered = rows.filter(r => {
+        const text = (
+          (r.company || "") + " " +
+          (r.ticker || "") + " " +
+          (r.indication || "") + " " +
+          (r.drug || "")
+        ).toLowerCase();
+        if (search && !text.includes(search)) return false;
+
+        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
+        if (!isNaN(minScore) && score < minScore) return false;
+
+        if (orphanFilter === "yes" && r.orphan_drug.toLowerCase() !== "yes") return false;
+        if (orphanFilter === "no" && r.orphan_drug.toLowerCase() === "yes") return false;
+
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        const { key, direction } = currentSort;
+        let va = a[key] || "";
+        let vb = b[key] || "";
+
+        if (key === "runup_priority_score_1to5") {
+          va = parseInt(va || "0", 10);
+          vb = parseInt(vb || "0", 10);
+        }
+        if (key === "pdufa_date") {
+          va = new Date(va);
+          vb = new Date(vb);
+        }
+
+        if (va < vb) return direction === "asc" ? -1 : 1;
+        if (va > vb) return direction === "asc" ? 1 : -1;
+        return 0;
+      });
+
+      tbody.innerHTML = "";
+      for (const r of filtered) {
+        const tr = document.createElement("tr");
+        const orphanTag = r.orphan_drug.toLowerCase() === "yes"
+          ? '<span class="tag tag-orphan">Orphan</span>' : "";
+        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
+        let scoreTagClass = "tag-low";
+        if (score >= 5) scoreTagClass = "tag-high";
+        else if (score >= 4) scoreTagClass = "tag-medium";
+
+        tr.innerHTML = `
+          <td>${r.pdufa_date}</td>
+          <td>${r.company}</td>
+          <td>${r.ticker}</td>
+          <td>${r.drug}</td>
+          <td>${r.indication}</td>
+          <td>${orphanTag}</td>
+          <td><span class="tag ${scoreTagClass}">${score || ""}</span></td>
+          <td>${r.suggested_entry_window_days}</td>
+          <td>${r.suggested_exit_window_days}</td>
+          <td>${r.notes}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function setupSorting() {
+      const headers = document.querySelectorAll("#pdufaTable thead th");
+      headers.forEach(th => {
+        th.addEventListener("click", () => {
+          const key = th.dataset.key;
+          if (!key) return;
+          if (currentSort.key === key) {
+            currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
+          } else {
+            currentSort.key = key;
+            currentSort.direction = "asc";
+          }
+          headers.forEach(h => h.classList.remove("sort-asc", "sort-desc"));
+          th.classList.add(currentSort.direction === "asc" ? "sort-asc" : "sort-desc");
+          renderTable();
+        });
+      });
+    }
+
+    function setupFilters() {
+      document.getElementById("searchBox").addEventListener("input", renderTable);
+      document.getElementById("scoreFilter").addEventListener("change", renderTable);
+      document.getElementById("orphanFilter").addEventListener("change", renderTable);
+    }
+
+    function init() {
+      rows = parseCSV(inlineCSV);
+      setupSorting();
+      setupFilters();
+      renderTable();
+    }
+
+    init();
+  </script>
+</body>
+</html>
