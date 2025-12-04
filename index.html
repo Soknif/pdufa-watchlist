@@ -331,14 +331,27 @@
     /* Table */
 
     .table-wrapper {
-      border-radius: 12px;
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      overflow: hidden;
-      background: linear-gradient(to bottom, #020617, #020617);
-      max-height: 420px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-    }
+  border-radius: 12px;
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  background: linear-gradient(to bottom, #020617, #020617);
+
+  /* ✅ let height grow naturally, no inner clipping */
+  max-height: none;
+  overflow-y: visible;
+
+  /* ✅ enable horizontal scrolling so you can see all columns */
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 6px; /* horizontal scrollbar height */
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 999px;
+}
+
 
     .table-wrapper::-webkit-scrollbar {
       width: 6px;
@@ -912,4 +925,5 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
   </script>
 </body>
 </html>
+
 
