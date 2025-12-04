@@ -805,29 +805,40 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
         return 0;
       });
 
-      tbody.innerHTML = "";
-      for (const r of filtered) {
-        const tr = document.createElement("tr");
-        const orphanTag = r.orphan_drug.toLowerCase() === "yes"
-          ? '<span class="tag tag-orphan">Orphan</span>' : "";
-        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
-        let scoreTagClass = "tag-low";
-        if (score >= 5) scoreTagClass = "tag-high";
-        else if (score >= 4) scoreTagClass = "tag-medium";
+        tbody.innerHTML = "";
+  for (const r of filtered) {
+    const tr = document.createElement("tr");
+    const orphanTag = r.orphan_drug.toLowerCase() === "yes"
+      ? '<span class="tag tag-orphan">Orphan</span>' : "";
+    const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
+    let scoreTagClass = "tag-low";
+    if (score >= 5) scoreTagClass = "tag-high";
+    else if (score >= 4) scoreTagClass = "tag-medium";
 
-        tr.innerHTML = `
-          <td>${r.pdufa_date}</td>
-          <td>${r.company}</td>
-          <td>${r.ticker}</td>
-          <td>${r.drug}</td>
-          <td>${r.indication}</td>
-          <td>${orphanTag}</td>
-          <td><span class="tag ${scoreTagClass}">${score || ""}</span></td>
-          <td>${r.suggested_entry_window_days}</td>
-          <td>${r.suggested_exit_window_days}</td>
-          <td>${r.notes}</td>
-        `;
-        tbody.appendChild(tr);
+    // 🔹 If this is Rocket (RCKT), add a direct Avanza link into Notes
+    let notesHtml = r.notes || "";
+    if ((r.ticker || "").toUpperCase() === "RCKT") {
+      const avanzaUrl = "https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals";
+      notesHtml += `<br><a href="${avanzaUrl}" target="_blank" rel="noopener noreferrer">
+        Buy/Sell in Avanza (RCKT)
+      </a>`;
+    }
+
+    tr.innerHTML = `
+      <td>${r.pdufa_date}</td>
+      <td>${r.company}</td>
+      <td>${r.ticker}</td>
+      <td>${r.drug}</td>
+      <td>${r.indication}</td>
+      <td>${orphanTag}</td>
+      <td><span class="tag ${scoreTagClass}">${score || ""}</span></td>
+      <td>${r.suggested_entry_window_days}</td>
+      <td>${r.suggested_exit_window_days}</td>
+      <td>${notesHtml}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+
       }
     }
 
@@ -901,3 +912,4 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
   </script>
 </body>
 </html>
+
