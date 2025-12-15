@@ -497,6 +497,199 @@
       }
     }
 
+    /* RCKT Countdown & Phase Indicator */
+
+    .rckt-countdown {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      margin: 8px 0;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(56, 189, 248, 0.08));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .countdown-main {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .countdown-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-label {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .phase-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .phase-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .phase-text {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .phase-pre-entry { color: #9ca3af; }
+    .phase-pre-entry .phase-dot { background: #9ca3af; box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3); }
+
+    .phase-entry { color: #22c55e; }
+    .phase-entry .phase-dot { background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3); }
+
+    .phase-hold { color: #38bdf8; }
+    .phase-hold .phase-dot { background: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3); }
+
+    .phase-exit { color: #fb923c; }
+    .phase-exit .phase-dot { background: #fb923c; box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.3); }
+
+    .phase-post { color: #f87171; }
+    .phase-post .phase-dot { background: #f87171; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3); }
+
+    /* Timeline Progress Bar */
+
+    .timeline-container {
+      margin: 12px 0;
+      padding: 0 4px;
+    }
+
+    .timeline-track {
+      position: relative;
+      height: 70px;
+      background: linear-gradient(to bottom, #020617, #0f172a);
+      border: 1px solid rgba(55, 65, 81, 0.6);
+      border-radius: 12px;
+      overflow: visible;
+    }
+
+    .timeline-segment {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      border-right: 1px solid rgba(75, 85, 99, 0.4);
+    }
+
+    .timeline-segment:last-of-type {
+      border-right: none;
+    }
+
+    .entry-zone {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
+    }
+
+    .hold-zone {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.05));
+    }
+
+    .exit-zone {
+      background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(251, 146, 60, 0.05));
+    }
+
+    .zone-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #e5e7eb;
+    }
+
+    .zone-dates {
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+
+    .timeline-marker {
+      position: absolute;
+      top: -8px;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .marker-line {
+      width: 2px;
+      height: 86px;
+      background: linear-gradient(to bottom, #f87171, rgba(248, 113, 113, 0.3));
+      margin: 0 auto;
+    }
+
+    .marker-label {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 600;
+      color: #fecaca;
+      white-space: nowrap;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .timeline-position {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      transition: left 0.5s ease;
+    }
+
+    .position-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .position-indicator span {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.15);
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(251, 191, 36, 0.6);
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+      white-space: nowrap;
+    }
+
     /* Footer */
 
     .footer {
@@ -656,8 +849,47 @@
                 RCKT – Rocket Pharmaceuticals
                 <span class="pill-small">Score 5 • LAD-I gene therapy</span>
               </h3>
-              <div class="chart-note">PDUFA: 28 March 2026 • Target: enter ≈ T-90, exit ≈ T-20</div>
+              <div class="chart-note">PDUFA: 28 March 2026</div>
             </div>
+
+            <!-- Live Countdown & Phase Indicator -->
+            <div class="rckt-countdown">
+              <div class="countdown-main">
+                <div class="countdown-number" id="rckt-days">--</div>
+                <div class="countdown-label">days to PDUFA</div>
+              </div>
+              <div class="phase-indicator" id="rckt-phase">
+                <span class="phase-dot"></span>
+                <span class="phase-text">Calculating...</span>
+              </div>
+            </div>
+
+            <!-- Visual Timeline Progress Bar -->
+            <div class="timeline-container">
+              <div class="timeline-track">
+                <div class="timeline-segment entry-zone" style="left: 0%; width: 25%;">
+                  <span class="zone-label">Entry Window</span>
+                  <span class="zone-dates">Dec 3 - Jan 2</span>
+                </div>
+                <div class="timeline-segment hold-zone" style="left: 25%; width: 50%;">
+                  <span class="zone-label">Hold Period</span>
+                </div>
+                <div class="timeline-segment exit-zone" style="left: 75%; width: 20%;">
+                  <span class="zone-label">Exit Window</span>
+                  <span class="zone-dates">Feb 24 - Mar 21</span>
+                </div>
+                <div class="timeline-marker pdufa-marker" style="left: 95%;">
+                  <div class="marker-line"></div>
+                  <span class="marker-label">PDUFA<br/>Mar 28</span>
+                </div>
+                <div class="timeline-position" id="rckt-position">
+                  <div class="position-indicator">
+                    <span>📍 NOW</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="tradingview-widget-container">
               <div id="tradingview_rckt" class="chart-canvas"></div>
               <div class="chart-note" style="margin-top: 4px;">
@@ -899,12 +1131,79 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       });
     }
 
+    function updateRCKTDynamics() {
+      // RCKT dates
+      const entryStart = new Date('2025-12-03');
+      const entryEnd = new Date('2026-01-02');
+      const exitStart = new Date('2026-02-24');
+      const exitEnd = new Date('2026-03-21');
+      const pdufaDate = new Date('2026-03-28');
+
+      const now = new Date();
+      const daysToEvent = Math.ceil((pdufaDate - now) / (1000 * 60 * 60 * 24));
+
+      // Update countdown
+      const countdownEl = document.getElementById('rckt-days');
+      if (countdownEl) {
+        countdownEl.textContent = daysToEvent;
+      }
+
+      // Determine current phase
+      let phase = 'pre-entry';
+      let phaseText = 'Pre-Entry Phase';
+
+      if (now >= pdufaDate) {
+        phase = 'post';
+        phaseText = '🔴 Post-PDUFA';
+      } else if (now >= exitStart) {
+        phase = 'exit';
+        phaseText = '🟠 EXIT WINDOW ACTIVE';
+      } else if (now >= entryEnd) {
+        phase = 'hold';
+        phaseText = '🔵 Hold Period';
+      } else if (now >= entryStart) {
+        phase = 'entry';
+        phaseText = '🟢 ENTRY WINDOW ACTIVE';
+      } else {
+        phase = 'pre-entry';
+        phaseText = '🟡 Pre-Entry';
+      }
+
+      const phaseEl = document.getElementById('rckt-phase');
+      if (phaseEl) {
+        phaseEl.className = `phase-indicator phase-${phase}`;
+        const phaseTextEl = phaseEl.querySelector('.phase-text');
+        if (phaseTextEl) {
+          phaseTextEl.textContent = phaseText;
+        }
+      }
+
+      // Calculate timeline position (0-100%)
+      const timelineStart = entryStart;
+      const timelineEnd = pdufaDate;
+      const totalDuration = timelineEnd - timelineStart;
+      const elapsed = now - timelineStart;
+      let position = (elapsed / totalDuration) * 100;
+
+      // Clamp position between 0 and 100
+      position = Math.max(0, Math.min(100, position));
+
+      const positionEl = document.getElementById('rckt-position');
+      if (positionEl) {
+        positionEl.style.left = `${position}%`;
+      }
+    }
+
     function init() {
       rows = parseCSV(inlineCSV);
       setupSorting();
       setupFilters();
       renderTable();
+      updateRCKTDynamics();
       setTimeout(initTradingViewWidgets, 600);
+
+      // Update RCKT dynamics every hour
+      setInterval(updateRCKTDynamics, 1000 * 60 * 60);
     }
 
     window.addEventListener("load", init);
