@@ -2,16 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>PDUFA Watchlist – Prototype</title>
+  <title>PDUFA 2026 Run-Up Watchlist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #020617;
-      --bg-elevated: rgba(15, 23, 42, 0.96);
-      --border-subtle: rgba(15, 23, 42, 0.85);
-      --border-strong: rgba(37, 99, 235, 0.45);
+      --bg: #050816;
+      --bg-elevated: #0b1020;
+      --bg-card: #0f172a;
+      --bg-card-soft: #111827;
+      --border-subtle: #1f2937;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
       --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
+      --text-soft: #9ca3af;
+      --text-muted: #6b7280;
+      --danger: #f97373;
+      --warning: #facc15;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
+      --radius-xl: 18px;
     }
 
     * {
@@ -23,586 +31,1190 @@
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #0f172a, #020617 55%);
       color: var(--text-main);
+      background:
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.17), transparent 55%),
+        radial-gradient(circle at bottom, rgba(56, 189, 248, 0.1), transparent 55%),
+        var(--bg);
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px;
     }
 
-    a {
-      color: #93c5fd;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .page {
+    .app-shell {
+      width: 100%;
       max-width: 1200px;
-      margin: 24px auto;
-      padding: 0 16px 32px;
+      background: linear-gradient(135deg, #020617 0%, #020617 40%, #020617 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      backdrop-filter: blur(18px);
     }
 
-    header {
-      margin-bottom: 20px;
+    /* Header / top bar */
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 10px 4px;
     }
-    header h1 {
-      margin: 0 0 6px;
-      font-size: 24px;
-      letter-spacing: 0.03em;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    header p {
-      margin: 0;
-      font-size: 13px;
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #022c22;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-tagline {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      background-color: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: var(--text-soft);
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
-    .layout-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.7fr);
-      gap: 16px;
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
     }
 
-    @media (max-width: 900px) {
-      .layout-grid {
+    .status-label {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* Intro panel */
+
+    .intro-panel {
+      background: radial-gradient(circle at top left, rgba(34,197,94,0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,0.14), transparent 50%),
+        var(--bg-card);
+      border-radius: var(--radius-xl);
+      padding: 14px 16px 14px;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .intro-main {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .intro-copy {
+      max-width: 600px;
+    }
+
+    .intro-title {
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .intro-highlight {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .intro-subtitle {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .intro-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+      min-width: 170px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .meta-label {
+      color: var(--text-muted);
+    }
+
+    .meta-value {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .controls-row {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .primary-button {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 22px rgba(34, 197, 94, 0.32);
+    }
+
+    .primary-button span {
+      font-size: 14px;
+    }
+
+    .secondary-text {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* Filters + layout */
+
+    .app-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .app-main {
         grid-template-columns: minmax(0, 1fr);
       }
     }
 
     .card {
-      background: var(--bg-elevated);
-      border-radius: 16px;
-      padding: 14px 16px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.8);
+      background: var(--bg-card-soft);
+      border-radius: var(--radius-xl);
+      padding: 10px 12px 10px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.45);
     }
 
-    .card h2 {
-      margin: 0 0 4px;
-      font-size: 18px;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
-    .card h3 {
-      margin: 0;
-      font-size: 16px;
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .muted {
-      color: var(--text-muted);
-      font-size: 12px;
+    .card-title-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.28);
     }
 
-    /* Table container */
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* Controls inside card */
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    input[type="text"], select {
+      padding: 4px 7px;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: var(--text-main);
+      font-size: 11px;
+      min-width: 140px;
+    }
+
+    input[type="text"]::placeholder {
+      color: #6b7280;
+    }
+
+    /* Table */
+
     .table-wrapper {
-      width: 100%;
-      overflow-x: auto;
       border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.75);
-      margin-top: 10px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      overflow: hidden;
+      background: linear-gradient(to bottom, #020617, #020617);
+      max-height: none;
+      overflow-y: visible;
+      overflow-x: auto;
+      scrollbar-width: thin;
     }
 
-    /* Table styling */
-    #pdufa-table {
+    .table-wrapper::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 999px;
+    }
+
+    table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      font-size: 11px;
+      color: #e5e7eb;
     }
 
-    #pdufa-table thead {
+    thead {
+      background: radial-gradient(circle at top, #0f172a, #020617);
       position: sticky;
       top: 0;
-      background: rgba(15, 23, 42, 0.95);
       z-index: 1;
     }
 
-    #pdufa-table th,
-    #pdufa-table td {
-      padding: 8px 10px;
+    th, td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #111827;
       text-align: left;
-      border-bottom: 1px solid rgba(30, 64, 175, 0.35);
     }
 
-    #pdufa-table th {
+    th {
+      cursor: pointer;
+      white-space: nowrap;
       font-weight: 600;
       font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #e5e7eb;
-      white-space: nowrap;
+      color: #9ca3af;
     }
 
-    #pdufa-table td {
-      font-size: 12px;
-      color: #e5e7eb;
-      white-space: nowrap;
+    th.sort-asc::after {
+      content: " ▲";
+      font-size: 9px;
     }
 
-    /* Let the indication column wrap so the table doesn't become gigantic */
-    #pdufa-table td:nth-child(5) {
-      white-space: normal;
-      max-width: 260px;
+    th.sort-desc::after {
+      content: " ▼";
+      font-size: 9px;
     }
 
-    #pdufa-table tbody tr {
-      cursor: pointer;
-      transition: background 0.15s ease, transform 0.05s ease;
-    }
-    #pdufa-table tbody tr:hover {
-      background: rgba(37, 99, 235, 0.22);
-      transform: translateY(-1px);
+    tbody tr:nth-child(even) td {
+      background: #020617;
     }
 
-    /* Score pill */
-    .score-pill {
+    tbody tr:nth-child(odd) td {
+      background: #020617;
+    }
+
+    tbody tr:hover td {
+      background: #0b1120;
+    }
+
+    .tag {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 26px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-    .score-pill--high {
-      background: rgba(16, 185, 129, 0.18);
-      border-color: rgba(16, 185, 129, 0.9);
-    }
-    .score-pill--medium {
-      background: rgba(234, 179, 8, 0.15);
-      border-color: rgba(234, 179, 8, 0.9);
-    }
-
-    /* Orphan tag */
-    .tag-orphan {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 6px;
+      padding: 1px 7px;
       border-radius: 999px;
       font-size: 10px;
       font-weight: 600;
-      border: 1px solid rgba(59, 130, 246, 0.9);
-      background: rgba(59, 130, 246, 0.18);
     }
 
-    /* Detail card */
-    .detail-card {
-      margin-top: 12px;
-      padding: 12px 14px;
+    .tag-orphan {
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .tag-high {
+      background: rgba(34, 197, 94, 0.15);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.8);
+    }
+
+    .tag-medium {
+      background: rgba(250, 204, 21, 0.14);
+      color: #facc15;
+      border: 1px solid rgba(250, 204, 21, 0.8);
+    }
+
+    .tag-low {
+      background: rgba(248, 113, 113, 0.16);
+      color: #fecaca;
+      border: 1px solid rgba(248, 113, 113, 0.9);
+    }
+
+    /* Charts card */
+
+    .chart-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chart-card {
+      background: radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 60%),
+        #020617;
       border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.99));
-      font-size: 13px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 8px 8px 4px;
     }
 
-    .detail-card-header {
+    .chart-header {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .detail-card h3 {
-      margin: 0;
-      font-size: 14px;
-    }
-
-    .detail-meta {
-      font-size: 11px;
-      opacity: 0.8;
-    }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 6px 16px;
-      margin-top: 6px;
-    }
-
-    .detail-grid-label {
-      font-size: 11px;
-      opacity: 0.7;
-    }
-
-    .detail-grid-value {
-      font-size: 12px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Trade button */
-    .trade-button {
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(52, 211, 153, 0.9);
-      background: radial-gradient(circle at 30% 0%, rgba(34,197,94,0.3), rgba(6,95,70,0.9));
-      color: #e5fdf4;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .chart-header h3 {
+      margin: 0;
       font-size: 11px;
       font-weight: 600;
-      text-decoration: none;
-      white-space: nowrap;
-      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
-    }
-
-    .trade-button:hover {
-      filter: brightness(1.1);
-      text-decoration: none;
-    }
-
-    .trade-button-icon {
-      font-size: 12px;
-    }
-
-    /* Right column: Rocket PDUFA card */
-    .pill-small {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      padding: 3px 8px;
+      gap: 6px;
+    }
+
+    .pill-small {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 1px 6px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+
+    .chart-note {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .tradingview-widget-container {
+      margin-top: 2px;
+    }
+
+    .chart-canvas {
+      height: 260px;
+      width: 100%;
+    }
+
+    @media (max-width: 960px) {
+      .chart-canvas {
+        height: 260px;
+      }
+    }
+
+    /* RCKT Countdown & Phase Indicator */
+
+    .rckt-countdown {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      margin: 8px 0;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(56, 189, 248, 0.08));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .countdown-main {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .countdown-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-label {
       font-size: 11px;
-      font-weight: 500;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .phase-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .phase-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .phase-text {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .phase-pre-entry { color: #9ca3af; }
+    .phase-pre-entry .phase-dot { background: #9ca3af; box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3); }
+
+    .phase-entry { color: #22c55e; }
+    .phase-entry .phase-dot { background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3); }
+
+    .phase-hold { color: #38bdf8; }
+    .phase-hold .phase-dot { background: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3); }
+
+    .phase-exit { color: #fb923c; }
+    .phase-exit .phase-dot { background: #fb923c; box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.3); }
+
+    .phase-post { color: #f87171; }
+    .phase-post .phase-dot { background: #f87171; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3); }
+
+    /* Timeline Progress Bar */
+
+    .timeline-container {
+      margin: 12px 0;
+      padding: 0 4px;
+    }
+
+    .timeline-track {
+      position: relative;
+      height: 70px;
+      background: linear-gradient(to bottom, #020617, #0f172a);
+      border: 1px solid rgba(55, 65, 81, 0.6);
+      border-radius: 12px;
+      overflow: visible;
+    }
+
+    .timeline-segment {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      border-right: 1px solid rgba(75, 85, 99, 0.4);
+    }
+
+    .timeline-segment:last-of-type {
+      border-right: none;
+    }
+
+    .entry-zone {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
+    }
+
+    .hold-zone {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.05));
+    }
+
+    .exit-zone {
+      background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(251, 146, 60, 0.05));
+    }
+
+    .zone-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: #e5e7eb;
     }
 
-    .pill-hot {
-      background: rgba(16, 185, 129, 0.18);
-      border-color: rgba(16, 185, 129, 0.9);
+    .zone-dates {
+      font-size: 9px;
+      color: var(--text-muted);
     }
 
-    .pill-warn {
-      background: rgba(234, 179, 8, 0.18);
-      border-color: rgba(234, 179, 8, 0.9);
+    .timeline-marker {
+      position: absolute;
+      top: -8px;
+      transform: translateX(-50%);
+      z-index: 10;
     }
 
-    .pill-danger {
-      background: rgba(248, 113, 113, 0.22);
-      border-color: rgba(248, 113, 113, 0.95);
+    .marker-line {
+      width: 2px;
+      height: 86px;
+      background: linear-gradient(to bottom, #f87171, rgba(248, 113, 113, 0.3));
+      margin: 0 auto;
     }
 
-    .timeline {
-      margin-top: 8px;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 8px 10px;
-      font-size: 11px;
-      background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+    .marker-label {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 600;
+      color: #fecaca;
+      white-space: nowrap;
+      text-align: center;
+      line-height: 1.2;
     }
 
-    .timeline-row {
+    .timeline-position {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      transition: left 0.5s ease;
+    }
+
+    .position-indicator {
       display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 3px 0;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
     }
 
-    .timeline-row span:first-child {
-      opacity: 0.8;
+    .position-indicator span {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.15);
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(251, 191, 36, 0.6);
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+      white-space: nowrap;
     }
 
+    /* Footer */
+
+    .footer {
+      margin-top: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: right;
+      padding: 0 6px;
+    }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <h1>PDUFA Watchlist – 2026 (Prototype)</h1>
-      <p>
-        Internal research dashboard for tracking selected PDUFA events and studying
-        pre-PDUFA stock behaviour with systematic entry/exit rules.
-      </p>
+  <div class="app-shell">
+    <!-- Top bar -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-logo">P</div>
+        <div class="brand-text">
+          <div class="brand-title">
+            PDUFA Run-Up Desk
+            <span class="pill">ZONDA Research Internal Prototype</span>
+          </div>
+          <div class="brand-tagline">
+            Dynamic pre-PDUFA entry/exit strategies.
+          </div>
+        </div>
+      </div>
+      <div class="top-right">
+        <span class="status-dot"></span>
+        <span class="status-label">Live view • 2026 PDUFA events</span>
+      </div>
     </header>
 
-    <div class="layout-grid">
-      <!-- LEFT: TABLE -->
+    <!-- Intro / summary panel -->
+    <section class="intro-panel">
+      <div class="intro-main">
+        <div class="intro-copy">
+          <div class="intro-title">
+            2026 PDUFA Watchlist
+            <span class="intro-highlight">Pre-event run-up focus</span>
+          </div>
+          <div class="intro-subtitle">
+            This interface tracks a curated set of 2026 PDUFA decisions, with an emphasis on
+            <strong>small/mid-cap, orphan and gene therapy names</strong> where pre-PDUFA run-up
+            is historically most pronounced. The goal is not to predict FDA outcomes, but to
+            systematically observe <strong>price behaviour before the binary event</strong>.
+          </div>
+        </div>
+        <div class="intro-meta">
+          <div class="meta-row">
+            <span class="meta-label">Universe</span>
+            <span class="meta-value">2026 orphan/PDUFA list</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Strategy</span>
+            <span class="meta-value">Enter T-150→T-90, exit T-20→T-7</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Focus names</span>
+            <span class="meta-value">RCKT, NUVL</span>
+          </div>
+        </div>
+      </div>
+      <div class="controls-row">
+        <button class="primary-button">
+          <span>▶</span>
+          Run-up case study: RCKT & NUVL
+        </button>
+        <div class="secondary-text">
+          Filters below adjust the watchlist only — this is <strong>not</strong> advice, it’s an
+          experiment framework.
+        </div>
+      </div>
+    </section>
+
+    <!-- Main layout: table + charts -->
+    <main class="app-main">
+      <!-- Left: Table card -->
       <section class="card">
-        <h2>PDUFA 2026 event table</h2>
-        <p class="muted">Click on a row to see more information and notes.</p>
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="card-title-dot"></span>
+              PDUFA 2026 event table
+            </div>
+            <div class="card-subtitle">
+              Sort by date, company, or run-up score; filter by orphan status and score threshold.
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <label>
+            <span>Search</span>
+            <input id="searchBox" type="text" placeholder="Company, ticker, indication..." />
+          </label>
+          <label>
+            <span>Min score</span>
+            <select id="scoreFilter">
+              <option value="0">Any</option>
+              <option value="3">3+</option>
+              <option value="4">4+</option>
+              <option value="5">5 only</option>
+            </select>
+          </label>
+          <label>
+            <span>Orphan</span>
+            <select id="orphanFilter">
+              <option value="any">Any</option>
+              <option value="yes">Only orphan</option>
+              <option value="no">Non-orphan</option>
+            </select>
+          </label>
+        </div>
 
         <div class="table-wrapper">
-          <table id="pdufa-table">
+          <table id="pdufaTable">
             <thead>
               <tr>
-                <th>PDUFA date</th>
-                <th>Company</th>
-                <th>Ticker</th>
-                <th>Drug</th>
-                <th>Indication</th>
-                <th>Run-up score</th>
-                <th>Orphan</th>
+                <th data-key="pdufa_date">PDUFA Date</th>
+                <th data-key="company">Company</th>
+                <th data-key="ticker">Ticker</th>
+                <th data-key="drug">Drug</th>
+                <th data-key="indication">Indication</th>
+                <th data-key="orphan_drug">Orphan</th>
+                <th data-key="runup_priority_score_1to5">Run-up Score</th>
+                <th data-key="suggested_entry_window_days">Entry Window</th>
+                <th data-key="suggested_exit_window_days">Exit Window</th>
+                <th data-key="notes">Notes</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- Injected by JavaScript -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
-
-        <!-- Detail panel appears when a row is clicked -->
-        <div id="pdufa-detail" class="detail-card hidden"></div>
       </section>
 
-      <!-- RIGHT: ROCKET PDUFA MODEL -->
+      <!-- Right: Charts card -->
       <section class="card">
-        <h2>Rocket (RCKT) – Case Study</h2>
-        <p class="muted">
-          Prototype timing model for KRESLADI™ (LAD-I gene therapy) with PDUFA on
-          <strong>28 March 2026</strong>. We focus on the pre-PDUFA run-up and exit
-          before the binary decision.
-        </p>
-
-        <div class="timeline">
-          <div class="timeline-row">
-            <span>Days to PDUFA</span>
-            <span id="rckt-days-to-pdufa">Calculating…</span>
-          </div>
-          <div class="timeline-row">
-            <span>Entry window</span>
-            <span id="rckt-entry-window">–</span>
-          </div>
-          <div class="timeline-row">
-            <span>Hold period</span>
-            <span id="rckt-hold-window">–</span>
-          </div>
-          <div class="timeline-row">
-            <span>Exit window</span>
-            <span id="rckt-exit-window">–</span>
-          </div>
-          <div class="timeline-row">
-            <span>Status</span>
-            <span id="rckt-phase-pill" class="pill-small">Loading…</span>
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="card-title-dot"></span>
+              Live charts: core case studies
+            </div>
+            <div class="card-subtitle">
+              Monitoring <strong>Rocket (RCKT)</strong> and <strong>Nuvalent (NUVL)</strong> through
+              their pre-PDUFA windows.
+            </div>
           </div>
         </div>
 
-        <div style="margin-top: 10px;">
-          <a
-            href="https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="trade-button"
-          >
-            <span class="trade-button-icon">📈</span>
-            Open Rocket (RCKT) in Avanza
-          </a>
+        <div class="chart-grid">
+          <!-- RCKT -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>
+                RCKT – Rocket Pharmaceuticals
+                <span class="pill-small">Score 5 • LAD-I gene therapy</span>
+              </h3>
+              <div class="chart-note">PDUFA: 28 March 2026</div>
+            </div>
+
+            <!-- Live Countdown & Phase Indicator -->
+            <div class="rckt-countdown">
+              <div class="countdown-main">
+                <div class="countdown-number" id="rckt-days">--</div>
+                <div class="countdown-label">days to PDUFA</div>
+              </div>
+              <div class="phase-indicator" id="rckt-phase">
+                <span class="phase-dot"></span>
+                <span class="phase-text">Calculating...</span>
+              </div>
+            </div>
+
+            <!-- Visual Timeline Progress Bar -->
+            <div class="timeline-container">
+              <div class="timeline-track">
+                <div class="timeline-segment entry-zone" style="left: 0%; width: 25%;">
+                  <span class="zone-label">Entry Window</span>
+                  <span class="zone-dates">Dec 3 - Jan 2</span>
+                </div>
+                <div class="timeline-segment hold-zone" style="left: 25%; width: 50%;">
+                  <span class="zone-label">Hold Period</span>
+                </div>
+                <div class="timeline-segment exit-zone" style="left: 75%; width: 20%;">
+                  <span class="zone-label">Exit Window</span>
+                  <span class="zone-dates">Feb 24 - Mar 21</span>
+                </div>
+                <div class="timeline-marker pdufa-marker" style="left: 95%;">
+                  <div class="marker-line"></div>
+                  <span class="marker-label">PDUFA<br/>Mar 28</span>
+                </div>
+                <div class="timeline-position" id="rckt-position">
+                  <div class="position-indicator">
+                    <span>📍 NOW</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tradingview-widget-container">
+              <div id="tradingview_rckt" class="chart-canvas"></div>
+              <div class="chart-note" style="margin-top: 4px;">
+              Buy/Sell:
+              <a
+                href="https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open Rocket (RCKT) in Avanza
+              </a>
+            </div>
+          </div>
+
+          <!-- NUVL -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>
+                NUVL – Nuvalent
+                <span class="pill-small">Score 5 • ROS1+ NSCLC</span>
+              </h3>
+              <div class="chart-note">PDUFA: 18 September 2026 • Target: enter ≈ T-90, exit ≈ T-20</div>
+            </div>
+            <div class="tradingview-widget-container">
+              <div id="tradingview_nuvl" class="chart-canvas"></div>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
+    </main>
+
+    <footer class="footer">
+      Built as an internal sandbox for observing pre-PDUFA price behaviour — not investment advice.
+    </footer>
   </div>
 
+  <!-- TradingView library -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
   <script>
-    // ------- Simple data set: start with Rocket only -------
-    const pdufaEvents = [
-      {
-        id: "RCKT-2026-03-28",
-        pdufaDate: "2026-03-28",
-        company: "Rocket Pharmaceuticals",
-        ticker: "RCKT",
-        drug: "KRESLADI (marnetegragene autotemcel)",
-        indication: "Severe leukocyte adhesion deficiency type I (LAD-I), pediatric gene therapy.",
-        orphan: true,
-        runupScore: 5,
-        suggestedEntryWindow: "2025-12-03 → 2026-01-02 (T-90 → T-60)",
-        suggestedExitWindow: "2026-02-24 → 2026-03-21 (T-33 → T-7)",
-        thesis:
-          "Ultra-rare, high-mortality pediatric disease with strong phase 1/2 data (100% survival vs ~39% natural history) and multiple expedited designations. BLA resubmitted and accepted; PDUFA date set for 28 March 2026.",
-        risks:
-          "Prior CMC-driven Complete Response Letter for KRESLADI and gene-therapy safety concerns after events in other Rocket programs. Small/mid-cap biotech with event risk and potential future financing needs.",
-        notes:
-          "Used here as a prototype case for a pre-PDUFA run-up strategy with strict pre-event exit rules (no exposure to the final FDA decision in this model)."
-      }
+    const csvHeader = [
+      "pdufa_date",
+      "drug",
+      "brand_name",
+      "company",
+      "ticker",
+      "indication",
+      "orphan_drug",
+      "therapy_type",
+      "market_cap_bucket",
+      "listing_region",
+      "liquidity_flag",
+      "runup_priority_score_1to5",
+      "suggested_entry_window_days",
+      "suggested_exit_window_days",
+      "notes"
     ];
 
-    // ------- Table rendering -------
-    function renderPdufaTable() {
-      const tbody = document.querySelector("#pdufa-table tbody");
-      if (!tbody) return;
+    // Inline CSV data
+    const inlineCSV = `
+pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,market_cap_bucket,listing_region,liquidity_flag,runup_priority_score_1to5,suggested_entry_window_days,suggested_exit_window_days,notes
+2026-01-13,sparsentan,FILSPARI,Travere Therapeutics,TVTX,"FSGS (kidney disease)",Yes,"Small-molecule (dual ETAR/AT1R inhibitor)",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA for FSGS; already approved for IgAN"
+2026-01-13,imiglucerase,Cerezyme,Sanofi,SNY,"Gaucher disease type 3",Yes,"Enzyme replacement therapy",Large,"EU/US",Listed,1,"T-60 to T-30","T-30 to T-15","sBLA in a mega-cap; usually lower event-driven % moves"
+2026-01-31,leniolisib,Joenja,Pharming Group,PHARM.AS,"Pediatric APDS (4–11 years)",Yes,"Small-molecule PI3Kδ inhibitor","Small-Mid",EU,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA, priority review; rare immunodeficiency"
+2026-01-31,"epinephrine oral film",Anaphylm,Aquestive Therapeutics,AQST,"Anaphylaxis (allergic reactions)",No,"Small-molecule / oral film formulation",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","NDA for novel oral epinephrine film; retail/derisking interest"
+2026-02-08,"clemidsogene lanparvovec",RGX-121,REGENXBIO,RGNX,"Mucopolysaccharidosis II (MPS II)",Yes,"AAV gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","High-impact CNS gene therapy; classic binary catalyst"
+2026-02-25,"decitabine+cedazuridine + venetoclax","Inqovi + Venclexta","Taiho Oncology / Otsuka",OTSKY,"Acute myeloid leukemia",Yes,"Oral chemo + BCL-2 inhibitor combo",Large,JP/US,Listed,2,"T-60 to T-30","T-30 to T-10","sNDA combo in large-cap ecosystem"
+2026-02-28,pegvaliase,Palynziq,BioMarin,BMRN,"Phenylketonuria (PKU)",Yes,"Enzyme substitution (PEGylated)","Mid-Large",US,Listed,3,"T-90 to T-45","T-20 to T-10","sBLA/label refinement; BioMarin is moderately volatile"
+2026-02-28,navepegritide,"TransCon CNP",Ascendis Pharma,ASND,Achondroplasia (children),Yes,"Long-acting peptide hormone (CNP)",Mid,"US/EU",Listed,4,"T-120 to T-60","T-20 to T-10","Priority-review growth-disorder asset; attractive single-franchise story"
+2026-03-20,setmelanotide,Imcivree,"Rhythm Pharmaceuticals",RYTM,"Acquired hypothalamic obesity",Yes,"Peptide agonist (MC4R)","Small-Mid",US,Listed,4,"T-120 to T-60","T-20 to T-10","Label expansion in rare obesity; sentiment-sensitive"
+2026-03-24,linerixibat,,GSK,GSK,"Cholestatic pruritus in PBC",Yes,"Small-molecule IBAT inhibitor",Large,"UK/US",Listed,2,"T-60 to T-30","T-30 to T-10","NDA in rare liver disease; large-cap, lower % swing expected"
+2026-03-28,"marnetegragene autotemcel",KRESLADI,"Rocket Pharmaceuticals",RCKT,"LAD-I (ultra-rare immunodeficiency)",Yes,"Ex vivo gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","Ultra-rare gene therapy; high ‘event trader’ focus"
+2026-03-29,"Ga-68 edotreotide",LNTH-2501,Lantheus,LNTH,"SSTR+ neuroendocrine tumor PET imaging",No,"Diagnostic radiopharmaceutical",Mid,US,Listed,3,"T-90 to T-45","T-20 to T-10","Imaging agent complementing NET portfolio"
+2026-04-05,"tividenofusp alfa",DNL310,"Denali Therapeutics",DNLI,"Hunter syndrome (MPS II)",Yes,"Brain-penetrant enzyme replacement",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Priority-review CNS ERT; high-profile rare-disease catalyst"
+2026-04-06,Orca-T,,Orca Bio,,"AML / ALL / MDS (allogeneic transplant)",Yes,"Cell therapy (engineered graft)",Private,US,Unlisted,3,,,"Private company; equity not directly tradeable"
+2026-06-18,"nilotinib (505(b)(2))",XS003,"Xspray Pharma",XSPRAY.ST,"Chronic myeloid leukemia (CML)",No,"Small-molecule TKI reformulation",Small,"EU (Sweden)",Listed,4,"T-120 to T-60","T-20 to T-7","TKI reformulation; Swedish small-cap with clear event date"
+2026-07-03,"manganese chloride tetrahydrate",Orviglance,"Ascelia Pharma",ACE.ST,"Liver MRI contrast in renal impairment",Yes,"Imaging contrast agent",Small,"EU (Sweden)",Listed,4,"T-120 to T-60","T-20 to T-7","Orphan contrast agent; binary for a small Nordic biotech"
+2026-07-11,relacorilant,,Corcept Therapeutics,CORT,"Platinum-resistant ovarian cancer",Yes,"Cortisol receptor modulator",Mid,US,Listed,4,"T-120 to T-60","T-20 to T-7","Oncology indication; strong phase 3 data drove interest"
+2026-07-26,"furosemide autoinjector (SCP-111)","FUROSCIX ReadyFlow","MannKind / scPharmaceuticals partnership",MNKD,"Edema in CHF / CKD",No,"Device + small-molecule combo","Small-Mid",US,Listed,3,"T-90 to T-45","T-20 to T-10","sNDA for new autoinjector; device-formulation narrative"
+2026-08-28,177Lu-edotreotide,,ITM,,"GEP-NET (radioligand therapy)",Yes,"Therapeutic radioligand",Private,EU,Unlisted,3,,,"Radioligand; company not US-listed (access may be indirect)"
+2026-09-18,zidesamtinib,,Nuvalent,NUVL,"ROS1+ non-small cell lung cancer",Yes,"Small-molecule kinase inhibitor",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Targeted oncology with clean single-asset story; strong run-up candidate"
+2026-10-10,tabelecleucel,Tab-cel,"Pierre Fabre / Atara license",ATRA,"EBV+ PTLD (post-transplant lymphoma)",Yes,"Allogeneic T-cell therapy",Small,"US/EU","Listed/Partnered",3,"T-120 to T-60","T-20 to T-10","BLA held by private partner; Atara still sentiment-linked"
+`;
+
+    let rows = [];
+    let currentSort = { key: "pdufa_date", direction: "asc" };
+
+    function parseCSV(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const dataLines = lines.slice(1);
+      return dataLines.map(line => {
+        const cells = [];
+        let cur = "";
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const c = line[i];
+          if (c === '"') {
+            inQuotes = !inQuotes;
+          } else if (c === "," && !inQuotes) {
+            cells.push(cur);
+            cur = "";
+          } else {
+            cur += c;
+          }
+        }
+        cells.push(cur);
+        const obj = {};
+        csvHeader.forEach((key, idx) => {
+          obj[key] = (cells[idx] || "").trim().replace(/^"|"$/g, "");
+        });
+        return obj;
+      });
+    }
+
+    function renderTable() {
+      const tbody = document.querySelector("#pdufaTable tbody");
+      const search = document.getElementById("searchBox").value.toLowerCase();
+      const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
+      const orphanFilter = document.getElementById("orphanFilter").value;
+
+      let filtered = rows.filter(r => {
+        const text = (
+          (r.company || "") + " " +
+          (r.ticker || "") + " " +
+          (r.indication || "") + " " +
+          (r.drug || "")
+        ).toLowerCase();
+        if (search && !text.includes(search)) return false;
+
+        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
+        if (!isNaN(minScore) && score < minScore) return false;
+
+        if (orphanFilter === "yes" && r.orphan_drug.toLowerCase() !== "yes") return false;
+        if (orphanFilter === "no" && r.orphan_drug.toLowerCase() === "yes") return false;
+
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        const { key, direction } = currentSort;
+        let va = a[key] || "";
+        let vb = b[key] || "";
+
+        if (key === "runup_priority_score_1to5") {
+          va = parseInt(va || "0", 10);
+          vb = parseInt(vb || "0", 10);
+        }
+        if (key === "pdufa_date") {
+          va = new Date(va);
+          vb = new Date(vb);
+        }
+
+        if (va < vb) return direction === "asc" ? -1 : 1;
+        if (va > vb) return direction === "asc" ? 1 : -1;
+        return 0;
+      });
+
       tbody.innerHTML = "";
-
-      for (const ev of pdufaEvents) {
+      for (const r of filtered) {
         const tr = document.createElement("tr");
-        tr.dataset.id = ev.id;
-
-        const scoreClass =
-          ev.runupScore >= 5 ? "score-pill score-pill--high"
-          : ev.runupScore >= 3 ? "score-pill score-pill--medium"
-          : "score-pill";
+        const orphanTag = r.orphan_drug.toLowerCase() === "yes"
+          ? '<span class="tag tag-orphan">Orphan</span>' : "";
+        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
+        let scoreTagClass = "tag-low";
+        if (score >= 5) scoreTagClass = "tag-high";
+        else if (score >= 4) scoreTagClass = "tag-medium";
 
         tr.innerHTML = `
-          <td>${ev.pdufaDate}</td>
-          <td>${ev.company}</td>
-          <td>${ev.ticker}</td>
-          <td>${ev.drug}</td>
-          <td>${ev.indication}</td>
-          <td><span class="${scoreClass}">${ev.runupScore}</span></td>
-          <td>${ev.orphan ? '<span class="tag-orphan">Orphan</span>' : ""}</td>
+          <td>${r.pdufa_date}</td>
+          <td>${r.company}</td>
+          <td>${r.ticker}</td>
+          <td>${r.drug}</td>
+          <td>${r.indication}</td>
+          <td>${orphanTag}</td>
+          <td><span class="tag ${scoreTagClass}">${score || ""}</span></td>
+          <td>${r.suggested_entry_window_days}</td>
+          <td>${r.suggested_exit_window_days}</td>
+          <td>${r.notes}</td>
         `;
-
         tbody.appendChild(tr);
       }
     }
 
-    // ------- Detail panel -------
-    function showPdufaDetail(ev) {
-      const detail = document.getElementById("pdufa-detail");
-      if (!detail || !ev) return;
-
-      detail.classList.remove("hidden");
-      detail.innerHTML = `
-        <div class="detail-card-header">
-          <h3>${ev.company} (${ev.ticker})</h3>
-          <div class="detail-meta">
-            PDUFA: <strong>${ev.pdufaDate}</strong>
-            ${ev.orphan ? ' · <span class="tag-orphan">Orphan</span>' : ""}
-          </div>
-        </div>
-        <div class="detail-grid">
-          <div>
-            <div class="detail-grid-label">Drug</div>
-            <div class="detail-grid-value">${ev.drug}</div>
-          </div>
-          <div>
-            <div class="detail-grid-label">Indication</div>
-            <div class="detail-grid-value">${ev.indication}</div>
-          </div>
-          <div>
-            <div class="detail-grid-label">Suggested entry window</div>
-            <div class="detail-grid-value">${ev.suggestedEntryWindow}</div>
-          </div>
-          <div>
-            <div class="detail-grid-label">Suggested exit window</div>
-            <div class="detail-grid-value">${ev.suggestedExitWindow}</div>
-          </div>
-        </div>
-        <div style="margin-top: 8px;">
-          <div class="detail-grid-label">Thesis</div>
-          <div class="detail-grid-value">${ev.thesis}</div>
-        </div>
-        <div style="margin-top: 6px;">
-          <div class="detail-grid-label">Key risks</div>
-          <div class="detail-grid-value">${ev.risks}</div>
-        </div>
-        <div style="margin-top: 8px;">
-          <div class="detail-grid-label">Notes</div>
-          <div class="detail-grid-value">${ev.notes}</div>
-        </div>
-        <div style="margin-top: 10px;">
-          <a
-            href="https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="trade-button"
-          >
-            <span class="trade-button-icon">📈</span>
-            Open in Avanza (RCKT)
-          </a>
-        </div>
-      `;
-    }
-
-    function attachRowClickHandler() {
-      const tbody = document.querySelector("#pdufa-table tbody");
-      if (!tbody) return;
-
-      tbody.addEventListener("click", (e) => {
-        const row = e.target.closest("tr[data-id]");
-        if (!row) return;
-        const id = row.dataset.id;
-        const ev = pdufaEvents.find((x) => x.id === id);
-        showPdufaDetail(ev);
+    function setupSorting() {
+      const headers = document.querySelectorAll("#pdufaTable thead th");
+      headers.forEach(th => {
+        th.addEventListener("click", () => {
+          const key = th.dataset.key;
+          if (!key) return;
+          if (currentSort.key === key) {
+            currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
+          } else {
+            currentSort.key = key;
+            currentSort.direction = "asc";
+          }
+          headers.forEach(h => h.classList.remove("sort-asc", "sort-desc"));
+          th.classList.add(currentSort.direction === "asc" ? "sort-asc" : "sort-desc");
+          renderTable();
+        });
       });
     }
 
-    // ------- Rocket PDUFA timing model -------
-    function fmtDate(d) {
-      const y = d.getFullYear();
-      const m = (d.getMonth() + 1).toString().padStart(2, "0");
-      const day = d.getDate().toString().padStart(2, "0");
-      return `${y}-${m}-${day}`;
+    function setupFilters() {
+      document.getElementById("searchBox").addEventListener("input", renderTable);
+      document.getElementById("scoreFilter").addEventListener("change", renderTable);
+      document.getElementById("orphanFilter").addEventListener("change", renderTable);
     }
 
-    function rangeLabel(d1, d2) {
-      return `${fmtDate(d1)} → ${fmtDate(d2)}`;
+    function initTradingViewWidgets() {
+      if (typeof TradingView === "undefined") {
+        console.error("TradingView library not loaded");
+        return;
+      }
+      new TradingView.widget({
+        container_id: "tradingview_rckt",
+        symbol: "NASDAQ:RCKT",
+        interval: "D",
+        timezone: "Etc/UTC",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        hide_top_toolbar: false,
+        hide_legend: false,
+        height: 260,
+        width: "100%"
+      });
+      new TradingView.widget({
+        container_id: "tradingview_nuvl",
+        symbol: "NASDAQ:NUVL",
+        interval: "D",
+        timezone: "Etc/UTC",
+        theme: "dark",
+        style: "1",
+        locale: "en",
+        hide_top_toolbar: false,
+        hide_legend: false,
+        height: 260,
+        width: "100%"
+      });
     }
 
-    function addDays(date, delta) {
-      const d = new Date(date.getTime());
-      d.setDate(d.getDate() + delta);
-      return d;
-    }
+    function updateRCKTDynamics() {
+      // RCKT dates
+      const entryStart = new Date('2025-12-03');
+      const entryEnd = new Date('2026-01-02');
+      const exitStart = new Date('2026-02-24');
+      const exitEnd = new Date('2026-03-21');
+      const pdufaDate = new Date('2026-03-28');
 
-    function daysBetween(d1, d2) {
-      const t1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
-      const t2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
-      return Math.round((t2 - t1) / (1000 * 60 * 60 * 24));
-    }
+      const now = new Date();
+      const daysToEvent = Math.ceil((pdufaDate - now) / (1000 * 60 * 60 * 24));
 
-    function initRocketTimeline() {
-      const rcktPdufa = new Date("2026-03-28");
-
-      // configuration for the model (you can tweak later)
-      const entryStartOffset = 90; // T-90
-      const entryEndOffset   = 60; // T-60
-      const exitStartOffset  = 20; // T-20
-      const exitEndOffset    = 7;  // T-7
-
-      const today = new Date();
-
-      const entryStart = addDays(rcktPdufa, -entryStartOffset);
-      const entryEnd   = addDays(rcktPdufa, -entryEndOffset);
-      const exitStart  = addDays(rcktPdufa, -exitStartOffset);
-      const exitEnd    = addDays(rcktPdufa, -exitEndOffset);
-      const holdStart  = addDays(entryEnd, 1);
-      const holdEnd    = addDays(exitStart, -1);
-
-      const daysTo = daysBetween(today, rcktPdufa);
-
-      let phase = "Pre-entry (too early)";
-      let phaseClass = "pill-small";
-
-      if (today >= entryStart && today <= entryEnd) {
-        phase = "In entry window";
-        phaseClass += " pill-hot";
-      } else if (today > entryEnd && today < exitStart) {
-        phase = "Hold / observe";
-      } else if (today >= exitStart && today <= exitEnd) {
-        phase = "Exit zone (de-risk)";
-        phaseClass += " pill-warn";
-      } else if (today > exitEnd && today < rcktPdufa) {
-        phase = "Binary risk (no new entries)";
-        phaseClass += " pill-danger";
-      } else if (today >= rcktPdufa) {
-        phase = "Post-PDUFA";
+      // Update countdown
+      const countdownEl = document.getElementById('rckt-days');
+      if (countdownEl) {
+        countdownEl.textContent = daysToEvent;
       }
 
-      const dNode = document.getElementById("rckt-days-to-pdufa");
-      const eNode = document.getElementById("rckt-entry-window");
-      const hNode = document.getElementById("rckt-hold-window");
-      const xNode = document.getElementById("rckt-exit-window");
-      const pNode = document.getElementById("rckt-phase-pill");
+      // Determine current phase
+      let phase = 'pre-entry';
+      let phaseText = 'Pre-Entry Phase';
 
-      if (dNode) dNode.textContent = daysTo >= 0 ? `${daysTo} days` : `${Math.abs(daysTo)} days ago`;
-      if (eNode) eNode.textContent = rangeLabel(entryStart, entryEnd);
-      if (hNode) hNode.textContent = rangeLabel(holdStart, holdEnd);
-      if (xNode) xNode.textContent = rangeLabel(exitStart, exitEnd);
-      if (pNode) {
-        pNode.textContent = phase;
-        pNode.className = phaseClass;
+      if (now >= pdufaDate) {
+        phase = 'post';
+        phaseText = '🔴 Post-PDUFA';
+      } else if (now >= exitStart) {
+        phase = 'exit';
+        phaseText = '🟠 EXIT WINDOW ACTIVE';
+      } else if (now >= entryEnd) {
+        phase = 'hold';
+        phaseText = '🔵 Hold Period';
+      } else if (now >= entryStart) {
+        phase = 'entry';
+        phaseText = '🟢 ENTRY WINDOW ACTIVE';
+      } else {
+        phase = 'pre-entry';
+        phaseText = '🟡 Pre-Entry';
+      }
+
+      const phaseEl = document.getElementById('rckt-phase');
+      if (phaseEl) {
+        phaseEl.className = `phase-indicator phase-${phase}`;
+        const phaseTextEl = phaseEl.querySelector('.phase-text');
+        if (phaseTextEl) {
+          phaseTextEl.textContent = phaseText;
+        }
+      }
+
+      // Calculate timeline position (0-100%)
+      const timelineStart = entryStart;
+      const timelineEnd = pdufaDate;
+      const totalDuration = timelineEnd - timelineStart;
+      const elapsed = now - timelineStart;
+      let position = (elapsed / totalDuration) * 100;
+
+      // Clamp position between 0 and 100
+      position = Math.max(0, Math.min(100, position));
+
+      const positionEl = document.getElementById('rckt-position');
+      if (positionEl) {
+        positionEl.style.left = `${position}%`;
       }
     }
 
-    // ------- Init on load -------
-    renderPdufaTable();
-    attachRowClickHandler();
-    initRocketTimeline();
+    function init() {
+      rows = parseCSV(inlineCSV);
+      setupSorting();
+      setupFilters();
+      renderTable();
+      updateRCKTDynamics();
+      setTimeout(initTradingViewWidgets, 600);
+
+      // Update RCKT dynamics every hour
+      setInterval(updateRCKTDynamics, 1000 * 60 * 60);
+    }
+
+    window.addEventListener("load", init);
   </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
