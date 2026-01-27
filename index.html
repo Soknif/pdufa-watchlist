@@ -7,7 +7,6 @@
   <style>
     :root {
       --bg: #050816;
-      --bg-elevated: #0b1020;
       --bg-card: #0f172a;
       --bg-card-soft: #111827;
       --border-subtle: #1f2937;
@@ -16,9 +15,6 @@
       --text-main: #e5e7eb;
       --text-soft: #9ca3af;
       --text-muted: #6b7280;
-      --danger: #f97373;
-      --warning: #facc15;
-      --info: #38bdf8;
       --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
       --radius-xl: 18px;
     }
@@ -54,7 +50,7 @@
       backdrop-filter: blur(18px);
     }
 
-    /* Header / top bar */
+    /* Header */
     .top-bar {
       display: flex;
       align-items: center;
@@ -108,7 +104,7 @@
 
     .status-label { font-size: 11px; color: var(--text-soft); }
 
-    /* Intro panel */
+    /* Intro */
     .intro-panel {
       background:
         radial-gradient(circle at top left, rgba(34,197,94,0.12), transparent 55%),
@@ -129,11 +125,11 @@
       flex-wrap: wrap;
     }
 
-    .intro-copy { max-width: 660px; }
+    .intro-copy { max-width: 680px; }
 
     .intro-title {
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 650;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -158,21 +154,6 @@
       line-height: 1.5;
     }
 
-    .intro-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-      min-width: 190px;
-    }
-
-    .meta-row { display: flex; justify-content: space-between; gap: 8px; }
-
-    .meta-label { color: var(--text-muted); }
-
-    .meta-value { color: #e5e7eb; font-weight: 500; }
-
     .controls-row {
       margin-top: 6px;
       display: flex;
@@ -189,7 +170,7 @@
       background: linear-gradient(135deg, #22c55e, #16a34a);
       color: #022c22;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -233,7 +214,7 @@
 
     .card-title {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -256,7 +237,7 @@
       margin-top: 2px;
     }
 
-    /* Controls */
+    /* Filters */
     .controls {
       display: flex;
       flex-wrap: wrap;
@@ -281,12 +262,8 @@
 
     input[type="text"]::placeholder { color: #6b7280; }
 
-    /* NEW: Table as full-width “list” (no horizontal scroll) */
-    .table-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    /* Watchlist cards */
+    .table-list { display: flex; flex-direction: column; gap: 10px; }
 
     .row-card {
       background: linear-gradient(180deg, rgba(2,6,23,0.9), rgba(2,6,23,0.75));
@@ -330,7 +307,7 @@
 
     .row-title .ticker {
       color: #cbd5e1;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.08em;
       font-size: 11px;
       padding: 2px 8px;
@@ -366,14 +343,7 @@
     }
 
     .kv .k { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; }
-    .kv .v { font-size: 11px; color: #e5e7eb; font-weight: 600; }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: center;
-    }
+    .kv .v { font-size: 11px; color: #e5e7eb; font-weight: 700; }
 
     .tag {
       display: inline-flex;
@@ -382,7 +352,7 @@
       padding: 2px 8px;
       border-radius: 999px;
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1;
       white-space: nowrap;
     }
@@ -411,7 +381,6 @@
       border: 1px solid rgba(248, 113, 113, 0.9);
     }
 
-    /* Cluster tags */
     .tag-cluster-4 {
       background: rgba(250, 204, 21, 0.14);
       color: #fde68a;
@@ -480,7 +449,7 @@
       background: rgba(2,6,23,0.4);
     }
 
-    /* Charts card */
+    /* Charts */
     .chart-grid { display: flex; flex-direction: column; gap: 10px; }
 
     .chart-card {
@@ -504,7 +473,7 @@
     .chart-header h3 {
       margin: 0;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -526,184 +495,197 @@
 
     .chart-canvas { height: 260px; width: 100%; }
 
-    /* RCKT Countdown & Phase Indicator */
-    .rckt-countdown {
+    /* EXIT SIGNAL (replaces buy/hold/period UI) */
+    .exit-panel {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
       align-items: center;
-      padding: 12px 14px;
+      justify-content: space-between;
+      padding: 10px 12px;
       margin: 8px 0;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(56, 189, 248, 0.08));
-      border: 1px solid rgba(34, 197, 94, 0.3);
       border-radius: 12px;
-      gap: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: linear-gradient(135deg, rgba(251, 146, 60, 0.10), rgba(248, 113, 113, 0.06));
+    }
+
+    .exit-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 240px;
+    }
+
+    .exit-title {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fde68a;
+    }
+
+    .exit-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #fb923c;
+      box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.25);
+    }
+
+    .exit-row {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
       flex-wrap: wrap;
     }
 
-    .countdown-main { display: flex; align-items: baseline; gap: 8px; }
+    .exit-date {
+      font-size: 16px;
+      font-weight: 900;
+      color: #fed7aa;
+      font-variant-numeric: tabular-nums;
+    }
 
-    .countdown-number {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--accent);
+    .exit-meta {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .exit-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .countdown-chip {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(251, 146, 60, 0.35);
+      background: rgba(2, 6, 23, 0.55);
+    }
+
+    .count-num {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fb923c;
       line-height: 1;
       font-variant-numeric: tabular-nums;
     }
 
-    .countdown-label {
-      font-size: 11px;
+    .count-label {
+      font-size: 10px;
       color: var(--text-soft);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.12em;
+      font-weight: 800;
     }
 
-    .phase-indicator {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
+    .signal-pill {
+      padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-    }
-
-    .phase-dot {
-      width: 10px; height: 10px; border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    .phase-text {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .phase-pre-entry { color: #9ca3af; }
-    .phase-pre-entry .phase-dot { background: #9ca3af; box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3); }
-
-    .phase-entry { color: #22c55e; }
-    .phase-entry .phase-dot { background: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3); }
-
-    .phase-hold { color: #38bdf8; }
-    .phase-hold .phase-dot { background: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3); }
-
-    .phase-exit { color: #fb923c; }
-    .phase-exit .phase-dot { background: #fb923c; box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.3); }
-
-    .phase-post { color: #f87171; }
-    .phase-post .phase-dot { background: #f87171; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3); }
-
-    /* Timeline Progress Bar */
-    .timeline-container { margin: 12px 0; padding: 0 4px; }
-
-    .timeline-track {
-      position: relative;
-      height: 70px;
-      background: linear-gradient(to bottom, #020617, #0f172a);
-      border: 1px solid rgba(55, 65, 81, 0.6);
-      border-radius: 12px;
-      overflow: visible;
-    }
-
-    .timeline-segment {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      border-right: 1px solid rgba(75, 85, 99, 0.4);
-      text-align: center;
-      padding: 0 6px;
-    }
-
-    .timeline-segment:last-of-type { border-right: none; }
-
-    .entry-zone {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
-    }
-
-    .hold-zone {
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.05));
-    }
-
-    .exit-zone {
-      background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(251, 146, 60, 0.05));
-    }
-
-    .zone-label {
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.12em;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(2, 6, 23, 0.55);
       color: #e5e7eb;
       white-space: nowrap;
     }
 
-    .zone-dates { font-size: 9px; color: var(--text-muted); white-space: nowrap; }
+    .signal-early { border-color: rgba(148, 163, 184, 0.35); color: #cbd5e1; }
+    .signal-watch { border-color: rgba(56,189,248,0.35); color: #93c5fd; }
+    .signal-active { border-color: rgba(251,146,60,0.55); color: #fdba74; }
+    .signal-late { border-color: rgba(248,113,113,0.55); color: #fecaca; }
 
-    .timeline-marker {
-      position: absolute;
-      top: -8px;
-      transform: translateX(-50%);
-      z-index: 10;
-    }
-
-    .marker-line {
-      width: 2px;
-      height: 86px;
-      background: linear-gradient(to bottom, #f87171, rgba(248, 113, 113, 0.3));
-      margin: 0 auto;
-    }
-
-    .marker-label {
-      position: absolute;
-      top: -24px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 9px;
-      font-weight: 800;
-      color: #fecaca;
-      white-space: nowrap;
-      text-align: center;
-      line-height: 1.2;
-    }
-
-    .timeline-position {
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 20;
-      transition: left 0.5s ease;
-    }
-
-    .position-indicator {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .position-indicator span {
+    .exit-reason {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(55,65,81,0.65);
+      background: rgba(2,6,23,0.5);
       font-size: 11px;
-      font-weight: 900;
-      color: #fbbf24;
-      background: rgba(251, 191, 36, 0.15);
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(251, 191, 36, 0.6);
-      box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
-      white-space: nowrap;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .exit-reason strong { color: #e5e7eb; }
+
+    /* Exit timeline */
+    .exit-timeline {
+      margin-top: 10px;
+      position: relative;
+      height: 54px;
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.6);
+      background: linear-gradient(to bottom, #020617, #0f172a);
+      overflow: hidden;
+    }
+
+    .exit-timeline .band {
+      position: absolute;
+      top: 0;
+      height: 100%;
+    }
+
+    .band-runup {
+      left: 0;
+      width: 78%;
+      background: linear-gradient(135deg, rgba(56,189,248,0.12), rgba(34,197,94,0.08));
+    }
+
+    .band-risk {
+      left: 78%;
+      width: 22%;
+      background: linear-gradient(135deg, rgba(251,146,60,0.18), rgba(248,113,113,0.10));
+      border-left: 1px solid rgba(251,146,60,0.22);
+    }
+
+    .exit-marker {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: #fb923c;
+      box-shadow: 0 0 0 3px rgba(251,146,60,0.25);
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .now-marker {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: #fbbf24;
+      box-shadow: 0 0 0 3px rgba(251,191,36,0.22);
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+
+    .timeline-label {
+      position: absolute;
+      bottom: 6px;
+      left: 10px;
+      font-size: 10px;
+      color: var(--text-muted);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 4;
+    }
+
+    .timeline-label.right {
+      left: auto;
+      right: 10px;
     }
 
     /* Footer */
@@ -718,7 +700,6 @@
 </head>
 <body>
   <div class="app-shell">
-    <!-- Top bar -->
     <header class="top-bar">
       <div class="brand">
         <div class="brand-logo">P</div>
@@ -728,7 +709,7 @@
             <span class="pill">ZONDA Research Internal Prototype</span>
           </div>
           <div class="brand-tagline">
-            Dynamic pre-PDUFA entry/exit strategies • clustered risk view.
+            Run-up watchlist • score clusters • explicit exit signal (no buy/hold UI).
           </div>
         </div>
       </div>
@@ -738,60 +719,43 @@
       </div>
     </header>
 
-    <!-- Intro / summary panel -->
     <section class="intro-panel">
       <div class="intro-main">
         <div class="intro-copy">
           <div class="intro-title">
             2026 PDUFA Watchlist
-            <span class="intro-highlight">Run-up + risk clusters</span>
+            <span class="intro-highlight">Clusters + Exit Signal</span>
           </div>
           <div class="intro-subtitle">
-            This interface tracks a curated set of 2026 PDUFA decisions, with an emphasis on
-            <strong>small/mid-cap, orphan and gene therapy names</strong> where pre-PDUFA run-up
-            is historically most pronounced. We now also cluster score <strong>3–4</strong> names
-            as <strong>higher-risk but investable</strong> candidates and show a concise rationale for the score.
-          </div>
-        </div>
-        <div class="intro-meta">
-          <div class="meta-row">
-            <span class="meta-label">Universe</span>
-            <span class="meta-value">2026 orphan/PDUFA list</span>
-          </div>
-          <div class="meta-row">
-            <span class="meta-label">Strategy</span>
-            <span class="meta-value">Enter T-150→T-90, exit T-20→T-7</span>
-          </div>
-          <div class="meta-row">
-            <span class="meta-label">Core cases</span>
-            <span class="meta-value">RCKT, NUVL</span>
+            Focus: pre-event run-up observation for small/mid-cap and orphan-focused names. Scores reflect expected
+            pre-PDUFA “event beta”. We cluster score <strong>3–4</strong> names as higher-risk but investable,
+            and we show an explicit <strong>RCKT Exit Signal</strong> (default: <strong>T-10 calendar days</strong>,
+            adjusted to the prior weekday).
           </div>
         </div>
       </div>
       <div class="controls-row">
         <button class="primary-button" id="scrollToCases">
           <span>▶</span>
-          Jump to case studies: RCKT & NUVL
+          Jump to case studies
         </button>
         <div class="secondary-text">
-          Filters below adjust the watchlist only — this is <strong>not</strong> advice, it’s an experiment framework.
+          Not advice — internal experiment framework.
         </div>
       </div>
     </section>
 
-    <!-- Main layout: list + charts -->
     <main class="app-main">
-      <!-- Left: Watchlist card -->
+      <!-- Watchlist -->
       <section class="card">
         <div class="card-header">
           <div>
             <div class="card-title">
               <span class="card-title-dot"></span>
-              PDUFA 2026 watchlist (no-scroll layout)
+              PDUFA 2026 watchlist (research cards)
             </div>
             <div class="card-subtitle">
-              Each row is a “research card” with score, cluster, entry/exit windows, and a brief “why score?” rationale.
-              Click a row to copy a summary line to clipboard.
+              Each card includes cluster + “why score” reasoning. Click a row to copy a one-line summary.
             </div>
           </div>
         </div>
@@ -847,16 +811,16 @@
         <div id="watchlist" class="table-list"></div>
       </section>
 
-      <!-- Right: Charts card -->
+      <!-- Case studies -->
       <section class="card" id="caseStudies">
         <div class="card-header">
           <div>
             <div class="card-title">
               <span class="card-title-dot"></span>
-              Live charts: core case studies
+              Case studies: Exit Signal view
             </div>
             <div class="card-subtitle">
-              Monitoring <strong>Rocket (RCKT)</strong> and <strong>Nuvalent (NUVL)</strong> through their pre-PDUFA windows.
+              We remove the buy/hold UI and show only: days-to-PDUFA, default exit date, countdown-to-exit, and a clear signal state.
             </div>
           </div>
         </div>
@@ -869,46 +833,53 @@
                 RCKT – Rocket Pharmaceuticals
                 <span class="pill-small">Score 5 • LAD-I gene therapy</span>
               </h3>
-              <div class="chart-note">PDUFA: 28 March 2026</div>
-            </div>
-
-            <div class="rckt-countdown">
-              <div class="countdown-main">
-                <div class="countdown-number" id="rckt-days">--</div>
-                <div class="countdown-label">days to PDUFA</div>
-              </div>
-              <div class="phase-indicator" id="rckt-phase">
-                <span class="phase-dot"></span>
-                <span class="phase-text">Calculating...</span>
+              <div class="chart-note">
+                PDUFA: <strong>2026-03-28</strong> • Default Exit: <strong id="rckt-exitdate">--</strong>
               </div>
             </div>
 
-            <div class="timeline-container">
-              <div class="timeline-track">
-                <div class="timeline-segment entry-zone" style="left: 0%; width: 25%;">
-                  <span class="zone-label">Entry Window</span>
-                  <span class="zone-dates">Dec 3 - Jan 2</span>
+            <!-- Exit signal panel -->
+            <div class="exit-panel">
+              <div class="exit-left">
+                <div class="exit-title"><span class="exit-dot"></span> EXIT SIGNAL</div>
+                <div class="exit-row">
+                  <div class="exit-date" id="rckt-exitdate-big">--</div>
+                  <div class="exit-meta" id="rckt-exitmeta">T-10 calendar days (weekend-adjusted)</div>
                 </div>
-                <div class="timeline-segment hold-zone" style="left: 25%; width: 50%;">
-                  <span class="zone-label">Hold Period</span>
+              </div>
+
+              <div class="exit-right">
+                <div class="countdown-chip">
+                  <div class="count-num" id="rckt-days-to-exit">--</div>
+                  <div class="count-label">days to exit</div>
                 </div>
-                <div class="timeline-segment exit-zone" style="left: 75%; width: 20%;">
-                  <span class="zone-label">Exit Window</span>
-                  <span class="zone-dates">Feb 24 - Mar 21</span>
+                <div class="countdown-chip" style="border-color: rgba(34,197,94,0.25);">
+                  <div class="count-num" id="rckt-days-to-pdufa" style="color:#22c55e;">--</div>
+                  <div class="count-label">days to PDUFA</div>
                 </div>
-                <div class="timeline-marker pdufa-marker" style="left: 95%;">
-                  <div class="marker-line"></div>
-                  <span class="marker-label">PDUFA<br/>Mar 28</span>
-                </div>
-                <div class="timeline-position" id="rckt-position">
-                  <div class="position-indicator">
-                    <span>📍 NOW</span>
-                  </div>
-                </div>
+                <div class="signal-pill signal-early" id="rckt-exit-signal">Calculating…</div>
               </div>
             </div>
 
-            <div class="tradingview-widget-container">
+            <!-- Reasoning (more than just calculation) -->
+            <div class="exit-reason" id="rckt-exit-reason">
+              <strong>Why exit before PDUFA?</strong> We treat PDUFA as a binary volatility cliff. Historically, the most “tradable”
+              part is the pre-event attention window; the last ~1–2 weeks tends to concentrate rumor flow, positioning, and hedging.
+              <strong>T-10</strong> is used as a default to reduce exposure to the final “headline risk” while still capturing most of the run-up.
+              This is a policy rule (not outcome prediction).
+            </div>
+
+            <!-- Visual: Run-up band vs risk band + markers -->
+            <div class="exit-timeline">
+              <div class="band band-runup"></div>
+              <div class="band band-risk"></div>
+              <div class="timeline-label">Run-up window</div>
+              <div class="timeline-label right">Binary risk zone</div>
+              <div class="exit-marker" id="rckt-exit-marker" style="left: 0%;"></div>
+              <div class="now-marker" id="rckt-now-marker" style="left: 0%;"></div>
+            </div>
+
+            <div class="tradingview-widget-container" style="margin-top:10px;">
               <div id="tradingview_rckt" class="chart-canvas"></div>
               <div class="chart-note" style="margin-top: 8px;">
                 Buy/Sell:
@@ -924,14 +895,14 @@
             </div>
           </div>
 
-          <!-- NUVL -->
+          <!-- NUVL (kept as chart only, can add exit signal later) -->
           <div class="chart-card">
             <div class="chart-header">
               <h3>
                 NUVL – Nuvalent
                 <span class="pill-small">Score 5 • ROS1+ NSCLC</span>
               </h3>
-              <div class="chart-note">PDUFA: 18 September 2026 • Target: enter ≈ T-90, exit ≈ T-20</div>
+              <div class="chart-note">PDUFA: 2026-09-18 • Target: exit around T-10 to T-7</div>
             </div>
             <div class="tradingview-widget-container">
               <div id="tradingview_nuvl" class="chart-canvas"></div>
@@ -946,7 +917,6 @@
     </footer>
   </div>
 
-  <!-- TradingView library -->
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
   <script>
@@ -968,7 +938,6 @@
       "notes"
     ];
 
-    // Inline CSV data
     const inlineCSV = `
 pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,market_cap_bucket,listing_region,liquidity_flag,runup_priority_score_1to5,suggested_entry_window_days,suggested_exit_window_days,notes
 2026-01-13,sparsentan,FILSPARI,Travere Therapeutics,TVTX,"FSGS (kidney disease)",Yes,"Small-molecule (dual ETAR/AT1R inhibitor)",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA for FSGS; already approved for IgAN"
@@ -1005,14 +974,9 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
         let inQuotes = false;
         for (let i = 0; i < line.length; i++) {
           const c = line[i];
-          if (c === '"') {
-            inQuotes = !inQuotes;
-          } else if (c === "," && !inQuotes) {
-            cells.push(cur);
-            cur = "";
-          } else {
-            cur += c;
-          }
+          if (c === '"') inQuotes = !inQuotes;
+          else if (c === "," && !inQuotes) { cells.push(cur); cur = ""; }
+          else cur += c;
         }
         cells.push(cur);
         const obj = {};
@@ -1039,24 +1003,21 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       const notes = (row.notes || "").toLowerCase();
 
       const bullets = [];
-
       if (orphan) bullets.push("Orphan/rare angle → tends to attract catalyst flow.");
       if (cap.includes("small")) bullets.push("Smaller cap → higher event beta / sharper run-ups.");
-      else if (cap.includes("mid")) bullets.push("Mid-cap → catalyst-sensitive but less explosive vs micro/small.");
+      else if (cap.includes("mid")) bullets.push("Mid-cap → catalyst-sensitive but less explosive.");
       else if (cap.includes("large")) bullets.push("Large-cap dampener → PDUFA impact often diluted.");
 
       if (therapy.includes("gene")) bullets.push("Gene therapy narrative → binary-catalyst attention.");
-      if (therapy.includes("cell")) bullets.push("Cell therapy → catalyst-driven but higher execution uncertainty.");
       if (therapy.includes("diagnostic") || therapy.includes("imaging") || notes.includes("imaging"))
         bullets.push("Diagnostics/imaging → often lower 'binary' volatility than therapeutics.");
-
       if (notes.includes("label expansion") || notes.includes("label refinement"))
-        bullets.push("Label expansion/refinement → less all-or-nothing feel than first approval.");
+        bullets.push("Label expansion/refinement → less all-or-nothing than first approval.");
       if (notes.includes("partner") || notes.includes("licensed") || notes.includes("listed/partnered"))
         bullets.push("Partner/structure complexity → can dampen a clean run-up trade.");
 
-      if (score === 4) bullets.push("Score 4 = tradable catalyst with strong run-up potential (still higher risk).");
-      if (score === 3) bullets.push("Score 3 = speculative/watch: investable but run-up is less reliable/dampened.");
+      if (score === 4) bullets.push("Score 4 = tradable catalyst with strong run-up potential (higher risk).");
+      if (score === 3) bullets.push("Score 3 = speculative/watch: investable but run-up less reliable/dampened.");
 
       return bullets.slice(0, 4).join(" ");
     }
@@ -1064,32 +1025,15 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
     function assignCluster(row) {
       const score = parseInt(row.runup_priority_score_1to5 || "0", 10);
       const tradeable = isTradeable(row);
-      if (!tradeable) {
-        return { key: "untradeable", label: "Untradeable / Indirect", tagClass: "tag-untradeable" };
-      }
-      if (score === 4) {
-        return { key: "high-upside", label: "Higher-risk / High-upside (4)", tagClass: "tag-cluster-4" };
-      }
-      if (score === 3) {
-        return { key: "speculative", label: "Speculative / Watch (3)", tagClass: "tag-cluster-3" };
-      }
+      if (!tradeable) return { key: "untradeable", label: "Untradeable / Indirect", tagClass: "tag-untradeable" };
+      if (score === 4) return { key: "high-upside", label: "Higher-risk / High-upside (4)", tagClass: "tag-cluster-4" };
+      if (score === 3) return { key: "speculative", label: "Speculative / Watch (3)", tagClass: "tag-cluster-3" };
       return { key: "other", label: "Core / Other", tagClass: "" };
-    }
-
-    function avanzaLink(ticker) {
-      const t = (ticker || "").trim().toUpperCase();
-      if (!t) return "";
-      // Best-effort: for non-US tickers or if Avanza mapping differs, user can still use TradingView link.
-      if (t === "RCKT") return "https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals";
-      // fallback: no guaranteed mapping
-      return "";
     }
 
     function tradingViewLink(ticker) {
       const t = (ticker || "").trim().toUpperCase();
       if (!t) return "";
-      // Best-effort: if it's US listed, TradingView often resolves "NASDAQ:XYZ" or "NYSE:XYZ".
-      // We'll use a generic symbol search page to be safe.
       return `https://www.tradingview.com/symbols/${encodeURIComponent(t)}/`;
     }
 
@@ -1098,7 +1042,7 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       const cluster = row.risk_cluster || "";
       const text =
         `${row.pdufa_date} • ${row.company} (${row.ticker || "N/A"}) • ${row.drug} • ${row.indication} • ` +
-        `Score ${score} • ${cluster} • Entry ${row.suggested_entry_window_days || "-"} • Exit ${row.suggested_exit_window_days || "-"} • ` +
+        `Score ${score} • ${cluster} • Exit ${row.suggested_exit_window_days || "-"} • ` +
         `Why: ${row.score_rationale || ""}`;
       navigator.clipboard?.writeText(text).catch(() => {});
     }
@@ -1125,6 +1069,109 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
         if (va > vb) return 1 * dir;
         return 0;
       });
+    }
+
+    /* Exit-date helpers */
+    function formatISODate(d) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function adjustToPreviousWeekday(dateObj) {
+      const d = new Date(dateObj);
+      const day = d.getDay();
+      if (day === 6) d.setDate(d.getDate() - 1); // Sat -> Fri
+      if (day === 0) d.setDate(d.getDate() - 2); // Sun -> Fri
+      return d;
+    }
+
+    function computeDefaultExitDate(pdufaDateObj, daysBefore = 10) {
+      const d = new Date(pdufaDateObj);
+      d.setDate(d.getDate() - daysBefore);
+      return adjustToPreviousWeekday(d);
+    }
+
+    function getExitSignalState(daysToExit, now, exitDate, pdufaDate) {
+      // Simple policy states (you can tune these thresholds)
+      // >21 days: Early
+      // 21..11: Watch
+      // 10..0: Exit Active
+      // <0 and before PDUFA: Late
+      if (now >= pdufaDate) return { cls: "signal-late", text: "PDUFA passed" };
+      if (daysToExit > 21) return { cls: "signal-early", text: "Early • Monitor" };
+      if (daysToExit > 10) return { cls: "signal-watch", text: "Watch • Tighten plan" };
+      if (daysToExit >= 0) return { cls: "signal-active", text: "EXIT ACTIVE • De-risk" };
+      return { cls: "signal-late", text: "Late • Risk zone" };
+    }
+
+    function updateRCKTExitPanel() {
+      // RCKT fixed PDUFA date
+      const pdufaDate = new Date("2026-03-28T00:00:00");
+      const now = new Date();
+
+      // Policy: default exit = T-10 calendar days (weekend-adjusted to previous weekday)
+      const defaultExit = computeDefaultExitDate(pdufaDate, 10);
+
+      const daysToExit = Math.ceil((defaultExit - now) / (1000 * 60 * 60 * 24));
+      const daysToPdufa = Math.ceil((pdufaDate - now) / (1000 * 60 * 60 * 24));
+
+      const exitISO = formatISODate(defaultExit);
+
+      // Fill dates
+      const exitSmall = document.getElementById("rckt-exitdate");
+      const exitBig = document.getElementById("rckt-exitdate-big");
+      if (exitSmall) exitSmall.textContent = exitISO;
+      if (exitBig) exitBig.textContent = exitISO;
+
+      // Countdown chips
+      const dte = document.getElementById("rckt-days-to-exit");
+      const dtp = document.getElementById("rckt-days-to-pdufa");
+      if (dte) dte.textContent = isFinite(daysToExit) ? daysToExit : "--";
+      if (dtp) dtp.textContent = isFinite(daysToPdufa) ? daysToPdufa : "--";
+
+      // Signal pill
+      const signal = document.getElementById("rckt-exit-signal");
+      const state = getExitSignalState(daysToExit, now, defaultExit, pdufaDate);
+      if (signal) {
+        signal.className = `signal-pill ${state.cls}`;
+        signal.textContent = state.text;
+      }
+
+      // Update reasoning text with contextual values
+      const reason = document.getElementById("rckt-exit-reason");
+      if (reason) {
+        reason.innerHTML = `
+          <strong>Why exit on ${exitISO} (T-10)?</strong>
+          PDUFA is treated as a binary volatility cliff. The final ~1–2 weeks often compress positioning, rumor flow,
+          hedging and liquidity shocks. A default <strong>T-10</strong> exit is a policy rule aimed at:
+          <ul style="margin:8px 0 0 18px; padding:0; color:#cbd5e1;">
+            <li><strong>Capturing most of the run-up</strong> while avoiding the highest headline sensitivity (T-7→event).</li>
+            <li><strong>Reducing gap risk</strong> from leaks/PRs/adcom chatter that can hit outside market hours.</li>
+            <li><strong>Keeping execution practical</strong>: you still have ~${Math.max(0, daysToPdufa)} days to PDUFA, but only ~${Math.max(0, daysToExit)} days until the default exit.</li>
+          </ul>
+          <div style="margin-top:8px; color: var(--text-soft);">
+            Note: exit date is weekend-adjusted (exit on the prior weekday if T-10 lands on Sat/Sun).
+          </div>
+        `;
+      }
+
+      // Timeline markers (0% = today, 100% = PDUFA)
+      const total = (pdufaDate - now);
+      const nowPos = 0; // by definition in this view
+      const exitMarker = document.getElementById("rckt-exit-marker");
+      const nowMarker = document.getElementById("rckt-now-marker");
+
+      // Map: today = 0%, PDUFA = 100%. Exit = (exit - now)/(pdufa - now)
+      let exitPos = 0;
+      if (total > 0) {
+        exitPos = ((defaultExit - now) / total) * 100;
+      }
+      exitPos = Math.max(0, Math.min(100, exitPos));
+
+      if (exitMarker) exitMarker.style.left = `${exitPos}%`;
+      if (nowMarker) nowMarker.style.left = `${nowPos}%`;
     }
 
     function renderWatchlist() {
@@ -1180,12 +1227,10 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
           : `<span class="tag" style="border:1px solid rgba(148,163,184,0.35); background:rgba(15,23,42,0.6); color:#e5e7eb;">${r.risk_cluster}</span>`;
 
         const tv = tradingViewLink(r.ticker);
-        const av = avanzaLink(r.ticker);
 
         const card = document.createElement("div");
         card.className = "row-card";
         card.title = "Click to copy a one-line summary to clipboard";
-
         card.addEventListener("click", () => copyRowSummary(r));
 
         card.innerHTML = `
@@ -1194,7 +1239,7 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
               <div class="row-title">
                 <span>${r.company}</span>
                 <span class="ticker">${r.ticker || "N/A"}</span>
-                <span class="tags">
+                <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
                   ${orphanTag}
                   <span class="tag ${scoreTagClass}">Score ${score || ""}</span>
                   ${clusterTag}
@@ -1225,14 +1270,13 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
 
           <div class="row-bottom">
             <div class="rationale">
-              <span style="color:var(--text-muted); font-weight:700;">Why this score:</span>
+              <span style="color:var(--text-muted); font-weight:900;">Why this score:</span>
               ${r.score_rationale || ""}
-              ${r.notes ? `<div style="margin-top:6px; color:var(--text-soft);"><span style="color:var(--text-muted); font-weight:700;">Notes:</span> ${r.notes}</div>` : ""}
+              ${r.notes ? `<div style="margin-top:6px; color:var(--text-soft);"><span style="color:var(--text-muted); font-weight:900;">Notes:</span> ${r.notes}</div>` : ""}
             </div>
 
             <div class="links">
               ${tv ? `<a class="link-btn" href="${tv}" target="_blank" rel="noopener noreferrer">TradingView</a>` : ""}
-              ${av ? `<a class="link-btn" href="${av}" target="_blank" rel="noopener noreferrer">Avanza</a>` : ""}
             </div>
           </div>
         `;
@@ -1282,53 +1326,6 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       });
     }
 
-    function updateRCKTDynamics() {
-      const entryStart = new Date('2025-12-03');
-      const entryEnd = new Date('2026-01-02');
-      const exitStart = new Date('2026-02-24');
-      const pdufaDate = new Date('2026-03-28');
-
-      const now = new Date();
-      const daysToEvent = Math.ceil((pdufaDate - now) / (1000 * 60 * 60 * 24));
-
-      const countdownEl = document.getElementById('rckt-days');
-      if (countdownEl) countdownEl.textContent = isFinite(daysToEvent) ? daysToEvent : "--";
-
-      let phase = 'pre-entry';
-      let phaseText = '🟡 Pre-Entry';
-
-      if (now >= pdufaDate) {
-        phase = 'post';
-        phaseText = '🔴 Post-PDUFA';
-      } else if (now >= exitStart) {
-        phase = 'exit';
-        phaseText = '🟠 EXIT WINDOW ACTIVE';
-      } else if (now >= entryEnd) {
-        phase = 'hold';
-        phaseText = '🔵 Hold Period';
-      } else if (now >= entryStart) {
-        phase = 'entry';
-        phaseText = '🟢 ENTRY WINDOW ACTIVE';
-      }
-
-      const phaseEl = document.getElementById('rckt-phase');
-      if (phaseEl) {
-        phaseEl.className = `phase-indicator phase-${phase}`;
-        const phaseTextEl = phaseEl.querySelector('.phase-text');
-        if (phaseTextEl) phaseTextEl.textContent = phaseText;
-      }
-
-      const timelineStart = entryStart;
-      const timelineEnd = pdufaDate;
-      const totalDuration = timelineEnd - timelineStart;
-      const elapsed = now - timelineStart;
-      let position = (elapsed / totalDuration) * 100;
-      position = Math.max(0, Math.min(100, position));
-
-      const positionEl = document.getElementById('rckt-position');
-      if (positionEl) positionEl.style.left = `${position}%`;
-    }
-
     function init() {
       rows = parseCSV(inlineCSV).map(r => {
         const cluster = assignCluster(r);
@@ -1343,26 +1340,18 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
 
       setupFilters();
       renderWatchlist();
-      updateRCKTDynamics();
 
       document.getElementById("scrollToCases").addEventListener("click", () => {
         document.getElementById("caseStudies")?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
 
+      updateRCKTExitPanel();
+      setInterval(updateRCKTExitPanel, 1000 * 60 * 60);
+
       setTimeout(initTradingViewWidgets, 600);
-      setInterval(updateRCKTDynamics, 1000 * 60 * 60);
     }
 
     window.addEventListener("load", init);
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
