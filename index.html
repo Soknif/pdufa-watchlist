@@ -18,13 +18,12 @@
       --text-muted: #6b7280;
       --danger: #f97373;
       --warning: #facc15;
+      --info: #38bdf8;
       --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
       --radius-xl: 18px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -43,7 +42,7 @@
 
     .app-shell {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1240px;
       background: linear-gradient(135deg, #020617 0%, #020617 40%, #020617 100%);
       border-radius: 24px;
       border: 1px solid rgba(148, 163, 184, 0.18);
@@ -56,7 +55,6 @@
     }
 
     /* Header / top bar */
-
     .top-bar {
       display: flex;
       align-items: center;
@@ -65,45 +63,24 @@
       padding: 6px 10px 4px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .brand { display: flex; align-items: center; gap: 10px; }
 
     .brand-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
+      width: 32px; height: 32px; border-radius: 999px;
       background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #022c22;
-      font-weight: 800;
-      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      color: #022c22; font-weight: 800; font-size: 16px;
       box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .brand-text { display: flex; flex-direction: column; gap: 2px; }
 
     .brand-title {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 6px;
     }
 
-    .brand-tagline {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
+    .brand-tagline { font-size: 11px; color: var(--text-soft); }
 
     .pill {
       font-size: 10px;
@@ -114,33 +91,27 @@
       padding: 2px 8px;
       border-radius: 999px;
       color: var(--text-soft);
+      white-space: nowrap;
     }
 
     .top-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      color: var(--text-muted);
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--text-muted);
+      white-space: nowrap;
     }
 
     .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
+      width: 8px; height: 8px; border-radius: 999px;
       background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e);
       box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
     }
 
-    .status-label {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
+    .status-label { font-size: 11px; color: var(--text-soft); }
 
     /* Intro panel */
-
     .intro-panel {
-      background: radial-gradient(circle at top left, rgba(34,197,94,0.12), transparent 55%),
+      background:
+        radial-gradient(circle at top left, rgba(34,197,94,0.12), transparent 55%),
         radial-gradient(circle at bottom right, rgba(56,189,248,0.14), transparent 50%),
         var(--bg-card);
       border-radius: var(--radius-xl);
@@ -158,9 +129,7 @@
       flex-wrap: wrap;
     }
 
-    .intro-copy {
-      max-width: 600px;
-    }
+    .intro-copy { max-width: 660px; }
 
     .intro-title {
       font-size: 18px;
@@ -179,6 +148,7 @@
       border: 1px solid rgba(34, 197, 94, 0.6);
       text-transform: uppercase;
       letter-spacing: 0.12em;
+      white-space: nowrap;
     }
 
     .intro-subtitle {
@@ -194,23 +164,14 @@
       gap: 6px;
       font-size: 11px;
       color: var(--text-soft);
-      min-width: 170px;
+      min-width: 190px;
     }
 
-    .meta-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
+    .meta-row { display: flex; justify-content: space-between; gap: 8px; }
 
-    .meta-label {
-      color: var(--text-muted);
-    }
+    .meta-label { color: var(--text-muted); }
 
-    .meta-value {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
+    .meta-value { color: #e5e7eb; font-weight: 500; }
 
     .controls-row {
       margin-top: 6px;
@@ -234,29 +195,24 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 8px 22px rgba(34, 197, 94, 0.32);
+      user-select: none;
     }
 
-    .primary-button span {
-      font-size: 14px;
-    }
+    .primary-button span { font-size: 14px; }
 
-    .secondary-text {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
+    .secondary-text { font-size: 11px; color: var(--text-soft); }
 
-    /* Filters + layout */
-
+    /* Layout */
     .app-main {
       display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1.1fr);
       gap: 14px;
+      align-items: start;
     }
 
-    @media (max-width: 960px) {
-      .app-main {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    @media (max-width: 1020px) {
+      .app-main { grid-template-columns: minmax(0, 1fr); }
+      .top-right { display: none; }
     }
 
     .card {
@@ -270,7 +226,7 @@
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
       margin-bottom: 8px;
     }
@@ -290,124 +246,145 @@
       background: var(--accent-soft);
       border: 1px solid var(--accent);
       box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.28);
+      flex: 0 0 auto;
     }
 
     .card-subtitle {
       font-size: 11px;
       color: var(--text-soft);
+      line-height: 1.4;
+      margin-top: 2px;
     }
 
-    /* Controls inside card */
-
+    /* Controls */
     .controls {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       align-items: center;
       font-size: 11px;
     }
 
-    .controls label {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .controls label { display: flex; align-items: center; gap: 6px; }
 
     input[type="text"], select {
-      padding: 4px 7px;
+      padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid #4b5563;
       background: #020617;
       color: var(--text-main);
       font-size: 11px;
+      min-width: 155px;
+      outline: none;
+    }
+
+    input[type="text"]::placeholder { color: #6b7280; }
+
+    /* NEW: Table as full-width “list” (no horizontal scroll) */
+    .table-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .row-card {
+      background: linear-gradient(180deg, rgba(2,6,23,0.9), rgba(2,6,23,0.75));
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      border-radius: 14px;
+      padding: 10px 10px;
+      transition: transform 0.08s ease, border-color 0.08s ease;
+      cursor: pointer;
+    }
+
+    .row-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(56,189,248,0.35);
+    }
+
+    .row-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .row-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 240px;
+      flex: 1 1 360px;
+    }
+
+    .row-title {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-weight: 650;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .row-title .ticker {
+      color: #cbd5e1;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.75);
+    }
+
+    .row-sub {
+      color: var(--text-soft);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .row-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1 1 280px;
+    }
+
+    .kv {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(55,65,81,0.8);
+      background: rgba(2, 6, 23, 0.6);
       min-width: 140px;
     }
 
-    input[type="text"]::placeholder {
-      color: #6b7280;
-    }
+    .kv .k { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; }
+    .kv .v { font-size: 11px; color: #e5e7eb; font-weight: 600; }
 
-    /* Table */
-
-    .table-wrapper {
-      border-radius: 12px;
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      overflow: hidden;
-      background: linear-gradient(to bottom, #020617, #020617);
-      max-height: none;
-      overflow-y: visible;
-      overflow-x: auto;
-      scrollbar-width: thin;
-    }
-
-    .table-wrapper::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .table-wrapper::-webkit-scrollbar-thumb {
-      background: #374151;
-      border-radius: 999px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 11px;
-      color: #e5e7eb;
-    }
-
-    thead {
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-
-    th, td {
-      padding: 6px 8px;
-      border-bottom: 1px solid #111827;
-      text-align: left;
-    }
-
-    th {
-      cursor: pointer;
-      white-space: nowrap;
-      font-weight: 600;
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    th.sort-asc::after {
-      content: " ▲";
-      font-size: 9px;
-    }
-
-    th.sort-desc::after {
-      content: " ▼";
-      font-size: 9px;
-    }
-
-    tbody tr:nth-child(even) td {
-      background: #020617;
-    }
-
-    tbody tr:nth-child(odd) td {
-      background: #020617;
-    }
-
-    tbody tr:hover td {
-      background: #0b1120;
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
     }
 
     .tag {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 1px 7px;
+      padding: 2px 8px;
       border-radius: 999px;
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
     }
 
     .tag-orphan {
@@ -424,7 +401,7 @@
 
     .tag-medium {
       background: rgba(250, 204, 21, 0.14);
-      color: #facc15;
+      color: #fde68a;
       border: 1px solid rgba(250, 204, 21, 0.8);
     }
 
@@ -434,20 +411,84 @@
       border: 1px solid rgba(248, 113, 113, 0.9);
     }
 
-    /* Charts card */
-
-    .chart-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    /* Cluster tags */
+    .tag-cluster-4 {
+      background: rgba(250, 204, 21, 0.14);
+      color: #fde68a;
+      border: 1px solid rgba(250, 204, 21, 0.8);
     }
+
+    .tag-cluster-3 {
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .tag-untradeable {
+      background: rgba(248, 113, 113, 0.16);
+      color: #fecaca;
+      border: 1px solid rgba(248, 113, 113, 0.9);
+    }
+
+    .row-bottom {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .rationale {
+      flex: 1 1 520px;
+      font-size: 11px;
+      color: #cbd5e1;
+      line-height: 1.35;
+      opacity: 0.95;
+    }
+
+    .links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .link-btn {
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.6);
+      color: #e5e7eb;
+      text-decoration: none;
+      transition: transform 0.08s ease, border-color 0.08s ease;
+      user-select: none;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(34,197,94,0.45);
+    }
+
+    .empty-state {
+      padding: 14px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(148,163,184,0.35);
+      color: var(--text-soft);
+      font-size: 11px;
+      background: rgba(2,6,23,0.4);
+    }
+
+    /* Charts card */
+    .chart-grid { display: flex; flex-direction: column; gap: 10px; }
 
     .chart-card {
       background: radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 60%),
         #020617;
       border-radius: 12px;
       border: 1px solid rgba(55, 65, 81, 0.9);
-      padding: 8px 8px 4px;
+      padding: 8px 8px 8px;
     }
 
     .chart-header {
@@ -455,16 +496,19 @@
       justify-content: space-between;
       align-items: center;
       font-size: 11px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .chart-header h3 {
       margin: 0;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-wrap: wrap;
     }
 
     .pill-small {
@@ -475,30 +519,14 @@
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--text-soft);
+      white-space: nowrap;
     }
 
-    .chart-note {
-      font-size: 10px;
-      color: var(--text-muted);
-    }
+    .chart-note { font-size: 10px; color: var(--text-muted); }
 
-    .tradingview-widget-container {
-      margin-top: 2px;
-    }
-
-    .chart-canvas {
-      height: 260px;
-      width: 100%;
-    }
-
-    @media (max-width: 960px) {
-      .chart-canvas {
-        height: 260px;
-      }
-    }
+    .chart-canvas { height: 260px; width: 100%; }
 
     /* RCKT Countdown & Phase Indicator */
-
     .rckt-countdown {
       display: flex;
       justify-content: space-between;
@@ -512,15 +540,11 @@
       flex-wrap: wrap;
     }
 
-    .countdown-main {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
+    .countdown-main { display: flex; align-items: baseline; gap: 8px; }
 
     .countdown-number {
       font-size: 32px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--accent);
       line-height: 1;
       font-variant-numeric: tabular-nums;
@@ -544,9 +568,7 @@
     }
 
     .phase-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
+      width: 10px; height: 10px; border-radius: 999px;
       background: var(--accent);
       box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
       animation: pulse 2s ease-in-out infinite;
@@ -559,7 +581,7 @@
 
     .phase-text {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
@@ -580,11 +602,7 @@
     .phase-post .phase-dot { background: #f87171; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3); }
 
     /* Timeline Progress Bar */
-
-    .timeline-container {
-      margin: 12px 0;
-      padding: 0 4px;
-    }
+    .timeline-container { margin: 12px 0; padding: 0 4px; }
 
     .timeline-track {
       position: relative;
@@ -605,11 +623,11 @@
       justify-content: center;
       gap: 2px;
       border-right: 1px solid rgba(75, 85, 99, 0.4);
+      text-align: center;
+      padding: 0 6px;
     }
 
-    .timeline-segment:last-of-type {
-      border-right: none;
-    }
+    .timeline-segment:last-of-type { border-right: none; }
 
     .entry-zone {
       background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
@@ -625,16 +643,14 @@
 
     .zone-label {
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: #e5e7eb;
+      white-space: nowrap;
     }
 
-    .zone-dates {
-      font-size: 9px;
-      color: var(--text-muted);
-    }
+    .zone-dates { font-size: 9px; color: var(--text-muted); white-space: nowrap; }
 
     .timeline-marker {
       position: absolute;
@@ -656,7 +672,7 @@
       left: 50%;
       transform: translateX(-50%);
       font-size: 9px;
-      font-weight: 600;
+      font-weight: 800;
       color: #fecaca;
       white-space: nowrap;
       text-align: center;
@@ -680,7 +696,7 @@
 
     .position-indicator span {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 900;
       color: #fbbf24;
       background: rgba(251, 191, 36, 0.15);
       padding: 4px 8px;
@@ -691,7 +707,6 @@
     }
 
     /* Footer */
-
     .footer {
       margin-top: 4px;
       font-size: 10px;
@@ -713,7 +728,7 @@
             <span class="pill">ZONDA Research Internal Prototype</span>
           </div>
           <div class="brand-tagline">
-            Dynamic pre-PDUFA entry/exit strategies.
+            Dynamic pre-PDUFA entry/exit strategies • clustered risk view.
           </div>
         </div>
       </div>
@@ -729,13 +744,13 @@
         <div class="intro-copy">
           <div class="intro-title">
             2026 PDUFA Watchlist
-            <span class="intro-highlight">Pre-event run-up focus</span>
+            <span class="intro-highlight">Run-up + risk clusters</span>
           </div>
           <div class="intro-subtitle">
             This interface tracks a curated set of 2026 PDUFA decisions, with an emphasis on
             <strong>small/mid-cap, orphan and gene therapy names</strong> where pre-PDUFA run-up
-            is historically most pronounced. The goal is not to predict FDA outcomes, but to
-            systematically observe <strong>price behaviour before the binary event</strong>.
+            is historically most pronounced. We now also cluster score <strong>3–4</strong> names
+            as <strong>higher-risk but investable</strong> candidates and show a concise rationale for the score.
           </div>
         </div>
         <div class="intro-meta">
@@ -748,35 +763,35 @@
             <span class="meta-value">Enter T-150→T-90, exit T-20→T-7</span>
           </div>
           <div class="meta-row">
-            <span class="meta-label">Focus names</span>
+            <span class="meta-label">Core cases</span>
             <span class="meta-value">RCKT, NUVL</span>
           </div>
         </div>
       </div>
       <div class="controls-row">
-        <button class="primary-button">
+        <button class="primary-button" id="scrollToCases">
           <span>▶</span>
-          Run-up case study: RCKT & NUVL
+          Jump to case studies: RCKT & NUVL
         </button>
         <div class="secondary-text">
-          Filters below adjust the watchlist only — this is <strong>not</strong> advice, it’s an
-          experiment framework.
+          Filters below adjust the watchlist only — this is <strong>not</strong> advice, it’s an experiment framework.
         </div>
       </div>
     </section>
 
-    <!-- Main layout: table + charts -->
+    <!-- Main layout: list + charts -->
     <main class="app-main">
-      <!-- Left: Table card -->
+      <!-- Left: Watchlist card -->
       <section class="card">
         <div class="card-header">
           <div>
             <div class="card-title">
               <span class="card-title-dot"></span>
-              PDUFA 2026 event table
+              PDUFA 2026 watchlist (no-scroll layout)
             </div>
             <div class="card-subtitle">
-              Sort by date, company, or run-up score; filter by orphan status and score threshold.
+              Each row is a “research card” with score, cluster, entry/exit windows, and a brief “why score?” rationale.
+              Click a row to copy a summary line to clipboard.
             </div>
           </div>
         </div>
@@ -786,6 +801,7 @@
             <span>Search</span>
             <input id="searchBox" type="text" placeholder="Company, ticker, indication..." />
           </label>
+
           <label>
             <span>Min score</span>
             <select id="scoreFilter">
@@ -795,6 +811,7 @@
               <option value="5">5 only</option>
             </select>
           </label>
+
           <label>
             <span>Orphan</span>
             <select id="orphanFilter">
@@ -803,31 +820,35 @@
               <option value="no">Non-orphan</option>
             </select>
           </label>
+
+          <label>
+            <span>Cluster</span>
+            <select id="clusterFilter">
+              <option value="any">Any</option>
+              <option value="high-upside">Higher-risk / High-upside (Score 4)</option>
+              <option value="speculative">Speculative / Watch (Score 3)</option>
+              <option value="untradeable">Untradeable / Indirect</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Sort</span>
+            <select id="sortSelect">
+              <option value="pdufa_date:asc">Date ↑</option>
+              <option value="pdufa_date:desc">Date ↓</option>
+              <option value="runup_priority_score_1to5:desc">Score ↓</option>
+              <option value="runup_priority_score_1to5:asc">Score ↑</option>
+              <option value="company:asc">Company A→Z</option>
+              <option value="company:desc">Company Z→A</option>
+            </select>
+          </label>
         </div>
 
-        <div class="table-wrapper">
-          <table id="pdufaTable">
-            <thead>
-              <tr>
-                <th data-key="pdufa_date">PDUFA Date</th>
-                <th data-key="company">Company</th>
-                <th data-key="ticker">Ticker</th>
-                <th data-key="drug">Drug</th>
-                <th data-key="indication">Indication</th>
-                <th data-key="orphan_drug">Orphan</th>
-                <th data-key="runup_priority_score_1to5">Run-up Score</th>
-                <th data-key="suggested_entry_window_days">Entry Window</th>
-                <th data-key="suggested_exit_window_days">Exit Window</th>
-                <th data-key="notes">Notes</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+        <div id="watchlist" class="table-list"></div>
       </section>
 
       <!-- Right: Charts card -->
-      <section class="card">
+      <section class="card" id="caseStudies">
         <div class="card-header">
           <div>
             <div class="card-title">
@@ -835,8 +856,7 @@
               Live charts: core case studies
             </div>
             <div class="card-subtitle">
-              Monitoring <strong>Rocket (RCKT)</strong> and <strong>Nuvalent (NUVL)</strong> through
-              their pre-PDUFA windows.
+              Monitoring <strong>Rocket (RCKT)</strong> and <strong>Nuvalent (NUVL)</strong> through their pre-PDUFA windows.
             </div>
           </div>
         </div>
@@ -852,7 +872,6 @@
               <div class="chart-note">PDUFA: 28 March 2026</div>
             </div>
 
-            <!-- Live Countdown & Phase Indicator -->
             <div class="rckt-countdown">
               <div class="countdown-main">
                 <div class="countdown-number" id="rckt-days">--</div>
@@ -864,7 +883,6 @@
               </div>
             </div>
 
-            <!-- Visual Timeline Progress Bar -->
             <div class="timeline-container">
               <div class="timeline-track">
                 <div class="timeline-segment entry-zone" style="left: 0%; width: 25%;">
@@ -892,15 +910,17 @@
 
             <div class="tradingview-widget-container">
               <div id="tradingview_rckt" class="chart-canvas"></div>
-              <div class="chart-note" style="margin-top: 4px;">
-              Buy/Sell:
-              <a
-                href="https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open Rocket (RCKT) in Avanza
-              </a>
+              <div class="chart-note" style="margin-top: 8px;">
+                Buy/Sell:
+                <a
+                  href="https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="color:#86efac;"
+                >
+                  Open Rocket (RCKT) in Avanza
+                </a>
+              </div>
             </div>
           </div>
 
@@ -975,7 +995,6 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
 `;
 
     let rows = [];
-    let currentSort = { key: "pdufa_date", direction: "asc" };
 
     function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
@@ -1004,32 +1023,90 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       });
     }
 
-    function renderTable() {
-      const tbody = document.querySelector("#pdufaTable tbody");
-      const search = document.getElementById("searchBox").value.toLowerCase();
-      const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
-      const orphanFilter = document.getElementById("orphanFilter").value;
+    function isTradeable(row) {
+      const listed = (row.liquidity_flag || "").toLowerCase();
+      const ticker = (row.ticker || "").trim();
+      if (!ticker) return false;
+      if (listed.includes("unlisted")) return false;
+      return true;
+    }
 
-      let filtered = rows.filter(r => {
-        const text = (
-          (r.company || "") + " " +
-          (r.ticker || "") + " " +
-          (r.indication || "") + " " +
-          (r.drug || "")
-        ).toLowerCase();
-        if (search && !text.includes(search)) return false;
+    function buildRationale(row) {
+      const score = parseInt(row.runup_priority_score_1to5 || "0", 10);
+      const orphan = (row.orphan_drug || "").toLowerCase() === "yes";
+      const cap = (row.market_cap_bucket || "").toLowerCase();
+      const therapy = (row.therapy_type || "").toLowerCase();
+      const notes = (row.notes || "").toLowerCase();
 
-        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
-        if (!isNaN(minScore) && score < minScore) return false;
+      const bullets = [];
 
-        if (orphanFilter === "yes" && r.orphan_drug.toLowerCase() !== "yes") return false;
-        if (orphanFilter === "no" && r.orphan_drug.toLowerCase() === "yes") return false;
+      if (orphan) bullets.push("Orphan/rare angle → tends to attract catalyst flow.");
+      if (cap.includes("small")) bullets.push("Smaller cap → higher event beta / sharper run-ups.");
+      else if (cap.includes("mid")) bullets.push("Mid-cap → catalyst-sensitive but less explosive vs micro/small.");
+      else if (cap.includes("large")) bullets.push("Large-cap dampener → PDUFA impact often diluted.");
 
-        return true;
-      });
+      if (therapy.includes("gene")) bullets.push("Gene therapy narrative → binary-catalyst attention.");
+      if (therapy.includes("cell")) bullets.push("Cell therapy → catalyst-driven but higher execution uncertainty.");
+      if (therapy.includes("diagnostic") || therapy.includes("imaging") || notes.includes("imaging"))
+        bullets.push("Diagnostics/imaging → often lower 'binary' volatility than therapeutics.");
 
-      filtered.sort((a, b) => {
-        const { key, direction } = currentSort;
+      if (notes.includes("label expansion") || notes.includes("label refinement"))
+        bullets.push("Label expansion/refinement → less all-or-nothing feel than first approval.");
+      if (notes.includes("partner") || notes.includes("licensed") || notes.includes("listed/partnered"))
+        bullets.push("Partner/structure complexity → can dampen a clean run-up trade.");
+
+      if (score === 4) bullets.push("Score 4 = tradable catalyst with strong run-up potential (still higher risk).");
+      if (score === 3) bullets.push("Score 3 = speculative/watch: investable but run-up is less reliable/dampened.");
+
+      return bullets.slice(0, 4).join(" ");
+    }
+
+    function assignCluster(row) {
+      const score = parseInt(row.runup_priority_score_1to5 || "0", 10);
+      const tradeable = isTradeable(row);
+      if (!tradeable) {
+        return { key: "untradeable", label: "Untradeable / Indirect", tagClass: "tag-untradeable" };
+      }
+      if (score === 4) {
+        return { key: "high-upside", label: "Higher-risk / High-upside (4)", tagClass: "tag-cluster-4" };
+      }
+      if (score === 3) {
+        return { key: "speculative", label: "Speculative / Watch (3)", tagClass: "tag-cluster-3" };
+      }
+      return { key: "other", label: "Core / Other", tagClass: "" };
+    }
+
+    function avanzaLink(ticker) {
+      const t = (ticker || "").trim().toUpperCase();
+      if (!t) return "";
+      // Best-effort: for non-US tickers or if Avanza mapping differs, user can still use TradingView link.
+      if (t === "RCKT") return "https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals";
+      // fallback: no guaranteed mapping
+      return "";
+    }
+
+    function tradingViewLink(ticker) {
+      const t = (ticker || "").trim().toUpperCase();
+      if (!t) return "";
+      // Best-effort: if it's US listed, TradingView often resolves "NASDAQ:XYZ" or "NYSE:XYZ".
+      // We'll use a generic symbol search page to be safe.
+      return `https://www.tradingview.com/symbols/${encodeURIComponent(t)}/`;
+    }
+
+    function copyRowSummary(row) {
+      const score = row.runup_priority_score_1to5 || "";
+      const cluster = row.risk_cluster || "";
+      const text =
+        `${row.pdufa_date} • ${row.company} (${row.ticker || "N/A"}) • ${row.drug} • ${row.indication} • ` +
+        `Score ${score} • ${cluster} • Entry ${row.suggested_entry_window_days || "-"} • Exit ${row.suggested_exit_window_days || "-"} • ` +
+        `Why: ${row.score_rationale || ""}`;
+      navigator.clipboard?.writeText(text).catch(() => {});
+    }
+
+    function sortRows(arr, sortValue) {
+      const [key, direction] = sortValue.split(":");
+      const dir = direction === "desc" ? -1 : 1;
+      return arr.sort((a, b) => {
         let va = a[key] || "";
         let vb = b[key] || "";
 
@@ -1041,61 +1118,135 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
           va = new Date(va);
           vb = new Date(vb);
         }
+        if (typeof va === "string") va = va.toLowerCase();
+        if (typeof vb === "string") vb = vb.toLowerCase();
 
-        if (va < vb) return direction === "asc" ? -1 : 1;
-        if (va > vb) return direction === "asc" ? 1 : -1;
+        if (va < vb) return -1 * dir;
+        if (va > vb) return 1 * dir;
         return 0;
       });
+    }
 
-      tbody.innerHTML = "";
+    function renderWatchlist() {
+      const container = document.getElementById("watchlist");
+      const search = document.getElementById("searchBox").value.toLowerCase();
+      const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
+      const orphanFilter = document.getElementById("orphanFilter").value;
+      const clusterFilter = document.getElementById("clusterFilter").value;
+      const sortValue = document.getElementById("sortSelect").value;
+
+      let filtered = rows.filter(r => {
+        const text = (
+          (r.company || "") + " " +
+          (r.ticker || "") + " " +
+          (r.indication || "") + " " +
+          (r.drug || "") + " " +
+          (r.notes || "")
+        ).toLowerCase();
+
+        if (search && !text.includes(search)) return false;
+
+        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
+        if (!isNaN(minScore) && score < minScore) return false;
+
+        if (orphanFilter === "yes" && (r.orphan_drug || "").toLowerCase() !== "yes") return false;
+        if (orphanFilter === "no" && (r.orphan_drug || "").toLowerCase() === "yes") return false;
+
+        if (clusterFilter !== "any" && (r.risk_cluster_key || "") !== clusterFilter) return false;
+
+        return true;
+      });
+
+      filtered = sortRows(filtered, sortValue);
+
+      container.innerHTML = "";
+
+      if (!filtered.length) {
+        container.innerHTML = `<div class="empty-state">No results. Try widening filters or clearing the search.</div>`;
+        return;
+      }
+
       for (const r of filtered) {
-        const tr = document.createElement("tr");
-        const orphanTag = r.orphan_drug.toLowerCase() === "yes"
-          ? '<span class="tag tag-orphan">Orphan</span>' : "";
         const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
         let scoreTagClass = "tag-low";
         if (score >= 5) scoreTagClass = "tag-high";
         else if (score >= 4) scoreTagClass = "tag-medium";
 
-        tr.innerHTML = `
-          <td>${r.pdufa_date}</td>
-          <td>${r.company}</td>
-          <td>${r.ticker}</td>
-          <td>${r.drug}</td>
-          <td>${r.indication}</td>
-          <td>${orphanTag}</td>
-          <td><span class="tag ${scoreTagClass}">${score || ""}</span></td>
-          <td>${r.suggested_entry_window_days}</td>
-          <td>${r.suggested_exit_window_days}</td>
-          <td>${r.notes}</td>
+        const orphanTag = (r.orphan_drug || "").toLowerCase() === "yes"
+          ? `<span class="tag tag-orphan">Orphan</span>` : "";
+
+        const clusterTag = r.risk_cluster_tag
+          ? `<span class="tag ${r.risk_cluster_tag}">${r.risk_cluster}</span>`
+          : `<span class="tag" style="border:1px solid rgba(148,163,184,0.35); background:rgba(15,23,42,0.6); color:#e5e7eb;">${r.risk_cluster}</span>`;
+
+        const tv = tradingViewLink(r.ticker);
+        const av = avanzaLink(r.ticker);
+
+        const card = document.createElement("div");
+        card.className = "row-card";
+        card.title = "Click to copy a one-line summary to clipboard";
+
+        card.addEventListener("click", () => copyRowSummary(r));
+
+        card.innerHTML = `
+          <div class="row-top">
+            <div class="row-left">
+              <div class="row-title">
+                <span>${r.company}</span>
+                <span class="ticker">${r.ticker || "N/A"}</span>
+                <span class="tags">
+                  ${orphanTag}
+                  <span class="tag ${scoreTagClass}">Score ${score || ""}</span>
+                  ${clusterTag}
+                </span>
+              </div>
+              <div class="row-sub">
+                <strong>${r.drug}</strong>
+                ${r.brand_name ? ` • <span style="color:#cbd5e1;">${r.brand_name}</span>` : ""}
+                • <span style="color:#e5e7eb;">${r.indication}</span>
+              </div>
+            </div>
+
+            <div class="row-right">
+              <div class="kv">
+                <div class="k">PDUFA Date</div>
+                <div class="v">${r.pdufa_date}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Entry</div>
+                <div class="v">${r.suggested_entry_window_days || "-"}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Exit</div>
+                <div class="v">${r.suggested_exit_window_days || "-"}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row-bottom">
+            <div class="rationale">
+              <span style="color:var(--text-muted); font-weight:700;">Why this score:</span>
+              ${r.score_rationale || ""}
+              ${r.notes ? `<div style="margin-top:6px; color:var(--text-soft);"><span style="color:var(--text-muted); font-weight:700;">Notes:</span> ${r.notes}</div>` : ""}
+            </div>
+
+            <div class="links">
+              ${tv ? `<a class="link-btn" href="${tv}" target="_blank" rel="noopener noreferrer">TradingView</a>` : ""}
+              ${av ? `<a class="link-btn" href="${av}" target="_blank" rel="noopener noreferrer">Avanza</a>` : ""}
+            </div>
+          </div>
         `;
-        tbody.appendChild(tr);
+
+        container.appendChild(card);
       }
     }
 
-    function setupSorting() {
-      const headers = document.querySelectorAll("#pdufaTable thead th");
-      headers.forEach(th => {
-        th.addEventListener("click", () => {
-          const key = th.dataset.key;
-          if (!key) return;
-          if (currentSort.key === key) {
-            currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
-          } else {
-            currentSort.key = key;
-            currentSort.direction = "asc";
-          }
-          headers.forEach(h => h.classList.remove("sort-asc", "sort-desc"));
-          th.classList.add(currentSort.direction === "asc" ? "sort-asc" : "sort-desc");
-          renderTable();
-        });
-      });
-    }
-
     function setupFilters() {
-      document.getElementById("searchBox").addEventListener("input", renderTable);
-      document.getElementById("scoreFilter").addEventListener("change", renderTable);
-      document.getElementById("orphanFilter").addEventListener("change", renderTable);
+      document.getElementById("searchBox").addEventListener("input", renderWatchlist);
+      document.getElementById("scoreFilter").addEventListener("change", renderWatchlist);
+      document.getElementById("orphanFilter").addEventListener("change", renderWatchlist);
+      document.getElementById("clusterFilter").addEventListener("change", renderWatchlist);
+      document.getElementById("sortSelect").addEventListener("change", renderWatchlist);
     }
 
     function initTradingViewWidgets() {
@@ -1132,25 +1283,19 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
     }
 
     function updateRCKTDynamics() {
-      // RCKT dates
       const entryStart = new Date('2025-12-03');
       const entryEnd = new Date('2026-01-02');
       const exitStart = new Date('2026-02-24');
-      const exitEnd = new Date('2026-03-21');
       const pdufaDate = new Date('2026-03-28');
 
       const now = new Date();
       const daysToEvent = Math.ceil((pdufaDate - now) / (1000 * 60 * 60 * 24));
 
-      // Update countdown
       const countdownEl = document.getElementById('rckt-days');
-      if (countdownEl) {
-        countdownEl.textContent = daysToEvent;
-      }
+      if (countdownEl) countdownEl.textContent = isFinite(daysToEvent) ? daysToEvent : "--";
 
-      // Determine current phase
       let phase = 'pre-entry';
-      let phaseText = 'Pre-Entry Phase';
+      let phaseText = '🟡 Pre-Entry';
 
       if (now >= pdufaDate) {
         phase = 'post';
@@ -1164,45 +1309,47 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       } else if (now >= entryStart) {
         phase = 'entry';
         phaseText = '🟢 ENTRY WINDOW ACTIVE';
-      } else {
-        phase = 'pre-entry';
-        phaseText = '🟡 Pre-Entry';
       }
 
       const phaseEl = document.getElementById('rckt-phase');
       if (phaseEl) {
         phaseEl.className = `phase-indicator phase-${phase}`;
         const phaseTextEl = phaseEl.querySelector('.phase-text');
-        if (phaseTextEl) {
-          phaseTextEl.textContent = phaseText;
-        }
+        if (phaseTextEl) phaseTextEl.textContent = phaseText;
       }
 
-      // Calculate timeline position (0-100%)
       const timelineStart = entryStart;
       const timelineEnd = pdufaDate;
       const totalDuration = timelineEnd - timelineStart;
       const elapsed = now - timelineStart;
       let position = (elapsed / totalDuration) * 100;
-
-      // Clamp position between 0 and 100
       position = Math.max(0, Math.min(100, position));
 
       const positionEl = document.getElementById('rckt-position');
-      if (positionEl) {
-        positionEl.style.left = `${position}%`;
-      }
+      if (positionEl) positionEl.style.left = `${position}%`;
     }
 
     function init() {
-      rows = parseCSV(inlineCSV);
-      setupSorting();
-      setupFilters();
-      renderTable();
-      updateRCKTDynamics();
-      setTimeout(initTradingViewWidgets, 600);
+      rows = parseCSV(inlineCSV).map(r => {
+        const cluster = assignCluster(r);
+        return {
+          ...r,
+          risk_cluster: cluster.label,
+          risk_cluster_key: cluster.key,
+          risk_cluster_tag: cluster.tagClass,
+          score_rationale: buildRationale(r)
+        };
+      });
 
-      // Update RCKT dynamics every hour
+      setupFilters();
+      renderWatchlist();
+      updateRCKTDynamics();
+
+      document.getElementById("scrollToCases").addEventListener("click", () => {
+        document.getElementById("caseStudies")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      setTimeout(initTradingViewWidgets, 600);
       setInterval(updateRCKTDynamics, 1000 * 60 * 60);
     }
 
@@ -1210,9 +1357,6 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
   </script>
 </body>
 </html>
-
-
-
 
 
 
