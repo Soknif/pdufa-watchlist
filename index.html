@@ -728,9 +728,7 @@
           </div>
           <div class="intro-subtitle">
             Focus: pre-event run-up observation for small/mid-cap and orphan-focused names. Scores reflect expected
-            pre-PDUFA “event beta”. We cluster score <strong>3–4</strong> names as higher-risk but investable,
-            and we show an explicit <strong>RCKT Exit Signal</strong> (default: <strong>T-10 calendar days</strong>,
-            adjusted to the prior weekday).
+            pre-PDUFA “event beta”. We cluster score <strong>3–4</strong> names as higher-risk but investable
           </div>
         </div>
       </div>
@@ -1141,16 +1139,10 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       const reason = document.getElementById("rckt-exit-reason");
       if (reason) {
         reason.innerHTML = `
-          <strong>Why exit on ${exitISO} (T-10)?</strong>
-          PDUFA is treated as a binary volatility cliff. The final ~1–2 weeks often compress positioning, rumor flow,
-          hedging and liquidity shocks. A default <strong>T-10</strong> exit is a policy rule aimed at:
-          <ul style="margin:8px 0 0 18px; padding:0; color:#cbd5e1;">
-            <li><strong>Capturing most of the run-up</strong> while avoiding the highest headline sensitivity (T-7→event).</li>
-            <li><strong>Reducing gap risk</strong> from leaks/PRs/adcom chatter that can hit outside market hours.</li>
-            <li><strong>Keeping execution practical</strong>: you still have ~${Math.max(0, daysToPdufa)} days to PDUFA, but only ~${Math.max(0, daysToExit)} days until the default exit.</li>
-          </ul>
+          <strong>Dynamic Information for ${exitISO} RCKT</strong>
+          
           <div style="margin-top:8px; color: var(--text-soft);">
-            Note: exit date is weekend-adjusted (exit on the prior weekday if T-10 lands on Sat/Sun).
+            Note: Information will appear in this section
           </div>
         `;
       }
@@ -1353,5 +1345,6 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
   </script>
 </body>
 </html>
+
 
 
