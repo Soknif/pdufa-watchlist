@@ -820,7 +820,7 @@
               Case studies: Exit Signal view
             </div>
             <div class="card-subtitle">
-              We remove the buy/hold UI and show only: days-to-PDUFA, default exit date, countdown-to-exit, and a clear signal state.
+            Exit signal calculated
             </div>
           </div>
         </div>
@@ -844,7 +844,7 @@
                 <div class="exit-title"><span class="exit-dot"></span> EXIT SIGNAL</div>
                 <div class="exit-row">
                   <div class="exit-date" id="rckt-exitdate-big">--</div>
-                  <div class="exit-meta" id="rckt-exitmeta">T-10 calendar days (weekend-adjusted)</div>
+                  <div class="exit-meta" id="rckt-exitmeta">Exit suggestion</div>
                 </div>
               </div>
 
@@ -863,10 +863,8 @@
 
             <!-- Reasoning (more than just calculation) -->
             <div class="exit-reason" id="rckt-exit-reason">
-              <strong>Why exit before PDUFA?</strong> We treat PDUFA as a binary volatility cliff. Historically, the most “tradable”
-              part is the pre-event attention window; the last ~1–2 weeks tends to concentrate rumor flow, positioning, and hedging.
-              <strong>T-10</strong> is used as a default to reduce exposure to the final “headline risk” while still capturing most of the run-up.
-              This is a policy rule (not outcome prediction).
+              <strong>Why exit before PDUFA?</strong> Based on causal analysis and multimodal forecasting methods.
+              <strong>Game Theory</strong> is used as a default to reduce exposure to the final “headline risk” while still capturing most of the run-up.
             </div>
 
             <!-- Visual: Run-up band vs risk band + markers -->
@@ -913,7 +911,7 @@
     </main>
 
     <footer class="footer">
-      Built as an internal sandbox for observing pre-PDUFA price behaviour — not investment advice.
+      Copyright G.V / S.N
     </footer>
   </div>
 
@@ -1355,4 +1353,5 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
   </script>
 </body>
 </html>
+
 
