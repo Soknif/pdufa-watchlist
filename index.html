@@ -5,1021 +5,986 @@
   <title>PDUFA 2026 Run-Up Watchlist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root {
-      --bg: #050816;
-      --bg-card: #0f172a;
-      --bg-card-soft: #111827;
-      --border-subtle: #1f2937;
-      --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.15);
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --text-muted: #6b7280;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
-      --radius-xl: 18px;
+    :root{
+      /* “AI/ChatGPT + Avanza-ish” palette */
+      --bg0:#05070c;
+      --bg1:#0b1220;
+      --card:#0f172a;
+      --card2:#0b1326;
+      --stroke:rgba(148,163,184,.18);
+      --stroke2:rgba(148,163,184,.28);
+      --text:#e5e7eb;
+      --muted:#a6b0c2;
+      --soft:#7c879a;
+
+      /* Avanza-like green accent */
+      --acc:#19c37d;          /* chatgpt-ish green */
+      --acc2:#00c46a;         /* avanza-ish */
+      --accGlow:rgba(25,195,125,.18);
+
+      --warn:#fb923c;
+      --risk:#fb7185;
+
+      --radius:18px;
+      --shadow: 0 22px 55px rgba(2,6,23,.55);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      color: var(--text-main);
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
       background:
-        radial-gradient(circle at top, rgba(34, 197, 94, 0.17), transparent 55%),
-        radial-gradient(circle at bottom, rgba(56, 189, 248, 0.1), transparent 55%),
-        var(--bg);
-      display: flex;
-      justify-content: center;
-      padding: 24px 12px;
+        radial-gradient(1200px 700px at 12% -10%, rgba(25,195,125,.20), transparent 60%),
+        radial-gradient(900px 600px at 90% 0%, rgba(0,196,106,.14), transparent 55%),
+        radial-gradient(900px 600px at 40% 110%, rgba(56,189,248,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      padding: 16px 12px 24px;
     }
 
-    .app-shell {
-      width: 100%;
-      max-width: 1240px;
-      background: linear-gradient(135deg, #020617 0%, #020617 40%, #020617 100%);
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      backdrop-filter: blur(18px);
+    .shell{
+      width:100%;
+      max-width:1240px;
+      border:1px solid var(--stroke);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(2,6,23,.72), rgba(2,6,23,.62));
+      backdrop-filter: blur(16px);
     }
 
-    /* Header */
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 6px 10px 4px;
-    }
-
-    .brand { display: flex; align-items: center; gap: 10px; }
-
-    .brand-logo {
-      width: 32px; height: 32px; border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e);
-      display: flex; align-items: center; justify-content: center;
-      color: #022c22; font-weight: 800; font-size: 16px;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
-    }
-
-    .brand-text { display: flex; flex-direction: column; gap: 2px; }
-
-    .brand-title {
-      font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
-      display: flex; align-items: center; gap: 6px;
-    }
-
-    .brand-tagline { font-size: 11px; color: var(--text-soft); }
-
-    .pill {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      background-color: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      padding: 2px 8px;
-      border-radius: 999px;
-      color: var(--text-soft);
-      white-space: nowrap;
-    }
-
-    .top-right {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 11px; color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 8px; height: 8px; border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
-    }
-
-    .status-label { font-size: 11px; color: var(--text-soft); }
-
-    /* Intro */
-    .intro-panel {
+    /* Top header */
+    .top{
+      padding:14px 14px 10px;
+      border-bottom:1px solid rgba(148,163,184,.10);
       background:
-        radial-gradient(circle at top left, rgba(34,197,94,0.12), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(56,189,248,0.14), transparent 50%),
-        var(--bg-card);
-      border-radius: var(--radius-xl);
-      padding: 14px 16px 14px;
-      border: 1px solid var(--border-subtle);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+        radial-gradient(900px 420px at 20% 0%, rgba(25,195,125,.18), transparent 55%),
+        linear-gradient(180deg, rgba(2,6,23,.76), rgba(2,6,23,.55));
     }
 
-    .intro-main {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+    .topRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
-    .intro-copy { max-width: 760px; }
-
-    .intro-title {
-      font-size: 18px;
-      font-weight: 650;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:260px;
     }
 
-    .intro-highlight {
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(34, 197, 94, 0.12);
-      color: #bbf7d0;
-      border: 1px solid rgba(34, 197, 94, 0.6);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      white-space: nowrap;
+    .logo{
+      width:36px;height:36px;border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 30%, #bbf7d0, #19c37d 55%, #00c46a);
+      box-shadow: 0 0 0 4px rgba(25,195,125,.14);
+      display:flex;align-items:center;justify-content:center;
+      color:#052e1d;
+      font-weight:950;
+      letter-spacing:.08em;
+      font-size:14px;
+      flex:0 0 auto;
     }
 
-    .intro-subtitle {
-      margin-top: 4px;
-      font-size: 12px;
-      color: var(--text-soft);
-      line-height: 1.5;
+    .brandText{display:flex;flex-direction:column;gap:2px}
+    .title{
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.02em;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .subtitle{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.35;
     }
 
-    .controls-row {
-      margin-top: 6px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: space-between;
+    .badge{
+      font-size:10px;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid rgba(25,195,125,.45);
+      background:rgba(25,195,125,.10);
+      color:#bbf7d0;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      white-space:nowrap;
     }
 
-    .primary-button {
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(34, 197, 94, 0.7);
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: #022c22;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 8px 22px rgba(34, 197, 94, 0.32);
-      user-select: none;
+    .rightInfo{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      color:var(--soft);
+      font-size:11px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #bbf7d0, #19c37d);
+      box-shadow: 0 0 0 4px rgba(25,195,125,.12);
     }
 
-    .primary-button span { font-size: 14px; }
-    .secondary-text { font-size: 11px; color: var(--text-soft); }
-
-    /* Layout */
-    .app-main {
-      display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1.1fr);
-      gap: 14px;
-      align-items: start;
+    /* “AI prompt bar” */
+    .promptBar{
+      margin-top:10px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
     }
 
-    @media (max-width: 1020px) {
-      .app-main { grid-template-columns: minmax(0, 1fr); }
-      .top-right { display: none; }
+    .prompt{
+      flex:1 1 520px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.22);
+      background:
+        linear-gradient(180deg, rgba(15,23,42,.82), rgba(2,6,23,.45));
+      box-shadow: 0 10px 28px rgba(2,6,23,.35);
     }
 
-    .card {
-      background: var(--bg-card-soft);
-      border-radius: var(--radius-xl);
-      padding: 10px 12px 10px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.45);
+    .spark{
+      width:22px;height:22px;border-radius:9px;
+      background: rgba(25,195,125,.14);
+      border:1px solid rgba(25,195,125,.45);
+      display:flex;align-items:center;justify-content:center;
+      color:#bbf7d0;
+      flex:0 0 auto;
+      font-weight:900;
+      font-size:13px;
     }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 8px;
+    .prompt input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      color:var(--text);
+      font-size:12px;
+    }
+    .prompt input::placeholder{color:rgba(166,176,194,.72)}
+
+    .chipRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      flex: 0 1 auto;
     }
 
-    .card-title {
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(2,6,23,.35);
+      color:var(--muted);
+      font-size:11px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease, border-color .08s ease;
+      white-space:nowrap;
+    }
+    .chip:hover{transform:translateY(-1px); border-color: rgba(25,195,125,.35)}
+    .chip.active{
+      border-color: rgba(25,195,125,.55);
+      background: rgba(25,195,125,.12);
+      color:#bbf7d0;
     }
 
-    .card-title-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      border: 1px solid var(--accent);
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.28);
-      flex: 0 0 auto;
+    /* ===== AI BOT FEELING BAR ===== */
+    .botFeeling{
+      margin-top:10px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.20);
+      background:
+        radial-gradient(900px 240px at 15% 10%, rgba(25,195,125,.14), transparent 60%),
+        linear-gradient(180deg, rgba(15,23,42,.76), rgba(2,6,23,.45));
+      box-shadow: 0 10px 28px rgba(2,6,23,.35);
+      overflow:hidden;
+    }
+    .botFeelingHead{
+      padding:10px 12px 8px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      border-bottom:1px solid rgba(148,163,184,.10);
+      flex-wrap:wrap;
+    }
+    .botFeelingTitle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      font-weight:950;
+      letter-spacing:.02em;
+      font-size:12px;
+    }
+    .botFeelingTag{
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:.14em;
+      padding:3px 9px;
+      border-radius:999px;
+      border:1px solid rgba(25,195,125,.55);
+      background: rgba(25,195,125,.10);
+      color:#bbf7d0;
+      text-transform:uppercase;
+    }
+    .botFeelingMeta{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      font-size:10px;
+      color:var(--muted);
+    }
+    .botBtn{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(2,6,23,.35);
+      color: var(--text);
+      font-size:11px;
+      font-weight:850;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease, border-color .08s ease;
+      white-space:nowrap;
+    }
+    .botBtn:hover{transform:translateY(-1px); border-color: rgba(25,195,125,.35)}
+
+    .botGrid{
+      padding:10px 12px 12px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+    @media (max-width: 920px){
+      .botGrid{grid-template-columns: minmax(0,1fr)}
     }
 
-    .card-subtitle {
-      font-size: 11px;
-      color: var(--text-soft);
-      line-height: 1.4;
-      margin-top: 2px;
+    .botCard{
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.14);
+      background:
+        radial-gradient(700px 180px at 20% 0%, rgba(25,195,125,.12), transparent 60%),
+        linear-gradient(180deg, rgba(2,6,23,.68), rgba(2,6,23,.46));
+      padding:10px 10px;
+      min-height:120px;
+    }
+    .botCardTop{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:baseline;
+      flex-wrap:wrap;
+      margin-bottom:6px;
+    }
+    .botTicker{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      font-weight:950;
+      font-size:12px;
+    }
+    .botTicker .t{
+      font-family:var(--mono);
+      letter-spacing:.12em;
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(15,23,42,.55);
+      color:#dbe4f2;
+    }
+    .botStatus{
+      font-size:10px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .botLines{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .botLine{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      color:#d9e1ef;
+      font-size:11px;
+      line-height:1.35;
+      opacity:.96;
+    }
+    .botDot{
+      width:7px;height:7px;border-radius:999px;
+      margin-top:6px;
+      background: radial-gradient(circle at 30% 30%, #bbf7d0, #19c37d);
+      box-shadow: 0 0 0 4px rgba(25,195,125,.10);
+      flex:0 0 auto;
+    }
+    .botLine a{
+      color:#d9e1ef;
+      text-decoration:none;
+      border-bottom:1px solid rgba(148,163,184,.18);
+    }
+    .botLine a:hover{
+      border-bottom-color: rgba(25,195,125,.45);
+      color:#ecfdf5;
     }
 
-    /* Filters */
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-      align-items: center;
-      font-size: 11px;
+    /* ===== Notifications layer ===== */
+    .notifyLayer{
+      padding:10px 12px 12px;
+      border-top:1px solid rgba(148,163,184,.10);
+      background: rgba(2,6,23,.25);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .notifyHead{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .notifyTitle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      font-weight:950;
+      letter-spacing:.02em;
+      font-size:12px;
+    }
+    .notifyTitle .tag{
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:.14em;
+      padding:3px 9px;
+      border-radius:999px;
+      border:1px solid rgba(25,195,125,.55);
+      background: rgba(25,195,125,.10);
+      color:#bbf7d0;
+      text-transform:uppercase;
+    }
+    .notifyControls{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .notifySelect{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(2,6,23,.35);
+      color: var(--text);
+      font-size:11px;
+      outline:none;
+    }
+    .notifyList{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .noteCard{
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.14);
+      background:
+        radial-gradient(700px 180px at 20% 0%, rgba(25,195,125,.10), transparent 60%),
+        linear-gradient(180deg, rgba(2,6,23,.68), rgba(2,6,23,.46));
+      padding:9px 10px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .noteLeft{
+      flex:1 1 520px;
+      min-width:260px;
+    }
+    .noteTop{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      font-weight:950;
+      font-size:11px;
+    }
+    .noteTicker{
+      font-family:var(--mono);
+      letter-spacing:.12em;
+      font-size:10px;
+      padding:2px 7px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(15,23,42,.55);
+      color:#dbe4f2;
+    }
+    .noteWhen{
+      font-size:10px;
+      color:var(--muted);
+      font-weight:800;
+    }
+    .noteText{
+      margin-top:4px;
+      font-size:11px;
+      color:#d9e1ef;
+      line-height:1.35;
+      opacity:.96;
+    }
+    .noteRight{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      flex:0 1 auto;
+    }
+    .notePill{
+      font-size:10px;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(25,195,125,.35);
+      background: rgba(25,195,125,.10);
+      color:#bbf7d0;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .notePill.exit{
+      border-color: rgba(251,191,36,.40);
+      background: rgba(251,191,36,.10);
+      color:#fde68a;
+    }
+    .notePill.pdufa{
+      border-color: rgba(148,163,184,.22);
+      background: rgba(2,6,23,.35);
+      color: var(--muted);
     }
 
-    .controls label { display: flex; align-items: center; gap: 6px; }
-
-    input[type="text"], select, textarea {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid #4b5563;
-      background: #020617;
-      color: var(--text-main);
-      font-size: 11px;
-      min-width: 155px;
-      outline: none;
+    /* Main layout */
+    .main{
+      display:grid;
+      grid-template-columns: minmax(0,1.55fr) minmax(0,1.1fr);
+      gap:14px;
+      padding: 12px;
+      align-items:start;
     }
 
-    input[type="text"]::placeholder { color: #6b7280; }
-
-    /* Watchlist cards */
-    .table-list { display: flex; flex-direction: column; gap: 10px; }
-
-    .row-card {
-      background: linear-gradient(180deg, rgba(2,6,23,0.9), rgba(2,6,23,0.75));
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      border-radius: 14px;
-      padding: 10px 10px;
-      transition: transform 0.08s ease, border-color 0.08s ease;
-      cursor: pointer;
+    @media (max-width: 1020px){
+      .main{grid-template-columns:minmax(0,1fr)}
+      .rightInfo{display:none}
     }
 
-    .row-card:hover {
-      transform: translateY(-1px);
-      border-color: rgba(56,189,248,0.35);
+    /* Cards */
+    .card{
+      background: linear-gradient(180deg, rgba(15,23,42,.75), rgba(2,6,23,.55));
+      border:1px solid rgba(148,163,184,.14);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 34px rgba(2,6,23,.34);
+      overflow:hidden;
     }
 
-    .row-top {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: space-between;
-      align-items: baseline;
+    .cardHead{
+      padding:12px 12px 10px;
+      border-bottom: 1px solid rgba(148,163,184,.10);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    .row-left {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 240px;
-      flex: 1 1 420px;
+    .cardTitle{
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.03em;
+      display:flex;
+      align-items:center;
+      gap:8px;
     }
 
-    .row-title {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      font-weight: 650;
-      font-size: 12px;
-      letter-spacing: 0.01em;
+    .pill{
+      font-size:9px;
+      padding:2px 7px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.25);
+      background: rgba(2,6,23,.35);
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      white-space:nowrap;
     }
 
-    .row-title .ticker {
-      color: #cbd5e1;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.75);
+    .cardSub{
+      margin-top:3px;
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.35;
     }
 
-    .row-sub {
-      color: var(--text-soft);
-      font-size: 11px;
-      line-height: 1.35;
+    /* Filters row */
+    .filters{
+      padding: 10px 12px 12px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      border-bottom:1px solid rgba(148,163,184,.10);
+      background: rgba(2,6,23,.25);
     }
 
-    .row-right {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: flex-end;
-      flex: 1 1 220px;
+    select{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.25);
+      background: rgba(2,6,23,.45);
+      color:var(--text);
+      font-size:11px;
+      outline:none;
+      min-width:140px;
     }
 
-    .kv {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 6px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(55,65,81,0.8);
-      background: rgba(2, 6, 23, 0.6);
-      min-width: 150px;
+    /* Watchlist rows */
+    .list{
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
-    .kv .k { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; }
-    .kv .v { font-size: 11px; color: #e5e7eb; font-weight: 700; }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 800;
-      line-height: 1;
-      white-space: nowrap;
+    .row{
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.14);
+      background:
+        radial-gradient(700px 220px at 20% 10%, rgba(25,195,125,.10), transparent 60%),
+        linear-gradient(180deg, rgba(2,6,23,.70), rgba(2,6,23,.45));
+      padding:10px 10px;
+      cursor:pointer;
+      transition: transform .08s ease, border-color .08s ease;
+    }
+    .row:hover{
+      transform:translateY(-1px);
+      border-color: rgba(25,195,125,.25);
     }
 
-    .tag-orphan {
-      background: rgba(56, 189, 248, 0.12);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.5);
+    .rowTop{
+      display:flex;
+      gap:10px;
+      justify-content:space-between;
+      align-items:flex-start;
+      flex-wrap:wrap;
     }
 
-    .tag-high {
-      background: rgba(34, 197, 94, 0.15);
-      color: #bbf7d0;
-      border: 1px solid rgba(34, 197, 94, 0.8);
+    .left{
+      min-width:260px;
+      flex: 1 1 480px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
     }
 
-    .tag-medium {
-      background: rgba(250, 204, 21, 0.14);
-      color: #fde68a;
-      border: 1px solid rgba(250, 204, 21, 0.8);
+    .nameLine{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      font-size:12px;
+      font-weight:850;
     }
 
-    .tag-low {
-      background: rgba(248, 113, 113, 0.16);
-      color: #fecaca;
-      border: 1px solid rgba(248, 113, 113, 0.9);
+    .ticker{
+      font-family:var(--mono);
+      font-weight:900;
+      font-size:11px;
+      letter-spacing:.10em;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(15,23,42,.55);
+      color:#dbe4f2;
     }
 
-    .tag-cluster-4 {
-      background: rgba(250, 204, 21, 0.14);
-      color: #fde68a;
-      border: 1px solid rgba(250, 204, 21, 0.8);
+    .tags{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      align-items:center;
     }
 
-    .tag-cluster-3 {
-      background: rgba(56, 189, 248, 0.12);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.5);
+    .tag{
+      font-size:10px;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.18);
+      background: rgba(2,6,23,.35);
+      color:var(--muted);
+      white-space:nowrap;
+      font-weight:800;
+    }
+    .tag.score5{border-color: rgba(25,195,125,.55); background: rgba(25,195,125,.10); color:#bbf7d0}
+    .tag.score4{border-color: rgba(251,191,36,.55); background: rgba(251,191,36,.10); color:#fde68a}
+    .tag.score3{border-color: rgba(56,189,248,.45); background: rgba(56,189,248,.10); color:#bae6fd}
+    .tag.orphan{border-color: rgba(56,189,248,.45); background: rgba(56,189,248,.10); color:#bae6fd}
+    .tag.untrade{border-color: rgba(248,113,113,.55); background: rgba(248,113,113,.10); color:#fecaca}
+
+    .desc{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.4;
     }
 
-    .tag-untradeable {
-      background: rgba(248, 113, 113, 0.16);
-      color: #fecaca;
-      border: 1px solid rgba(248, 113, 113, 0.9);
+    .right{
+      flex: 0 1 auto;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:stretch;
     }
 
-    .row-bottom {
-      margin-top: 8px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: space-between;
+    .kv{
+      min-width: 160px;
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.16);
+      background: rgba(2,6,23,.35);
+      padding:8px 10px;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+    .kv .k{
+      font-size:9px;
+      color:var(--soft);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+    .kv .v{
+      font-size:11px;
+      font-weight:900;
+      color:#e5e7eb;
+      font-variant-numeric: tabular-nums;
+      line-height:1.2;
+    }
+    .kv .sub{
+      margin-top:2px;
+      font-size:10px;
+      color:var(--muted);
+      font-variant-numeric: tabular-nums;
+      line-height:1.25;
     }
 
-    .rationale {
+    .rowBottom{
+      margin-top:8px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:flex-end;
+    }
+
+    .why{
       flex: 1 1 520px;
-      font-size: 11px;
-      color: #cbd5e1;
-      line-height: 1.35;
-      opacity: 0.95;
+      font-size:11px;
+      color:#cfd7e6;
+      line-height:1.45;
+      opacity:.95;
+    }
+    .why b{color:#eef2ff}
+
+    .links{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(15,23,42,.45);
+      color: var(--text);
+      text-decoration:none;
+      font-size:11px;
+      font-weight:850;
+      transition: transform .08s ease, border-color .08s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px); border-color: rgba(25,195,125,.35)}
+    .btn.primary{
+      border-color: rgba(25,195,125,.55);
+      background: rgba(25,195,125,.12);
+      color:#bbf7d0;
     }
 
-    .links {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .empty{
+      padding:12px;
+      color:var(--muted);
+      font-size:11px;
+      border-radius:14px;
+      border:1px dashed rgba(148,163,184,.22);
+      background: rgba(2,6,23,.25);
     }
 
-    .link-btn {
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.6);
-      color: #e5e7eb;
-      text-decoration: none;
-      transition: transform 0.08s ease, border-color 0.08s ease;
-      user-select: none;
+    /* Case study charts */
+    .chartWrap{padding:12px; display:flex; flex-direction:column; gap:10px}
+    .chartCard{
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.14);
+      background:
+        radial-gradient(800px 260px at 20% 0%, rgba(25,195,125,.12), transparent 60%),
+        linear-gradient(180deg, rgba(2,6,23,.68), rgba(2,6,23,.48));
+      padding:10px 10px;
     }
-
-    .link-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(34,197,94,0.45);
+    .chartHead{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:baseline;
+      margin-bottom:8px;
     }
-
-    .empty-state {
-      padding: 14px 12px;
-      border-radius: 14px;
-      border: 1px dashed rgba(148,163,184,0.35);
-      color: var(--text-soft);
-      font-size: 11px;
-      background: rgba(2,6,23,0.4);
+    .chartHead h3{
+      margin:0;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.02em;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
     }
+    .chartNote{font-size:10px;color:var(--muted)}
+    .canvas{width:100%; height: 260px;}
 
-    .hint-box {
-      margin-top: 8px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,0.22);
-      background: rgba(2,6,23,0.45);
-      font-size: 11px;
-      color: var(--text-soft);
-      line-height: 1.45;
-    }
-
-    /* Charts */
-    .chart-grid { display: flex; flex-direction: column; gap: 10px; }
-
-    .chart-card {
-      background: radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 60%),
-        #020617;
-      border-radius: 12px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      padding: 8px 8px 8px;
-    }
-
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      margin-bottom: 6px;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .chart-header h3 {
-      margin: 0;
-      font-size: 11px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .pill-small {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      padding: 1px 6px;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-soft);
-      white-space: nowrap;
-    }
-
-    .chart-note { font-size: 10px; color: var(--text-muted); }
-    .chart-canvas { height: 260px; width: 100%; }
-
-    /* EXIT SIGNAL (replaces buy/hold/period UI) */
-    .exit-panel {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      margin: 8px 0;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      background: linear-gradient(135deg, rgba(251, 146, 60, 0.10), rgba(248, 113, 113, 0.06));
-    }
-
-    .exit-left {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 240px;
-    }
-
-    .exit-title {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fde68a;
-    }
-
-    .exit-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #fb923c;
-      box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.25);
-    }
-
-    .exit-row {
-      display: flex;
-      gap: 8px;
-      align-items: baseline;
-      flex-wrap: wrap;
-    }
-
-    .exit-date {
-      font-size: 16px;
-      font-weight: 900;
-      color: #fed7aa;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .exit-meta {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .exit-right {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .countdown-chip {
-      display: flex;
-      gap: 8px;
-      align-items: baseline;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(251, 146, 60, 0.35);
-      background: rgba(2, 6, 23, 0.55);
-    }
-
-    .count-num {
-      font-size: 20px;
-      font-weight: 900;
-      color: #fb923c;
-      line-height: 1;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .count-label {
-      font-size: 10px;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 800;
-    }
-
-    .signal-pill {
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      background: rgba(2, 6, 23, 0.55);
-      color: #e5e7eb;
-      white-space: nowrap;
-    }
-
-    .signal-early { border-color: rgba(148, 163, 184, 0.35); color: #cbd5e1; }
-    .signal-watch { border-color: rgba(56,189,248,0.35); color: #93c5fd; }
-    .signal-active { border-color: rgba(251,146,60,0.55); color: #fdba74; }
-    .signal-late { border-color: rgba(248,113,113,0.55); color: #fecaca; }
-
-    .exit-reason {
-      margin-top: 8px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(55,65,81,0.65);
-      background: rgba(2,6,23,0.5);
-      font-size: 11px;
-      color: #cbd5e1;
-      line-height: 1.45;
-    }
-
-    .exit-reason strong { color: #e5e7eb; }
-
-    /* Exit timeline */
-    .exit-timeline {
-      margin-top: 10px;
-      position: relative;
-      height: 54px;
-      border-radius: 12px;
-      border: 1px solid rgba(55, 65, 81, 0.6);
-      background: linear-gradient(to bottom, #020617, #0f172a);
-      overflow: hidden;
-    }
-
-    .exit-timeline .band {
-      position: absolute;
-      top: 0;
-      height: 100%;
-    }
-
-    .band-runup {
-      left: 0;
-      width: 78%;
-      background: linear-gradient(135deg, rgba(56,189,248,0.12), rgba(34,197,94,0.08));
-    }
-
-    .band-risk {
-      left: 78%;
-      width: 22%;
-      background: linear-gradient(135deg, rgba(251,146,60,0.18), rgba(248,113,113,0.10));
-      border-left: 1px solid rgba(251,146,60,0.22);
-    }
-
-    .exit-marker {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: 2px;
-      background: #fb923c;
-      box-shadow: 0 0 0 3px rgba(251,146,60,0.25);
-      transform: translateX(-50%);
-      z-index: 2;
-    }
-
-    .now-marker {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: 2px;
-      background: #fbbf24;
-      box-shadow: 0 0 0 3px rgba(251,191,36,0.22);
-      transform: translateX(-50%);
-      z-index: 3;
-    }
-
-    .timeline-label {
-      position: absolute;
-      bottom: 6px;
-      left: 10px;
-      font-size: 10px;
-      color: var(--text-muted);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      z-index: 4;
-    }
-
-    .timeline-label.right {
-      left: auto;
-      right: 10px;
+    /* Mobile polish */
+    @media (max-width: 520px){
+      .top{padding:12px 12px 10px}
+      .prompt{padding:10px 10px}
+      select{min-width: 135px}
+      .kv{min-width: 100%;} /* stack KVs */
+      .right{width:100%}
+      .btn{width:100%; text-align:center}
     }
 
     /* Footer */
-    .footer {
-      margin-top: 4px;
-      font-size: 10px;
-      color: var(--text-muted);
-      text-align: right;
-      padding: 0 6px;
-    }
-
-    /* Add candidates panel */
-    .adder {
-      margin-top: 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(148,163,184,0.18);
-      background: rgba(2,6,23,0.45);
-      padding: 10px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .adder-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .adder-title {
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #cbd5e1;
-    }
-    .adder-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .small-btn {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.6);
-      color: #e5e7eb;
-      font-size: 11px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .small-btn:hover { border-color: rgba(34,197,94,0.45); transform: translateY(-1px); }
-    .adder textarea {
-      border-radius: 12px;
-      min-width: unset;
-      width: 100%;
-      resize: vertical;
-      padding: 10px 10px;
-      line-height: 1.35;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-    }
-    .adder-help {
-      font-size: 11px;
-      color: var(--text-soft);
-      line-height: 1.45;
-    }
-    .mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    .foot{
+      padding: 10px 12px 14px;
+      border-top:1px solid rgba(148,163,184,.10);
+      color:rgba(166,176,194,.70);
+      font-size:10px;
+      text-align:right;
+      background: rgba(2,6,23,.25);
     }
   </style>
 </head>
 
 <body>
-  <div class="app-shell">
-    <header class="top-bar">
-      <div class="brand">
-        <div class="brand-logo">P</div>
-        <div class="brand-text">
-          <div class="brand-title">
-            PDUFA Run-Up Desk
-            <span class="pill">ZONDAS Research Prototype</span>
-          </div>
-          <div class="brand-tagline">
-            Watchlist • score clusters • exit signal. (Entry/exit windows hidden in UI.)
+  <div class="shell">
+    <header class="top">
+      <div class="topRow">
+        <div class="brand">
+          <div class="logo">$</div>
+          <div class="brandText">
+            <div class="title">
+              PDUFA Run-Up Desk
+              <span class="badge">ZONDAS</span>
+              <span class="pill">RESEARCH PROTOTYPE</span>
+            </div>
+            <div class="subtitle">Cards show real entry/exit dates</div>
           </div>
         </div>
+        <div class="rightInfo">
+          <span class="dot"></span>
+          <span id="todayLabel">Live •</span>
+        </div>
       </div>
-      <div class="top-right">
-        <span class="status-dot"></span>
-        <span class="status-label">Live view • 2026 PDUFA events</span>
+
+      <div class="promptBar">
+        <div class="prompt">
+          <div class="spark">✦</div>
+          <input id="searchBox" type="text" placeholder="Ask: “orphan score 4”, “gene therapy”, “Sweden”, “NUVL”… (filters update instantly)" />
+        </div>
+        <div class="chipRow">
+          <div class="chip" data-chip="score5">Score 5</div>
+          <div class="chip" data-chip="score4">Score 4+</div>
+          <div class="chip" data-chip="orphan">Orphan</div>
+          <div class="chip" data-chip="cluster4">High-Upside</div>
+          <div class="chip" data-chip="reset">Reset</div>
+        </div>
+      </div>
+
+      <!-- Fetching News (no visible source text) -->
+      <div class="botFeeling" aria-label="AI Bot Feeling">
+        <div class="botFeelingHead">
+          <div class="botFeelingTitle">
+            <span class="botFeelingTag">WEB CRAWLER</span>
+            <span>Fetching News</span>
+            <span class="pill">RCKT • DNLI • NUVL</span>
+          </div>
+          <div class="botFeelingMeta">
+            <span id="botUpdated">Updating…</span>
+            <button class="botBtn" id="refreshBot">Refresh</button>
+          </div>
+        </div>
+
+        <div class="botGrid">
+          <div class="botCard" id="bot_rckt">
+            <div class="botCardTop">
+              <div class="botTicker">Rocket <span class="t">RCKT</span></div>
+              <div class="botStatus" id="bot_rckt_status">Fetching…</div>
+            </div>
+            <div class="botLines" id="bot_rckt_lines"></div>
+          </div>
+
+          <div class="botCard" id="bot_dnli">
+            <div class="botCardTop">
+              <div class="botTicker">Denali <span class="t">DNLI</span></div>
+              <div class="botStatus" id="bot_dnli_status">Fetching…</div>
+            </div>
+            <div class="botLines" id="bot_dnli_lines"></div>
+          </div>
+
+          <div class="botCard" id="bot_nuvl">
+            <div class="botCardTop">
+              <div class="botTicker">Nuvalent <span class="t">NUVL</span></div>
+              <div class="botStatus" id="bot_nuvl_status">Fetching…</div>
+            </div>
+            <div class="botLines" id="bot_nuvl_lines"></div>
+          </div>
+        </div>
+
+        <!-- Notifications layer: Entry/Exit dates -->
+        <div class="notifyLayer" aria-label="Dates for entry/exit">
+          <div class="notifyHead">
+            <div class="notifyTitle">
+              <span class="tag">NOTIFY</span>
+              <span>Dates for entry/exit</span>
+              <span class="pill">upcoming + due today</span>
+            </div>
+            <div class="notifyControls">
+              <select id="notifyHorizon" class="notifySelect" title="Lookahead window">
+                <option value="7">Next 7 days</option>
+                <option value="14" selected>Next 14 days</option>
+                <option value="30">Next 30 days</option>
+                <option value="60">Next 60 days</option>
+              </select>
+              <button class="botBtn" id="refreshNotify">Refresh</button>
+            </div>
+          </div>
+
+          <div class="notifyList" id="notifyList"></div>
+        </div>
       </div>
     </header>
 
-    <section class="intro-panel">
-      <div class="intro-main">
-        <div class="intro-copy">
-          <div class="intro-title">
-            2026 PDUFA Watchlist
-            <span class="intro-highlight">Clusters + Exit Signal</span>
-          </div>
-          <div class="intro-subtitle">
-            Focus: pre-event run-up observation for small/mid-cap and orphan-focused names. Scores reflect expected
-            pre-PDUFA “event beta”. The watchlist automatically removes items where the <strong>PDUFA date is in the past</strong>.
-          </div>
-        </div>
-      </div>
-      <div class="controls-row">
-        <button class="primary-button" id="scrollToCases">
-          <span>▶</span>
-          Jump to case studies
-        </button>
-        <div class="secondary-text">
-          ZONDAS RESEARCH
-        </div>
-      </div>
-    </section>
-
-    <main class="app-main">
+    <main class="main">
       <!-- Watchlist -->
       <section class="card">
-        <div class="card-header">
+        <div class="cardHead">
           <div>
-            <div class="card-title">
-              <span class="card-title-dot"></span>
-              PDUFA 2026 watchlist (research cards)
-            </div>
-            <div class="card-subtitle">
-              Cards show PDUFA date + score + cluster + “why score”. (Entry/exit windows removed from UI.)
-              Click a row to copy a one-line summary.
-            </div>
+            <div class="cardTitle">Watchlist <span class="pill">auto-removes past PDUFA</span></div>
+            <div class="cardSub">Click a card to copy a one-line summary.</div>
           </div>
         </div>
 
-        <div class="controls">
-          <label>
-            <span>Search</span>
-            <input id="searchBox" type="text" placeholder="Company, ticker, indication..." />
-          </label>
+        <div class="filters">
+          <select id="scoreFilter">
+            <option value="0">Min score: Any</option>
+            <option value="3">Min score: 3+</option>
+            <option value="4">Min score: 4+</option>
+            <option value="5">Min score: 5 only</option>
+          </select>
 
-          <label>
-            <span>Min score</span>
-            <select id="scoreFilter">
-              <option value="0">Any</option>
-              <option value="3">3+</option>
-              <option value="4">4+</option>
-              <option value="5">5 only</option>
-            </select>
-          </label>
+          <select id="orphanFilter">
+            <option value="any">Orphan: Any</option>
+            <option value="yes">Orphan: Only</option>
+            <option value="no">Orphan: No</option>
+          </select>
 
-          <label>
-            <span>Orphan</span>
-            <select id="orphanFilter">
-              <option value="any">Any</option>
-              <option value="yes">Only orphan</option>
-              <option value="no">Non-orphan</option>
-            </select>
-          </label>
+          <select id="clusterFilter">
+            <option value="any">Cluster: Any</option>
+            <option value="high-upside">Higher-risk / High-upside (4)</option>
+            <option value="speculative">Speculative / Watch (3)</option>
+            <option value="untradeable">Untradeable / Indirect</option>
+          </select>
 
-          <label>
-            <span>Cluster</span>
-            <select id="clusterFilter">
-              <option value="any">Any</option>
-              <option value="high-upside">Higher-risk / High-upside (Score 4)</option>
-              <option value="speculative">Speculative / Watch (Score 3)</option>
-              <option value="untradeable">Untradeable / Indirect</option>
-            </select>
-          </label>
-
-          <label>
-            <span>Sort</span>
-            <select id="sortSelect">
-              <option value="pdufa_date:asc">Date ↑</option>
-              <option value="pdufa_date:desc">Date ↓</option>
-              <option value="runup_priority_score_1to5:desc">Score ↓</option>
-              <option value="runup_priority_score_1to5:asc">Score ↑</option>
-              <option value="company:asc">Company A→Z</option>
-              <option value="company:desc">Company Z→A</option>
-            </select>
-          </label>
+          <select id="sortSelect">
+            <option value="pdufa_date:asc">Sort: Date ↑</option>
+            <option value="pdufa_date:desc">Sort: Date ↓</option>
+            <option value="runup_priority_score_1to5:desc">Sort: Score ↓</option>
+            <option value="company:asc">Sort: Company A→Z</option>
+          </select>
         </div>
 
-        <div id="watchlist" class="table-list"></div>
-
-        <div class="hint-box">
-          If you want <strong>more candidates</strong> without editing code each time: paste extra rows into the “Add candidates” box below.
-          They will be saved in your browser (<span class="mono">localStorage</span>) and merged into the list.
-        </div>
-
-        <!-- Add candidates (localStorage) -->
-        <div class="adder">
-          <div class="adder-top">
-            <div class="adder-title">Add candidates (paste CSV rows)</div>
-            <div class="adder-actions">
-              <button class="small-btn" id="applyExtraRows">Apply</button>
-              <button class="small-btn" id="clearExtraRows">Clear</button>
-            </div>
-          </div>
-          <textarea id="extraRowsBox" rows="6" placeholder="Paste additional CSV rows here (no header). Example:
-2026-11-15,drugX,,Company Name,TICK,Indication,Yes,Therapy,Small,US,Listed,4,,,Notes"></textarea>
-          <div class="adder-help">
-            Format must match the existing header fields. You can leave unused columns empty (use consecutive commas).
-            Past PDUFA dates will be auto-removed.
-          </div>
-        </div>
+        <div id="watchlist" class="list"></div>
       </section>
 
-      <!-- Case studies -->
+      <!-- Charts -->
       <section class="card" id="caseStudies">
-        <div class="card-header">
+        <div class="cardHead">
           <div>
-            <div class="card-title">
-              <span class="card-title-dot"></span>
-              Case studies: Exit Signal view
-            </div>
-            <div class="card-subtitle">
-              Exit signal calculated (T-10 calendar days, weekend-adjusted to prior weekday).
-            </div>
+            <div class="cardTitle">Live charts <span class="pill">TradingView</span></div>
+            <div class="cardSub">RCKT • DNLI • NUVL</div>
           </div>
+          <a class="btn primary" href="#watchlistAnchor" id="jumpWatchlist">Back to watchlist</a>
         </div>
 
-        <div class="chart-grid">
-          <!-- RCKT -->
-          <div class="chart-card">
-            <div class="chart-header">
-              <h3>
-                RCKT – Rocket Pharmaceuticals
-                <span class="pill-small">Score 5 • LAD-I gene therapy</span>
-              </h3>
-              <div class="chart-note">
-                PDUFA: <strong>2026-03-28</strong> • Default Exit: <strong id="rckt-exitdate">--</strong>
-              </div>
+        <div class="chartWrap">
+          <div class="chartCard">
+            <div class="chartHead">
+              <h3>RCKT – Rocket Pharmaceuticals <span class="pill">NASDAQ:RCKT</span></h3>
+              <div class="chartNote">Daily • Dark theme</div>
             </div>
-
-            <div class="exit-panel">
-              <div class="exit-left">
-                <div class="exit-title"><span class="exit-dot"></span> EXIT SIGNAL</div>
-                <div class="exit-row">
-                  <div class="exit-date" id="rckt-exitdate-big">--</div>
-                  <div class="exit-meta" id="rckt-exitmeta">Exit suggestion</div>
-                </div>
-              </div>
-
-              <div class="exit-right">
-                <div class="countdown-chip">
-                  <div class="count-num" id="rckt-days-to-exit">--</div>
-                  <div class="count-label">days to exit</div>
-                </div>
-                <div class="countdown-chip" style="border-color: rgba(34,197,94,0.25);">
-                  <div class="count-num" id="rckt-days-to-pdufa" style="color:#22c55e;">--</div>
-                  <div class="count-label">days to PDUFA</div>
-                </div>
-                <div class="signal-pill signal-early" id="rckt-exit-signal">Calculating…</div>
-              </div>
-            </div>
-
-            <div class="exit-reason" id="rckt-exit-reason">
-              <strong>Why exit before PDUFA?</strong>
-              Policy rule: treat PDUFA as a volatility cliff. The final ~1–2 weeks often compress positioning and
-              headline sensitivity. Default <strong>T-10</strong> aims to capture most of the run-up while reducing gap risk.
-            </div>
-
-            <div class="exit-timeline">
-              <div class="band band-runup"></div>
-              <div class="band band-risk"></div>
-              <div class="timeline-label">Run-up window</div>
-              <div class="timeline-label right">Binary risk zone</div>
-              <div class="exit-marker" id="rckt-exit-marker" style="left: 0%;"></div>
-              <div class="now-marker" id="rckt-now-marker" style="left: 0%;"></div>
-            </div>
-
-            <div class="tradingview-widget-container" style="margin-top:10px;">
-              <div id="tradingview_rckt" class="chart-canvas"></div>
-              <div class="chart-note" style="margin-top: 8px;">
-                Buy/Sell:
-                <a
-                  href="https://www.avanza.se/aktier/om-aktien.html/814735/rocket-pharmaceuticals"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style="color:#86efac;"
-                >
-                  Open Rocket (RCKT) in Avanza
-                </a>
-              </div>
-            </div>
+            <div id="tradingview_rckt" class="canvas"></div>
           </div>
 
-          <!-- DNLI (added under Rocket as requested) -->
-          <div class="chart-card">
-            <div class="chart-header">
-              <h3>
-                DNLI – Denali Therapeutics
-                <span class="pill-small">Score 5 • Hunter syndrome (MPS II)</span>
-              </h3>
-              <div class="chart-note">
-                PDUFA: <strong>2026-04-05</strong>
-              </div>
+          <div class="chartCard">
+            <div class="chartHead">
+              <h3>DNLI – Denali Therapeutics <span class="pill">NASDAQ:DNLI</span></h3>
+              <div class="chartNote">Daily • Dark theme</div>
             </div>
-            <div class="tradingview-widget-container">
-              <div id="tradingview_dnli" class="chart-canvas"></div>
-            </div>
+            <div id="tradingview_dnli" class="canvas"></div>
           </div>
 
-          <!-- NUVL -->
-          <div class="chart-card">
-            <div class="chart-header">
-              <h3>
-                NUVL – Nuvalent
-                <span class="pill-small">Score 5 • ROS1+ NSCLC</span>
-              </h3>
-              <div class="chart-note">PDUFA: 2026-09-18</div>
+          <div class="chartCard">
+            <div class="chartHead">
+              <h3>NUVL – Nuvalent <span class="pill">NASDAQ:NUVL</span></h3>
+              <div class="chartNote">Daily • Dark theme</div>
             </div>
-            <div class="tradingview-widget-container">
-              <div id="tradingview_nuvl" class="chart-canvas"></div>
-            </div>
+            <div id="tradingview_nuvl" class="canvas"></div>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      Copyright G.V / S.N
+    <footer class="foot">
+      ZONDAS Research Prototype • UI refresh: AI/Avanza style
     </footer>
   </div>
+
+  <div id="watchlistAnchor" style="position:absolute; top:0;"></div>
 
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
@@ -1042,7 +1007,6 @@
       "notes"
     ];
 
-    // Base dataset (kept as-is). Past PDUFA dates will be automatically filtered out at runtime.
     const inlineCSV = `
 pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,market_cap_bucket,listing_region,liquidity_flag,runup_priority_score_1to5,suggested_entry_window_days,suggested_exit_window_days,notes
 2026-01-13,sparsentan,FILSPARI,Travere Therapeutics,TVTX,"FSGS (kidney disease)",Yes,"Small-molecule (dual ETAR/AT1R inhibitor)",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA for FSGS; already approved for IgAN"
@@ -1068,34 +1032,33 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
 2026-10-10,tabelecleucel,Tab-cel,"Pierre Fabre / Atara license",ATRA,"EBV+ PTLD (post-transplant lymphoma)",Yes,"Allogeneic T-cell therapy",Small,"US/EU","Listed/Partnered",3,"T-120 to T-60","T-20 to T-10","BLA held by private partner; Atara still sentiment-linked"
 `;
 
-    const EXTRA_ROWS_KEY = "zondas_pdufa_extra_rows_v1";
     let rows = [];
+    const chipState = {
+      scoreMin: 0,
+      orphanOnly: false,
+      cluster4: false
+    };
 
     function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
-      const hasHeader = lines[0].split(",")[0].trim().toLowerCase() === "pdufa_date";
-      const dataLines = hasHeader ? lines.slice(1) : lines;
-
-      return dataLines
-        .map(line => line.trim())
-        .filter(Boolean)
-        .map(line => {
-          const cells = [];
-          let cur = "";
-          let inQuotes = false;
-          for (let i = 0; i < line.length; i++) {
-            const c = line[i];
-            if (c === '"') inQuotes = !inQuotes;
-            else if (c === "," && !inQuotes) { cells.push(cur); cur = ""; }
-            else cur += c;
-          }
-          cells.push(cur);
-          const obj = {};
-          csvHeader.forEach((key, idx) => {
-            obj[key] = (cells[idx] || "").trim().replace(/^"|"$/g, "");
-          });
-          return obj;
+      const dataLines = lines.slice(1);
+      return dataLines.map(line => {
+        const cells = [];
+        let cur = "";
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const c = line[i];
+          if (c === '"') inQuotes = !inQuotes;
+          else if (c === "," && !inQuotes) { cells.push(cur); cur = ""; }
+          else cur += c;
+        }
+        cells.push(cur);
+        const obj = {};
+        csvHeader.forEach((key, idx) => {
+          obj[key] = (cells[idx] || "").trim().replace(/^"|"$/g, "");
         });
+        return obj;
+      });
     }
 
     function isTradeable(row) {
@@ -1104,6 +1067,15 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       if (!ticker) return false;
       if (listed.includes("unlisted")) return false;
       return true;
+    }
+
+    function assignCluster(row) {
+      const score = parseInt(row.runup_priority_score_1to5 || "0", 10);
+      const tradeable = isTradeable(row);
+      if (!tradeable) return { key: "untradeable", label: "Untradeable", tagClass: "untrade" };
+      if (score === 4) return { key: "high-upside", label: "High-Upside", tagClass: "" };
+      if (score === 3) return { key: "speculative", label: "Watch", tagClass: "" };
+      return { key: "other", label: "Core", tagClass: "" };
     }
 
     function buildRationale(row) {
@@ -1118,29 +1090,13 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       if (cap.includes("small")) bullets.push("Smaller cap → higher event beta.");
       else if (cap.includes("mid")) bullets.push("Mid-cap → catalyst-sensitive.");
       else if (cap.includes("large")) bullets.push("Large-cap dampener → % moves diluted.");
-
       if (therapy.includes("gene")) bullets.push("Gene therapy narrative → binary attention.");
-      if (therapy.includes("diagnostic") || therapy.includes("imaging") || notes.includes("imaging"))
-        bullets.push("Diagnostics/imaging → often less 'binary' volatility.");
-      if (notes.includes("label expansion") || notes.includes("label refinement"))
-        bullets.push("Label change → less all-or-nothing than first approval.");
-      if (notes.includes("partner") || notes.includes("licensed") || notes.includes("listed/partnered"))
-        bullets.push("Partner complexity → can dampen run-up.");
-
-      if (score === 5) bullets.push("Score 5 = top run-up candidate (high focus).");
-      if (score === 4) bullets.push("Score 4 = strong run-up potential (higher risk).");
-      if (score === 3) bullets.push("Score 3 = speculative/watch (less reliable).");
+      if (notes.includes("label expansion") || notes.includes("label refinement")) bullets.push("Label change → less all-or-nothing.");
+      if (score === 5) bullets.push("Score 5 = top run-up candidate.");
+      if (score === 4) bullets.push("Score 4 = strong run-up (higher risk).");
+      if (score === 3) bullets.push("Score 3 = speculative/watch.");
 
       return bullets.slice(0, 4).join(" ");
-    }
-
-    function assignCluster(row) {
-      const score = parseInt(row.runup_priority_score_1to5 || "0", 10);
-      const tradeable = isTradeable(row);
-      if (!tradeable) return { key: "untradeable", label: "Untradeable / Indirect", tagClass: "tag-untradeable" };
-      if (score === 4) return { key: "high-upside", label: "Higher-risk / High-upside (4)", tagClass: "tag-cluster-4" };
-      if (score === 3) return { key: "speculative", label: "Speculative / Watch (3)", tagClass: "tag-cluster-3" };
-      return { key: "other", label: "Core / Other", tagClass: "" };
     }
 
     function tradingViewLink(ticker) {
@@ -1152,9 +1108,11 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
     function copyRowSummary(row) {
       const score = row.runup_priority_score_1to5 || "";
       const cluster = row.risk_cluster || "";
+      const entry = row.entry_dates || "-";
+      const exit = row.exit_dates || "-";
       const text =
         `${row.pdufa_date} • ${row.company} (${row.ticker || "N/A"}) • ${row.drug} • ${row.indication} • ` +
-        `Score ${score} • ${cluster} • Why: ${row.score_rationale || ""}`;
+        `Score ${score} • ${cluster} • Entry ${entry} • Exit ${exit}`;
       navigator.clipboard?.writeText(text).catch(() => {});
     }
 
@@ -1182,7 +1140,6 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       });
     }
 
-    /* Date filtering: remove passed PDUFA dates */
     function startOfTodayLocal() {
       const now = new Date();
       return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
@@ -1192,14 +1149,7 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       return d >= startOfTodayLocal();
     }
 
-    /* Exit-date helpers */
-    function formatISODate(d) {
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, "0");
-      const dd = String(d.getDate()).padStart(2, "0");
-      return `${yyyy}-${mm}-${dd}`;
-    }
-
+    /* Date utilities */
     function adjustToPreviousWeekday(dateObj) {
       const d = new Date(dateObj);
       const day = d.getDay();
@@ -1208,89 +1158,63 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       return d;
     }
 
-    function computeDefaultExitDate(pdufaDateObj, daysBefore = 10) {
-      const d = new Date(pdufaDateObj);
-      d.setDate(d.getDate() - daysBefore);
-      return adjustToPreviousWeekday(d);
+    function fmtNice(d) {
+      // Mobile friendly readable date: "Mar 18, 2026"
+      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" });
     }
 
-    function getExitSignalState(daysToExit, now, pdufaDate) {
-      if (now >= pdufaDate) return { cls: "signal-late", text: "PDUFA passed" };
-      if (daysToExit > 21) return { cls: "signal-early", text: "Early • Monitor" };
-      if (daysToExit > 10) return { cls: "signal-watch", text: "Watch • Tighten plan" };
-      if (daysToExit >= 0) return { cls: "signal-active", text: "EXIT ACTIVE • De-risk" };
-      return { cls: "signal-late", text: "Late • Risk zone" };
+    function parseWindowStr(windowStr) {
+      // "T-120 to T-60" -> {a:120,b:60}
+      if (!windowStr) return null;
+      const m = windowStr.match(/T-(\d+)\s*to\s*T-(\d+)/i);
+      if (!m) return null;
+      const a = parseInt(m[1], 10);
+      const b = parseInt(m[2], 10);
+      if (!isFinite(a) || !isFinite(b)) return null;
+      return { a, b };
     }
 
-    function updateRCKTExitPanel() {
-      const pdufaDate = new Date("2026-03-28T00:00:00");
-      const now = new Date();
+    function windowToDateRange(pdufaISO, windowStr) {
+      const w = parseWindowStr(windowStr);
+      if (!w) return null;
+      const p = new Date(pdufaISO + "T00:00:00");
+      // Earlier in time = larger days offset
+      const start = new Date(p);
+      start.setDate(start.getDate() - w.a);
+      const end = new Date(p);
+      end.setDate(end.getDate() - w.b);
+      const startAdj = adjustToPreviousWeekday(start);
+      const endAdj = adjustToPreviousWeekday(end);
+      return { start: startAdj, end: endAdj, raw: windowStr };
+    }
 
-      const defaultExit = computeDefaultExitDate(pdufaDate, 10);
-      const daysToExit = Math.ceil((defaultExit - now) / (1000 * 60 * 60 * 24));
-      const daysToPdufa = Math.ceil((pdufaDate - now) / (1000 * 60 * 60 * 24));
-      const exitISO = formatISODate(defaultExit);
-
-      const exitSmall = document.getElementById("rckt-exitdate");
-      const exitBig = document.getElementById("rckt-exitdate-big");
-      if (exitSmall) exitSmall.textContent = exitISO;
-      if (exitBig) exitBig.textContent = exitISO;
-
-      const dte = document.getElementById("rckt-days-to-exit");
-      const dtp = document.getElementById("rckt-days-to-pdufa");
-      if (dte) dte.textContent = isFinite(daysToExit) ? daysToExit : "--";
-      if (dtp) dtp.textContent = isFinite(daysToPdufa) ? daysToPdufa : "--";
-
-      const signal = document.getElementById("rckt-exit-signal");
-      const state = getExitSignalState(daysToExit, now, pdufaDate);
-      if (signal) {
-        signal.className = `signal-pill ${state.cls}`;
-        signal.textContent = state.text;
-      }
-
-      const reason = document.getElementById("rckt-exit-reason");
-      if (reason) {
-        reason.innerHTML = `
-          <strong>Why exit on ${exitISO} (T-10)?</strong>
-          We treat PDUFA as a binary volatility cliff. The last ~1–2 weeks tends to concentrate rumor flow, hedging and
-          headline sensitivity. Default <strong>T-10</strong> aims to capture most run-up participation while reducing
-          gap-risk exposure. Weekend-adjusted to prior weekday.
-        `;
-      }
-
-      const total = (pdufaDate - now);
-      const exitMarker = document.getElementById("rckt-exit-marker");
-      const nowMarker = document.getElementById("rckt-now-marker");
-
-      let exitPos = 0;
-      if (total > 0) exitPos = ((defaultExit - now) / total) * 100;
-      exitPos = Math.max(0, Math.min(100, exitPos));
-
-      if (exitMarker) exitMarker.style.left = `${exitPos}%`;
-      if (nowMarker) nowMarker.style.left = `0%`;
+    function buildRangeText(rangeObj) {
+      if (!rangeObj) return "-";
+      return `${fmtNice(rangeObj.start)} → ${fmtNice(rangeObj.end)}`;
     }
 
     function renderWatchlist() {
       const container = document.getElementById("watchlist");
-      const search = document.getElementById("searchBox").value.toLowerCase();
+      const search = (document.getElementById("searchBox").value || "").toLowerCase();
       const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
       const orphanFilter = document.getElementById("orphanFilter").value;
       const clusterFilter = document.getElementById("clusterFilter").value;
       const sortValue = document.getElementById("sortSelect").value;
 
       let filtered = rows.filter(r => {
-        // auto-remove past dates
         if (!isFutureOrToday(r.pdufa_date)) return false;
 
-        const text = (
+        const blob = (
           (r.company || "") + " " +
           (r.ticker || "") + " " +
           (r.indication || "") + " " +
           (r.drug || "") + " " +
-          (r.notes || "")
+          (r.notes || "") + " " +
+          (r.therapy_type || "") + " " +
+          (r.listing_region || "")
         ).toLowerCase();
 
-        if (search && !text.includes(search)) return false;
+        if (search && !blob.includes(search)) return false;
 
         const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
         if (!isNaN(minScore) && score < minScore) return false;
@@ -1300,74 +1224,81 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
 
         if (clusterFilter !== "any" && (r.risk_cluster_key || "") !== clusterFilter) return false;
 
+        // Chip constraints
+        if (chipState.scoreMin && score < chipState.scoreMin) return false;
+        if (chipState.orphanOnly && (r.orphan_drug || "").toLowerCase() !== "yes") return false;
+        if (chipState.cluster4 && parseInt(r.runup_priority_score_1to5 || "0", 10) !== 4) return false;
+
         return true;
       });
 
       filtered = sortRows(filtered, sortValue);
-      container.innerHTML = "";
 
+      container.innerHTML = "";
       if (!filtered.length) {
-        container.innerHTML = `<div class="empty-state">No results. Try widening filters or adding candidates below.</div>`;
+        container.innerHTML = `<div class="empty">No matches. Try a broader prompt (e.g., “gene”, “orphan”, “score 4”).</div>`;
         return;
       }
 
       for (const r of filtered) {
         const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
-        let scoreTagClass = "tag-low";
-        if (score >= 5) scoreTagClass = "tag-high";
-        else if (score >= 4) scoreTagClass = "tag-medium";
+        const scoreClass = score >= 5 ? "score5" : (score >= 4 ? "score4" : (score >= 3 ? "score3" : ""));
 
-        const orphanTag = (r.orphan_drug || "").toLowerCase() === "yes"
-          ? `<span class="tag tag-orphan">Orphan</span>` : "";
-
-        const clusterTag = r.risk_cluster_tag
-          ? `<span class="tag ${r.risk_cluster_tag}">${r.risk_cluster}</span>`
-          : `<span class="tag" style="border:1px solid rgba(148,163,184,0.35); background:rgba(15,23,42,0.6); color:#e5e7eb;">${r.risk_cluster}</span>`;
+        const orphan = (r.orphan_drug || "").toLowerCase() === "yes";
+        const tradeable = isTradeable(r);
 
         const tv = tradingViewLink(r.ticker);
 
+        const entryRange = buildRangeText(r._entryRange);
+        const exitRange = buildRangeText(r._exitRange);
+
         const card = document.createElement("div");
-        card.className = "row-card";
-        card.title = "Click to copy a one-line summary to clipboard";
+        card.className = "row";
+        card.title = "Click to copy a one-line summary";
         card.addEventListener("click", () => copyRowSummary(r));
 
-        // Entry/Exit KV blocks removed per request (“close the entry exit windows”)
         card.innerHTML = `
-          <div class="row-top">
-            <div class="row-left">
-              <div class="row-title">
+          <div class="rowTop">
+            <div class="left">
+              <div class="nameLine">
                 <span>${r.company}</span>
                 <span class="ticker">${r.ticker || "N/A"}</span>
-                <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                  ${orphanTag}
-                  <span class="tag ${scoreTagClass}">Score ${score || ""}</span>
-                  ${clusterTag}
+                <span class="tags">
+                  ${orphan ? `<span class="tag orphan">Orphan</span>` : ""}
+                  <span class="tag ${scoreClass}">Score ${score || "-"}</span>
+                  <span class="tag">${r.risk_cluster}</span>
+                  ${tradeable ? "" : `<span class="tag untrade">Untradeable</span>`}
                 </span>
               </div>
-              <div class="row-sub">
-                <strong>${r.drug}</strong>
-                ${r.brand_name ? ` • <span style="color:#cbd5e1;">${r.brand_name}</span>` : ""}
-                • <span style="color:#e5e7eb;">${r.indication}</span>
+              <div class="desc">
+                <b>${r.drug}</b>${r.brand_name ? ` • ${r.brand_name}` : ""} • ${r.indication}
               </div>
             </div>
 
-            <div class="row-right">
+            <div class="right">
               <div class="kv">
-                <div class="k">PDUFA Date</div>
-                <div class="v">${r.pdufa_date}</div>
+                <div class="k">PDUFA</div>
+                <div class="v">${fmtNice(new Date(r.pdufa_date + "T00:00:00"))}</div>
+                <div class="sub">${r.listing_region || ""}${r.market_cap_bucket ? ` • ${r.market_cap_bucket}` : ""}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Entry window</div>
+                <div class="v">${entryRange}</div>
+                <div class="sub">${r.suggested_entry_window_days || ""}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Exit window</div>
+                <div class="v">${exitRange}</div>
+                <div class="sub">${r.suggested_exit_window_days || ""}</div>
               </div>
             </div>
           </div>
 
-          <div class="row-bottom">
-            <div class="rationale">
-              <span style="color:var(--text-muted); font-weight:900;">Why this score:</span>
-              ${r.score_rationale || ""}
-              ${r.notes ? `<div style="margin-top:6px; color:var(--text-soft);"><span style="color:var(--text-muted); font-weight:900;">Notes:</span> ${r.notes}</div>` : ""}
-            </div>
-
+          <div class="rowBottom">
+            <div class="why"><b>Why:</b> ${r.score_rationale || ""}${r.notes ? ` <span style="color:var(--muted)">• ${r.notes}</span>` : ""}</div>
             <div class="links">
-              ${tv ? `<a class="link-btn" href="${tv}" target="_blank" rel="noopener noreferrer">TradingView</a>` : ""}
+              ${tv ? `<a class="btn" href="${tv}" target="_blank" rel="noopener noreferrer">TradingView</a>` : ""}
+              ${r.ticker ? `<a class="btn primary" href="#caseStudies" onclick="window.__jumpChart && window.__jumpChart('${(r.ticker||'').toUpperCase()}'); return false;">Open chart</a>` : ""}
             </div>
           </div>
         `;
@@ -1376,19 +1307,77 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       }
     }
 
-    function setupFilters() {
-      document.getElementById("searchBox").addEventListener("input", renderWatchlist);
-      document.getElementById("scoreFilter").addEventListener("change", renderWatchlist);
-      document.getElementById("orphanFilter").addEventListener("change", renderWatchlist);
-      document.getElementById("clusterFilter").addEventListener("change", renderWatchlist);
+    function setupControls() {
+      document.getElementById("searchBox").addEventListener("input", () => { renderWatchlist(); refreshNotifications(); });
+      document.getElementById("scoreFilter").addEventListener("change", () => { renderWatchlist(); refreshNotifications(); });
+      document.getElementById("orphanFilter").addEventListener("change", () => { renderWatchlist(); refreshNotifications(); });
+      document.getElementById("clusterFilter").addEventListener("change", () => { renderWatchlist(); refreshNotifications(); });
       document.getElementById("sortSelect").addEventListener("change", renderWatchlist);
+
+      document.getElementById("jumpWatchlist").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Chips
+      const chips = document.querySelectorAll(".chip");
+      chips.forEach(ch => {
+        ch.addEventListener("click", () => {
+          const key = ch.getAttribute("data-chip");
+          if (key === "reset") {
+            chipState.scoreMin = 0;
+            chipState.orphanOnly = false;
+            chipState.cluster4 = false;
+            chips.forEach(c => c.classList.remove("active"));
+            renderWatchlist();
+            refreshNotifications();
+            return;
+          }
+          if (key === "score5") {
+            chipState.scoreMin = (chipState.scoreMin === 5 ? 0 : 5);
+            ch.classList.toggle("active");
+            // turn off score4 if score5 on
+            const score4 = document.querySelector('.chip[data-chip="score4"]');
+            if (chipState.scoreMin === 5 && score4) { score4.classList.remove("active"); }
+          }
+          if (key === "score4") {
+            chipState.scoreMin = (chipState.scoreMin === 4 ? 0 : 4);
+            ch.classList.toggle("active");
+            const score5 = document.querySelector('.chip[data-chip="score5"]');
+            if (chipState.scoreMin === 4 && score5) { score5.classList.remove("active"); }
+          }
+          if (key === "orphan") {
+            chipState.orphanOnly = !chipState.orphanOnly;
+            ch.classList.toggle("active");
+          }
+          if (key === "cluster4") {
+            chipState.cluster4 = !chipState.cluster4;
+            ch.classList.toggle("active");
+          }
+          renderWatchlist();
+          refreshNotifications();
+        });
+      });
+
+      // Notify controls
+      document.getElementById("notifyHorizon")?.addEventListener("change", refreshNotifications);
+      document.getElementById("refreshNotify")?.addEventListener("click", refreshNotifications);
+
+      // “Open chart” helper (scroll to the right chart)
+      window.__jumpChart = (ticker) => {
+        const map = { "RCKT": "tradingview_rckt", "DNLI": "tradingview_dnli", "NUVL": "tradingview_nuvl" };
+        const id = map[ticker];
+        if (!id) return;
+        document.getElementById("caseStudies")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 250);
+      };
     }
 
     function initTradingViewWidgets() {
-      if (typeof TradingView === "undefined") {
-        console.error("TradingView library not loaded");
-        return;
-      }
+      if (typeof TradingView === "undefined") return;
+
       new TradingView.widget({
         container_id: "tradingview_rckt",
         symbol: "NASDAQ:RCKT",
@@ -1403,7 +1392,6 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
         width: "100%"
       });
 
-      // NEW: Denali widget under Rocket
       new TradingView.widget({
         container_id: "tradingview_dnli",
         symbol: "NASDAQ:DNLI",
@@ -1433,72 +1421,362 @@ pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,ma
       });
     }
 
-    function loadExtraRowsFromStorage() {
-      try {
-        return localStorage.getItem(EXTRA_ROWS_KEY) || "";
-      } catch (_) {
-        return "";
+    /* ===== AI BOT FEELING headlines (no source label shown) =====
+       Uses Google News RSS + allorigins proxy to avoid CORS.
+       If your environment blocks public proxies, replace allorigins with your own backend proxy.
+    */
+    function timeAgo(date) {
+      const ms = Date.now() - date.getTime();
+      const s = Math.max(1, Math.floor(ms / 1000));
+      const m = Math.floor(s / 60);
+      const h = Math.floor(m / 60);
+      const d = Math.floor(h / 24);
+      if (d > 0) return `${d}d ago`;
+      if (h > 0) return `${h}h ago`;
+      if (m > 0) return `${m}m ago`;
+      return `${s}s ago`;
+    }
+
+    function setBotCard(ticker, statusText, items) {
+      const statusEl = document.getElementById(`bot_${ticker.toLowerCase()}_status`);
+      const linesEl = document.getElementById(`bot_${ticker.toLowerCase()}_lines`);
+      if (!statusEl || !linesEl) return;
+
+      statusEl.textContent = statusText;
+      linesEl.innerHTML = "";
+
+      if (!items || !items.length) {
+        linesEl.innerHTML = `<div class="botLine"><span class="botDot"></span><span style="color:var(--muted)">No recent headlines found.</span></div>`;
+        return;
+      }
+
+      for (const it of items.slice(0, 2)) {
+        const when = it.pubDate ? timeAgo(it.pubDate) : "";
+        const safeTitle = it.title || "Headline";
+        const safeLink = it.link || "#";
+        linesEl.innerHTML += `
+          <div class="botLine">
+            <span class="botDot"></span>
+            <div>
+              <a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a>
+              <div style="color:rgba(166,176,194,.78); font-size:10px; margin-top:2px">${when}</div>
+            </div>
+          </div>
+        `;
       }
     }
 
-    function saveExtraRowsToStorage(text) {
-      try {
-        localStorage.setItem(EXTRA_ROWS_KEY, text || "");
-      } catch (_) {}
+    async function fetchGoogleNewsRSS(query) {
+      const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
+      const proxied = `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`;
+      const res = await fetch(proxied, { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const xmlText = await res.text();
+      const doc = new DOMParser().parseFromString(xmlText, "text/xml");
+      const items = Array.from(doc.querySelectorAll("item")).slice(0, 6).map(item => {
+        const title = item.querySelector("title")?.textContent?.trim() || "";
+        const link = item.querySelector("link")?.textContent?.trim() || "";
+        const pub = item.querySelector("pubDate")?.textContent?.trim() || "";
+        const pubDate = pub ? new Date(pub) : null;
+        return { title, link, pubDate };
+      });
+      return items;
     }
 
-    function mergeBaseAndExtraRows() {
-      const base = parseCSV(inlineCSV);
-      const extraText = loadExtraRowsFromStorage();
-      const extra = extraText.trim() ? parseCSV(extraText) : [];
+    async function refreshBotNews() {
+      const updatedEl = document.getElementById("botUpdated");
+      if (updatedEl) updatedEl.textContent = "Updating…";
 
-      // Merge then compute derived fields
-      rows = [...base, ...extra].map(r => {
+      const queries = [
+        { t: "RCKT", q: "RCKT Rocket Pharmaceuticals" },
+        { t: "DNLI", q: "DNLI Denali Therapeutics" },
+        { t: "NUVL", q: "NUVL Nuvalent" },
+      ];
+
+      const started = Date.now();
+
+      for (const item of queries) {
+        try {
+          setBotCard(item.t, "Scanning…", []);
+          const headlines = await fetchGoogleNewsRSS(item.q);
+          const last = headlines[0]?.pubDate ? timeAgo(headlines[0].pubDate) : "recent";
+          setBotCard(item.t, `Last: ${last}`, headlines);
+        } catch (e) {
+          setBotCard(item.t, "Feed unavailable", []);
+        }
+      }
+
+      const now = new Date();
+      const stamp = now.toLocaleString(undefined, { weekday:"short", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+      const took = Math.max(1, Math.round((Date.now() - started) / 1000));
+      if (updatedEl) updatedEl.textContent = `Updated ${stamp} • ${took}s`;
+    }
+
+    function initBotNews() {
+      document.getElementById("refreshBot")?.addEventListener("click", refreshBotNews);
+      refreshBotNews();
+      setInterval(refreshBotNews, 15 * 60 * 1000);
+    }
+
+    /* ===== NOTIFICATIONS: entry/exit dates ===== */
+    function daysBetween(a, b) {
+      const ms = b.getTime() - a.getTime();
+      return Math.round(ms / (1000 * 60 * 60 * 24));
+    }
+
+    function sameDay(a, b) {
+      return a.getFullYear() === b.getFullYear() &&
+             a.getMonth() === b.getMonth() &&
+             a.getDate() === b.getDate();
+    }
+
+    function toStartOfDay(d) {
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+    }
+
+    function parseRangeText(rangeText) {
+      // "Mar 01, 2026 → Apr 10, 2026"
+      if (!rangeText || rangeText === "-") return null;
+      const parts = rangeText.split("→").map(s => s.trim());
+      if (parts.length !== 2) return null;
+      const start = new Date(parts[0]);
+      const end = new Date(parts[1]);
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) return null;
+      return { start, end };
+    }
+
+    function buildNotifications() {
+      const now = toStartOfDay(new Date());
+      const horizonDays = parseInt(document.getElementById("notifyHorizon")?.value || "14", 10);
+      const horizon = new Date(now);
+      horizon.setDate(horizon.getDate() + horizonDays);
+
+      // respect current filters (so notifications match what you see)
+      const search = (document.getElementById("searchBox").value || "").toLowerCase();
+      const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
+      const orphanFilter = document.getElementById("orphanFilter").value;
+      const clusterFilter = document.getElementById("clusterFilter").value;
+
+      const notifs = [];
+
+      for (const r of rows) {
+        if (!isFutureOrToday(r.pdufa_date)) continue;
+
+        // apply same filtering rules used for watchlist (except sorting)
+        const blob = (
+          (r.company || "") + " " +
+          (r.ticker || "") + " " +
+          (r.indication || "") + " " +
+          (r.drug || "") + " " +
+          (r.notes || "") + " " +
+          (r.therapy_type || "") + " " +
+          (r.listing_region || "")
+        ).toLowerCase();
+        if (search && !blob.includes(search)) continue;
+
+        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
+        if (!isNaN(minScore) && score < minScore) continue;
+
+        if (orphanFilter === "yes" && (r.orphan_drug || "").toLowerCase() !== "yes") continue;
+        if (orphanFilter === "no" && (r.orphan_drug || "").toLowerCase() === "yes") continue;
+
+        if (clusterFilter !== "any" && (r.risk_cluster_key || "") !== clusterFilter) continue;
+
+        if (chipState.scoreMin && score < chipState.scoreMin) continue;
+        if (chipState.orphanOnly && (r.orphan_drug || "").toLowerCase() !== "yes") continue;
+        if (chipState.cluster4 && parseInt(r.runup_priority_score_1to5 || "0", 10) !== 4) continue;
+
+        // Entry start and exit start notifications
+        const entry = r._entryRange;
+        const exit = r._exitRange;
+        const pdufa = new Date(r.pdufa_date + "T00:00:00");
+
+        if (entry?.start) {
+          const d = toStartOfDay(entry.start);
+          if (d <= horizon && d >= now) {
+            notifs.push({
+              kind: "ENTRY",
+              when: d,
+              row: r,
+              pill: "Entry starts",
+              pillClass: "entry",
+              text: `Entry window starts today → ${fmtNice(entry.end)}`
+            });
+          }
+          // if window is currently open and we are inside it, show "ENTRY ACTIVE"
+          const eEnd = toStartOfDay(entry.end);
+          if (now >= d && now <= eEnd) {
+            notifs.push({
+              kind: "ENTRY_ACTIVE",
+              when: now,
+              row: r,
+              pill: "Entry active",
+              pillClass: "entry",
+              text: `Entry window active: ${fmtNice(entry.start)} → ${fmtNice(entry.end)}`
+            });
+          }
+        }
+
+        if (exit?.start) {
+          const d = toStartOfDay(exit.start);
+          if (d <= horizon && d >= now) {
+            notifs.push({
+              kind: "EXIT",
+              when: d,
+              row: r,
+              pill: "Exit starts",
+              pillClass: "exit",
+              text: `Exit window starts today → ${fmtNice(exit.end)}`
+            });
+          }
+          const xEnd = toStartOfDay(exit.end);
+          if (now >= d && now <= xEnd) {
+            notifs.push({
+              kind: "EXIT_ACTIVE",
+              when: now,
+              row: r,
+              pill: "Exit active",
+              pillClass: "exit",
+              text: `Exit window active: ${fmtNice(exit.start)} → ${fmtNice(exit.end)}`
+            });
+          }
+        }
+
+        // PDUFA date approaching
+        const p = toStartOfDay(pdufa);
+        if (p <= horizon && p >= now) {
+          const dd = daysBetween(now, p);
+          notifs.push({
+            kind: "PDUFA",
+            when: p,
+            row: r,
+            pill: `PDUFA in ${dd}d`,
+            pillClass: "pdufa",
+            text: `PDUFA date: ${fmtNice(p)}`
+          });
+        }
+      }
+
+      // De-dupe: if ACTIVE exists, prefer ACTIVE over START for same ticker/kind family
+      // (Keep it simple: remove ENTRY start if ENTRY_ACTIVE exists for same row)
+      const key = (n) => `${n.row.ticker || "NA"}|${n.kind}`;
+      const by = new Map();
+      for (const n of notifs) {
+        // keep all; then prune below
+        by.set(Math.random().toString(36).slice(2), n);
+      }
+      let list = Array.from(by.values());
+
+      const hasActive = new Set(list.filter(n => n.kind === "ENTRY_ACTIVE").map(n => n.row.company + "|" + (n.row.ticker||"")));
+      list = list.filter(n => !(n.kind === "ENTRY" && hasActive.has(n.row.company + "|" + (n.row.ticker||""))));
+
+      const hasExitActive = new Set(list.filter(n => n.kind === "EXIT_ACTIVE").map(n => n.row.company + "|" + (n.row.ticker||"")));
+      list = list.filter(n => !(n.kind === "EXIT" && hasExitActive.has(n.row.company + "|" + (n.row.ticker||""))));
+
+      // Sort by soonest (and then by priority kind)
+      const kindRank = { "ENTRY_ACTIVE": 0, "EXIT_ACTIVE": 1, "ENTRY": 2, "EXIT": 3, "PDUFA": 4 };
+      list.sort((a, b) => {
+        const ta = a.when.getTime();
+        const tb = b.when.getTime();
+        if (ta !== tb) return ta - tb;
+        return (kindRank[a.kind] ?? 99) - (kindRank[b.kind] ?? 99);
+      });
+
+      return list.slice(0, 8); // keep compact
+    }
+
+    function renderNotifications() {
+      const listEl = document.getElementById("notifyList");
+      if (!listEl) return;
+
+      const notifs = buildNotifications();
+      listEl.innerHTML = "";
+
+      if (!notifs.length) {
+        listEl.innerHTML = `
+          <div class="noteCard">
+            <div class="noteLeft">
+              <div class="noteTop">
+                <span class="noteTicker">—</span>
+                <span class="noteWhen">No notifications</span>
+              </div>
+              <div class="noteText" style="color:var(--muted)">Try expanding the horizon or clearing filters.</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const now = toStartOfDay(new Date());
+
+      for (const n of notifs) {
+        const r = n.row;
+        const whenText = sameDay(n.when, now) ? "Today" : fmtNice(n.when);
+
+        const pillClass =
+          n.pillClass === "exit" ? "notePill exit" :
+          n.pillClass === "pdufa" ? "notePill pdufa" :
+          "notePill";
+
+        const card = document.createElement("div");
+        card.className = "noteCard";
+        card.innerHTML = `
+          <div class="noteLeft">
+            <div class="noteTop">
+              <span>${r.company}</span>
+              <span class="noteTicker">${(r.ticker || "N/A").toUpperCase()}</span>
+              <span class="noteWhen">${whenText}</span>
+            </div>
+            <div class="noteText">${n.text}</div>
+          </div>
+          <div class="noteRight">
+            <span class="${pillClass}">${n.pill}</span>
+            <span class="notePill pdufa">${fmtNice(new Date(r.pdufa_date + "T00:00:00"))}</span>
+          </div>
+        `;
+        // Click notif -> jump to watchlist and auto-search ticker
+        card.addEventListener("click", () => {
+          document.getElementById("searchBox").value = (r.ticker || r.company || "").toUpperCase();
+          renderWatchlist();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        listEl.appendChild(card);
+      }
+    }
+
+    function refreshNotifications() {
+      renderNotifications();
+    }
+
+    /* ===== init ===== */
+    function init() {
+      // Top “Live • <date>”
+      const today = new Date();
+      const todayText = today.toLocaleDateString(undefined, { weekday:"short", year:"numeric", month:"short", day:"2-digit" });
+      document.getElementById("todayLabel").textContent = `Live • ${todayText}`;
+
+      rows = parseCSV(inlineCSV).map(r => {
         const cluster = assignCluster(r);
+        const entry = windowToDateRange(r.pdufa_date, r.suggested_entry_window_days);
+        const exit = windowToDateRange(r.pdufa_date, r.suggested_exit_window_days);
+
         return {
           ...r,
           risk_cluster: cluster.label,
           risk_cluster_key: cluster.key,
-          risk_cluster_tag: cluster.tagClass,
-          score_rationale: buildRationale(r)
+          score_rationale: buildRationale(r),
+          _entryRange: entry,
+          _exitRange: exit,
+          entry_dates: buildRangeText(entry),
+          exit_dates: buildRangeText(exit),
         };
       });
-    }
 
-    function initAdderUI() {
-      const box = document.getElementById("extraRowsBox");
-      const apply = document.getElementById("applyExtraRows");
-      const clear = document.getElementById("clearExtraRows");
-
-      box.value = loadExtraRowsFromStorage();
-
-      apply.addEventListener("click", () => {
-        saveExtraRowsToStorage(box.value || "");
-        mergeBaseAndExtraRows();
-        renderWatchlist();
-      });
-
-      clear.addEventListener("click", () => {
-        box.value = "";
-        saveExtraRowsToStorage("");
-        mergeBaseAndExtraRows();
-        renderWatchlist();
-      });
-    }
-
-    function init() {
-      mergeBaseAndExtraRows();
-      setupFilters();
-      initAdderUI();
+      setupControls();
       renderWatchlist();
-
-      document.getElementById("scrollToCases").addEventListener("click", () => {
-        document.getElementById("caseStudies")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      updateRCKTExitPanel();
-      setInterval(updateRCKTExitPanel, 1000 * 60 * 60);
-
+      renderNotifications();
+      initBotNews();
       setTimeout(initTradingViewWidgets, 600);
     }
 
