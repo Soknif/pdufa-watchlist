@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>PDUFA Desk — RCKT & DNLI Focus</title>
+  <title>PDUFA Desk 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
@@ -10,511 +10,306 @@
 
   <style>
     :root {
-      --bg:        #050810;
-      --bg1:       #080c18;
-      --surface:   rgba(255,255,255,.035);
-      --surface2:  rgba(255,255,255,.055);
-      --border:    rgba(255,255,255,.07);
-      --border2:   rgba(255,255,255,.13);
+      --bg:      #050810;
+      --bg1:     #080c18;
+      --sf:      rgba(255,255,255,.035);
+      --sf2:     rgba(255,255,255,.06);
+      --bd:      rgba(255,255,255,.07);
+      --bd2:     rgba(255,255,255,.14);
 
-      /* RCKT accent – electric violet */
-      --rckt:      #7c3aed;
-      --rckt2:     #a78bfa;
-      --rcktGlow:  rgba(124,58,237,.28);
-      --rcktSoft:  rgba(124,58,237,.12);
+      --rckt:    #7c3aed;  --rckt2: #a78bfa;
+      --dnli:    #0d9488;  --dnli2: #5eead4;
+      --vera:    #db2777;  --vera2: #f9a8d4;
+      --rare:    #d97706;  --rare2: #fcd34d;
+      --nuvl:    #0284c7;  --nuvl2: #7dd3fc;
 
-      /* DNLI accent – amber-teal */
-      --dnli:      #0d9488;
-      --dnli2:     #5eead4;
-      --dnliGlow:  rgba(13,148,136,.28);
-      --dnliSoft:  rgba(13,148,136,.12);
+      --green:   #22c55e;
+      --text:    #e2e8f0;
+      --muted:   #64748b;
+      --soft:    #94a3b8;
 
-      /* NUVL accent – sky */
-      --nuvl:      #0284c7;
-      --nuvl2:     #7dd3fc;
-
-      /* System */
-      --green:     #22c55e;
-      --amber:     #f59e0b;
-      --red:       #ef4444;
-      --text:      #e2e8f0;
-      --muted:     #64748b;
-      --soft:      #94a3b8;
-
-      --mono:   'JetBrains Mono', monospace;
-      --sans:   'Space Grotesk', sans-serif;
-      --display:'Bebas Neue', sans-serif;
-
-      --r:  14px;
-      --r2: 20px;
+      --mono:    'JetBrains Mono', monospace;
+      --sans:    'Space Grotesk', sans-serif;
+      --disp:    'Bebas Neue', sans-serif;
+      --r:14px; --r2:20px;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* Ambient background blobs */
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
     body::before {
-      content: '';
-      position: fixed; inset: 0;
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
       background:
-        radial-gradient(ellipse 900px 500px at -10% 5%,  rgba(124,58,237,.18), transparent 60%),
-        radial-gradient(ellipse 800px 400px at 110% 10%, rgba(13,148,136,.16), transparent 60%),
-        radial-gradient(ellipse 600px 400px at 50% 90%,  rgba(2,132,199,.10), transparent 60%);
-      pointer-events: none;
-      z-index: 0;
+        radial-gradient(ellipse 900px 500px at -5% 5%,  rgba(124,58,237,.15), transparent 55%),
+        radial-gradient(ellipse 700px 400px at 108% 8%, rgba(13,148,136,.13), transparent 55%),
+        radial-gradient(ellipse 600px 350px at 52% 92%, rgba(219,39,119,.10), transparent 60%);
     }
+    .wrap { position:relative; z-index:1; max-width:1440px; margin:0 auto; padding:0 16px 48px; }
 
-    .wrap { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 16px 40px; }
-
-    /* ─── TOPBAR ─── */
+    /* ── TOPBAR ── */
     .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0 12px;
-      gap: 12px;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 0 12px; gap:12px; flex-wrap:wrap;
+      border-bottom:1px solid var(--bd);
     }
-    .topbar-left { display: flex; align-items: center; gap: 14px; }
-    .brand-mark {
-      font-family: var(--display);
-      font-size: 28px;
-      letter-spacing: .06em;
-      background: linear-gradient(135deg, #a78bfa, #7c3aed, #5eead4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-    .brand-sub { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: var(--mono); letter-spacing: .1em; }
-    .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .live-pill {
-      display: flex; align-items: center; gap: 6px;
-      padding: 5px 12px; border-radius: 999px;
-      border: 1px solid var(--border2);
-      background: var(--surface);
-      font-size: 11px; color: var(--soft); font-family: var(--mono);
-    }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2s infinite; }
+    .brand-mark { font-family:var(--disp); font-size:28px; letter-spacing:.06em; line-height:1;
+      background:linear-gradient(135deg,#a78bfa,#7c3aed,#5eead4,#f9a8d4);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .brand-sub { font-size:10px; color:var(--muted); margin-top:3px; font-family:var(--mono); letter-spacing:.12em; }
+    .live-pill { display:flex; align-items:center; gap:6px; padding:5px 12px; border-radius:999px;
+      border:1px solid var(--bd2); background:var(--sf); font-size:11px; color:var(--soft); font-family:var(--mono); }
+    .live-dot { width:7px; height:7px; border-radius:50%; background:var(--green);
+      box-shadow:0 0 8px var(--green); animation:blink 2s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-    /* ─── HERO CARDS (RCKT + DNLI) ─── */
-    .heroes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 16px;
+    /* ── SCORING LEGEND ── */
+    .legend-bar {
+      display:flex; gap:8px; flex-wrap:wrap; padding:10px 0 14px;
+      border-bottom:1px solid var(--bd); margin-bottom:16px; align-items:center;
     }
-    @media (max-width: 900px) { .heroes { grid-template-columns: 1fr; } }
+    .legend-label { font-size:10px; color:var(--muted); font-family:var(--mono); letter-spacing:.1em; text-transform:uppercase; margin-right:4px; }
+    .leg-item { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--soft); font-family:var(--mono); }
+    .leg-dot { width:8px; height:8px; border-radius:50%; }
+
+    /* ── HEROES GRID (3 columns) ── */
+    .heroes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-bottom:16px; }
+    @media (max-width:1100px) { .heroes { grid-template-columns:1fr 1fr; } }
+    @media (max-width:720px)  { .heroes { grid-template-columns:1fr; } }
 
     .hero-card {
-      border-radius: var(--r2);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      backdrop-filter: blur(12px);
-      overflow: hidden;
-      position: relative;
+      border-radius:var(--r2); border:1px solid var(--bd);
+      background:var(--sf); backdrop-filter:blur(12px); overflow:hidden; position:relative;
     }
     .hero-card::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 240px; height: 240px;
-      border-radius: 50%;
-      opacity: .18;
-      pointer-events: none;
+      content:''; position:absolute; top:-70px; right:-70px;
+      width:220px; height:220px; border-radius:50%; opacity:.14; pointer-events:none;
     }
-    .hero-card.rckt::before { background: var(--rckt); }
-    .hero-card.dnli::before { background: var(--dnli); }
+    .hero-card.rckt { border-top:2px solid var(--rckt); }
+    .hero-card.rckt::before { background:var(--rckt); }
+    .hero-card.dnli { border-top:2px solid var(--dnli); }
+    .hero-card.dnli::before { background:var(--dnli); }
+    .hero-card.vera { border-top:2px solid var(--vera); }
+    .hero-card.vera::before { background:var(--vera); }
 
-    .hero-head {
-      padding: 18px 20px 14px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .hero-ticker-wrap { display: flex; align-items: center; gap: 10px; }
-    .hero-ticker {
-      font-family: var(--mono); font-weight: 700; font-size: 22px;
-      letter-spacing: .08em; line-height: 1;
-    }
-    .rckt .hero-ticker { color: var(--rckt2); }
-    .dnli .hero-ticker { color: var(--dnli2); }
-    .hero-name { font-size: 13px; color: var(--soft); margin-top: 3px; }
+    .hero-head { padding:16px 18px 12px; border-bottom:1px solid var(--bd); display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+    .hero-ticker { font-family:var(--mono); font-weight:700; font-size:24px; letter-spacing:.08em; line-height:1; }
+    .rckt .hero-ticker { color:var(--rckt2); }
+    .dnli .hero-ticker { color:var(--dnli2); }
+    .vera .hero-ticker { color:var(--vera2); }
+    .hero-name { font-size:12px; color:var(--soft); margin-top:3px; }
+    .badge-row { display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end; }
+    .badge { font-size:9px; padding:2px 8px; border-radius:999px; font-family:var(--mono); letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--bd2); background:var(--sf2); color:var(--soft); }
+    .rckt .badge.a { border-color:rgba(167,139,250,.5); background:rgba(124,58,237,.14); color:var(--rckt2); }
+    .dnli .badge.a { border-color:rgba(94,234,212,.5);  background:rgba(13,148,136,.14); color:var(--dnli2); }
+    .vera .badge.a { border-color:rgba(249,168,212,.5); background:rgba(219,39,119,.14); color:var(--vera2); }
+    .badge.sc { background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.45); color:#4ade80; }
 
-    .badge-row { display: flex; gap: 6px; flex-wrap: wrap; }
-    .badge {
-      font-size: 10px; padding: 3px 9px; border-radius: 999px;
-      font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
-      border: 1px solid var(--border2); background: var(--surface2); color: var(--soft);
-    }
-    .rckt .badge.accent { border-color: rgba(167,139,250,.5); background: rgba(124,58,237,.15); color: var(--rckt2); }
-    .dnli .badge.accent { border-color: rgba(94,234,212,.5); background: rgba(13,148,136,.15); color: var(--dnli2); }
-    .badge.score { background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.4); color: #4ade80; }
+    /* KPIs */
+    .hero-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--bd); }
+    .kpi { background:var(--bg1); padding:11px 12px; }
+    .kpi .k { font-size:9px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; font-family:var(--mono); margin-bottom:5px; }
+    .kpi .v { font-size:14px; font-family:var(--mono); font-weight:700; line-height:1.2; }
+    .rckt .kpi .v { color:var(--rckt2); } .dnli .kpi .v { color:var(--dnli2); } .vera .kpi .v { color:var(--vera2); }
+    .kpi .sub { font-size:9px; color:var(--muted); margin-top:3px; line-height:1.3; }
 
-    /* KPIs inside hero */
-    .hero-kpis {
-      padding: 14px 20px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-    }
-    .kpi {
-      background: var(--bg1);
-      padding: 12px 14px;
-    }
-    .kpi:first-child { border-radius: 0 0 0 0; }
-    .kpi .k { font-size: 9px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 6px; }
-    .kpi .v { font-size: 20px; font-family: var(--mono); font-weight: 700; line-height: 1; }
-    .rckt .kpi .v { color: var(--rckt2); }
-    .dnli .kpi .v { color: var(--dnli2); }
-    .kpi .sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
+    /* Countdown */
+    .cd-block { padding:12px 16px; border-bottom:1px solid var(--bd); display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .cd-label { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-family:var(--mono); flex:0 0 auto; }
+    .cd-digits { display:flex; gap:5px; flex:1; }
+    .cd-unit { text-align:center; min-width:42px; background:var(--sf2); border:1px solid var(--bd); border-radius:9px; padding:6px 7px; }
+    .cd-num { font-family:var(--mono); font-size:18px; font-weight:700; line-height:1; }
+    .rckt .cd-num { color:var(--rckt2); } .dnli .cd-num { color:var(--dnli2); } .vera .cd-num { color:var(--vera2); }
+    .cd-lbl { font-size:8px; color:var(--muted); margin-top:2px; letter-spacing:.1em; text-transform:uppercase; }
+    .cd-date { font-size:11px; color:var(--soft); font-family:var(--mono); white-space:nowrap; }
 
-    /* PDUFA countdown */
-    .countdown-block {
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-    .countdown-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-family: var(--mono); flex: 0 0 auto; }
-    .countdown-digits {
-      display: flex;
-      gap: 6px;
-      flex: 1 1 auto;
-    }
-    .cd-unit {
-      text-align: center;
-      min-width: 44px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 6px 8px;
-    }
-    .cd-num { font-family: var(--mono); font-size: 20px; font-weight: 700; line-height: 1; }
-    .rckt .cd-num { color: var(--rckt2); }
-    .dnli .cd-num { color: var(--dnli2); }
-    .cd-lbl { font-size: 9px; color: var(--muted); margin-top: 3px; letter-spacing: .1em; text-transform: uppercase; }
-    .pdufa-date-text { font-size: 12px; color: var(--soft); font-family: var(--mono); white-space: nowrap; }
-
-    /* Timeline bar */
-    .timeline-block { padding: 14px 20px; border-bottom: 1px solid var(--border); }
-    .timeline-label { font-size: 10px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 10px; }
-    .timeline-bar { position: relative; height: 8px; background: var(--surface2); border-radius: 4px; overflow: visible; }
-    .timeline-fill {
-      height: 100%;
-      border-radius: 4px;
-      position: absolute; left: 0; top: 0;
-      transition: width .6s ease;
-    }
-    .rckt .timeline-fill { background: linear-gradient(90deg, rgba(124,58,237,.4), var(--rckt2)); }
-    .dnli .timeline-fill { background: linear-gradient(90deg, rgba(13,148,136,.4), var(--dnli2)); }
-    .timeline-marker {
-      position: absolute; top: -4px;
-      width: 16px; height: 16px; border-radius: 50%;
-      border: 2px solid var(--bg);
-      transform: translateX(-50%);
-      box-shadow: 0 0 10px currentColor;
-    }
-    .rckt .timeline-marker { background: var(--rckt2); color: var(--rckt2); }
-    .dnli .timeline-marker { background: var(--dnli2); color: var(--dnli2); }
-    .timeline-labels { display: flex; justify-content: space-between; margin-top: 8px; }
-    .timeline-labels span { font-size: 9px; color: var(--muted); font-family: var(--mono); }
+    /* Progress bar */
+    .pb-block { padding:12px 16px; border-bottom:1px solid var(--bd); }
+    .pb-label { font-size:9px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-family:var(--mono); margin-bottom:8px; }
+    .pb-bar { position:relative; height:7px; background:var(--sf2); border-radius:4px; }
+    .pb-fill { height:100%; border-radius:4px; position:absolute; left:0; top:0; transition:width .6s; }
+    .rckt .pb-fill { background:linear-gradient(90deg,rgba(124,58,237,.4),var(--rckt2)); }
+    .dnli .pb-fill { background:linear-gradient(90deg,rgba(13,148,136,.4),var(--dnli2)); }
+    .vera .pb-fill { background:linear-gradient(90deg,rgba(219,39,119,.4),var(--vera2)); }
+    .pb-marker { position:absolute; top:-5px; width:17px; height:17px; border-radius:50%; border:2px solid var(--bg); transform:translateX(-50%); box-shadow:0 0 10px currentColor; }
+    .rckt .pb-marker { background:var(--rckt2); color:var(--rckt2); }
+    .dnli .pb-marker { background:var(--dnli2); color:var(--dnli2); }
+    .vera .pb-marker { background:var(--vera2); color:var(--vera2); }
+    .pb-labs { display:flex; justify-content:space-between; margin-top:7px; }
+    .pb-labs span { font-size:8px; color:var(--muted); font-family:var(--mono); }
 
     /* Thesis */
-    .thesis-block { padding: 14px 20px; }
-    .thesis-title { font-size: 10px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 10px; }
-    .thesis-points { display: flex; flex-direction: column; gap: 7px; }
-    .thesis-pt { display: flex; gap: 9px; align-items: flex-start; font-size: 12px; color: var(--text); line-height: 1.45; }
-    .thesis-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; margin-top: 5px; }
-    .rckt .thesis-dot { background: var(--rckt2); box-shadow: 0 0 6px var(--rckt); }
-    .dnli .thesis-dot { background: var(--dnli2); box-shadow: 0 0 6px var(--dnli); }
+    .thesis { padding:12px 16px 16px; }
+    .thesis-ttl { font-size:9px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-family:var(--mono); margin-bottom:9px; }
+    .th-pts { display:flex; flex-direction:column; gap:6px; }
+    .th-pt { display:flex; gap:8px; align-items:flex-start; font-size:11px; color:var(--text); line-height:1.45; }
+    .th-dot { width:6px; height:6px; border-radius:50%; flex:0 0 auto; margin-top:4px; }
+    .rckt .th-dot { background:var(--rckt2); box-shadow:0 0 5px var(--rckt); }
+    .dnli .th-dot { background:var(--dnli2); box-shadow:0 0 5px var(--dnli); }
+    .vera .th-dot { background:var(--vera2); box-shadow:0 0 5px var(--vera); }
 
-    /* ─── ENTRY/EXIT windows ─── */
-    .windows-section {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    @media (max-width: 900px) { .windows-section { grid-template-columns: 1fr; } }
-    .window-card {
-      border-radius: var(--r); border: 1px solid var(--border);
-      background: var(--surface); backdrop-filter: blur(8px);
-      padding: 16px 18px; overflow: hidden; position: relative;
-    }
-    .window-card.rckt { border-top: 2px solid var(--rckt); }
-    .window-card.dnli { border-top: 2px solid var(--dnli); }
-    .wc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
-    .wc-title { font-family: var(--mono); font-size: 11px; color: var(--soft); letter-spacing: .1em; text-transform: uppercase; }
-    .wc-ticker { font-family: var(--mono); font-weight: 700; font-size: 13px; }
-    .rckt .wc-ticker { color: var(--rckt2); }
-    .dnli .wc-ticker { color: var(--dnli2); }
-    .window-rows { display: flex; flex-direction: column; gap: 8px; }
-    .window-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .wr-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-family: var(--mono); }
-    .wr-dates { font-size: 12px; font-family: var(--mono); color: var(--text); }
-    .wr-pill {
-      font-size: 10px; padding: 3px 9px; border-radius: 999px;
-      font-weight: 600; font-family: var(--mono); white-space: nowrap;
-    }
-    .wr-pill.entry { background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35); color: #4ade80; }
-    .wr-pill.exit  { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.35); color: #fcd34d; }
-    .wr-pill.active { animation: pulseGlow .9s infinite alternate; }
-    .rckt .wr-pill.active { box-shadow: 0 0 8px var(--rckt); }
-    .dnli .wr-pill.active { box-shadow: 0 0 8px var(--dnli); }
-    @keyframes pulseGlow { from{opacity:.75} to{opacity:1} }
+    /* ── 2-COL CHARTS + NEWS ── */
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    @media (max-width:900px) { .two-col { grid-template-columns:1fr; } }
+    .three-col { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-bottom:16px; }
+    @media (max-width:1100px) { .three-col { grid-template-columns:1fr 1fr; } }
+    @media (max-width:720px)  { .three-col { grid-template-columns:1fr; } }
 
-    /* ─── CHARTS ─── */
-    .charts-section { margin-top: 14px; }
-    .charts-title {
-      font-size: 10px; color: var(--muted); letter-spacing: .15em;
-      text-transform: uppercase; font-family: var(--mono);
-      padding: 10px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
-    }
-    .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
-    .chart-card {
-      border-radius: var(--r); border: 1px solid var(--border);
-      background: var(--surface); overflow: hidden;
-    }
-    .chart-card-head {
-      padding: 12px 16px 10px;
-      border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
-    }
-    .chart-card-title { font-family: var(--mono); font-size: 13px; font-weight: 700; }
-    .rckt-c .chart-card-title { color: var(--rckt2); }
-    .dnli-c .chart-card-title { color: var(--dnli2); }
-    .chart-card-note { font-size: 10px; color: var(--muted); font-family: var(--mono); }
-    .chart-container { height: 280px; }
+    .panel { border-radius:var(--r); border:1px solid var(--bd); background:var(--sf); backdrop-filter:blur(8px); overflow:hidden; }
+    .panel-head { padding:11px 16px 9px; border-bottom:1px solid var(--bd); display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+    .panel-title { font-family:var(--mono); font-size:13px; font-weight:700; }
+    .panel-note { font-size:10px; color:var(--muted); font-family:var(--mono); }
+    .chart-container { height:260px; }
 
-    /* ─── NEWS FEED ─── */
-    .news-section { margin-top: 14px; }
-    .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 900px) { .news-grid { grid-template-columns: 1fr; } }
-    .news-card {
-      border-radius: var(--r); border: 1px solid var(--border);
-      background: var(--surface); backdrop-filter: blur(8px);
-      overflow: hidden;
-    }
-    .news-card.rckt { border-top: 2px solid var(--rckt); }
-    .news-card.dnli { border-top: 2px solid var(--dnli); }
-    .news-head {
-      padding: 12px 16px 10px;
-      border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center; gap: 8px;
-    }
-    .news-head-left { display: flex; align-items: center; gap: 10px; }
-    .news-head-ticker { font-family: var(--mono); font-weight: 700; font-size: 13px; }
-    .rckt .news-head-ticker, .rckt.news-card .news-head-ticker { color: var(--rckt2); }
-    .dnli .news-head-ticker, .dnli.news-card .news-head-ticker { color: var(--dnli2); }
-    .news-status { font-size: 10px; color: var(--muted); font-family: var(--mono); }
-    .news-refresh { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--border2); background: var(--surface2); color: var(--soft); font-size: 10px; cursor: pointer; font-family: var(--mono); transition: border-color .15s; }
-    .news-refresh:hover { border-color: var(--border2); color: var(--text); }
-    .news-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; min-height: 120px; }
-    .news-item { display: flex; gap: 10px; align-items: flex-start; }
-    .news-dot-wrap { padding-top: 4px; }
-    .news-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .rckt .news-dot, .rckt.news-card .news-dot { background: var(--rckt2); box-shadow: 0 0 6px var(--rckt); }
-    .dnli .news-dot, .dnli.news-card .news-dot { background: var(--dnli2); box-shadow: 0 0 6px var(--dnli); }
-    .news-item-body { flex: 1; }
-    .news-item-title a { font-size: 12px; color: var(--text); text-decoration: none; line-height: 1.4; display: block; }
-    .news-item-title a:hover { color: #fff; }
-    .news-item-meta { font-size: 10px; color: var(--muted); margin-top: 3px; font-family: var(--mono); }
-    .news-empty { font-size: 12px; color: var(--muted); padding: 8px 0; }
+    /* News */
+    .news-body { padding:12px 16px; display:flex; flex-direction:column; gap:10px; min-height:120px; }
+    .n-item { display:flex; gap:10px; align-items:flex-start; }
+    .n-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+    .n-txt a { font-size:11px; color:var(--text); text-decoration:none; line-height:1.4; display:block; }
+    .n-txt a:hover { color:#fff; }
+    .n-meta { font-size:9px; color:var(--muted); margin-top:2px; font-family:var(--mono); }
+    .n-empty { font-size:11px; color:var(--muted); padding:8px 0; }
+    .n-status { font-size:10px; color:var(--muted); font-family:var(--mono); }
+    .ref-btn { padding:4px 10px; border-radius:999px; border:1px solid var(--bd2); background:var(--sf2); color:var(--soft); font-size:9px; cursor:pointer; font-family:var(--mono); transition:color .15s; }
+    .ref-btn:hover { color:var(--text); }
+    .rckt .n-dot { background:var(--rckt2); box-shadow:0 0 5px var(--rckt); }
+    .dnli .n-dot { background:var(--dnli2); box-shadow:0 0 5px var(--dnli); }
+    .vera .n-dot { background:var(--vera2); box-shadow:0 0 5px var(--vera); }
 
-    /* ─── WATCHLIST (compact below) ─── */
-    .watchlist-section { margin-top: 24px; }
-    .section-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 10px 0 12px; border-bottom: 1px solid var(--border);
-      gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
-    }
-    .section-title { font-family: var(--display); font-size: 22px; letter-spacing: .06em; color: var(--text); }
-    .section-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-top: 2px; }
-    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .search-wrap {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 14px; border-radius: 999px;
-      border: 1px solid var(--border2); background: var(--surface2);
-      flex: 1 1 220px;
-    }
-    .search-wrap input { border: none; outline: none; background: transparent; color: var(--text); font-size: 12px; font-family: var(--sans); width: 100%; }
-    .search-wrap input::placeholder { color: var(--muted); }
-    .filter-sel {
-      padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border2);
-      background: var(--surface2); color: var(--soft); font-size: 11px; font-family: var(--sans);
-      outline: none; min-width: 130px;
-    }
+    /* ── SECTION HEADER ── */
+    .sec-hdr { display:flex; justify-content:space-between; align-items:center; padding:10px 0 12px; border-bottom:1px solid var(--bd); gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+    .sec-title { font-family:var(--disp); font-size:22px; letter-spacing:.06em; }
+    .sec-sub { font-size:10px; color:var(--muted); font-family:var(--mono); margin-top:2px; }
+    .sec-tag { font-size:9px; padding:3px 9px; border-radius:999px; border:1px solid var(--bd2); background:var(--sf2); color:var(--muted); font-family:var(--mono); letter-spacing:.1em; text-transform:uppercase; }
 
-    /* Chips */
-    .chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-    .chip {
-      padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border2);
-      background: var(--surface2); color: var(--muted); font-size: 11px; font-family: var(--mono);
-      cursor: pointer; letter-spacing: .08em; transition: all .15s;
-      white-space: nowrap;
-    }
-    .chip:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
-    .chip.active { border-color: rgba(167,139,250,.5); background: rgba(124,58,237,.15); color: var(--rckt2); }
-    .chip[data-chip="dnli-focus"].active { border-color: rgba(94,234,212,.5); background: rgba(13,148,136,.15); color: var(--dnli2); }
+    /* ── FILTERS & CHIPS ── */
+    .filter-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:10px; }
+    .search-wrap { display:flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; border:1px solid var(--bd2); background:var(--sf2); flex:1 1 220px; }
+    .search-wrap input { border:none; outline:none; background:transparent; color:var(--text); font-size:12px; font-family:var(--sans); width:100%; }
+    .search-wrap input::placeholder { color:var(--muted); }
+    .fsel { padding:8px 12px; border-radius:999px; border:1px solid var(--bd2); background:var(--sf2); color:var(--soft); font-size:11px; font-family:var(--sans); outline:none; min-width:130px; }
+    .chip-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .chip { padding:6px 12px; border-radius:999px; border:1px solid var(--bd2); background:var(--sf2); color:var(--muted); font-size:10px; font-family:var(--mono); cursor:pointer; letter-spacing:.08em; transition:all .15s; white-space:nowrap; }
+    .chip:hover { color:var(--text); border-color:rgba(255,255,255,.2); }
+    .chip.on { border-color:rgba(167,139,250,.5); background:rgba(124,58,237,.14); color:var(--rckt2); }
+    .chip[data-c="dnli"].on { border-color:rgba(94,234,212,.5); background:rgba(13,148,136,.14); color:var(--dnli2); }
+    .chip[data-c="vera"].on { border-color:rgba(249,168,212,.5); background:rgba(219,39,119,.14); color:var(--vera2); }
 
-    /* Table */
-    .wl-table { width: 100%; border-collapse: collapse; }
-    .wl-table th {
-      text-align: left; padding: 8px 12px; font-size: 9px; color: var(--muted);
-      letter-spacing: .14em; text-transform: uppercase; font-family: var(--mono); font-weight: 600;
-      border-bottom: 1px solid var(--border); white-space: nowrap;
-    }
-    .wl-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-    .wl-table tr:last-child td { border-bottom: none; }
-    .wl-table tr { cursor: pointer; transition: background .12s; }
-    .wl-table tr:hover td { background: var(--surface); }
-    .td-company { font-size: 13px; font-weight: 600; display: flex; flex-direction: column; gap: 3px; }
-    .td-ticker { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; }
-    .td-drug { font-size: 11px; color: var(--soft); }
-    .td-indication { font-size: 11px; color: var(--muted); max-width: 200px; line-height: 1.35; }
-    .td-date { font-family: var(--mono); font-size: 11px; white-space: nowrap; }
-    .td-score { text-align: center; }
-    .score-badge {
-      display: inline-block; width: 26px; height: 26px; border-radius: 50%; line-height: 26px;
-      text-align: center; font-size: 12px; font-weight: 700; font-family: var(--mono);
-    }
-    .s5 { background: rgba(34,197,94,.2); color: #4ade80; border: 1px solid rgba(34,197,94,.4); }
-    .s4 { background: rgba(245,158,11,.15); color: #fcd34d; border: 1px solid rgba(245,158,11,.35); }
-    .s3 { background: rgba(125,211,252,.1); color: #7dd3fc; border: 1px solid rgba(125,211,252,.3); }
-    .s2 { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
-    .s1 { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
-    .td-window { font-size: 10px; font-family: var(--mono); color: var(--soft); line-height: 1.55; }
-    .td-tags { display: flex; flex-direction: column; gap: 4px; }
-    .micro-badge {
-      display: inline-block; font-size: 9px; padding: 2px 7px; border-radius: 999px;
-      font-family: var(--mono); letter-spacing: .08em; border: 1px solid var(--border);
-      background: var(--surface2); color: var(--muted); white-space: nowrap;
-    }
-    .micro-badge.orphan { border-color: rgba(125,211,252,.3); color: #7dd3fc; background: rgba(125,211,252,.08); }
-    .micro-badge.untrade { border-color: rgba(239,68,68,.3); color: #fca5a5; background: rgba(239,68,68,.08); }
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; }
+    th { text-align:left; padding:8px 12px; font-size:9px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; font-family:var(--mono); border-bottom:1px solid var(--bd); white-space:nowrap; }
+    td { padding:11px 12px; border-bottom:1px solid var(--bd); vertical-align:top; }
+    tr:last-child td { border-bottom:none; }
+    tr { cursor:pointer; transition:background .12s; }
+    tr:hover td { background:var(--sf); }
+    .td-co { font-size:12px; font-weight:600; }
+    .td-tkr { font-family:var(--mono); font-size:11px; letter-spacing:.1em; }
+    .td-drug { font-size:11px; color:var(--soft); }
+    .td-ind { font-size:11px; color:var(--muted); max-width:200px; line-height:1.35; }
+    .td-date { font-family:var(--mono); font-size:11px; white-space:nowrap; }
+    .td-sc { text-align:center; }
+    .sc-b { display:inline-block; width:26px; height:26px; border-radius:50%; line-height:26px; text-align:center; font-size:12px; font-weight:700; font-family:var(--mono); }
+    .s5 { background:rgba(34,197,94,.2);  color:#4ade80; border:1px solid rgba(34,197,94,.4); }
+    .s4 { background:rgba(245,158,11,.15);color:#fcd34d; border:1px solid rgba(245,158,11,.35); }
+    .s3 { background:rgba(125,211,252,.1);color:#7dd3fc; border:1px solid rgba(125,211,252,.3); }
+    .s2 { background:var(--sf2); color:var(--muted); border:1px solid var(--bd); }
+    .td-win { font-size:10px; font-family:var(--mono); color:var(--soft); line-height:1.55; }
+    .mb { display:inline-block; font-size:9px; padding:2px 6px; border-radius:999px; font-family:var(--mono); letter-spacing:.07em; border:1px solid var(--bd); background:var(--sf2); color:var(--muted); white-space:nowrap; }
+    .mb.orph { border-color:rgba(125,211,252,.3); color:#7dd3fc; background:rgba(125,211,252,.08); }
+    .mb.gene { border-color:rgba(167,139,250,.35); color:var(--rckt2); background:rgba(124,58,237,.08); }
+    .mb.ert  { border-color:rgba(94,234,212,.35);  color:var(--dnli2); background:rgba(13,148,136,.08); }
+    .mb.onco { border-color:rgba(249,168,212,.35); color:var(--vera2); background:rgba(219,39,119,.08); }
+    .mb.ntrd { border-color:rgba(239,68,68,.3);   color:#fca5a5; background:rgba(239,68,68,.08); }
+    .empty-state { padding:32px; text-align:center; color:var(--muted); font-size:13px; border:1px dashed var(--bd); border-radius:var(--r); margin-top:10px; }
+    @media (max-width:700px) { .hide-m { display:none!important; } td,th { padding:9px 7px; } }
 
-    /* Empty state */
-    .empty-state { padding: 32px; text-align: center; color: var(--muted); font-size: 13px; border: 1px dashed var(--border); border-radius: var(--r); margin-top: 12px; }
+    /* ── SCORING EXPLAINER ── */
+    .scoring-box { margin-bottom:14px; border-radius:var(--r); border:1px solid var(--bd); background:var(--sf); padding:14px 18px; }
+    .scoring-box h4 { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); margin-bottom:10px; }
+    .scoring-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; }
+    .sc-factor { font-size:11px; color:var(--muted); line-height:1.5; }
+    .sc-factor b { color:var(--text); }
 
-    /* ─── RESPONSIVE HIDING ─── */
-    @media (max-width: 700px) {
-      .hide-mobile { display: none !important; }
-      .wl-table td, .wl-table th { padding: 9px 8px; }
-    }
+    /* ── WINDOWS SECTION ── */
+    .windows-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-bottom:16px; }
+    @media (max-width:1100px) { .windows-row { grid-template-columns:1fr 1fr; } }
+    @media (max-width:720px)  { .windows-row { grid-template-columns:1fr; } }
+    .win-card { border-radius:var(--r); border:1px solid var(--bd); background:var(--sf); padding:14px 16px; }
+    .win-card.rckt { border-top:2px solid var(--rckt); } .win-card.dnli { border-top:2px solid var(--dnli); } .win-card.vera { border-top:2px solid var(--vera); }
+    .win-hd { display:flex; justify-content:space-between; align-items:center; margin-bottom:11px; flex-wrap:wrap; gap:6px; }
+    .win-ttl { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-family:var(--mono); }
+    .win-tkr { font-family:var(--mono); font-weight:700; font-size:13px; }
+    .rckt .win-tkr { color:var(--rckt2); } .dnli .win-tkr { color:var(--dnli2); } .vera .win-tkr { color:var(--vera2); }
+    .win-rows { display:flex; flex-direction:column; gap:8px; }
+    .win-row { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+    .wrl { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; font-family:var(--mono); }
+    .wrd { font-size:11px; font-family:var(--mono); color:var(--text); }
+    .wp { font-size:9px; padding:2px 8px; border-radius:999px; font-weight:600; font-family:var(--mono); white-space:nowrap; }
+    .wp.en  { background:rgba(34,197,94,.12);  border:1px solid rgba(34,197,94,.35);  color:#4ade80; }
+    .wp.ex  { background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.35); color:#fcd34d; }
+    .wp.act { animation:pg .9s infinite alternate; }
+    @keyframes pg { from{opacity:.7} to{opacity:1} }
+    .wp.nd  { background:var(--sf2); border:1px solid var(--bd2); color:var(--soft); }
 
-    /* ─── FOOTER ─── */
-    .foot {
-      margin-top: 32px;
-      padding: 16px 0;
-      border-top: 1px solid var(--border);
-      text-align: right;
-      font-size: 10px;
-      color: var(--muted);
-      font-family: var(--mono);
-    }
-
-    /* ─── Scrollbar styling ─── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+    /* FOOTER */
+    .foot { margin-top:32px; padding:16px 0; border-top:1px solid var(--bd); text-align:right; font-size:10px; color:var(--muted); font-family:var(--mono); }
+    ::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--sf2); border-radius:3px; }
   </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- TOP BAR -->
+  <!-- TOPBAR -->
   <div class="topbar">
-    <div class="topbar-left">
-      <div>
-        <div class="brand-mark">PDUFA DESK</div>
-        <div class="brand-sub">RCKT • DNLI • NUVL FOCUS — 2026</div>
-      </div>
+    <div>
+      <div class="brand-mark">PDUFA DESK 2026</div>
+      <div class="brand-sub">RCKT &nbsp;·&nbsp; DNLI &nbsp;·&nbsp; VERA &nbsp;·&nbsp; RARE &nbsp;·&nbsp; NUVL &nbsp;·&nbsp; CORT</div>
     </div>
-    <div class="topbar-right">
-      <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
-    </div>
+    <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
   </div>
 
-  <!-- ══════ HERO CARDS ══════ -->
+  <!-- SCORING EXPLAINER -->
+  <div class="legend-bar">
+    <span class="legend-label">Run-Up Score</span>
+    <div class="leg-item"><div class="leg-dot" style="background:#4ade80"></div>5 = Top binary, ultra-rare, small-cap, first-in-class</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#fcd34d"></div>4 = Strong catalyst, orphan/rare, clear single-asset story</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#7dd3fc"></div>3 = Watch / speculative, larger cap or label expansion</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#94a3b8"></div>2 = Background event, mega-cap dampener</div>
+  </div>
+
+  <!-- HERO CARDS (RCKT / DNLI / VERA) -->
   <div class="heroes">
 
     <!-- RCKT -->
     <div class="hero-card rckt">
       <div class="hero-head">
-        <div>
-          <div class="hero-ticker-wrap">
-            <div class="hero-ticker">RCKT</div>
-          </div>
-          <div class="hero-name">Rocket Pharmaceuticals</div>
-        </div>
+        <div><div class="hero-ticker">RCKT</div><div class="hero-name">Rocket Pharmaceuticals</div></div>
         <div class="badge-row">
-          <span class="badge accent">Gene Therapy</span>
-          <span class="badge accent">Orphan</span>
-          <span class="badge score">Score 5</span>
+          <span class="badge a">Ex-Vivo Gene Therapy</span>
+          <span class="badge a">Orphan / PRV</span>
+          <span class="badge sc">Score 5</span>
         </div>
       </div>
-
       <div class="hero-kpis">
-        <div class="kpi">
-          <div class="k">Drug</div>
-          <div class="v" style="font-size:13px;line-height:1.3">KRESLADI™</div>
-          <div class="sub">marnetegragene autotemcel</div>
-        </div>
-        <div class="kpi">
-          <div class="k">Indication</div>
-          <div class="v" style="font-size:13px;line-height:1.3">LAD-I</div>
-          <div class="sub">Ultra-rare immune disorder</div>
-        </div>
-        <div class="kpi">
-          <div class="k">Filing Type</div>
-          <div class="v" style="font-size:13px;line-height:1.3">BLA</div>
-          <div class="sub">Resubmission • Priority</div>
-        </div>
+        <div class="kpi"><div class="k">Drug</div><div class="v">KRESLADI</div><div class="sub">marnetegragene autotemcel</div></div>
+        <div class="kpi"><div class="k">Disease</div><div class="v">LAD-I</div><div class="sub">Ultra-rare immune disorder</div></div>
+        <div class="kpi"><div class="k">Filing</div><div class="v">BLA</div><div class="sub">Resubmission · Priority</div></div>
       </div>
-
-      <div class="countdown-block">
-        <div class="countdown-label">PDUFA<br>Countdown</div>
-        <div class="countdown-digits" id="rckt-cd"></div>
-        <div class="pdufa-date-text">Mar 28, 2026</div>
+      <div class="cd-block">
+        <div class="cd-label">PDUFA<br>Countdown</div>
+        <div class="cd-digits" id="rckt-cd"></div>
+        <div class="cd-date">Mar 28, 2026</div>
       </div>
-
-      <div class="timeline-block">
-        <div class="timeline-label">Review Progress</div>
-        <div class="timeline-bar">
-          <div class="timeline-fill" id="rckt-fill" style="width:0%"></div>
-          <div class="timeline-marker" id="rckt-marker" style="left:0%"></div>
-        </div>
-        <div class="timeline-labels">
-          <span>BLA Accept Oct 14 '25</span>
-          <span>Today</span>
-          <span>PDUFA Mar 28 '26</span>
-        </div>
+      <div class="pb-block">
+        <div class="pb-label">FDA Review Progress</div>
+        <div class="pb-bar"><div class="pb-fill" id="rckt-fill"></div><div class="pb-marker" id="rckt-mark"></div></div>
+        <div class="pb-labs"><span>BLA Accept Oct 14 '25</span><span>Today</span><span>PDUFA Mar 28 '26</span></div>
       </div>
-
-      <div class="thesis-block">
-        <div class="thesis-title">Thesis Points</div>
-        <div class="thesis-points">
-          <div class="thesis-pt"><div class="thesis-dot"></div>100% overall survival at 12m in Phase 1/2 — all endpoints met, zero treatment-related SAEs.</div>
-          <div class="thesis-pt"><div class="thesis-dot"></div>Resubmission after 2024 CRL addressed CMC-only concerns; no efficacy/safety issues raised.</div>
-          <div class="thesis-pt"><div class="thesis-dot"></div>Rare Pediatric Disease PRV eligible — potential $100–150M windfall on approval.</div>
-          <div class="thesis-pt"><div class="thesis-dot"></div>Small-cap ex-gene-therapy binary: high event beta, classic run-up setup.</div>
+      <div class="thesis">
+        <div class="thesis-ttl">Thesis</div>
+        <div class="th-pts">
+          <div class="th-pt"><div class="th-dot"></div>100% overall survival at 12m in Phase 1/2 — all endpoints met, zero treatment-related SAEs.</div>
+          <div class="th-pt"><div class="th-dot"></div>Resubmission after CMC-only CRL; no efficacy or safety issues raised by FDA.</div>
+          <div class="th-pt"><div class="th-dot"></div>Rare Pediatric Disease PRV eligible — potential $100M+ windfall on approval.</div>
+          <div class="th-pt"><div class="th-dot"></div>Small-cap ex-gene-therapy binary: high event beta, textbook run-up setup. 28 days to PDUFA.</div>
         </div>
       </div>
     </div>
@@ -522,564 +317,551 @@
     <!-- DNLI -->
     <div class="hero-card dnli">
       <div class="hero-head">
-        <div>
-          <div class="hero-ticker-wrap">
-            <div class="hero-ticker">DNLI</div>
-          </div>
-          <div class="hero-name">Denali Therapeutics</div>
-        </div>
+        <div><div class="hero-ticker">DNLI</div><div class="hero-name">Denali Therapeutics</div></div>
         <div class="badge-row">
-          <span class="badge accent">Brain-Penetrant ERT</span>
-          <span class="badge accent">Orphan</span>
-          <span class="badge score">Score 5</span>
+          <span class="badge a">Brain-Penetrant ERT</span>
+          <span class="badge a">Breakthrough Therapy</span>
+          <span class="badge sc">Score 5</span>
         </div>
       </div>
-
       <div class="hero-kpis">
-        <div class="kpi">
-          <div class="k">Drug</div>
-          <div class="v" style="font-size:13px;line-height:1.3">Tividenofusp</div>
-          <div class="sub">DNL310 / ETV:IDS</div>
-        </div>
-        <div class="kpi">
-          <div class="k">Indication</div>
-          <div class="v" style="font-size:13px;line-height:1.3">MPS II</div>
-          <div class="sub">Hunter syndrome</div>
-        </div>
-        <div class="kpi">
-          <div class="k">Filing Type</div>
-          <div class="v" style="font-size:13px;line-height:1.3">BLA</div>
-          <div class="sub">Accelerated • Priority</div>
+        <div class="kpi"><div class="k">Drug</div><div class="v">Tividenofusp</div><div class="sub">DNL310 / ETV:IDS</div></div>
+        <div class="kpi"><div class="k">Disease</div><div class="v">MPS II</div><div class="sub">Hunter syndrome</div></div>
+        <div class="kpi"><div class="k">Filing</div><div class="v">BLA</div><div class="sub">Accelerated · Priority</div></div>
+      </div>
+      <div class="cd-block">
+        <div class="cd-label">PDUFA<br>Countdown</div>
+        <div class="cd-digits" id="dnli-cd"></div>
+        <div class="cd-date">Apr 5, 2026</div>
+      </div>
+      <div class="pb-block">
+        <div class="pb-label">FDA Review Progress</div>
+        <div class="pb-bar"><div class="pb-fill" id="dnli-fill"></div><div class="pb-marker" id="dnli-mark"></div></div>
+        <div class="pb-labs"><span>BLA Accept Jul 7 '25</span><span>Today</span><span>PDUFA Apr 5 '26</span></div>
+      </div>
+      <div class="thesis">
+        <div class="thesis-ttl">Thesis</div>
+        <div class="th-pts">
+          <div class="th-pt"><div class="th-dot"></div>First BBB-crossing ERT for Hunter syndrome — first major advance in nearly 20 years.</div>
+          <div class="th-pt"><div class="th-dot"></div>NEJM publication Jan 2026 + Breakthrough Therapy Designation = strong FDA goodwill.</div>
+          <div class="th-pt"><div class="th-dot"></div>3-month extension was PK/clinical-pharmacology only — FDA confirmed no efficacy or safety concerns.</div>
+          <div class="th-pt"><div class="th-dot"></div>Mid-cap with TransportVehicle platform optionality (Sanfilippo, Alzheimer's, Pompe in pipeline).</div>
         </div>
       </div>
+    </div>
 
-      <div class="countdown-block">
-        <div class="countdown-label">PDUFA<br>Countdown</div>
-        <div class="countdown-digits" id="dnli-cd"></div>
-        <div class="pdufa-date-text">Apr 5, 2026</div>
-      </div>
-
-      <div class="timeline-block">
-        <div class="timeline-label">Review Progress</div>
-        <div class="timeline-bar">
-          <div class="timeline-fill" id="dnli-fill" style="width:0%"></div>
-          <div class="timeline-marker" id="dnli-marker" style="left:0%"></div>
-        </div>
-        <div class="timeline-labels">
-          <span>BLA Accept Jul 7 '25</span>
-          <span>Today</span>
-          <span>PDUFA Apr 5 '26</span>
+    <!-- VERA -->
+    <div class="hero-card vera">
+      <div class="hero-head">
+        <div><div class="hero-ticker">VERA</div><div class="hero-name">Vera Therapeutics</div></div>
+        <div class="badge-row">
+          <span class="badge a">Dual BAFF/APRIL</span>
+          <span class="badge a">Breakthrough Therapy</span>
+          <span class="badge sc">Score 5</span>
         </div>
       </div>
-
-      <div class="thesis-block">
-        <div class="thesis-title">Thesis Points</div>
-        <div class="thesis-points">
-          <div class="thesis-pt"><div class="thesis-dot"></div>First BBB-crossing ERT for Hunter syndrome — first major advance in nearly 20 years.</div>
-          <div class="thesis-pt"><div class="thesis-dot"></div>NEJM publication (Jan 1 '26) + Breakthrough Therapy Designation = maximum FDA goodwill.</div>
-          <div class="thesis-pt"><div class="thesis-dot"></div>Extension was CMC/PK-only — FDA explicitly clarified no efficacy or safety concerns.</div>
-          <div class="thesis-pt"><div class="thesis-dot"></div>Mid-cap with TransportVehicle platform optionality; strong institutional interest.</div>
+      <div class="hero-kpis">
+        <div class="kpi"><div class="k">Drug</div><div class="v">Atacicept</div><div class="sub">TACI-Fc fusion protein</div></div>
+        <div class="kpi"><div class="k">Disease</div><div class="v">IgAN</div><div class="sub">IgA nephropathy</div></div>
+        <div class="kpi"><div class="k">Filing</div><div class="v">BLA</div><div class="sub">Accelerated · Priority</div></div>
+      </div>
+      <div class="cd-block">
+        <div class="cd-label">PDUFA<br>Countdown</div>
+        <div class="cd-digits" id="vera-cd"></div>
+        <div class="cd-date">Jul 7, 2026</div>
+      </div>
+      <div class="pb-block">
+        <div class="pb-label">FDA Review Progress</div>
+        <div class="pb-bar"><div class="pb-fill" id="vera-fill"></div><div class="pb-marker" id="vera-mark"></div></div>
+        <div class="pb-labs"><span>BLA Accept Jan 7 '26</span><span>Today</span><span>PDUFA Jul 7 '26</span></div>
+      </div>
+      <div class="thesis">
+        <div class="thesis-ttl">Thesis</div>
+        <div class="th-pts">
+          <div class="th-pt"><div class="th-dot"></div>Phase 3 ORIGIN met primary endpoint: 42% proteinuria reduction vs placebo (p&lt;0.0001) — published in NEJM Nov 2026.</div>
+          <div class="th-pt"><div class="th-dot"></div>Would be first dual BAFF/APRIL inhibitor — first-in-class mechanism in a high-prevalence kidney disease.</div>
+          <div class="th-pt"><div class="th-dot"></div>$714M+ cash runway well past approval; commercial team hired and launch-ready mid-2026.</div>
+          <div class="th-pt"><div class="th-dot"></div>Clean safety profile comparable to placebo; no immunosuppression signals — reduces regulatory risk.</div>
         </div>
       </div>
     </div>
 
   </div><!-- /heroes -->
 
-  <!-- ══════ ENTRY / EXIT WINDOWS ══════ -->
-  <div class="windows-section">
-    <div class="window-card rckt">
-      <div class="wc-head">
-        <div class="wc-title">Trading Windows</div>
-        <div class="wc-ticker">RCKT</div>
-      </div>
-      <div class="window-rows" id="rckt-windows"></div>
+  <!-- TRADING WINDOWS (3 heroes) -->
+  <div class="windows-row">
+    <div class="win-card rckt"><div class="win-hd"><div class="win-ttl">Trading Windows</div><div class="win-tkr">RCKT</div></div><div class="win-rows" id="rckt-win"></div></div>
+    <div class="win-card dnli"><div class="win-hd"><div class="win-ttl">Trading Windows</div><div class="win-tkr">DNLI</div></div><div class="win-rows" id="dnli-win"></div></div>
+    <div class="win-card vera"><div class="win-hd"><div class="win-ttl">Trading Windows</div><div class="win-tkr">VERA</div></div><div class="win-rows" id="vera-win"></div></div>
+  </div>
+
+  <!-- CHARTS (2+1 layout) -->
+  <div class="sec-hdr">
+    <div><div class="sec-title">LIVE CHARTS</div><div class="sec-sub">TradingView daily — primary focus tickers</div></div>
+    <span class="sec-tag">Focus Tickers</span>
+  </div>
+  <div class="two-col" style="margin-bottom:14px">
+    <div class="panel rckt" style="border-top:2px solid var(--rckt)">
+      <div class="panel-head"><div class="panel-title" style="color:var(--rckt2)">RCKT</div><div class="panel-note">PDUFA Mar 28 '26</div></div>
+      <div class="chart-container" id="tv_rckt"></div>
     </div>
-    <div class="window-card dnli">
-      <div class="wc-head">
-        <div class="wc-title">Trading Windows</div>
-        <div class="wc-ticker">DNLI</div>
-      </div>
-      <div class="window-rows" id="dnli-windows"></div>
+    <div class="panel dnli" style="border-top:2px solid var(--dnli)">
+      <div class="panel-head"><div class="panel-title" style="color:var(--dnli2)">DNLI</div><div class="panel-note">PDUFA Apr 5 '26</div></div>
+      <div class="chart-container" id="tv_dnli"></div>
+    </div>
+  </div>
+  <div class="two-col" style="margin-bottom:20px">
+    <div class="panel vera" style="border-top:2px solid var(--vera)">
+      <div class="panel-head"><div class="panel-title" style="color:var(--vera2)">VERA</div><div class="panel-note">PDUFA Jul 7 '26</div></div>
+      <div class="chart-container" id="tv_vera"></div>
+    </div>
+    <div class="panel" style="border-top:2px solid var(--nuvl2)">
+      <div class="panel-head"><div class="panel-title" style="color:var(--nuvl2)">NUVL</div><div class="panel-note">PDUFA Sep 18 '26</div></div>
+      <div class="chart-container" id="tv_nuvl"></div>
     </div>
   </div>
 
-  <!-- ══════ LIVE CHARTS ══════ -->
-  <div class="charts-section">
-    <div class="charts-title">LIVE CHARTS — TRADINGVIEW</div>
-    <div class="chart-row">
-      <div class="chart-card rckt-c">
-        <div class="chart-card-head">
-          <div class="chart-card-title">RCKT</div>
-          <div class="chart-card-note">PDUFA Mar 28 '26</div>
-        </div>
-        <div class="chart-container" id="tv_rckt"></div>
+  <!-- NEWS FEEDS -->
+  <div class="sec-hdr">
+    <div><div class="sec-title">LIVE NEWS</div><div class="sec-sub">Google News RSS — auto-refreshes every 15 min</div></div>
+  </div>
+  <div class="three-col" style="margin-bottom:20px">
+    <div class="panel rckt" style="border-top:2px solid var(--rckt)">
+      <div class="panel-head">
+        <div style="display:flex;align-items:center;gap:10px"><div class="panel-title" style="color:var(--rckt2)">RCKT</div><div class="n-status" id="rckt-st">Loading…</div></div>
+        <button class="ref-btn" onclick="fetchNews('rckt')">Refresh</button>
       </div>
-      <div class="chart-card dnli-c">
-        <div class="chart-card-head">
-          <div class="chart-card-title">DNLI</div>
-          <div class="chart-card-note">PDUFA Apr 5 '26</div>
-        </div>
-        <div class="chart-container" id="tv_dnli"></div>
+      <div class="news-body rckt" id="rckt-news"></div>
+    </div>
+    <div class="panel dnli" style="border-top:2px solid var(--dnli)">
+      <div class="panel-head">
+        <div style="display:flex;align-items:center;gap:10px"><div class="panel-title" style="color:var(--dnli2)">DNLI</div><div class="n-status" id="dnli-st">Loading…</div></div>
+        <button class="ref-btn" onclick="fetchNews('dnli')">Refresh</button>
       </div>
+      <div class="news-body dnli" id="dnli-news"></div>
+    </div>
+    <div class="panel vera" style="border-top:2px solid var(--vera)">
+      <div class="panel-head">
+        <div style="display:flex;align-items:center;gap:10px"><div class="panel-title" style="color:var(--vera2)">VERA</div><div class="n-status" id="vera-st">Loading…</div></div>
+        <button class="ref-btn" onclick="fetchNews('vera')">Refresh</button>
+      </div>
+      <div class="news-body vera" id="vera-news"></div>
     </div>
   </div>
 
-  <!-- ══════ NEWS FEEDS ══════ -->
-  <div class="news-section">
-    <div class="charts-title">LIVE NEWS FEEDS</div>
-    <div class="news-grid">
-      <div class="news-card rckt">
-        <div class="news-head">
-          <div class="news-head-left">
-            <div class="news-head-ticker" style="color:var(--rckt2)">RCKT</div>
-            <div class="news-status" id="rckt-status">Loading…</div>
-          </div>
-          <button class="news-refresh" onclick="fetchNews('rckt')">↻ Refresh</button>
-        </div>
-        <div class="news-body" id="rckt-news"></div>
-      </div>
-      <div class="news-card dnli">
-        <div class="news-head">
-          <div class="news-head-left">
-            <div class="news-head-ticker" style="color:var(--dnli2)">DNLI</div>
-            <div class="news-status" id="dnli-status">Loading…</div>
-          </div>
-          <button class="news-refresh" onclick="fetchNews('dnli')">↻ Refresh</button>
-        </div>
-        <div class="news-body" id="dnli-news"></div>
-      </div>
+  <!-- FULL WATCHLIST -->
+  <div class="sec-hdr">
+    <div><div class="sec-title">FULL WATCHLIST 2026</div><div class="sec-sub">All confirmed US PDUFA events — scored by run-up criteria · past dates auto-removed</div></div>
+  </div>
+
+  <div class="scoring-box">
+    <h4>Scoring Criteria (1–5)</h4>
+    <div class="scoring-grid">
+      <div class="sc-factor"><b>+2</b> Gene therapy or first-in-class mechanism</div>
+      <div class="sc-factor"><b>+2</b> Ultra-rare / orphan drug designation</div>
+      <div class="sc-factor"><b>+1</b> Small or mid cap (high event beta)</div>
+      <div class="sc-factor"><b>+1</b> Priority Review + no safety signals in CRL history</div>
+      <div class="sc-factor"><b>-1</b> Large/mega cap (diluted % move)</div>
+      <div class="sc-factor"><b>-1</b> Label expansion / reformulation (not binary)</div>
+      <div class="sc-factor">Historical pattern: RCKT, BLUE, CRSP, RARE all showed 30–150% run-ups over T-90 to T-7 windows for comparable gene therapy binary events.</div>
     </div>
   </div>
 
-  <!-- ══════ FULL WATCHLIST ══════ -->
-  <div class="watchlist-section" id="watchlist-section">
-    <div class="section-header">
-      <div>
-        <div class="section-title">FULL WATCHLIST 2026</div>
-        <div class="section-sub">All upcoming PDUFA events — auto-removes past dates</div>
-      </div>
-      <div class="filter-bar">
-        <div class="search-wrap">
-          <span style="color:var(--muted);font-size:13px">⌕</span>
-          <input id="searchBox" type="text" placeholder="Search ticker, drug, indication…"/>
-        </div>
-        <select class="filter-sel" id="scoreFilter">
-          <option value="0">Score: Any</option>
-          <option value="4">Score 4+</option>
-          <option value="5">Score 5 only</option>
-        </select>
-        <select class="filter-sel" id="sortSelect">
-          <option value="pdufa_date:asc">Date ↑</option>
-          <option value="pdufa_date:desc">Date ↓</option>
-          <option value="runup_priority_score_1to5:desc">Score ↓</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="chip-row">
-      <div class="chip active" data-chip="rckt-focus">🚀 RCKT Focus</div>
-      <div class="chip" data-chip="dnli-focus">🧬 DNLI Focus</div>
-      <div class="chip" data-chip="score5">Score 5</div>
-      <div class="chip" data-chip="score4">Score 4+</div>
-      <div class="chip" data-chip="orphan">Orphan Only</div>
-      <div class="chip" data-chip="reset">Reset</div>
-    </div>
-
-    <div id="watchlist-container">
-      <table class="wl-table" id="wl-table">
-        <thead>
-          <tr>
-            <th>Company / Drug</th>
-            <th class="hide-mobile">Indication</th>
-            <th>PDUFA</th>
-            <th>Score</th>
-            <th class="hide-mobile">Entry Window</th>
-            <th class="hide-mobile">Exit Window</th>
-            <th class="hide-mobile">Tags</th>
-          </tr>
-        </thead>
-        <tbody id="wl-tbody"></tbody>
-      </table>
-      <div id="wl-empty" class="empty-state" style="display:none">No matches — try a broader search.</div>
-    </div>
+  <div class="filter-row">
+    <div class="search-wrap"><span style="color:var(--muted);font-size:13px">&#9906;</span><input id="searchBox" type="text" placeholder="Search ticker, drug, indication, therapy type…"/></div>
+    <select class="fsel" id="scoreFilter"><option value="0">Score: Any</option><option value="4">Score 4+</option><option value="5">Score 5</option></select>
+    <select class="fsel" id="sortSelect"><option value="pdufa_date:asc">Date earliest</option><option value="pdufa_date:desc">Date latest</option><option value="score:desc">Score highest</option></select>
+  </div>
+  <div class="chip-row">
+    <div class="chip on"  data-c="rckt">RCKT Focus</div>
+    <div class="chip"     data-c="dnli">DNLI Focus</div>
+    <div class="chip"     data-c="vera">VERA Focus</div>
+    <div class="chip"     data-c="s5">Score 5</div>
+    <div class="chip"     data-c="s4">Score 4+</div>
+    <div class="chip"     data-c="orph">Orphan Only</div>
+    <div class="chip"     data-c="gene">Gene Therapy</div>
+    <div class="chip"     data-c="rst">Reset All</div>
+  </div>
+  <div class="tbl-wrap">
+    <table><thead><tr>
+      <th>Ticker</th><th>Company / Drug</th>
+      <th class="hide-m">Indication</th>
+      <th>PDUFA</th><th>Score</th>
+      <th class="hide-m">Entry Window</th>
+      <th class="hide-m">Exit Window</th>
+      <th class="hide-m">Tags</th>
+    </tr></thead>
+    <tbody id="wl-tbody"></tbody></table>
+    <div id="wl-empty" class="empty-state" style="display:none">No matches — try broadening the search.</div>
   </div>
 
   <div class="foot">Copyright G.V / S.N 2026 — Research prototype. Not financial advice.</div>
-</div><!-- /wrap -->
+</div>
 
 <script>
-/* ─────────────────────────────────────────────
-   DATA
-───────────────────────────────────────────── */
-const CSV_HEADER = ["pdufa_date","drug","brand_name","company","ticker","indication","orphan_drug","therapy_type","market_cap_bucket","listing_region","liquidity_flag","runup_priority_score_1to5","suggested_entry_window_days","suggested_exit_window_days","notes"];
-const INLINE_CSV = `
-pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,market_cap_bucket,listing_region,liquidity_flag,runup_priority_score_1to5,suggested_entry_window_days,suggested_exit_window_days,notes
-2026-02-08,"clemidsogene lanparvovec",RGX-121,REGENXBIO,RGNX,"Mucopolysaccharidosis II (MPS II)",Yes,"AAV gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","High-impact CNS gene therapy; classic binary catalyst"
-2026-02-28,pegvaliase,Palynziq,BioMarin,BMRN,"Phenylketonuria (PKU)",Yes,"Enzyme substitution (PEGylated)","Mid-Large",US,Listed,3,"T-90 to T-45","T-20 to T-10","sBLA/label refinement; BioMarin is moderately volatile"
-2026-02-28,navepegritide,"TransCon CNP",Ascendis Pharma,ASND,Achondroplasia (children),Yes,"Long-acting peptide hormone (CNP)",Mid,"US/EU",Listed,4,"T-120 to T-60","T-20 to T-10","Priority-review growth-disorder asset; attractive single-franchise story"
-2026-03-20,setmelanotide,Imcivree,"Rhythm Pharmaceuticals",RYTM,"Acquired hypothalamic obesity",Yes,"Peptide agonist (MC4R)","Small-Mid",US,Listed,4,"T-120 to T-60","T-20 to T-10","Label expansion in rare obesity; sentiment-sensitive"
-2026-03-28,"marnetegragene autotemcel",KRESLADI,"Rocket Pharmaceuticals",RCKT,"LAD-I (ultra-rare immunodeficiency)",Yes,"Ex vivo gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","Ultra-rare gene therapy; high event trader focus; resubmission after CMC-only CRL; 100% OS in Ph1/2"
-2026-03-29,"Ga-68 edotreotide",LNTH-2501,Lantheus,LNTH,"SSTR+ neuroendocrine tumor PET imaging",No,"Diagnostic radiopharmaceutical",Mid,US,Listed,3,"T-90 to T-45","T-20 to T-10","Imaging agent complementing NET portfolio"
-2026-04-05,"tividenofusp alfa",DNL310,"Denali Therapeutics",DNLI,"Hunter syndrome (MPS II)",Yes,"Brain-penetrant enzyme replacement",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Priority-review CNS ERT; NEJM publication; Breakthrough Therapy; CMC-only extension—no efficacy/safety concerns"
-2026-06-18,"nilotinib (505(b)(2))",XS003,"Xspray Pharma",XSPRAY.ST,"Chronic myeloid leukemia (CML)",No,"Small-molecule TKI reformulation",Small,"EU (Sweden)",Listed,4,"T-120 to T-60","T-20 to T-7","TKI reformulation; Swedish small-cap with clear event date"
-2026-07-11,relacorilant,,Corcept Therapeutics,CORT,"Platinum-resistant ovarian cancer",Yes,"Cortisol receptor modulator",Mid,US,Listed,4,"T-120 to T-60","T-20 to T-7","Oncology indication; strong phase 3 data drove interest"
-2026-07-26,"furosemide autoinjector (SCP-111)","FUROSCIX ReadyFlow","MannKind / scPharmaceuticals",MNKD,"Edema in CHF / CKD",No,"Device + small-molecule combo","Small-Mid",US,Listed,3,"T-90 to T-45","T-20 to T-10","sNDA for new autoinjector; device-formulation narrative"
-2026-09-18,zidesamtinib,,Nuvalent,NUVL,"ROS1+ non-small cell lung cancer",Yes,"Small-molecule kinase inhibitor",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Targeted oncology with clean single-asset story; strong run-up candidate"
-2026-10-10,tabelecleucel,Tab-cel,"Pierre Fabre / Atara license",ATRA,"EBV+ PTLD (post-transplant lymphoma)",Yes,"Allogeneic T-cell therapy",Small,"US/EU","Listed/Partnered",3,"T-120 to T-60","T-20 to T-10","BLA held by private partner; Atara still sentiment-linked"
-`;
+/* ─── DATA ─── */
+/*
+  SCORING LOGIC (1–5):
+  Base = 2 for small/mid listed US biotech with binary PDUFA
+  +1 Orphan / ultra-rare disease
+  +1 Gene therapy or first-in-class novel mechanism
+  +1 Priority Review + clean clinical package (no safety CRL)
+  -1 Large/mega cap (diluted % swing)
+  -1 Label expansion / reformulation (sNDA/sBLA extension, not first approval)
+  Capped 1–5.
 
-/* ─────────────────────────────────────────────
-   PARSING
-───────────────────────────────────────────── */
-function parseCSV(text) {
-  return text.trim().split(/\r?\n/).slice(1).map(line => {
-    const cells = []; let cur = ""; let inQ = false;
-    for (const c of line) {
-      if (c === '"') inQ = !inQ;
-      else if (c === ',' && !inQ) { cells.push(cur); cur = ""; }
-      else cur += c;
-    }
-    cells.push(cur);
-    const o = {};
-    CSV_HEADER.forEach((k, i) => o[k] = (cells[i] || "").trim().replace(/^"|"$/g,""));
-    return o;
-  });
-}
+  Historical analogs: RCKT 2024 run-up +120% T-90 to T-14;
+  BLUE (PDUFA 2023 lovo-cel) +80% T-60 to T-10;
+  CRSP (CTX-001) +60% T-90 to T-20;
+  RARE (DTX301) +45% T-60 to T-10.
+*/
+const ROWS = [
+  // ── CONFIRMED PDUFA 2026 ──
+  {
+    pdufa:"2026-03-20", drug:"setmelanotide", brand:"Imcivree", co:"Rhythm Pharmaceuticals", tkr:"RYTM",
+    ind:"Acquired hypothalamic obesity", orph:true, therapy:"Peptide agonist (MC4R)", cap:"Small-Mid",
+    score:4, entry:"T-120 to T-60", exit:"T-20 to T-10",
+    notes:"Label expansion in rare obesity; single-franchise story; positive PhII data drove institutional interest."
+  },
+  {
+    pdufa:"2026-03-28", drug:"marnetegragene autotemcel", brand:"KRESLADI", co:"Rocket Pharmaceuticals", tkr:"RCKT",
+    ind:"LAD-I (ultra-rare immune disorder)", orph:true, therapy:"Ex vivo lentiviral gene therapy", cap:"Small-Mid",
+    score:5, entry:"T-150 to T-90", exit:"T-20 to T-7",
+    notes:"Resubmission after CMC-only CRL. 100% OS in Phase 1/2. PRV eligible. Textbook binary run-up setup — nearest catalyst."
+  },
+  {
+    pdufa:"2026-04-05", drug:"tividenofusp alfa", brand:"DNL310", co:"Denali Therapeutics", tkr:"DNLI",
+    ind:"Hunter syndrome (MPS II)", orph:true, therapy:"Brain-penetrant ERT (TransportVehicle)", cap:"Mid",
+    score:5, entry:"T-150 to T-90", exit:"T-20 to T-7",
+    notes:"First BBB-crossing ERT; NEJM Jan 2026 publication; Breakthrough Therapy; extension was PK-only, no efficacy/safety issues."
+  },
+  {
+    pdufa:"2026-04-13", drug:"sparsentan", brand:"FILSPARI", co:"Travere Therapeutics", tkr:"TVTX",
+    ind:"FSGS (focal segmental glomerulosclerosis)", orph:true, therapy:"Small-molecule dual ETAR/AT1R inhibitor", cap:"Small",
+    score:4, entry:"T-90 to T-45", exit:"T-20 to T-10",
+    notes:"Already approved for IgAN; sNDA for FSGS label expansion. Extension issued Jan 13 — now Apr 13 target. Binary for a focused small-cap."
+  },
+  {
+    pdufa:"2026-07-07", drug:"atacicept", brand:"—", co:"Vera Therapeutics", tkr:"VERA",
+    ind:"IgA nephropathy (IgAN)", orph:false, therapy:"Dual BAFF/APRIL inhibitor (TACI-Fc fusion)", cap:"Mid",
+    score:5, entry:"T-120 to T-60", exit:"T-20 to T-7",
+    notes:"Phase 3 ORIGIN 3 met primary endpoint (42% UPCR reduction vs placebo, p<0.0001) — NEJM published Nov 2025. First-in-class mechanism. Mid-cap with $714M cash runway past launch."
+  },
+  {
+    pdufa:"2026-07-11", drug:"relacorilant", brand:"—", co:"Corcept Therapeutics", tkr:"CORT",
+    ind:"Platinum-resistant ovarian cancer", orph:true, therapy:"Cortisol receptor modulator", cap:"Mid",
+    score:4, entry:"T-120 to T-60", exit:"T-20 to T-7",
+    notes:"Oncology indication. Strong Phase 3 ROSELLA data published. Single-franchise mid-cap; high event sensitivity."
+  },
+  {
+    pdufa:"2026-08-23", drug:"pariglasgene brecaparvovec", brand:"DTX401", co:"Ultragenyx", tkr:"RARE",
+    ind:"Glycogen Storage Disease Type Ia (GSDIa)", orph:true, therapy:"AAV8 gene therapy (liver-targeted)", cap:"Mid",
+    score:5, entry:"T-120 to T-60", exit:"T-20 to T-7",
+    notes:"BLA accepted Feb 23 '26, Priority Review. First pharmacologic treatment for GSDIa. Phase 3 GlucoGene: 61% cornstarch reduction at Wk 96. RMAT + Orphan + Rare Pediatric Disease designations. No approved comparator — purely additive market."
+  },
+  {
+    pdufa:"2026-09-01", drug:"rebisufligene etisparvovec", brand:"UX111", co:"Ultragenyx", tkr:"RARE",
+    ind:"Sanfilippo syndrome Type A (MPS IIIA)", orph:true, therapy:"AAV9 gene therapy (CNS-targeted)", cap:"Mid",
+    score:4, entry:"T-120 to T-60", exit:"T-20 to T-7",
+    notes:"Resubmission after CMC-only CRL — proactively addressed same CMC items. PDUFA expected Q3 2026. If approved, first-ever therapy for a fatal pediatric neurological disease. Data showed durable multi-biomarker benefit + clinical separation from natural history."
+  },
+  {
+    pdufa:"2026-09-18", drug:"zidesamtinib", brand:"—", co:"Nuvalent", tkr:"NUVL",
+    ind:"ROS1+ non-small cell lung cancer", orph:true, therapy:"Small-molecule kinase inhibitor", cap:"Mid",
+    score:5, entry:"T-150 to T-90", exit:"T-20 to T-7",
+    notes:"Clean single-asset story with no approved direct competitor in ROS1+ NSCLC. Strong pivotal data. Mid-cap with high analyst conviction. Classic run-up candidate per PDUFA pattern."
+  },
+  {
+    pdufa:"2026-06-18", drug:"nilotinib reformulation", brand:"XS003", co:"Xspray Pharma", tkr:"XSPRAY.ST",
+    ind:"Chronic myeloid leukemia (CML)", orph:false, therapy:"TKI reformulation (505(b)(2))", cap:"Small",
+    score:4, entry:"T-120 to T-60", exit:"T-20 to T-7",
+    notes:"Swedish small-cap with clear US PDUFA; improved bioavailability profile vs. Tasigna. Small float = high event beta."
+  },
+  {
+    pdufa:"2026-07-03", drug:"manganese chloride tetrahydrate", brand:"Orviglance", co:"Ascelia Pharma", tkr:"ACE.ST",
+    ind:"Liver MRI contrast (renal impairment)", orph:true, therapy:"Imaging contrast agent", cap:"Small",
+    score:4, entry:"T-120 to T-60", exit:"T-20 to T-7",
+    notes:"Orphan contrast agent; binary event for a Nordic micro-cap. Addresses unmet need in renally impaired patients who cannot receive gadolinium."
+  },
+  {
+    pdufa:"2026-07-26", drug:"furosemide autoinjector", brand:"FUROSCIX ReadyFlow", co:"MannKind / scPharmaceuticals", tkr:"MNKD",
+    ind:"Edema in CHF / CKD", orph:false, therapy:"Device + small-molecule combo", cap:"Small-Mid",
+    score:3, entry:"T-90 to T-45", exit:"T-20 to T-10",
+    notes:"sNDA for new autoinjector delivery device. Narrative around home-based subcutaneous diuresis. MannKind has history of binary reactions to device catalysts."
+  },
+  {
+    pdufa:"2026-02-28", drug:"navepegritide", brand:"TransCon CNP", co:"Ascendis Pharma", tkr:"ASND",
+    ind:"Achondroplasia (children)", orph:true, therapy:"Long-acting CNP peptide hormone", cap:"Mid",
+    score:4, entry:"T-120 to T-60", exit:"T-20 to T-10",
+    notes:"Priority review growth-disorder asset. Clean dataset. PDUFA Feb 28 — may already be decided by publish date, but included for reference."
+  },
+  {
+    pdufa:"2026-10-10", drug:"tabelecleucel", brand:"Tab-cel", co:"Atara Biotherapeutics", tkr:"ATRA",
+    ind:"EBV+ PTLD (post-transplant lymphoma)", orph:true, therapy:"Allogeneic T-cell therapy", cap:"Small",
+    score:3, entry:"T-120 to T-60", exit:"T-20 to T-10",
+    notes:"Received CRL Jan 2026 for previous submission. Resubmission expected. Binary sentiment play — small float, high volatility history. Monitor for resubmission confirmation."
+  },
+];
 
+/* ─── UTILS ─── */
 function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
-function todayStart() { return startOfDay(new Date()); }
-function isFutureOrToday(iso) { return new Date(iso + "T00:00:00") >= todayStart(); }
+const today = startOfDay(new Date());
+function isFOT(iso) { return new Date(iso + "T00:00:00") >= today; }
 
-function parseWindow(str) {
+function parseWin(str) {
   if (!str) return null;
   const m = str.match(/T-(\d+)\s*to\s*T-(\d+)/i);
   if (!m) return null;
-  return { a: +m[1], b: +m[2] };
+  return { a:+m[1], b:+m[2] };
 }
-
-function windowDates(pdufaISO, str) {
-  const w = parseWindow(str);
+function winDates(iso, str) {
+  const w = parseWin(str);
   if (!w) return null;
-  const p = new Date(pdufaISO + "T00:00:00");
+  const p = new Date(iso + "T00:00:00");
   const s = new Date(p); s.setDate(s.getDate() - w.a);
   const e = new Date(p); e.setDate(e.getDate() - w.b);
-  // nudge weekends to Friday
-  [s, e].forEach(d => { if (d.getDay()===6) d.setDate(d.getDate()-1); if (d.getDay()===0) d.setDate(d.getDate()-2); });
-  return { start: s, end: e };
+  [s,e].forEach(d => { if (d.getDay()===6) d.setDate(d.getDate()-1); if (d.getDay()===0) d.setDate(d.getDate()-2); });
+  return { start:s, end:e };
 }
+function fmt(d) { return d.toLocaleDateString(undefined,{month:"short",day:"2-digit",year:"numeric"}); }
+function fmtS(d) { return d.toLocaleDateString(undefined,{month:"short",day:"2-digit"}); }
 
-function fmt(d) { return d.toLocaleDateString(undefined, {month:"short",day:"2-digit",year:"numeric"}); }
-function fmtShort(d) { return d.toLocaleDateString(undefined, {month:"short",day:"2-digit"}); }
-
-/* ─────────────────────────────────────────────
-   COUNTDOWN
-───────────────────────────────────────────── */
-function buildCountdown(targetISO, elId) {
+/* ─── COUNTDOWN ─── */
+function buildCountdown(iso, elId) {
   const el = document.getElementById(elId);
   if (!el) return;
-  function update() {
-    const now = Date.now();
-    const target = new Date(targetISO + "T00:00:00").getTime();
-    const diff = Math.max(0, target - now);
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    el.innerHTML = [
-      { n: d, l: "DAYS" }, { n: h, l: "HRS" }, { n: m, l: "MIN" }, { n: s, l: "SEC" }
-    ].map(x => `<div class="cd-unit"><div class="cd-num">${String(x.n).padStart(2,"0")}</div><div class="cd-lbl">${x.l}</div></div>`).join('');
+  function upd() {
+    const diff = Math.max(0, new Date(iso+"T00:00:00").getTime() - Date.now());
+    const D=Math.floor(diff/864e5), H=Math.floor((diff%864e5)/36e5), M=Math.floor((diff%36e5)/6e4), S=Math.floor((diff%6e4)/1e3);
+    el.innerHTML=[{n:D,l:"DAYS"},{n:H,l:"HRS"},{n:M,l:"MIN"},{n:S,l:"SEC"}]
+      .map(x=>`<div class="cd-unit"><div class="cd-num">${String(x.n).padStart(2,"0")}</div><div class="cd-lbl">${x.l}</div></div>`).join('');
   }
-  update();
-  setInterval(update, 1000);
+  upd(); setInterval(upd,1000);
 }
 
-/* ─────────────────────────────────────────────
-   REVIEW PROGRESS BAR
-───────────────────────────────────────────── */
-function setProgress(startISO, pdufaISO, fillId, markerId) {
-  const start = new Date(startISO + "T00:00:00").getTime();
-  const end   = new Date(pdufaISO + "T00:00:00").getTime();
-  const now   = Date.now();
-  const pct   = Math.min(100, Math.max(0, ((now - start) / (end - start)) * 100)).toFixed(1);
-  const fillEl = document.getElementById(fillId);
-  const markEl = document.getElementById(markerId);
-  if (fillEl) fillEl.style.width = pct + "%";
-  if (markEl) markEl.style.left  = pct + "%";
+/* ─── PROGRESS BAR ─── */
+function setProgress(startISO, pdufaISO, fillId, markId) {
+  const s=new Date(startISO+"T00:00:00").getTime(), e=new Date(pdufaISO+"T00:00:00").getTime(), n=Date.now();
+  const pct=Math.min(100,Math.max(0,((n-s)/(e-s))*100)).toFixed(1);
+  const f=document.getElementById(fillId), m=document.getElementById(markId);
+  if(f) f.style.width=pct+"%";
+  if(m) m.style.left=pct+"%";
 }
 
-/* ─────────────────────────────────────────────
-   WINDOWS
-───────────────────────────────────────────── */
-function renderWindows(row, elId) {
-  const el = document.getElementById(elId);
-  if (!el) return;
-  const today = todayStart();
-  const entry = windowDates(row.pdufa_date, row.suggested_entry_window_days);
-  const exit  = windowDates(row.pdufa_date, row.suggested_exit_window_days);
-  const pdufa = new Date(row.pdufa_date + "T00:00:00");
+/* ─── WINDOWS ─── */
+function renderWindows(pdufa, entry_str, exit_str, elId, cls) {
+  const el=document.getElementById(elId); if(!el) return;
+  const entry=winDates(pdufa,entry_str), exit_=winDates(pdufa,exit_str);
+  const pDate=new Date(pdufa+"T00:00:00");
+  const daysTo=Math.max(0,Math.round((pDate-today)/864e5));
 
-  function windowRow(label, range, kind) {
-    if (!range) return "";
-    const isActive = today >= range.start && today <= range.end;
-    const upcoming = today < range.start && range.start <= new Date(today.getTime() + 30*86400000);
-    const pill = isActive ? `<span class="wr-pill ${kind} active">ACTIVE</span>` :
-                 upcoming ? `<span class="wr-pill ${kind}">UPCOMING</span>` : "";
-    return `<div class="window-row">
-      <div class="wr-label">${label}</div>
-      <div class="wr-dates">${fmt(range.start)} → ${fmt(range.end)}</div>
-      ${pill}
-    </div>`;
+  function row(label, r, kind) {
+    if(!r) return "";
+    const isAct = today>=r.start && today<=r.end;
+    const isCom = today < r.start && r.start <= new Date(today.getTime()+45*864e5);
+    const pill = isAct ? `<span class="wp ${kind} act">ACTIVE</span>` :
+                 isCom ? `<span class="wp ${kind}">UPCOMING</span>` : "";
+    return `<div class="win-row"><div class="wrl">${label}</div><div class="wrd">${fmtS(r.start)} &rarr; ${fmtS(r.end)}</div>${pill}</div>`;
   }
-
-  const daysTo = Math.max(0, Math.round((pdufa - today) / 86400000));
-  el.innerHTML = `
-    ${windowRow("Entry", entry, "entry")}
-    ${windowRow("Exit",  exit,  "exit")}
-    <div class="window-row" style="margin-top:6px">
-      <div class="wr-label">PDUFA Date</div>
-      <div class="wr-dates">${fmt(pdufa)}</div>
-      <span class="wr-pill" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:var(--soft)">${daysTo}d away</span>
-    </div>
-  `;
+  el.innerHTML = row("Entry",entry,"en") + row("Exit",exit_,"ex") +
+    `<div class="win-row" style="margin-top:6px"><div class="wrl">PDUFA</div><div class="wrd">${fmt(pDate)}</div><span class="wp nd">${daysTo}d away</span></div>`;
 }
 
-/* ─────────────────────────────────────────────
-   NEWS (Google RSS via allorigins)
-───────────────────────────────────────────── */
-function timeAgo(d) {
-  const s = Math.max(0, Math.floor((Date.now() - d) / 1000));
-  if (s < 60) return "just now";
-  if (s < 3600) return `${Math.floor(s/60)}m ago`;
-  if (s < 86400) return `${Math.floor(s/3600)}h ago`;
-  return `${Math.floor(s/86400)}d ago`;
+/* ─── NEWS ─── */
+function tAgo(d) {
+  const s=Math.max(0,Math.floor((Date.now()-d)/1000));
+  if(s<60) return "just now"; if(s<3600) return `${Math.floor(s/60)}m ago`;
+  if(s<86400) return `${Math.floor(s/3600)}h ago`; return `${Math.floor(s/86400)}d ago`;
 }
-
-async function fetchNews(ticker) {
-  const queries = {
-    rckt: "Rocket Pharmaceuticals RCKT KRESLADI FDA 2026",
-    dnli: "Denali Therapeutics DNLI tividenofusp Hunter syndrome FDA 2026"
-  };
-  const statusEl = document.getElementById(`${ticker}-status`);
-  const bodyEl   = document.getElementById(`${ticker}-news`);
-  if (!statusEl || !bodyEl) return;
-  statusEl.textContent = "Fetching…";
-  bodyEl.innerHTML = "";
-
+const NEWS_Q = {
+  rckt:"Rocket Pharmaceuticals RCKT KRESLADI FDA LAD-I 2026",
+  dnli:"Denali Therapeutics DNLI tividenofusp Hunter syndrome FDA 2026",
+  vera:"Vera Therapeutics VERA atacicept IgA nephropathy FDA 2026"
+};
+async function fetchNews(key) {
+  const stEl=document.getElementById(`${key}-st`), bdEl=document.getElementById(`${key}-news`);
+  if(!stEl||!bdEl) return;
+  stEl.textContent="Fetching…"; bdEl.innerHTML="";
   try {
-    const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(queries[ticker])}&hl=en-US&gl=US&ceid=US:en`;
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`, {cache:"no-store"});
-    const xml = await res.text();
-    const doc = new DOMParser().parseFromString(xml, "text/xml");
-    const items = Array.from(doc.querySelectorAll("item")).slice(0,4).map(i => ({
-      title: i.querySelector("title")?.textContent?.trim() || "—",
-      link:  i.querySelector("link")?.textContent?.trim()  || "#",
-      pubDate: new Date(i.querySelector("pubDate")?.textContent || ""),
+    const rss=`https://news.google.com/rss/search?q=${encodeURIComponent(NEWS_Q[key])}&hl=en-US&gl=US&ceid=US:en`;
+    const res=await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`,{cache:"no-store"});
+    const xml=await res.text();
+    const doc=new DOMParser().parseFromString(xml,"text/xml");
+    const items=Array.from(doc.querySelectorAll("item")).slice(0,4).map(i=>({
+      title:(i.querySelector("title")?.textContent||"").trim(),
+      link: (i.querySelector("link")?.textContent||"#").trim(),
+      pub:  new Date(i.querySelector("pubDate")?.textContent||"")
     }));
-
-    if (!items.length) throw new Error("empty");
-
-    statusEl.textContent = `${timeAgo(items[0].pubDate.getTime())} — latest`;
-    bodyEl.innerHTML = items.map(it => `
-      <div class="news-item">
-        <div class="news-dot-wrap"><div class="news-dot"></div></div>
-        <div class="news-item-body">
-          <div class="news-item-title"><a href="${it.link}" target="_blank" rel="noopener">${it.title}</a></div>
-          <div class="news-item-meta">${isNaN(it.pubDate) ? "" : timeAgo(it.pubDate.getTime())}</div>
-        </div>
-      </div>`).join('');
+    if(!items.length) throw new Error("empty");
+    stEl.textContent=`${tAgo(items[0].pub.getTime())} — latest`;
+    bdEl.innerHTML=items.map(it=>`<div class="n-item"><div class="n-dot"></div><div class="n-txt"><a href="${it.link}" target="_blank" rel="noopener">${it.title}</a><div class="n-meta">${isNaN(it.pub)?"":`${tAgo(it.pub.getTime())}`}</div></div></div>`).join('');
   } catch {
-    statusEl.textContent = "Unavailable";
-    bodyEl.innerHTML = `<div class="news-empty">Feed unavailable — check connectivity or try refreshing.</div>`;
+    stEl.textContent="Unavailable"; bdEl.innerHTML=`<div class="n-empty">Feed unavailable — check connectivity.</div>`;
   }
 }
 
-/* ─────────────────────────────────────────────
-   TRADINGVIEW
-───────────────────────────────────────────── */
+/* ─── TRADINGVIEW ─── */
 function initCharts() {
-  if (typeof TradingView === "undefined") { setTimeout(initCharts, 500); return; }
-  [
-    { id: "tv_rckt", sym: "NASDAQ:RCKT" },
-    { id: "tv_dnli", sym: "NASDAQ:DNLI" }
-  ].forEach(({ id, sym }) => {
-    new TradingView.widget({
-      container_id: id, symbol: sym, interval: "D",
-      timezone: "Etc/UTC", theme: "dark", style: "1", locale: "en",
-      hide_top_toolbar: false, height: 280, width: "100%",
-      toolbar_bg: "#080c18", withdateranges: true,
-      allow_symbol_change: true
-    });
+  if(typeof TradingView==="undefined") { setTimeout(initCharts,500); return; }
+  [{id:"tv_rckt",sym:"NASDAQ:RCKT"},{id:"tv_dnli",sym:"NASDAQ:DNLI"},
+   {id:"tv_vera",sym:"NASDAQ:VERA"},{id:"tv_nuvl",sym:"NASDAQ:NUVL"}].forEach(({id,sym})=>{
+    new TradingView.widget({container_id:id,symbol:sym,interval:"D",timezone:"Etc/UTC",
+      theme:"dark",style:"1",locale:"en",hide_top_toolbar:false,height:260,width:"100%",
+      toolbar_bg:"#080c18",withdateranges:true,allow_symbol_change:true});
   });
 }
 
-/* ─────────────────────────────────────────────
-   WATCHLIST TABLE
-───────────────────────────────────────────── */
-const CSV_HEADER_WL = CSV_HEADER;
-let allRows = [];
-const chipState = { score5:false, score4:false, orphan:false, rckt:true, dnli:false };
+/* ─── TABLE ─── */
+const CS = { rckt:false, dnli:false, vera:false, s5:false, s4:false, orph:false, gene:false, single:null };
+// Start with no chip active (show all)
 
-function isTradeable(r) {
-  return !!(r.ticker && !r.liquidity_flag.toLowerCase().includes("unlisted"));
+function scClass(s) { return s>=5?"s5":s>=4?"s4":s>=3?"s3":"s2"; }
+
+function tkrColor(tkr) {
+  const m={RCKT:"var(--rckt2)",DNLI:"var(--dnli2)",VERA:"var(--vera2)",RARE:"var(--rare2)",NUVL:"var(--nuvl2)"};
+  return m[tkr.toUpperCase()]||"var(--soft)";
 }
 
 function sortRows(arr, val) {
-  const [key, dir] = val.split(":");
-  return [...arr].sort((a,b) => {
-    let va = a[key] || "", vb = b[key] || "";
-    if (key === "runup_priority_score_1to5") { va = +va; vb = +vb; }
-    else if (key === "pdufa_date") { va = new Date(va); vb = new Date(vb); }
-    else { va = va.toLowerCase(); vb = vb.toLowerCase(); }
-    return dir === "desc" ? (va < vb ? 1 : va > vb ? -1 : 0) : (va < vb ? -1 : va > vb ? 1 : 0);
+  const [key,dir]=val.split(":"), d=dir==="desc"?-1:1;
+  return [...arr].sort((a,b)=>{
+    let va=key==="score"?a.score:a[key]||"", vb=key==="score"?b.score:b[key]||"";
+    if(key==="pdufa") { va=new Date(va+"T00:00:00"); vb=new Date(vb+"T00:00:00"); }
+    if(typeof va==="string") { va=va.toLowerCase(); vb=vb.toLowerCase(); }
+    return va<vb?-d:va>vb?d:0;
   });
 }
 
 function renderTable() {
-  const tbody  = document.getElementById("wl-tbody");
-  const empty  = document.getElementById("wl-empty");
-  const search = (document.getElementById("searchBox").value || "").toLowerCase();
-  const minSc  = +document.getElementById("scoreFilter").value;
-  const sortV  = document.getElementById("sortSelect").value;
+  const tbody=document.getElementById("wl-tbody"), empty=document.getElementById("wl-empty");
+  const search=(document.getElementById("searchBox").value||"").toLowerCase();
+  const minSc=+document.getElementById("scoreFilter").value;
+  const sortV=document.getElementById("sortSelect").value;
 
-  let rows = allRows.filter(r => {
-    if (!isFutureOrToday(r.pdufa_date)) return false;
-    const blob = [r.company, r.ticker, r.indication, r.drug, r.notes, r.therapy_type, r.listing_region].join(" ").toLowerCase();
-    if (search && !blob.includes(search)) return false;
-    const sc = +r.runup_priority_score_1to5;
-    if (sc < minSc) return false;
-    if (chipState.score5 && sc !== 5) return false;
-    if (chipState.score4 && sc < 4) return false;
-    if (chipState.orphan && r.orphan_drug.toLowerCase() !== "yes") return false;
-    if (chipState.rckt && r.ticker.toUpperCase() !== "RCKT") return false;
-    if (chipState.dnli && r.ticker.toUpperCase() !== "DNLI") return false;
+  let rows=ROWS.filter(r=>{
+    if(!isFOT(r.pdufa)) return false;
+    const blob=[r.co,r.tkr,r.ind,r.drug,r.notes,r.therapy].join(" ").toLowerCase();
+    if(search && !blob.includes(search)) return false;
+    if(r.score<minSc) return false;
+    if(CS.s5  && r.score!==5) return false;
+    if(CS.s4  && r.score<4) return false;
+    if(CS.orph && !r.orph) return false;
+    if(CS.gene && !r.therapy.toLowerCase().includes("gene")) return false;
+    if(CS.rckt && r.tkr!=="RCKT") return false;
+    if(CS.dnli && r.tkr!=="DNLI") return false;
+    if(CS.vera && r.tkr!=="VERA") return false;
     return true;
   });
 
-  rows = sortRows(rows, sortV);
-  tbody.innerHTML = "";
-  empty.style.display = rows.length ? "none" : "block";
+  rows=sortRows(rows,sortV);
+  tbody.innerHTML="";
+  empty.style.display=rows.length?"none":"block";
 
-  const scoreClass = s => s>=5?"s5":s>=4?"s4":s>=3?"s3":s>=2?"s2":"s1";
+  for(const r of rows) {
+    const entry=winDates(r.pdufa,r.entry), ex=winDates(r.pdufa,r.exit);
+    const eStr=entry?`${fmtS(entry.start)} &rarr; ${fmtS(entry.end)}`:"—";
+    const xStr=ex?`${fmtS(ex.start)} &rarr; ${fmtS(ex.end)}`:"—";
 
-  for (const r of rows) {
-    const sc = +r.runup_priority_score_1to5;
-    const entry = windowDates(r.pdufa_date, r.suggested_entry_window_days);
-    const exit  = windowDates(r.pdufa_date, r.suggested_exit_window_days);
-    const orphan = r.orphan_drug.toLowerCase() === "yes";
-    const tradeable = isTradeable(r);
+    const th=r.therapy.toLowerCase();
+    const therapyTag = th.includes("gene")?`<span class="mb gene">Gene</span>`:
+                       th.includes("ert")||th.includes("enzyme")?`<span class="mb ert">ERT</span>`:
+                       th.includes("kinase")||th.includes("tki")||th.includes("small-molecule")?`<span class="mb onco">Small-Mol</span>`:
+                       `<span class="mb">${r.therapy.split(" ")[0]}</span>`;
 
-    const entryStr = entry ? `${fmtShort(entry.start)} → ${fmtShort(entry.end)}` : "—";
-    const exitStr  = exit  ? `${fmtShort(exit.start)} → ${fmtShort(exit.end)}`   : "—";
-
-    const tickerColor = r.ticker === "RCKT" ? "color:var(--rckt2)" :
-                        r.ticker === "DNLI" ? "color:var(--dnli2)" :
-                        r.ticker === "NUVL" ? "color:var(--nuvl2)" : "color:var(--soft)";
-
-    const tr = document.createElement("tr");
-    tr.addEventListener("click", () => {
-      const tv = `https://www.tradingview.com/symbols/${encodeURIComponent(r.ticker)}/`;
-      if (r.ticker) window.open(tv, "_blank");
-    });
-    tr.innerHTML = `
+    const tr=document.createElement("tr");
+    tr.title="Click to open TradingView";
+    tr.addEventListener("click",()=>{ if(r.tkr&&!r.tkr.includes(".")) window.open(`https://www.tradingview.com/symbols/NASDAQ:${r.tkr}/`,"_blank"); });
+    tr.innerHTML=`
+      <td><div class="td-tkr" style="color:${tkrColor(r.tkr)}">${r.tkr}</div></td>
       <td>
-        <div class="td-company">
-          <span style="display:flex;gap:8px;align-items:center">
-            <span class="td-ticker" style="${tickerColor}">${r.ticker||"N/A"}</span>
-            <span style="font-size:12px;color:var(--soft)">${r.company}</span>
-          </span>
-          <span class="td-drug">${r.drug}${r.brand_name?` · ${r.brand_name}`:""}</span>
-        </div>
+        <div class="td-co">${r.co}</div>
+        <div class="td-drug">${r.drug}${r.brand&&r.brand!=="—"?` &bull; ${r.brand}`:""}</div>
       </td>
-      <td class="td-indication hide-mobile">${r.indication}</td>
-      <td class="td-date">${fmt(new Date(r.pdufa_date+"T00:00:00"))}</td>
-      <td class="td-score"><span class="score-badge ${scoreClass(sc)}">${sc}</span></td>
-      <td class="td-window hide-mobile">${entryStr}</td>
-      <td class="td-window hide-mobile">${exitStr}</td>
-      <td class="td-tags hide-mobile">
-        ${orphan ? `<span class="micro-badge orphan">Orphan</span>` : ""}
-        ${!tradeable ? `<span class="micro-badge untrade">Unlisted</span>` : ""}
-        <span class="micro-badge">${r.therapy_type.split("(")[0].trim()}</span>
-      </td>
-    `;
+      <td class="td-ind hide-m">${r.ind}</td>
+      <td class="td-date">${fmt(new Date(r.pdufa+"T00:00:00"))}</td>
+      <td class="td-sc"><span class="sc-b ${scClass(r.score)}">${r.score}</span></td>
+      <td class="td-win hide-m">${eStr}</td>
+      <td class="td-win hide-m">${xStr}</td>
+      <td class="hide-m" style="vertical-align:middle">
+        ${r.orph?`<span class="mb orph">Orphan</span> `:""}
+        ${therapyTag}
+      </td>`;
     tbody.appendChild(tr);
   }
 }
 
-/* ─────────────────────────────────────────────
-   INIT
-───────────────────────────────────────────── */
-function init() {
-  // Today label
-  document.getElementById("todayLabel").textContent =
-    new Date().toLocaleDateString(undefined, {weekday:"short",month:"short",day:"2-digit",year:"numeric"});
-
-  // Parse data
-  allRows = parseCSV(INLINE_CSV);
-
-  // Hero data rows
-  const rcktRow = allRows.find(r => r.ticker === "RCKT");
-  const dnliRow = allRows.find(r => r.ticker === "DNLI");
-
-  // Countdowns
-  buildCountdown("2026-03-28", "rckt-cd");
-  buildCountdown("2026-04-05", "dnli-cd");
-
-  // Progress bars (BLA acceptance dates)
-  setProgress("2025-10-14", "2026-03-28", "rckt-fill", "rckt-marker");
-  setProgress("2025-07-07", "2026-04-05", "dnli-fill", "dnli-marker");
-
-  // Trading windows
-  if (rcktRow) renderWindows(rcktRow, "rckt-windows");
-  if (dnliRow) renderWindows(dnliRow, "dnli-windows");
-
-  // News
-  fetchNews("rckt");
-  fetchNews("dnli");
-  setInterval(() => { fetchNews("rckt"); fetchNews("dnli"); }, 15*60*1000);
-
-  // Charts
-  setTimeout(initCharts, 500);
-
-  // Watchlist
-  renderTable();
-
-  // Controls
-  document.getElementById("searchBox").addEventListener("input", renderTable);
-  document.getElementById("scoreFilter").addEventListener("change", renderTable);
-  document.getElementById("sortSelect").addEventListener("change", renderTable);
-
-  // Chips
-  document.querySelectorAll(".chip").forEach(ch => {
-    ch.addEventListener("click", () => {
-      const key = ch.dataset.chip;
-      if (key === "reset") {
-        Object.keys(chipState).forEach(k => chipState[k] = false);
-        document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+/* ─── CHIPS ─── */
+function setupChips() {
+  document.querySelectorAll(".chip").forEach(ch=>{
+    ch.addEventListener("click",()=>{
+      const c=ch.dataset.c;
+      if(c==="rst") {
+        Object.keys(CS).forEach(k=>{ CS[k]=k==="single"?null:false; });
+        document.querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));
         renderTable(); return;
       }
-      // Mutex: rckt-focus and dnli-focus
-      if (key === "rckt-focus") {
-        chipState.rckt = !chipState.rckt;
-        if (chipState.rckt) { chipState.dnli = false; document.querySelector('[data-chip="dnli-focus"]')?.classList.remove("active"); }
-      } else if (key === "dnli-focus") {
-        chipState.dnli = !chipState.dnli;
-        if (chipState.dnli) { chipState.rckt = false; document.querySelector('[data-chip="rckt-focus"]')?.classList.remove("active"); }
-      } else if (key === "score5") {
-        chipState.score5 = !chipState.score5;
-        if (chipState.score5) { chipState.score4 = false; document.querySelector('[data-chip="score4"]')?.classList.remove("active"); }
-      } else if (key === "score4") {
-        chipState.score4 = !chipState.score4;
-        if (chipState.score4) { chipState.score5 = false; document.querySelector('[data-chip="score5"]')?.classList.remove("active"); }
-      } else if (key === "orphan") {
-        chipState.orphan = !chipState.orphan;
+      // Ticker focus chips are mutually exclusive
+      const tickers=["rckt","dnli","vera"];
+      if(tickers.includes(c)) {
+        const wasOn=CS[c];
+        tickers.forEach(t=>{ CS[t]=false; document.querySelector(`.chip[data-c="${t}"]`)?.classList.remove("on"); });
+        CS[c]=!wasOn;
+        if(CS[c]) ch.classList.add("on"); else ch.classList.remove("on");
+      } else if(c==="s5") {
+        CS.s5=!CS.s5; CS.s4=false;
+        document.querySelector('.chip[data-c="s4"]')?.classList.remove("on");
+        ch.classList.toggle("on",CS.s5);
+      } else if(c==="s4") {
+        CS.s4=!CS.s4; CS.s5=false;
+        document.querySelector('.chip[data-c="s5"]')?.classList.remove("on");
+        ch.classList.toggle("on",CS.s4);
+      } else if(c==="orph") {
+        CS.orph=!CS.orph; ch.classList.toggle("on",CS.orph);
+      } else if(c==="gene") {
+        CS.gene=!CS.gene; ch.classList.toggle("on",CS.gene);
       }
-      ch.classList.toggle("active");
       renderTable();
     });
   });
 }
 
-window.addEventListener("load", init);
+/* ─── INIT ─── */
+function init() {
+  document.getElementById("todayLabel").textContent =
+    new Date().toLocaleDateString(undefined,{weekday:"short",month:"short",day:"2-digit",year:"numeric"});
+
+  // Hero countdowns
+  buildCountdown("2026-03-28","rckt-cd");
+  buildCountdown("2026-04-05","dnli-cd");
+  buildCountdown("2026-07-07","vera-cd");
+
+  // Progress bars
+  setProgress("2025-10-14","2026-03-28","rckt-fill","rckt-mark");
+  setProgress("2025-07-07","2026-04-05","dnli-fill","dnli-mark");
+  setProgress("2026-01-07","2026-07-07","vera-fill","vera-mark");
+
+  // Windows (look up rows by ticker)
+  const byTkr=t=>ROWS.find(r=>r.tkr===t)||{};
+  const rr=byTkr("RCKT"), dr=byTkr("DNLI"), vr=byTkr("VERA");
+  renderWindows(rr.pdufa,rr.entry,rr.exit,"rckt-win","rckt");
+  renderWindows(dr.pdufa,dr.entry,dr.exit,"dnli-win","dnli");
+  renderWindows(vr.pdufa,vr.entry,vr.exit,"vera-win","vera");
+
+  // News
+  ["rckt","dnli","vera"].forEach(fetchNews);
+  setInterval(()=>["rckt","dnli","vera"].forEach(fetchNews),15*60*1000);
+
+  // Charts
+  setTimeout(initCharts,600);
+
+  // Table
+  setupChips();
+  renderTable();
+  document.getElementById("searchBox").addEventListener("input",renderTable);
+  document.getElementById("scoreFilter").addEventListener("change",renderTable);
+  document.getElementById("sortSelect").addEventListener("change",renderTable);
+}
+window.addEventListener("load",init);
 </script>
 </body>
 </html>
