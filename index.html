@@ -1,1788 +1,1085 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PDUFA 2026 Run-Up Watchlist</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root{
-      /* “AI/ChatGPT + Avanza-ish” palette */
-      --bg0:#05070c;
-      --bg1:#0b1220;
-      --card:#0f172a;
-      --card2:#0b1326;
-      --stroke:rgba(148,163,184,.18);
-      --stroke2:rgba(148,163,184,.28);
-      --text:#e5e7eb;
-      --muted:#a6b0c2;
-      --soft:#7c879a;
-
-      /* Avanza-like green accent */
-      --acc:#19c37d;          /* chatgpt-ish green */
-      --acc2:#00c46a;         /* avanza-ish */
-      --accGlow:rgba(25,195,125,.18);
-
-      --warn:#fb923c;
-      --risk:#fb7185;
-
-      --radius:18px;
-      --shadow: 0 22px 55px rgba(2,6,23,.55);
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 12% -10%, rgba(25,195,125,.20), transparent 60%),
-        radial-gradient(900px 600px at 90% 0%, rgba(0,196,106,.14), transparent 55%),
-        radial-gradient(900px 600px at 40% 110%, rgba(56,189,248,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      padding: 16px 12px 24px;
-    }
-
-    .shell{
-      width:100%;
-      max-width:1240px;
-      border:1px solid var(--stroke);
-      border-radius:24px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      background:linear-gradient(180deg, rgba(2,6,23,.72), rgba(2,6,23,.62));
-      backdrop-filter: blur(16px);
-    }
-
-    /* Top header */
-    .top{
-      padding:14px 14px 10px;
-      border-bottom:1px solid rgba(148,163,184,.10);
-      background:
-        radial-gradient(900px 420px at 20% 0%, rgba(25,195,125,.18), transparent 55%),
-        linear-gradient(180deg, rgba(2,6,23,.76), rgba(2,6,23,.55));
-    }
-
-    .topRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:260px;
-    }
-
-    .logo{
-      width:36px;height:36px;border-radius:999px;
-      background:
-        radial-gradient(circle at 30% 30%, #bbf7d0, #19c37d 55%, #00c46a);
-      box-shadow: 0 0 0 4px rgba(25,195,125,.14);
-      display:flex;align-items:center;justify-content:center;
-      color:#052e1d;
-      font-weight:950;
-      letter-spacing:.08em;
-      font-size:14px;
-      flex:0 0 auto;
-    }
-
-    .brandText{display:flex;flex-direction:column;gap:2px}
-    .title{
-      font-size:13px;
-      font-weight:800;
-      letter-spacing:.02em;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .subtitle{
-      font-size:11px;
-      color:var(--muted);
-      line-height:1.35;
-    }
-
-    .badge{
-      font-size:10px;
-      padding:2px 8px;
-      border-radius:999px;
-      border:1px solid rgba(25,195,125,.45);
-      background:rgba(25,195,125,.10);
-      color:#bbf7d0;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      white-space:nowrap;
-    }
-
-    .rightInfo{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      color:var(--soft);
-      font-size:11px;
-      white-space:nowrap;
-    }
-    .dot{
-      width:9px;height:9px;border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, #bbf7d0, #19c37d);
-      box-shadow: 0 0 0 4px rgba(25,195,125,.12);
-    }
-
-    /* “AI prompt bar” */
-    .promptBar{
-      margin-top:10px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    .prompt{
-      flex:1 1 520px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.22);
-      background:
-        linear-gradient(180deg, rgba(15,23,42,.82), rgba(2,6,23,.45));
-      box-shadow: 0 10px 28px rgba(2,6,23,.35);
-    }
-
-    .spark{
-      width:22px;height:22px;border-radius:9px;
-      background: rgba(25,195,125,.14);
-      border:1px solid rgba(25,195,125,.45);
-      display:flex;align-items:center;justify-content:center;
-      color:#bbf7d0;
-      flex:0 0 auto;
-      font-weight:900;
-      font-size:13px;
-    }
-
-    .prompt input{
-      width:100%;
-      border:none;
-      outline:none;
-      background:transparent;
-      color:var(--text);
-      font-size:12px;
-    }
-    .prompt input::placeholder{color:rgba(166,176,194,.72)}
-
-    .chipRow{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      flex: 0 1 auto;
-    }
-
-    .chip{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(2,6,23,.35);
-      color:var(--muted);
-      font-size:11px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .08s ease, border-color .08s ease;
-      white-space:nowrap;
-    }
-    .chip:hover{transform:translateY(-1px); border-color: rgba(25,195,125,.35)}
-    .chip.active{
-      border-color: rgba(25,195,125,.55);
-      background: rgba(25,195,125,.12);
-      color:#bbf7d0;
-    }
-
-    /* ===== AI BOT FEELING BAR ===== */
-    .botFeeling{
-      margin-top:10px;
-      border-radius:18px;
-      border:1px solid rgba(148,163,184,.20);
-      background:
-        radial-gradient(900px 240px at 15% 10%, rgba(25,195,125,.14), transparent 60%),
-        linear-gradient(180deg, rgba(15,23,42,.76), rgba(2,6,23,.45));
-      box-shadow: 0 10px 28px rgba(2,6,23,.35);
-      overflow:hidden;
-    }
-    .botFeelingHead{
-      padding:10px 12px 8px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      border-bottom:1px solid rgba(148,163,184,.10);
-      flex-wrap:wrap;
-    }
-    .botFeelingTitle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      font-weight:950;
-      letter-spacing:.02em;
-      font-size:12px;
-    }
-    .botFeelingTag{
-      font-family:var(--mono);
-      font-size:10px;
-      letter-spacing:.14em;
-      padding:3px 9px;
-      border-radius:999px;
-      border:1px solid rgba(25,195,125,.55);
-      background: rgba(25,195,125,.10);
-      color:#bbf7d0;
-      text-transform:uppercase;
-    }
-    .botFeelingMeta{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-      font-size:10px;
-      color:var(--muted);
-    }
-    .botBtn{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(2,6,23,.35);
-      color: var(--text);
-      font-size:11px;
-      font-weight:850;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .08s ease, border-color .08s ease;
-      white-space:nowrap;
-    }
-    .botBtn:hover{transform:translateY(-1px); border-color: rgba(25,195,125,.35)}
-
-    .botGrid{
-      padding:10px 12px 12px;
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:10px;
-    }
-    @media (max-width: 920px){
-      .botGrid{grid-template-columns: minmax(0,1fr)}
-    }
-
-    .botCard{
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.14);
-      background:
-        radial-gradient(700px 180px at 20% 0%, rgba(25,195,125,.12), transparent 60%),
-        linear-gradient(180deg, rgba(2,6,23,.68), rgba(2,6,23,.46));
-      padding:10px 10px;
-      min-height:120px;
-    }
-    .botCardTop{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:baseline;
-      flex-wrap:wrap;
-      margin-bottom:6px;
-    }
-    .botTicker{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-      font-weight:950;
-      font-size:12px;
-    }
-    .botTicker .t{
-      font-family:var(--mono);
-      letter-spacing:.12em;
-      font-size:11px;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(15,23,42,.55);
-      color:#dbe4f2;
-    }
-    .botStatus{
-      font-size:10px;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-    .botLines{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-    .botLine{
-      display:flex;
-      gap:8px;
-      align-items:flex-start;
-      color:#d9e1ef;
-      font-size:11px;
-      line-height:1.35;
-      opacity:.96;
-    }
-    .botDot{
-      width:7px;height:7px;border-radius:999px;
-      margin-top:6px;
-      background: radial-gradient(circle at 30% 30%, #bbf7d0, #19c37d);
-      box-shadow: 0 0 0 4px rgba(25,195,125,.10);
-      flex:0 0 auto;
-    }
-    .botLine a{
-      color:#d9e1ef;
-      text-decoration:none;
-      border-bottom:1px solid rgba(148,163,184,.18);
-    }
-    .botLine a:hover{
-      border-bottom-color: rgba(25,195,125,.45);
-      color:#ecfdf5;
-    }
-
-    /* ===== Notifications layer ===== */
-    .notifyLayer{
-      padding:10px 12px 12px;
-      border-top:1px solid rgba(148,163,184,.10);
-      background: rgba(2,6,23,.25);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .notifyHead{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .notifyTitle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      font-weight:950;
-      letter-spacing:.02em;
-      font-size:12px;
-    }
-    .notifyTitle .tag{
-      font-family:var(--mono);
-      font-size:10px;
-      letter-spacing:.14em;
-      padding:3px 9px;
-      border-radius:999px;
-      border:1px solid rgba(25,195,125,.55);
-      background: rgba(25,195,125,.10);
-      color:#bbf7d0;
-      text-transform:uppercase;
-    }
-    .notifyControls{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .notifySelect{
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(2,6,23,.35);
-      color: var(--text);
-      font-size:11px;
-      outline:none;
-    }
-    .notifyList{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .noteCard{
-      border-radius:14px;
-      border:1px solid rgba(148,163,184,.14);
-      background:
-        radial-gradient(700px 180px at 20% 0%, rgba(25,195,125,.10), transparent 60%),
-        linear-gradient(180deg, rgba(2,6,23,.68), rgba(2,6,23,.46));
-      padding:9px 10px;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .noteLeft{
-      flex:1 1 520px;
-      min-width:260px;
-    }
-    .noteTop{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex-wrap:wrap;
-      font-weight:950;
-      font-size:11px;
-    }
-    .noteTicker{
-      font-family:var(--mono);
-      letter-spacing:.12em;
-      font-size:10px;
-      padding:2px 7px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(15,23,42,.55);
-      color:#dbe4f2;
-    }
-    .noteWhen{
-      font-size:10px;
-      color:var(--muted);
-      font-weight:800;
-    }
-    .noteText{
-      margin-top:4px;
-      font-size:11px;
-      color:#d9e1ef;
-      line-height:1.35;
-      opacity:.96;
-    }
-    .noteRight{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      flex:0 1 auto;
-    }
-    .notePill{
-      font-size:10px;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid rgba(25,195,125,.35);
-      background: rgba(25,195,125,.10);
-      color:#bbf7d0;
-      font-weight:900;
-      white-space:nowrap;
-    }
-    .notePill.exit{
-      border-color: rgba(251,191,36,.40);
-      background: rgba(251,191,36,.10);
-      color:#fde68a;
-    }
-    .notePill.pdufa{
-      border-color: rgba(148,163,184,.22);
-      background: rgba(2,6,23,.35);
-      color: var(--muted);
-    }
-
-    /* Main layout */
-    .main{
-      display:grid;
-      grid-template-columns: minmax(0,1.55fr) minmax(0,1.1fr);
-      gap:14px;
-      padding: 12px;
-      align-items:start;
-    }
-
-    @media (max-width: 1020px){
-      .main{grid-template-columns:minmax(0,1fr)}
-      .rightInfo{display:none}
-    }
-
-    /* Cards */
-    .card{
-      background: linear-gradient(180deg, rgba(15,23,42,.75), rgba(2,6,23,.55));
-      border:1px solid rgba(148,163,184,.14);
-      border-radius: var(--radius);
-      box-shadow: 0 12px 34px rgba(2,6,23,.34);
-      overflow:hidden;
-    }
-
-    .cardHead{
-      padding:12px 12px 10px;
-      border-bottom: 1px solid rgba(148,163,184,.10);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .cardTitle{
-      font-weight:900;
-      font-size:12px;
-      letter-spacing:.03em;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-
-    .pill{
-      font-size:9px;
-      padding:2px 7px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.25);
-      background: rgba(2,6,23,.35);
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      white-space:nowrap;
-    }
-
-    .cardSub{
-      margin-top:3px;
-      font-size:11px;
-      color:var(--muted);
-      line-height:1.35;
-    }
-
-    /* Filters row */
-    .filters{
-      padding: 10px 12px 12px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-      border-bottom:1px solid rgba(148,163,184,.10);
-      background: rgba(2,6,23,.25);
-    }
-
-    select{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.25);
-      background: rgba(2,6,23,.45);
-      color:var(--text);
-      font-size:11px;
-      outline:none;
-      min-width:140px;
-    }
-
-    /* Watchlist rows */
-    .list{
-      padding:12px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .row{
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.14);
-      background:
-        radial-gradient(700px 220px at 20% 10%, rgba(25,195,125,.10), transparent 60%),
-        linear-gradient(180deg, rgba(2,6,23,.70), rgba(2,6,23,.45));
-      padding:10px 10px;
-      cursor:pointer;
-      transition: transform .08s ease, border-color .08s ease;
-    }
-    .row:hover{
-      transform:translateY(-1px);
-      border-color: rgba(25,195,125,.25);
-    }
-
-    .rowTop{
-      display:flex;
-      gap:10px;
-      justify-content:space-between;
-      align-items:flex-start;
-      flex-wrap:wrap;
-    }
-
-    .left{
-      min-width:260px;
-      flex: 1 1 480px;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-
-    .nameLine{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex-wrap:wrap;
-      font-size:12px;
-      font-weight:850;
-    }
-
-    .ticker{
-      font-family:var(--mono);
-      font-weight:900;
-      font-size:11px;
-      letter-spacing:.10em;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(15,23,42,.55);
-      color:#dbe4f2;
-    }
-
-    .tags{
-      display:flex;
-      gap:6px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    .tag{
-      font-size:10px;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.18);
-      background: rgba(2,6,23,.35);
-      color:var(--muted);
-      white-space:nowrap;
-      font-weight:800;
-    }
-    .tag.score5{border-color: rgba(25,195,125,.55); background: rgba(25,195,125,.10); color:#bbf7d0}
-    .tag.score4{border-color: rgba(251,191,36,.55); background: rgba(251,191,36,.10); color:#fde68a}
-    .tag.score3{border-color: rgba(56,189,248,.45); background: rgba(56,189,248,.10); color:#bae6fd}
-    .tag.orphan{border-color: rgba(56,189,248,.45); background: rgba(56,189,248,.10); color:#bae6fd}
-    .tag.untrade{border-color: rgba(248,113,113,.55); background: rgba(248,113,113,.10); color:#fecaca}
-
-    .desc{
-      font-size:11px;
-      color:var(--muted);
-      line-height:1.4;
-    }
-
-    .right{
-      flex: 0 1 auto;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      align-items:stretch;
-    }
-
-    .kv{
-      min-width: 160px;
-      border-radius:14px;
-      border:1px solid rgba(148,163,184,.16);
-      background: rgba(2,6,23,.35);
-      padding:8px 10px;
-      display:flex;
-      flex-direction:column;
-      gap:3px;
-    }
-    .kv .k{
-      font-size:9px;
-      color:var(--soft);
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      font-weight:900;
-    }
-    .kv .v{
-      font-size:11px;
-      font-weight:900;
-      color:#e5e7eb;
-      font-variant-numeric: tabular-nums;
-      line-height:1.2;
-    }
-    .kv .sub{
-      margin-top:2px;
-      font-size:10px;
-      color:var(--muted);
-      font-variant-numeric: tabular-nums;
-      line-height:1.25;
-    }
-
-    .rowBottom{
-      margin-top:8px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:flex-end;
-    }
-
-    .why{
-      flex: 1 1 520px;
-      font-size:11px;
-      color:#cfd7e6;
-      line-height:1.45;
-      opacity:.95;
-    }
-    .why b{color:#eef2ff}
-
-    .links{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .btn{
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(15,23,42,.45);
-      color: var(--text);
-      text-decoration:none;
-      font-size:11px;
-      font-weight:850;
-      transition: transform .08s ease, border-color .08s ease;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .btn:hover{transform:translateY(-1px); border-color: rgba(25,195,125,.35)}
-    .btn.primary{
-      border-color: rgba(25,195,125,.55);
-      background: rgba(25,195,125,.12);
-      color:#bbf7d0;
-    }
-
-    .empty{
-      padding:12px;
-      color:var(--muted);
-      font-size:11px;
-      border-radius:14px;
-      border:1px dashed rgba(148,163,184,.22);
-      background: rgba(2,6,23,.25);
-    }
-
-    /* Case study charts */
-    .chartWrap{padding:12px; display:flex; flex-direction:column; gap:10px}
-    .chartCard{
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.14);
-      background:
-        radial-gradient(800px 260px at 20% 0%, rgba(25,195,125,.12), transparent 60%),
-        linear-gradient(180deg, rgba(2,6,23,.68), rgba(2,6,23,.48));
-      padding:10px 10px;
-    }
-    .chartHead{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:baseline;
-      margin-bottom:8px;
-    }
-    .chartHead h3{
-      margin:0;
-      font-size:12px;
-      font-weight:950;
-      letter-spacing:.02em;
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .chartNote{font-size:10px;color:var(--muted)}
-    .canvas{width:100%; height: 260px;}
-
-    /* Mobile polish */
-    @media (max-width: 520px){
-      .top{padding:12px 12px 10px}
-      .prompt{padding:10px 10px}
-      select{min-width: 135px}
-      .kv{min-width: 100%;} /* stack KVs */
-      .right{width:100%}
-      .btn{width:100%; text-align:center}
-    }
-
-    /* Footer */
-    .foot{
-      padding: 10px 12px 14px;
-      border-top:1px solid rgba(148,163,184,.10);
-      color:rgba(166,176,194,.70);
-      font-size:10px;
-      text-align:right;
-      background: rgba(2,6,23,.25);
-    }
-  </style>
-</head>
-
-<body>
-  <div class="shell">
-    <header class="top">
-      <div class="topRow">
-        <div class="brand">
-          <div class="logo">$</div>
-          <div class="brandText">
-            <div class="title">
-              PDUFA Run-Up Desk
-              <span class="badge">ZONDAS</span>
-              <span class="pill">RESEARCH PROTOTYPE</span>
-            </div>
-            <div class="subtitle">Cards show real entry/exit dates</div>
-          </div>
-        </div>
-        <div class="rightInfo">
-          <span class="dot"></span>
-          <span id="todayLabel">Live •</span>
-        </div>
-      </div>
-
-      <div class="promptBar">
-        <div class="prompt">
-          <div class="spark">✦</div>
-          <input id="searchBox" type="text" placeholder="Ask: “orphan score 4”, “gene therapy”, “Sweden”, “NUVL”… (filters update instantly)" />
-        </div>
-        <div class="chipRow">
-          <div class="chip" data-chip="score5">Score 5</div>
-          <div class="chip" data-chip="score4">Score 4+</div>
-          <div class="chip" data-chip="orphan">Orphan</div>
-          <div class="chip" data-chip="cluster4">High-Upside</div>
-          <div class="chip" data-chip="reset">Reset</div>
-        </div>
-      </div>
-
-      <!-- Fetching News (no visible source text) -->
-      <div class="botFeeling" aria-label="AI Bot Feeling">
-        <div class="botFeelingHead">
-          <div class="botFeelingTitle">
-            <span class="botFeelingTag">WEB CRAWLER</span>
-            <span>Fork News</span>
-            <span class="pill">RCKT • DNLI • NUVL</span>
-          </div>
-          <div class="botFeelingMeta">
-            <span id="botUpdated">Updating…</span>
-            <button class="botBtn" id="refreshBot">Refresh</button>
-          </div>
-        </div>
-
-        <div class="botGrid">
-          <div class="botCard" id="bot_rckt">
-            <div class="botCardTop">
-              <div class="botTicker">Rocket <span class="t">RCKT</span></div>
-              <div class="botStatus" id="bot_rckt_status">Fetching…</div>
-            </div>
-            <div class="botLines" id="bot_rckt_lines"></div>
-          </div>
-
-          <div class="botCard" id="bot_dnli">
-            <div class="botCardTop">
-              <div class="botTicker">Denali <span class="t">DNLI</span></div>
-              <div class="botStatus" id="bot_dnli_status">Fetching…</div>
-            </div>
-            <div class="botLines" id="bot_dnli_lines"></div>
-          </div>
-
-          <div class="botCard" id="bot_nuvl">
-            <div class="botCardTop">
-              <div class="botTicker">Nuvalent <span class="t">NUVL</span></div>
-              <div class="botStatus" id="bot_nuvl_status">Fetching…</div>
-            </div>
-            <div class="botLines" id="bot_nuvl_lines"></div>
-          </div>
-        </div>
-
-        <!-- Notifications layer: Entry/Exit dates -->
-        <div class="notifyLayer" aria-label="Dates for entry/exit">
-          <div class="notifyHead">
-            <div class="notifyTitle">
-              <span class="tag">NOTIFY</span>
-              <span>Dates for entry/exit</span>
-              <span class="pill">upcoming + due today</span>
-            </div>
-            <div class="notifyControls">
-              <select id="notifyHorizon" class="notifySelect" title="Lookahead window">
-                <option value="7">Next 7 days</option>
-                <option value="14" selected>Next 14 days</option>
-                <option value="30">Next 30 days</option>
-                <option value="60">Next 60 days</option>
-              </select>
-              <button class="botBtn" id="refreshNotify">Refresh</button>
-            </div>
-          </div>
-
-          <div class="notifyList" id="notifyList"></div>
-        </div>
-      </div>
-    </header>
-
-    <main class="main">
-      <!-- Watchlist -->
-      <section class="card">
-        <div class="cardHead">
-          <div>
-            <div class="cardTitle">Watchlist <span class="pill">auto-removes past PDUFA</span></div>
-            <div class="cardSub">Click a card to copy a one-line summary.</div>
-          </div>
-        </div>
-
-        <div class="filters">
-          <select id="scoreFilter">
-            <option value="0">Min score: Any</option>
-            <option value="3">Min score: 3+</option>
-            <option value="4">Min score: 4+</option>
-            <option value="5">Min score: 5 only</option>
-          </select>
-
-          <select id="orphanFilter">
-            <option value="any">Orphan: Any</option>
-            <option value="yes">Orphan: Only</option>
-            <option value="no">Orphan: No</option>
-          </select>
-
-          <select id="clusterFilter">
-            <option value="any">Cluster: Any</option>
-            <option value="high-upside">Higher-risk / High-upside (4)</option>
-            <option value="speculative">Speculative / Watch (3)</option>
-            <option value="untradeable">Untradeable / Indirect</option>
-          </select>
-
-          <select id="sortSelect">
-            <option value="pdufa_date:asc">Sort: Date ↑</option>
-            <option value="pdufa_date:desc">Sort: Date ↓</option>
-            <option value="runup_priority_score_1to5:desc">Sort: Score ↓</option>
-            <option value="company:asc">Sort: Company A→Z</option>
-          </select>
-        </div>
-
-        <div id="watchlist" class="list"></div>
-      </section>
-
-      <!-- Charts -->
-      <section class="card" id="caseStudies">
-        <div class="cardHead">
-          <div>
-            <div class="cardTitle">Live charts <span class="pill">TradingView</span></div>
-            <div class="cardSub">RCKT • DNLI • NUVL</div>
-          </div>
-          <a class="btn primary" href="#watchlistAnchor" id="jumpWatchlist">Back to watchlist</a>
-        </div>
-
-        <div class="chartWrap">
-          <div class="chartCard">
-            <div class="chartHead">
-              <h3>RCKT – Rocket Pharmaceuticals <span class="pill">NASDAQ:RCKT</span></h3>
-              <div class="chartNote">Daily • Dark theme</div>
-            </div>
-            <div id="tradingview_rckt" class="canvas"></div>
-          </div>
-
-          <div class="chartCard">
-            <div class="chartHead">
-              <h3>DNLI – Denali Therapeutics <span class="pill">NASDAQ:DNLI</span></h3>
-              <div class="chartNote">Daily • Dark theme</div>
-            </div>
-            <div id="tradingview_dnli" class="canvas"></div>
-          </div>
-
-          <div class="chartCard">
-            <div class="chartHead">
-              <h3>NUVL – Nuvalent <span class="pill">NASDAQ:NUVL</span></h3>
-              <div class="chartNote">Daily • Dark theme</div>
-            </div>
-            <div id="tradingview_nuvl" class="canvas"></div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="foot">
-      Copyright G.V / S.N 2026
-    </footer>
-  </div>
-
-  <div id="watchlistAnchor" style="position:absolute; top:0;"></div>
-
+  <meta charset="UTF-8"/>
+  <title>PDUFA Desk — RCKT & DNLI Focus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
-  <script>
-    const csvHeader = [
-      "pdufa_date",
-      "drug",
-      "brand_name",
-      "company",
-      "ticker",
-      "indication",
-      "orphan_drug",
-      "therapy_type",
-      "market_cap_bucket",
-      "listing_region",
-      "liquidity_flag",
-      "runup_priority_score_1to5",
-      "suggested_entry_window_days",
-      "suggested_exit_window_days",
-      "notes"
-    ];
+  <style>
+    :root {
+      --bg:        #050810;
+      --bg1:       #080c18;
+      --surface:   rgba(255,255,255,.035);
+      --surface2:  rgba(255,255,255,.055);
+      --border:    rgba(255,255,255,.07);
+      --border2:   rgba(255,255,255,.13);
 
-    const inlineCSV = `
+      /* RCKT accent – electric violet */
+      --rckt:      #7c3aed;
+      --rckt2:     #a78bfa;
+      --rcktGlow:  rgba(124,58,237,.28);
+      --rcktSoft:  rgba(124,58,237,.12);
+
+      /* DNLI accent – amber-teal */
+      --dnli:      #0d9488;
+      --dnli2:     #5eead4;
+      --dnliGlow:  rgba(13,148,136,.28);
+      --dnliSoft:  rgba(13,148,136,.12);
+
+      /* NUVL accent – sky */
+      --nuvl:      #0284c7;
+      --nuvl2:     #7dd3fc;
+
+      /* System */
+      --green:     #22c55e;
+      --amber:     #f59e0b;
+      --red:       #ef4444;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --soft:      #94a3b8;
+
+      --mono:   'JetBrains Mono', monospace;
+      --sans:   'Space Grotesk', sans-serif;
+      --display:'Bebas Neue', sans-serif;
+
+      --r:  14px;
+      --r2: 20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background blobs */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 900px 500px at -10% 5%,  rgba(124,58,237,.18), transparent 60%),
+        radial-gradient(ellipse 800px 400px at 110% 10%, rgba(13,148,136,.16), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 50% 90%,  rgba(2,132,199,.10), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 16px 40px; }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0 12px;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-left { display: flex; align-items: center; gap: 14px; }
+    .brand-mark {
+      font-family: var(--display);
+      font-size: 28px;
+      letter-spacing: .06em;
+      background: linear-gradient(135deg, #a78bfa, #7c3aed, #5eead4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .brand-sub { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: var(--mono); letter-spacing: .1em; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .live-pill {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px;
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      font-size: 11px; color: var(--soft); font-family: var(--mono);
+    }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ─── HERO CARDS (RCKT + DNLI) ─── */
+    .heroes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    @media (max-width: 900px) { .heroes { grid-template-columns: 1fr; } }
+
+    .hero-card {
+      border-radius: var(--r2);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      opacity: .18;
+      pointer-events: none;
+    }
+    .hero-card.rckt::before { background: var(--rckt); }
+    .hero-card.dnli::before { background: var(--dnli); }
+
+    .hero-head {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero-ticker-wrap { display: flex; align-items: center; gap: 10px; }
+    .hero-ticker {
+      font-family: var(--mono); font-weight: 700; font-size: 22px;
+      letter-spacing: .08em; line-height: 1;
+    }
+    .rckt .hero-ticker { color: var(--rckt2); }
+    .dnli .hero-ticker { color: var(--dnli2); }
+    .hero-name { font-size: 13px; color: var(--soft); margin-top: 3px; }
+
+    .badge-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .badge {
+      font-size: 10px; padding: 3px 9px; border-radius: 999px;
+      font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
+      border: 1px solid var(--border2); background: var(--surface2); color: var(--soft);
+    }
+    .rckt .badge.accent { border-color: rgba(167,139,250,.5); background: rgba(124,58,237,.15); color: var(--rckt2); }
+    .dnli .badge.accent { border-color: rgba(94,234,212,.5); background: rgba(13,148,136,.15); color: var(--dnli2); }
+    .badge.score { background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.4); color: #4ade80; }
+
+    /* KPIs inside hero */
+    .hero-kpis {
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+    .kpi {
+      background: var(--bg1);
+      padding: 12px 14px;
+    }
+    .kpi:first-child { border-radius: 0 0 0 0; }
+    .kpi .k { font-size: 9px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 6px; }
+    .kpi .v { font-size: 20px; font-family: var(--mono); font-weight: 700; line-height: 1; }
+    .rckt .kpi .v { color: var(--rckt2); }
+    .dnli .kpi .v { color: var(--dnli2); }
+    .kpi .sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+    /* PDUFA countdown */
+    .countdown-block {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .countdown-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-family: var(--mono); flex: 0 0 auto; }
+    .countdown-digits {
+      display: flex;
+      gap: 6px;
+      flex: 1 1 auto;
+    }
+    .cd-unit {
+      text-align: center;
+      min-width: 44px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 8px;
+    }
+    .cd-num { font-family: var(--mono); font-size: 20px; font-weight: 700; line-height: 1; }
+    .rckt .cd-num { color: var(--rckt2); }
+    .dnli .cd-num { color: var(--dnli2); }
+    .cd-lbl { font-size: 9px; color: var(--muted); margin-top: 3px; letter-spacing: .1em; text-transform: uppercase; }
+    .pdufa-date-text { font-size: 12px; color: var(--soft); font-family: var(--mono); white-space: nowrap; }
+
+    /* Timeline bar */
+    .timeline-block { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+    .timeline-label { font-size: 10px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 10px; }
+    .timeline-bar { position: relative; height: 8px; background: var(--surface2); border-radius: 4px; overflow: visible; }
+    .timeline-fill {
+      height: 100%;
+      border-radius: 4px;
+      position: absolute; left: 0; top: 0;
+      transition: width .6s ease;
+    }
+    .rckt .timeline-fill { background: linear-gradient(90deg, rgba(124,58,237,.4), var(--rckt2)); }
+    .dnli .timeline-fill { background: linear-gradient(90deg, rgba(13,148,136,.4), var(--dnli2)); }
+    .timeline-marker {
+      position: absolute; top: -4px;
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid var(--bg);
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px currentColor;
+    }
+    .rckt .timeline-marker { background: var(--rckt2); color: var(--rckt2); }
+    .dnli .timeline-marker { background: var(--dnli2); color: var(--dnli2); }
+    .timeline-labels { display: flex; justify-content: space-between; margin-top: 8px; }
+    .timeline-labels span { font-size: 9px; color: var(--muted); font-family: var(--mono); }
+
+    /* Thesis */
+    .thesis-block { padding: 14px 20px; }
+    .thesis-title { font-size: 10px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-family: var(--mono); margin-bottom: 10px; }
+    .thesis-points { display: flex; flex-direction: column; gap: 7px; }
+    .thesis-pt { display: flex; gap: 9px; align-items: flex-start; font-size: 12px; color: var(--text); line-height: 1.45; }
+    .thesis-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; margin-top: 5px; }
+    .rckt .thesis-dot { background: var(--rckt2); box-shadow: 0 0 6px var(--rckt); }
+    .dnli .thesis-dot { background: var(--dnli2); box-shadow: 0 0 6px var(--dnli); }
+
+    /* ─── ENTRY/EXIT windows ─── */
+    .windows-section {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px) { .windows-section { grid-template-columns: 1fr; } }
+    .window-card {
+      border-radius: var(--r); border: 1px solid var(--border);
+      background: var(--surface); backdrop-filter: blur(8px);
+      padding: 16px 18px; overflow: hidden; position: relative;
+    }
+    .window-card.rckt { border-top: 2px solid var(--rckt); }
+    .window-card.dnli { border-top: 2px solid var(--dnli); }
+    .wc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+    .wc-title { font-family: var(--mono); font-size: 11px; color: var(--soft); letter-spacing: .1em; text-transform: uppercase; }
+    .wc-ticker { font-family: var(--mono); font-weight: 700; font-size: 13px; }
+    .rckt .wc-ticker { color: var(--rckt2); }
+    .dnli .wc-ticker { color: var(--dnli2); }
+    .window-rows { display: flex; flex-direction: column; gap: 8px; }
+    .window-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .wr-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-family: var(--mono); }
+    .wr-dates { font-size: 12px; font-family: var(--mono); color: var(--text); }
+    .wr-pill {
+      font-size: 10px; padding: 3px 9px; border-radius: 999px;
+      font-weight: 600; font-family: var(--mono); white-space: nowrap;
+    }
+    .wr-pill.entry { background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35); color: #4ade80; }
+    .wr-pill.exit  { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.35); color: #fcd34d; }
+    .wr-pill.active { animation: pulseGlow .9s infinite alternate; }
+    .rckt .wr-pill.active { box-shadow: 0 0 8px var(--rckt); }
+    .dnli .wr-pill.active { box-shadow: 0 0 8px var(--dnli); }
+    @keyframes pulseGlow { from{opacity:.75} to{opacity:1} }
+
+    /* ─── CHARTS ─── */
+    .charts-section { margin-top: 14px; }
+    .charts-title {
+      font-size: 10px; color: var(--muted); letter-spacing: .15em;
+      text-transform: uppercase; font-family: var(--mono);
+      padding: 10px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
+    }
+    .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+    .chart-card {
+      border-radius: var(--r); border: 1px solid var(--border);
+      background: var(--surface); overflow: hidden;
+    }
+    .chart-card-head {
+      padding: 12px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .chart-card-title { font-family: var(--mono); font-size: 13px; font-weight: 700; }
+    .rckt-c .chart-card-title { color: var(--rckt2); }
+    .dnli-c .chart-card-title { color: var(--dnli2); }
+    .chart-card-note { font-size: 10px; color: var(--muted); font-family: var(--mono); }
+    .chart-container { height: 280px; }
+
+    /* ─── NEWS FEED ─── */
+    .news-section { margin-top: 14px; }
+    .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 900px) { .news-grid { grid-template-columns: 1fr; } }
+    .news-card {
+      border-radius: var(--r); border: 1px solid var(--border);
+      background: var(--surface); backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+    .news-card.rckt { border-top: 2px solid var(--rckt); }
+    .news-card.dnli { border-top: 2px solid var(--dnli); }
+    .news-head {
+      padding: 12px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .news-head-left { display: flex; align-items: center; gap: 10px; }
+    .news-head-ticker { font-family: var(--mono); font-weight: 700; font-size: 13px; }
+    .rckt .news-head-ticker, .rckt.news-card .news-head-ticker { color: var(--rckt2); }
+    .dnli .news-head-ticker, .dnli.news-card .news-head-ticker { color: var(--dnli2); }
+    .news-status { font-size: 10px; color: var(--muted); font-family: var(--mono); }
+    .news-refresh { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--border2); background: var(--surface2); color: var(--soft); font-size: 10px; cursor: pointer; font-family: var(--mono); transition: border-color .15s; }
+    .news-refresh:hover { border-color: var(--border2); color: var(--text); }
+    .news-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; min-height: 120px; }
+    .news-item { display: flex; gap: 10px; align-items: flex-start; }
+    .news-dot-wrap { padding-top: 4px; }
+    .news-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .rckt .news-dot, .rckt.news-card .news-dot { background: var(--rckt2); box-shadow: 0 0 6px var(--rckt); }
+    .dnli .news-dot, .dnli.news-card .news-dot { background: var(--dnli2); box-shadow: 0 0 6px var(--dnli); }
+    .news-item-body { flex: 1; }
+    .news-item-title a { font-size: 12px; color: var(--text); text-decoration: none; line-height: 1.4; display: block; }
+    .news-item-title a:hover { color: #fff; }
+    .news-item-meta { font-size: 10px; color: var(--muted); margin-top: 3px; font-family: var(--mono); }
+    .news-empty { font-size: 12px; color: var(--muted); padding: 8px 0; }
+
+    /* ─── WATCHLIST (compact below) ─── */
+    .watchlist-section { margin-top: 24px; }
+    .section-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0 12px; border-bottom: 1px solid var(--border);
+      gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .section-title { font-family: var(--display); font-size: 22px; letter-spacing: .06em; color: var(--text); }
+    .section-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-top: 2px; }
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .search-wrap {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 999px;
+      border: 1px solid var(--border2); background: var(--surface2);
+      flex: 1 1 220px;
+    }
+    .search-wrap input { border: none; outline: none; background: transparent; color: var(--text); font-size: 12px; font-family: var(--sans); width: 100%; }
+    .search-wrap input::placeholder { color: var(--muted); }
+    .filter-sel {
+      padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border2);
+      background: var(--surface2); color: var(--soft); font-size: 11px; font-family: var(--sans);
+      outline: none; min-width: 130px;
+    }
+
+    /* Chips */
+    .chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .chip {
+      padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border2);
+      background: var(--surface2); color: var(--muted); font-size: 11px; font-family: var(--mono);
+      cursor: pointer; letter-spacing: .08em; transition: all .15s;
+      white-space: nowrap;
+    }
+    .chip:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+    .chip.active { border-color: rgba(167,139,250,.5); background: rgba(124,58,237,.15); color: var(--rckt2); }
+    .chip[data-chip="dnli-focus"].active { border-color: rgba(94,234,212,.5); background: rgba(13,148,136,.15); color: var(--dnli2); }
+
+    /* Table */
+    .wl-table { width: 100%; border-collapse: collapse; }
+    .wl-table th {
+      text-align: left; padding: 8px 12px; font-size: 9px; color: var(--muted);
+      letter-spacing: .14em; text-transform: uppercase; font-family: var(--mono); font-weight: 600;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    .wl-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .wl-table tr:last-child td { border-bottom: none; }
+    .wl-table tr { cursor: pointer; transition: background .12s; }
+    .wl-table tr:hover td { background: var(--surface); }
+    .td-company { font-size: 13px; font-weight: 600; display: flex; flex-direction: column; gap: 3px; }
+    .td-ticker { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; }
+    .td-drug { font-size: 11px; color: var(--soft); }
+    .td-indication { font-size: 11px; color: var(--muted); max-width: 200px; line-height: 1.35; }
+    .td-date { font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+    .td-score { text-align: center; }
+    .score-badge {
+      display: inline-block; width: 26px; height: 26px; border-radius: 50%; line-height: 26px;
+      text-align: center; font-size: 12px; font-weight: 700; font-family: var(--mono);
+    }
+    .s5 { background: rgba(34,197,94,.2); color: #4ade80; border: 1px solid rgba(34,197,94,.4); }
+    .s4 { background: rgba(245,158,11,.15); color: #fcd34d; border: 1px solid rgba(245,158,11,.35); }
+    .s3 { background: rgba(125,211,252,.1); color: #7dd3fc; border: 1px solid rgba(125,211,252,.3); }
+    .s2 { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+    .s1 { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+    .td-window { font-size: 10px; font-family: var(--mono); color: var(--soft); line-height: 1.55; }
+    .td-tags { display: flex; flex-direction: column; gap: 4px; }
+    .micro-badge {
+      display: inline-block; font-size: 9px; padding: 2px 7px; border-radius: 999px;
+      font-family: var(--mono); letter-spacing: .08em; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--muted); white-space: nowrap;
+    }
+    .micro-badge.orphan { border-color: rgba(125,211,252,.3); color: #7dd3fc; background: rgba(125,211,252,.08); }
+    .micro-badge.untrade { border-color: rgba(239,68,68,.3); color: #fca5a5; background: rgba(239,68,68,.08); }
+
+    /* Empty state */
+    .empty-state { padding: 32px; text-align: center; color: var(--muted); font-size: 13px; border: 1px dashed var(--border); border-radius: var(--r); margin-top: 12px; }
+
+    /* ─── RESPONSIVE HIDING ─── */
+    @media (max-width: 700px) {
+      .hide-mobile { display: none !important; }
+      .wl-table td, .wl-table th { padding: 9px 8px; }
+    }
+
+    /* ─── FOOTER ─── */
+    .foot {
+      margin-top: 32px;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+      text-align: right;
+      font-size: 10px;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    /* ─── Scrollbar styling ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div>
+        <div class="brand-mark">PDUFA DESK</div>
+        <div class="brand-sub">RCKT • DNLI • NUVL FOCUS — 2026</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
+    </div>
+  </div>
+
+  <!-- ══════ HERO CARDS ══════ -->
+  <div class="heroes">
+
+    <!-- RCKT -->
+    <div class="hero-card rckt">
+      <div class="hero-head">
+        <div>
+          <div class="hero-ticker-wrap">
+            <div class="hero-ticker">RCKT</div>
+          </div>
+          <div class="hero-name">Rocket Pharmaceuticals</div>
+        </div>
+        <div class="badge-row">
+          <span class="badge accent">Gene Therapy</span>
+          <span class="badge accent">Orphan</span>
+          <span class="badge score">Score 5</span>
+        </div>
+      </div>
+
+      <div class="hero-kpis">
+        <div class="kpi">
+          <div class="k">Drug</div>
+          <div class="v" style="font-size:13px;line-height:1.3">KRESLADI™</div>
+          <div class="sub">marnetegragene autotemcel</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Indication</div>
+          <div class="v" style="font-size:13px;line-height:1.3">LAD-I</div>
+          <div class="sub">Ultra-rare immune disorder</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Filing Type</div>
+          <div class="v" style="font-size:13px;line-height:1.3">BLA</div>
+          <div class="sub">Resubmission • Priority</div>
+        </div>
+      </div>
+
+      <div class="countdown-block">
+        <div class="countdown-label">PDUFA<br>Countdown</div>
+        <div class="countdown-digits" id="rckt-cd"></div>
+        <div class="pdufa-date-text">Mar 28, 2026</div>
+      </div>
+
+      <div class="timeline-block">
+        <div class="timeline-label">Review Progress</div>
+        <div class="timeline-bar">
+          <div class="timeline-fill" id="rckt-fill" style="width:0%"></div>
+          <div class="timeline-marker" id="rckt-marker" style="left:0%"></div>
+        </div>
+        <div class="timeline-labels">
+          <span>BLA Accept Oct 14 '25</span>
+          <span>Today</span>
+          <span>PDUFA Mar 28 '26</span>
+        </div>
+      </div>
+
+      <div class="thesis-block">
+        <div class="thesis-title">Thesis Points</div>
+        <div class="thesis-points">
+          <div class="thesis-pt"><div class="thesis-dot"></div>100% overall survival at 12m in Phase 1/2 — all endpoints met, zero treatment-related SAEs.</div>
+          <div class="thesis-pt"><div class="thesis-dot"></div>Resubmission after 2024 CRL addressed CMC-only concerns; no efficacy/safety issues raised.</div>
+          <div class="thesis-pt"><div class="thesis-dot"></div>Rare Pediatric Disease PRV eligible — potential $100–150M windfall on approval.</div>
+          <div class="thesis-pt"><div class="thesis-dot"></div>Small-cap ex-gene-therapy binary: high event beta, classic run-up setup.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DNLI -->
+    <div class="hero-card dnli">
+      <div class="hero-head">
+        <div>
+          <div class="hero-ticker-wrap">
+            <div class="hero-ticker">DNLI</div>
+          </div>
+          <div class="hero-name">Denali Therapeutics</div>
+        </div>
+        <div class="badge-row">
+          <span class="badge accent">Brain-Penetrant ERT</span>
+          <span class="badge accent">Orphan</span>
+          <span class="badge score">Score 5</span>
+        </div>
+      </div>
+
+      <div class="hero-kpis">
+        <div class="kpi">
+          <div class="k">Drug</div>
+          <div class="v" style="font-size:13px;line-height:1.3">Tividenofusp</div>
+          <div class="sub">DNL310 / ETV:IDS</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Indication</div>
+          <div class="v" style="font-size:13px;line-height:1.3">MPS II</div>
+          <div class="sub">Hunter syndrome</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Filing Type</div>
+          <div class="v" style="font-size:13px;line-height:1.3">BLA</div>
+          <div class="sub">Accelerated • Priority</div>
+        </div>
+      </div>
+
+      <div class="countdown-block">
+        <div class="countdown-label">PDUFA<br>Countdown</div>
+        <div class="countdown-digits" id="dnli-cd"></div>
+        <div class="pdufa-date-text">Apr 5, 2026</div>
+      </div>
+
+      <div class="timeline-block">
+        <div class="timeline-label">Review Progress</div>
+        <div class="timeline-bar">
+          <div class="timeline-fill" id="dnli-fill" style="width:0%"></div>
+          <div class="timeline-marker" id="dnli-marker" style="left:0%"></div>
+        </div>
+        <div class="timeline-labels">
+          <span>BLA Accept Jul 7 '25</span>
+          <span>Today</span>
+          <span>PDUFA Apr 5 '26</span>
+        </div>
+      </div>
+
+      <div class="thesis-block">
+        <div class="thesis-title">Thesis Points</div>
+        <div class="thesis-points">
+          <div class="thesis-pt"><div class="thesis-dot"></div>First BBB-crossing ERT for Hunter syndrome — first major advance in nearly 20 years.</div>
+          <div class="thesis-pt"><div class="thesis-dot"></div>NEJM publication (Jan 1 '26) + Breakthrough Therapy Designation = maximum FDA goodwill.</div>
+          <div class="thesis-pt"><div class="thesis-dot"></div>Extension was CMC/PK-only — FDA explicitly clarified no efficacy or safety concerns.</div>
+          <div class="thesis-pt"><div class="thesis-dot"></div>Mid-cap with TransportVehicle platform optionality; strong institutional interest.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /heroes -->
+
+  <!-- ══════ ENTRY / EXIT WINDOWS ══════ -->
+  <div class="windows-section">
+    <div class="window-card rckt">
+      <div class="wc-head">
+        <div class="wc-title">Trading Windows</div>
+        <div class="wc-ticker">RCKT</div>
+      </div>
+      <div class="window-rows" id="rckt-windows"></div>
+    </div>
+    <div class="window-card dnli">
+      <div class="wc-head">
+        <div class="wc-title">Trading Windows</div>
+        <div class="wc-ticker">DNLI</div>
+      </div>
+      <div class="window-rows" id="dnli-windows"></div>
+    </div>
+  </div>
+
+  <!-- ══════ LIVE CHARTS ══════ -->
+  <div class="charts-section">
+    <div class="charts-title">LIVE CHARTS — TRADINGVIEW</div>
+    <div class="chart-row">
+      <div class="chart-card rckt-c">
+        <div class="chart-card-head">
+          <div class="chart-card-title">RCKT</div>
+          <div class="chart-card-note">PDUFA Mar 28 '26</div>
+        </div>
+        <div class="chart-container" id="tv_rckt"></div>
+      </div>
+      <div class="chart-card dnli-c">
+        <div class="chart-card-head">
+          <div class="chart-card-title">DNLI</div>
+          <div class="chart-card-note">PDUFA Apr 5 '26</div>
+        </div>
+        <div class="chart-container" id="tv_dnli"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ NEWS FEEDS ══════ -->
+  <div class="news-section">
+    <div class="charts-title">LIVE NEWS FEEDS</div>
+    <div class="news-grid">
+      <div class="news-card rckt">
+        <div class="news-head">
+          <div class="news-head-left">
+            <div class="news-head-ticker" style="color:var(--rckt2)">RCKT</div>
+            <div class="news-status" id="rckt-status">Loading…</div>
+          </div>
+          <button class="news-refresh" onclick="fetchNews('rckt')">↻ Refresh</button>
+        </div>
+        <div class="news-body" id="rckt-news"></div>
+      </div>
+      <div class="news-card dnli">
+        <div class="news-head">
+          <div class="news-head-left">
+            <div class="news-head-ticker" style="color:var(--dnli2)">DNLI</div>
+            <div class="news-status" id="dnli-status">Loading…</div>
+          </div>
+          <button class="news-refresh" onclick="fetchNews('dnli')">↻ Refresh</button>
+        </div>
+        <div class="news-body" id="dnli-news"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ FULL WATCHLIST ══════ -->
+  <div class="watchlist-section" id="watchlist-section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">FULL WATCHLIST 2026</div>
+        <div class="section-sub">All upcoming PDUFA events — auto-removes past dates</div>
+      </div>
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <span style="color:var(--muted);font-size:13px">⌕</span>
+          <input id="searchBox" type="text" placeholder="Search ticker, drug, indication…"/>
+        </div>
+        <select class="filter-sel" id="scoreFilter">
+          <option value="0">Score: Any</option>
+          <option value="4">Score 4+</option>
+          <option value="5">Score 5 only</option>
+        </select>
+        <select class="filter-sel" id="sortSelect">
+          <option value="pdufa_date:asc">Date ↑</option>
+          <option value="pdufa_date:desc">Date ↓</option>
+          <option value="runup_priority_score_1to5:desc">Score ↓</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="chip-row">
+      <div class="chip active" data-chip="rckt-focus">🚀 RCKT Focus</div>
+      <div class="chip" data-chip="dnli-focus">🧬 DNLI Focus</div>
+      <div class="chip" data-chip="score5">Score 5</div>
+      <div class="chip" data-chip="score4">Score 4+</div>
+      <div class="chip" data-chip="orphan">Orphan Only</div>
+      <div class="chip" data-chip="reset">Reset</div>
+    </div>
+
+    <div id="watchlist-container">
+      <table class="wl-table" id="wl-table">
+        <thead>
+          <tr>
+            <th>Company / Drug</th>
+            <th class="hide-mobile">Indication</th>
+            <th>PDUFA</th>
+            <th>Score</th>
+            <th class="hide-mobile">Entry Window</th>
+            <th class="hide-mobile">Exit Window</th>
+            <th class="hide-mobile">Tags</th>
+          </tr>
+        </thead>
+        <tbody id="wl-tbody"></tbody>
+      </table>
+      <div id="wl-empty" class="empty-state" style="display:none">No matches — try a broader search.</div>
+    </div>
+  </div>
+
+  <div class="foot">Copyright G.V / S.N 2026 — Research prototype. Not financial advice.</div>
+</div><!-- /wrap -->
+
+<script>
+/* ─────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────── */
+const CSV_HEADER = ["pdufa_date","drug","brand_name","company","ticker","indication","orphan_drug","therapy_type","market_cap_bucket","listing_region","liquidity_flag","runup_priority_score_1to5","suggested_entry_window_days","suggested_exit_window_days","notes"];
+const INLINE_CSV = `
 pdufa_date,drug,brand_name,company,ticker,indication,orphan_drug,therapy_type,market_cap_bucket,listing_region,liquidity_flag,runup_priority_score_1to5,suggested_entry_window_days,suggested_exit_window_days,notes
-2026-01-13,sparsentan,FILSPARI,Travere Therapeutics,TVTX,"FSGS (kidney disease)",Yes,"Small-molecule (dual ETAR/AT1R inhibitor)",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA for FSGS; already approved for IgAN"
-2026-01-13,imiglucerase,Cerezyme,Sanofi,SNY,"Gaucher disease type 3",Yes,"Enzyme replacement therapy",Large,"EU/US",Listed,1,"T-60 to T-30","T-30 to T-15","sBLA in a mega-cap; usually lower event-driven % moves"
-2026-01-31,leniolisib,Joenja,Pharming Group,PHARM.AS,"Pediatric APDS (4–11 years)",Yes,"Small-molecule PI3Kδ inhibitor","Small-Mid",EU,Listed,4,"T-120 to T-60","T-20 to T-10","sNDA, priority review; rare immunodeficiency"
-2026-01-31,"epinephrine oral film",Anaphylm,Aquestive Therapeutics,AQST,"Anaphylaxis (allergic reactions)",No,"Small-molecule / oral film formulation",Small,US,Listed,4,"T-120 to T-60","T-20 to T-10","NDA for novel oral epinephrine film; retail/derisking interest"
 2026-02-08,"clemidsogene lanparvovec",RGX-121,REGENXBIO,RGNX,"Mucopolysaccharidosis II (MPS II)",Yes,"AAV gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","High-impact CNS gene therapy; classic binary catalyst"
-2026-02-25,"decitabine+cedazuridine + venetoclax","Inqovi + Venclexta","Taiho Oncology / Otsuka",OTSKY,"Acute myeloid leukemia",Yes,"Oral chemo + BCL-2 inhibitor combo",Large,JP/US,Listed,2,"T-60 to T-30","T-30 to T-10","sNDA combo in large-cap ecosystem"
 2026-02-28,pegvaliase,Palynziq,BioMarin,BMRN,"Phenylketonuria (PKU)",Yes,"Enzyme substitution (PEGylated)","Mid-Large",US,Listed,3,"T-90 to T-45","T-20 to T-10","sBLA/label refinement; BioMarin is moderately volatile"
 2026-02-28,navepegritide,"TransCon CNP",Ascendis Pharma,ASND,Achondroplasia (children),Yes,"Long-acting peptide hormone (CNP)",Mid,"US/EU",Listed,4,"T-120 to T-60","T-20 to T-10","Priority-review growth-disorder asset; attractive single-franchise story"
 2026-03-20,setmelanotide,Imcivree,"Rhythm Pharmaceuticals",RYTM,"Acquired hypothalamic obesity",Yes,"Peptide agonist (MC4R)","Small-Mid",US,Listed,4,"T-120 to T-60","T-20 to T-10","Label expansion in rare obesity; sentiment-sensitive"
-2026-03-24,linerixibat,,GSK,GSK,"Cholestatic pruritus in PBC",Yes,"Small-molecule IBAT inhibitor",Large,"UK/US",Listed,2,"T-60 to T-30","T-30 to T-10","NDA in rare liver disease; large-cap, lower % swing expected"
-2026-03-28,"marnetegragene autotemcel",KRESLADI,"Rocket Pharmaceuticals",RCKT,"LAD-I (ultra-rare immunodeficiency)",Yes,"Ex vivo gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","Ultra-rare gene therapy; high ‘event trader’ focus"
+2026-03-28,"marnetegragene autotemcel",KRESLADI,"Rocket Pharmaceuticals",RCKT,"LAD-I (ultra-rare immunodeficiency)",Yes,"Ex vivo gene therapy","Small-Mid",US,Listed,5,"T-150 to T-90","T-20 to T-7","Ultra-rare gene therapy; high event trader focus; resubmission after CMC-only CRL; 100% OS in Ph1/2"
 2026-03-29,"Ga-68 edotreotide",LNTH-2501,Lantheus,LNTH,"SSTR+ neuroendocrine tumor PET imaging",No,"Diagnostic radiopharmaceutical",Mid,US,Listed,3,"T-90 to T-45","T-20 to T-10","Imaging agent complementing NET portfolio"
-2026-04-05,"tividenofusp alfa",DNL310,"Denali Therapeutics",DNLI,"Hunter syndrome (MPS II)",Yes,"Brain-penetrant enzyme replacement",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Priority-review CNS ERT; high-profile rare-disease catalyst"
-2026-04-06,Orca-T,,Orca Bio,,"AML / ALL / MDS (allogeneic transplant)",Yes,"Cell therapy (engineered graft)",Private,US,Unlisted,3,,,"Private company; equity not directly tradeable"
+2026-04-05,"tividenofusp alfa",DNL310,"Denali Therapeutics",DNLI,"Hunter syndrome (MPS II)",Yes,"Brain-penetrant enzyme replacement",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Priority-review CNS ERT; NEJM publication; Breakthrough Therapy; CMC-only extension—no efficacy/safety concerns"
 2026-06-18,"nilotinib (505(b)(2))",XS003,"Xspray Pharma",XSPRAY.ST,"Chronic myeloid leukemia (CML)",No,"Small-molecule TKI reformulation",Small,"EU (Sweden)",Listed,4,"T-120 to T-60","T-20 to T-7","TKI reformulation; Swedish small-cap with clear event date"
-2026-07-03,"manganese chloride tetrahydrate",Orviglance,"Ascelia Pharma",ACE.ST,"Liver MRI contrast in renal impairment",Yes,"Imaging contrast agent",Small,"EU (Sweden)",Listed,4,"T-120 to T-60","T-20 to T-7","Orphan contrast agent; binary for a small Nordic biotech"
 2026-07-11,relacorilant,,Corcept Therapeutics,CORT,"Platinum-resistant ovarian cancer",Yes,"Cortisol receptor modulator",Mid,US,Listed,4,"T-120 to T-60","T-20 to T-7","Oncology indication; strong phase 3 data drove interest"
-2026-07-26,"furosemide autoinjector (SCP-111)","FUROSCIX ReadyFlow","MannKind / scPharmaceuticals partnership",MNKD,"Edema in CHF / CKD",No,"Device + small-molecule combo","Small-Mid",US,Listed,3,"T-90 to T-45","T-20 to T-10","sNDA for new autoinjector; device-formulation narrative"
-2026-08-28,177Lu-edotreotide,,ITM,,"GEP-NET (radioligand therapy)",Yes,"Therapeutic radioligand",Private,EU,Unlisted,3,,,"Radioligand; company not US-listed (access may be indirect)"
+2026-07-26,"furosemide autoinjector (SCP-111)","FUROSCIX ReadyFlow","MannKind / scPharmaceuticals",MNKD,"Edema in CHF / CKD",No,"Device + small-molecule combo","Small-Mid",US,Listed,3,"T-90 to T-45","T-20 to T-10","sNDA for new autoinjector; device-formulation narrative"
 2026-09-18,zidesamtinib,,Nuvalent,NUVL,"ROS1+ non-small cell lung cancer",Yes,"Small-molecule kinase inhibitor",Mid,US,Listed,5,"T-150 to T-90","T-20 to T-7","Targeted oncology with clean single-asset story; strong run-up candidate"
 2026-10-10,tabelecleucel,Tab-cel,"Pierre Fabre / Atara license",ATRA,"EBV+ PTLD (post-transplant lymphoma)",Yes,"Allogeneic T-cell therapy",Small,"US/EU","Listed/Partnered",3,"T-120 to T-60","T-20 to T-10","BLA held by private partner; Atara still sentiment-linked"
 `;
 
-    let rows = [];
-    const chipState = {
-      scoreMin: 0,
-      orphanOnly: false,
-      cluster4: false
-    };
-
-    function parseCSV(text) {
-      const lines = text.trim().split(/\r?\n/);
-      const dataLines = lines.slice(1);
-      return dataLines.map(line => {
-        const cells = [];
-        let cur = "";
-        let inQuotes = false;
-        for (let i = 0; i < line.length; i++) {
-          const c = line[i];
-          if (c === '"') inQuotes = !inQuotes;
-          else if (c === "," && !inQuotes) { cells.push(cur); cur = ""; }
-          else cur += c;
-        }
-        cells.push(cur);
-        const obj = {};
-        csvHeader.forEach((key, idx) => {
-          obj[key] = (cells[idx] || "").trim().replace(/^"|"$/g, "");
-        });
-        return obj;
-      });
+/* ─────────────────────────────────────────────
+   PARSING
+───────────────────────────────────────────── */
+function parseCSV(text) {
+  return text.trim().split(/\r?\n/).slice(1).map(line => {
+    const cells = []; let cur = ""; let inQ = false;
+    for (const c of line) {
+      if (c === '"') inQ = !inQ;
+      else if (c === ',' && !inQ) { cells.push(cur); cur = ""; }
+      else cur += c;
     }
+    cells.push(cur);
+    const o = {};
+    CSV_HEADER.forEach((k, i) => o[k] = (cells[i] || "").trim().replace(/^"|"$/g,""));
+    return o;
+  });
+}
 
-    function isTradeable(row) {
-      const listed = (row.liquidity_flag || "").toLowerCase();
-      const ticker = (row.ticker || "").trim();
-      if (!ticker) return false;
-      if (listed.includes("unlisted")) return false;
-      return true;
-    }
+function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function todayStart() { return startOfDay(new Date()); }
+function isFutureOrToday(iso) { return new Date(iso + "T00:00:00") >= todayStart(); }
 
-    function assignCluster(row) {
-      const score = parseInt(row.runup_priority_score_1to5 || "0", 10);
-      const tradeable = isTradeable(row);
-      if (!tradeable) return { key: "untradeable", label: "Untradeable", tagClass: "untrade" };
-      if (score === 4) return { key: "high-upside", label: "High-Upside", tagClass: "" };
-      if (score === 3) return { key: "speculative", label: "Watch", tagClass: "" };
-      return { key: "other", label: "Core", tagClass: "" };
-    }
+function parseWindow(str) {
+  if (!str) return null;
+  const m = str.match(/T-(\d+)\s*to\s*T-(\d+)/i);
+  if (!m) return null;
+  return { a: +m[1], b: +m[2] };
+}
 
-    function buildRationale(row) {
-      const score = parseInt(row.runup_priority_score_1to5 || "0", 10);
-      const orphan = (row.orphan_drug || "").toLowerCase() === "yes";
-      const cap = (row.market_cap_bucket || "").toLowerCase();
-      const therapy = (row.therapy_type || "").toLowerCase();
-      const notes = (row.notes || "").toLowerCase();
+function windowDates(pdufaISO, str) {
+  const w = parseWindow(str);
+  if (!w) return null;
+  const p = new Date(pdufaISO + "T00:00:00");
+  const s = new Date(p); s.setDate(s.getDate() - w.a);
+  const e = new Date(p); e.setDate(e.getDate() - w.b);
+  // nudge weekends to Friday
+  [s, e].forEach(d => { if (d.getDay()===6) d.setDate(d.getDate()-1); if (d.getDay()===0) d.setDate(d.getDate()-2); });
+  return { start: s, end: e };
+}
 
-      const bullets = [];
-      if (orphan) bullets.push("Orphan/rare angle → attracts catalyst flow.");
-      if (cap.includes("small")) bullets.push("Smaller cap → higher event beta.");
-      else if (cap.includes("mid")) bullets.push("Mid-cap → catalyst-sensitive.");
-      else if (cap.includes("large")) bullets.push("Large-cap dampener → % moves diluted.");
-      if (therapy.includes("gene")) bullets.push("Gene therapy narrative → binary attention.");
-      if (notes.includes("label expansion") || notes.includes("label refinement")) bullets.push("Label change → less all-or-nothing.");
-      if (score === 5) bullets.push("Score 5 = top run-up candidate.");
-      if (score === 4) bullets.push("Score 4 = strong run-up (higher risk).");
-      if (score === 3) bullets.push("Score 3 = speculative/watch.");
+function fmt(d) { return d.toLocaleDateString(undefined, {month:"short",day:"2-digit",year:"numeric"}); }
+function fmtShort(d) { return d.toLocaleDateString(undefined, {month:"short",day:"2-digit"}); }
 
-      return bullets.slice(0, 4).join(" ");
-    }
+/* ─────────────────────────────────────────────
+   COUNTDOWN
+───────────────────────────────────────────── */
+function buildCountdown(targetISO, elId) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  function update() {
+    const now = Date.now();
+    const target = new Date(targetISO + "T00:00:00").getTime();
+    const diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    el.innerHTML = [
+      { n: d, l: "DAYS" }, { n: h, l: "HRS" }, { n: m, l: "MIN" }, { n: s, l: "SEC" }
+    ].map(x => `<div class="cd-unit"><div class="cd-num">${String(x.n).padStart(2,"0")}</div><div class="cd-lbl">${x.l}</div></div>`).join('');
+  }
+  update();
+  setInterval(update, 1000);
+}
 
-    function tradingViewLink(ticker) {
-      const t = (ticker || "").trim().toUpperCase();
-      if (!t) return "";
-      return `https://www.tradingview.com/symbols/${encodeURIComponent(t)}/`;
-    }
+/* ─────────────────────────────────────────────
+   REVIEW PROGRESS BAR
+───────────────────────────────────────────── */
+function setProgress(startISO, pdufaISO, fillId, markerId) {
+  const start = new Date(startISO + "T00:00:00").getTime();
+  const end   = new Date(pdufaISO + "T00:00:00").getTime();
+  const now   = Date.now();
+  const pct   = Math.min(100, Math.max(0, ((now - start) / (end - start)) * 100)).toFixed(1);
+  const fillEl = document.getElementById(fillId);
+  const markEl = document.getElementById(markerId);
+  if (fillEl) fillEl.style.width = pct + "%";
+  if (markEl) markEl.style.left  = pct + "%";
+}
 
-    function copyRowSummary(row) {
-      const score = row.runup_priority_score_1to5 || "";
-      const cluster = row.risk_cluster || "";
-      const entry = row.entry_dates || "-";
-      const exit = row.exit_dates || "-";
-      const text =
-        `${row.pdufa_date} • ${row.company} (${row.ticker || "N/A"}) • ${row.drug} • ${row.indication} • ` +
-        `Score ${score} • ${cluster} • Entry ${entry} • Exit ${exit}`;
-      navigator.clipboard?.writeText(text).catch(() => {});
-    }
+/* ─────────────────────────────────────────────
+   WINDOWS
+───────────────────────────────────────────── */
+function renderWindows(row, elId) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const today = todayStart();
+  const entry = windowDates(row.pdufa_date, row.suggested_entry_window_days);
+  const exit  = windowDates(row.pdufa_date, row.suggested_exit_window_days);
+  const pdufa = new Date(row.pdufa_date + "T00:00:00");
 
-    function sortRows(arr, sortValue) {
-      const [key, direction] = sortValue.split(":");
-      const dir = direction === "desc" ? -1 : 1;
-      return arr.sort((a, b) => {
-        let va = a[key] || "";
-        let vb = b[key] || "";
+  function windowRow(label, range, kind) {
+    if (!range) return "";
+    const isActive = today >= range.start && today <= range.end;
+    const upcoming = today < range.start && range.start <= new Date(today.getTime() + 30*86400000);
+    const pill = isActive ? `<span class="wr-pill ${kind} active">ACTIVE</span>` :
+                 upcoming ? `<span class="wr-pill ${kind}">UPCOMING</span>` : "";
+    return `<div class="window-row">
+      <div class="wr-label">${label}</div>
+      <div class="wr-dates">${fmt(range.start)} → ${fmt(range.end)}</div>
+      ${pill}
+    </div>`;
+  }
 
-        if (key === "runup_priority_score_1to5") {
-          va = parseInt(va || "0", 10);
-          vb = parseInt(vb || "0", 10);
-        }
-        if (key === "pdufa_date") {
-          va = new Date(va);
-          vb = new Date(vb);
-        }
-        if (typeof va === "string") va = va.toLowerCase();
-        if (typeof vb === "string") vb = vb.toLowerCase();
+  const daysTo = Math.max(0, Math.round((pdufa - today) / 86400000));
+  el.innerHTML = `
+    ${windowRow("Entry", entry, "entry")}
+    ${windowRow("Exit",  exit,  "exit")}
+    <div class="window-row" style="margin-top:6px">
+      <div class="wr-label">PDUFA Date</div>
+      <div class="wr-dates">${fmt(pdufa)}</div>
+      <span class="wr-pill" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:var(--soft)">${daysTo}d away</span>
+    </div>
+  `;
+}
 
-        if (va < vb) return -1 * dir;
-        if (va > vb) return 1 * dir;
-        return 0;
-      });
-    }
+/* ─────────────────────────────────────────────
+   NEWS (Google RSS via allorigins)
+───────────────────────────────────────────── */
+function timeAgo(d) {
+  const s = Math.max(0, Math.floor((Date.now() - d) / 1000));
+  if (s < 60) return "just now";
+  if (s < 3600) return `${Math.floor(s/60)}m ago`;
+  if (s < 86400) return `${Math.floor(s/3600)}h ago`;
+  return `${Math.floor(s/86400)}d ago`;
+}
 
-    function startOfTodayLocal() {
-      const now = new Date();
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-    }
-    function isFutureOrToday(pdufaISO) {
-      const d = new Date(pdufaISO + "T00:00:00");
-      return d >= startOfTodayLocal();
-    }
+async function fetchNews(ticker) {
+  const queries = {
+    rckt: "Rocket Pharmaceuticals RCKT KRESLADI FDA 2026",
+    dnli: "Denali Therapeutics DNLI tividenofusp Hunter syndrome FDA 2026"
+  };
+  const statusEl = document.getElementById(`${ticker}-status`);
+  const bodyEl   = document.getElementById(`${ticker}-news`);
+  if (!statusEl || !bodyEl) return;
+  statusEl.textContent = "Fetching…";
+  bodyEl.innerHTML = "";
 
-    /* Date utilities */
-    function adjustToPreviousWeekday(dateObj) {
-      const d = new Date(dateObj);
-      const day = d.getDay();
-      if (day === 6) d.setDate(d.getDate() - 1); // Sat -> Fri
-      if (day === 0) d.setDate(d.getDate() - 2); // Sun -> Fri
-      return d;
-    }
+  try {
+    const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(queries[ticker])}&hl=en-US&gl=US&ceid=US:en`;
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`, {cache:"no-store"});
+    const xml = await res.text();
+    const doc = new DOMParser().parseFromString(xml, "text/xml");
+    const items = Array.from(doc.querySelectorAll("item")).slice(0,4).map(i => ({
+      title: i.querySelector("title")?.textContent?.trim() || "—",
+      link:  i.querySelector("link")?.textContent?.trim()  || "#",
+      pubDate: new Date(i.querySelector("pubDate")?.textContent || ""),
+    }));
 
-    function fmtNice(d) {
-      // Mobile friendly readable date: "Mar 18, 2026"
-      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" });
-    }
+    if (!items.length) throw new Error("empty");
 
-    function parseWindowStr(windowStr) {
-      // "T-120 to T-60" -> {a:120,b:60}
-      if (!windowStr) return null;
-      const m = windowStr.match(/T-(\d+)\s*to\s*T-(\d+)/i);
-      if (!m) return null;
-      const a = parseInt(m[1], 10);
-      const b = parseInt(m[2], 10);
-      if (!isFinite(a) || !isFinite(b)) return null;
-      return { a, b };
-    }
+    statusEl.textContent = `${timeAgo(items[0].pubDate.getTime())} — latest`;
+    bodyEl.innerHTML = items.map(it => `
+      <div class="news-item">
+        <div class="news-dot-wrap"><div class="news-dot"></div></div>
+        <div class="news-item-body">
+          <div class="news-item-title"><a href="${it.link}" target="_blank" rel="noopener">${it.title}</a></div>
+          <div class="news-item-meta">${isNaN(it.pubDate) ? "" : timeAgo(it.pubDate.getTime())}</div>
+        </div>
+      </div>`).join('');
+  } catch {
+    statusEl.textContent = "Unavailable";
+    bodyEl.innerHTML = `<div class="news-empty">Feed unavailable — check connectivity or try refreshing.</div>`;
+  }
+}
 
-    function windowToDateRange(pdufaISO, windowStr) {
-      const w = parseWindowStr(windowStr);
-      if (!w) return null;
-      const p = new Date(pdufaISO + "T00:00:00");
-      // Earlier in time = larger days offset
-      const start = new Date(p);
-      start.setDate(start.getDate() - w.a);
-      const end = new Date(p);
-      end.setDate(end.getDate() - w.b);
-      const startAdj = adjustToPreviousWeekday(start);
-      const endAdj = adjustToPreviousWeekday(end);
-      return { start: startAdj, end: endAdj, raw: windowStr };
-    }
+/* ─────────────────────────────────────────────
+   TRADINGVIEW
+───────────────────────────────────────────── */
+function initCharts() {
+  if (typeof TradingView === "undefined") { setTimeout(initCharts, 500); return; }
+  [
+    { id: "tv_rckt", sym: "NASDAQ:RCKT" },
+    { id: "tv_dnli", sym: "NASDAQ:DNLI" }
+  ].forEach(({ id, sym }) => {
+    new TradingView.widget({
+      container_id: id, symbol: sym, interval: "D",
+      timezone: "Etc/UTC", theme: "dark", style: "1", locale: "en",
+      hide_top_toolbar: false, height: 280, width: "100%",
+      toolbar_bg: "#080c18", withdateranges: true,
+      allow_symbol_change: true
+    });
+  });
+}
 
-    function buildRangeText(rangeObj) {
-      if (!rangeObj) return "-";
-      return `${fmtNice(rangeObj.start)} → ${fmtNice(rangeObj.end)}`;
-    }
+/* ─────────────────────────────────────────────
+   WATCHLIST TABLE
+───────────────────────────────────────────── */
+const CSV_HEADER_WL = CSV_HEADER;
+let allRows = [];
+const chipState = { score5:false, score4:false, orphan:false, rckt:true, dnli:false };
 
-    function renderWatchlist() {
-      const container = document.getElementById("watchlist");
-      const search = (document.getElementById("searchBox").value || "").toLowerCase();
-      const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
-      const orphanFilter = document.getElementById("orphanFilter").value;
-      const clusterFilter = document.getElementById("clusterFilter").value;
-      const sortValue = document.getElementById("sortSelect").value;
+function isTradeable(r) {
+  return !!(r.ticker && !r.liquidity_flag.toLowerCase().includes("unlisted"));
+}
 
-      let filtered = rows.filter(r => {
-        if (!isFutureOrToday(r.pdufa_date)) return false;
+function sortRows(arr, val) {
+  const [key, dir] = val.split(":");
+  return [...arr].sort((a,b) => {
+    let va = a[key] || "", vb = b[key] || "";
+    if (key === "runup_priority_score_1to5") { va = +va; vb = +vb; }
+    else if (key === "pdufa_date") { va = new Date(va); vb = new Date(vb); }
+    else { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    return dir === "desc" ? (va < vb ? 1 : va > vb ? -1 : 0) : (va < vb ? -1 : va > vb ? 1 : 0);
+  });
+}
 
-        const blob = (
-          (r.company || "") + " " +
-          (r.ticker || "") + " " +
-          (r.indication || "") + " " +
-          (r.drug || "") + " " +
-          (r.notes || "") + " " +
-          (r.therapy_type || "") + " " +
-          (r.listing_region || "")
-        ).toLowerCase();
+function renderTable() {
+  const tbody  = document.getElementById("wl-tbody");
+  const empty  = document.getElementById("wl-empty");
+  const search = (document.getElementById("searchBox").value || "").toLowerCase();
+  const minSc  = +document.getElementById("scoreFilter").value;
+  const sortV  = document.getElementById("sortSelect").value;
 
-        if (search && !blob.includes(search)) return false;
+  let rows = allRows.filter(r => {
+    if (!isFutureOrToday(r.pdufa_date)) return false;
+    const blob = [r.company, r.ticker, r.indication, r.drug, r.notes, r.therapy_type, r.listing_region].join(" ").toLowerCase();
+    if (search && !blob.includes(search)) return false;
+    const sc = +r.runup_priority_score_1to5;
+    if (sc < minSc) return false;
+    if (chipState.score5 && sc !== 5) return false;
+    if (chipState.score4 && sc < 4) return false;
+    if (chipState.orphan && r.orphan_drug.toLowerCase() !== "yes") return false;
+    if (chipState.rckt && r.ticker.toUpperCase() !== "RCKT") return false;
+    if (chipState.dnli && r.ticker.toUpperCase() !== "DNLI") return false;
+    return true;
+  });
 
-        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
-        if (!isNaN(minScore) && score < minScore) return false;
+  rows = sortRows(rows, sortV);
+  tbody.innerHTML = "";
+  empty.style.display = rows.length ? "none" : "block";
 
-        if (orphanFilter === "yes" && (r.orphan_drug || "").toLowerCase() !== "yes") return false;
-        if (orphanFilter === "no" && (r.orphan_drug || "").toLowerCase() === "yes") return false;
+  const scoreClass = s => s>=5?"s5":s>=4?"s4":s>=3?"s3":s>=2?"s2":"s1";
 
-        if (clusterFilter !== "any" && (r.risk_cluster_key || "") !== clusterFilter) return false;
+  for (const r of rows) {
+    const sc = +r.runup_priority_score_1to5;
+    const entry = windowDates(r.pdufa_date, r.suggested_entry_window_days);
+    const exit  = windowDates(r.pdufa_date, r.suggested_exit_window_days);
+    const orphan = r.orphan_drug.toLowerCase() === "yes";
+    const tradeable = isTradeable(r);
 
-        // Chip constraints
-        if (chipState.scoreMin && score < chipState.scoreMin) return false;
-        if (chipState.orphanOnly && (r.orphan_drug || "").toLowerCase() !== "yes") return false;
-        if (chipState.cluster4 && parseInt(r.runup_priority_score_1to5 || "0", 10) !== 4) return false;
+    const entryStr = entry ? `${fmtShort(entry.start)} → ${fmtShort(entry.end)}` : "—";
+    const exitStr  = exit  ? `${fmtShort(exit.start)} → ${fmtShort(exit.end)}`   : "—";
 
-        return true;
-      });
+    const tickerColor = r.ticker === "RCKT" ? "color:var(--rckt2)" :
+                        r.ticker === "DNLI" ? "color:var(--dnli2)" :
+                        r.ticker === "NUVL" ? "color:var(--nuvl2)" : "color:var(--soft)";
 
-      filtered = sortRows(filtered, sortValue);
+    const tr = document.createElement("tr");
+    tr.addEventListener("click", () => {
+      const tv = `https://www.tradingview.com/symbols/${encodeURIComponent(r.ticker)}/`;
+      if (r.ticker) window.open(tv, "_blank");
+    });
+    tr.innerHTML = `
+      <td>
+        <div class="td-company">
+          <span style="display:flex;gap:8px;align-items:center">
+            <span class="td-ticker" style="${tickerColor}">${r.ticker||"N/A"}</span>
+            <span style="font-size:12px;color:var(--soft)">${r.company}</span>
+          </span>
+          <span class="td-drug">${r.drug}${r.brand_name?` · ${r.brand_name}`:""}</span>
+        </div>
+      </td>
+      <td class="td-indication hide-mobile">${r.indication}</td>
+      <td class="td-date">${fmt(new Date(r.pdufa_date+"T00:00:00"))}</td>
+      <td class="td-score"><span class="score-badge ${scoreClass(sc)}">${sc}</span></td>
+      <td class="td-window hide-mobile">${entryStr}</td>
+      <td class="td-window hide-mobile">${exitStr}</td>
+      <td class="td-tags hide-mobile">
+        ${orphan ? `<span class="micro-badge orphan">Orphan</span>` : ""}
+        ${!tradeable ? `<span class="micro-badge untrade">Unlisted</span>` : ""}
+        <span class="micro-badge">${r.therapy_type.split("(")[0].trim()}</span>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
 
-      container.innerHTML = "";
-      if (!filtered.length) {
-        container.innerHTML = `<div class="empty">No matches. Try a broader prompt (e.g., “gene”, “orphan”, “score 4”).</div>`;
-        return;
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
+function init() {
+  // Today label
+  document.getElementById("todayLabel").textContent =
+    new Date().toLocaleDateString(undefined, {weekday:"short",month:"short",day:"2-digit",year:"numeric"});
+
+  // Parse data
+  allRows = parseCSV(INLINE_CSV);
+
+  // Hero data rows
+  const rcktRow = allRows.find(r => r.ticker === "RCKT");
+  const dnliRow = allRows.find(r => r.ticker === "DNLI");
+
+  // Countdowns
+  buildCountdown("2026-03-28", "rckt-cd");
+  buildCountdown("2026-04-05", "dnli-cd");
+
+  // Progress bars (BLA acceptance dates)
+  setProgress("2025-10-14", "2026-03-28", "rckt-fill", "rckt-marker");
+  setProgress("2025-07-07", "2026-04-05", "dnli-fill", "dnli-marker");
+
+  // Trading windows
+  if (rcktRow) renderWindows(rcktRow, "rckt-windows");
+  if (dnliRow) renderWindows(dnliRow, "dnli-windows");
+
+  // News
+  fetchNews("rckt");
+  fetchNews("dnli");
+  setInterval(() => { fetchNews("rckt"); fetchNews("dnli"); }, 15*60*1000);
+
+  // Charts
+  setTimeout(initCharts, 500);
+
+  // Watchlist
+  renderTable();
+
+  // Controls
+  document.getElementById("searchBox").addEventListener("input", renderTable);
+  document.getElementById("scoreFilter").addEventListener("change", renderTable);
+  document.getElementById("sortSelect").addEventListener("change", renderTable);
+
+  // Chips
+  document.querySelectorAll(".chip").forEach(ch => {
+    ch.addEventListener("click", () => {
+      const key = ch.dataset.chip;
+      if (key === "reset") {
+        Object.keys(chipState).forEach(k => chipState[k] = false);
+        document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+        renderTable(); return;
       }
-
-      for (const r of filtered) {
-        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
-        const scoreClass = score >= 5 ? "score5" : (score >= 4 ? "score4" : (score >= 3 ? "score3" : ""));
-
-        const orphan = (r.orphan_drug || "").toLowerCase() === "yes";
-        const tradeable = isTradeable(r);
-
-        const tv = tradingViewLink(r.ticker);
-
-        const entryRange = buildRangeText(r._entryRange);
-        const exitRange = buildRangeText(r._exitRange);
-
-        const card = document.createElement("div");
-        card.className = "row";
-        card.title = "Click to copy a one-line summary";
-        card.addEventListener("click", () => copyRowSummary(r));
-
-        card.innerHTML = `
-          <div class="rowTop">
-            <div class="left">
-              <div class="nameLine">
-                <span>${r.company}</span>
-                <span class="ticker">${r.ticker || "N/A"}</span>
-                <span class="tags">
-                  ${orphan ? `<span class="tag orphan">Orphan</span>` : ""}
-                  <span class="tag ${scoreClass}">Score ${score || "-"}</span>
-                  <span class="tag">${r.risk_cluster}</span>
-                  ${tradeable ? "" : `<span class="tag untrade">Untradeable</span>`}
-                </span>
-              </div>
-              <div class="desc">
-                <b>${r.drug}</b>${r.brand_name ? ` • ${r.brand_name}` : ""} • ${r.indication}
-              </div>
-            </div>
-
-            <div class="right">
-              <div class="kv">
-                <div class="k">PDUFA</div>
-                <div class="v">${fmtNice(new Date(r.pdufa_date + "T00:00:00"))}</div>
-                <div class="sub">${r.listing_region || ""}${r.market_cap_bucket ? ` • ${r.market_cap_bucket}` : ""}</div>
-              </div>
-              <div class="kv">
-                <div class="k">Entry window</div>
-                <div class="v">${entryRange}</div>
-                <div class="sub">${r.suggested_entry_window_days || ""}</div>
-              </div>
-              <div class="kv">
-                <div class="k">Exit window</div>
-                <div class="v">${exitRange}</div>
-                <div class="sub">${r.suggested_exit_window_days || ""}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="rowBottom">
-            <div class="why"><b>Why:</b> ${r.score_rationale || ""}${r.notes ? ` <span style="color:var(--muted)">• ${r.notes}</span>` : ""}</div>
-            <div class="links">
-              ${tv ? `<a class="btn" href="${tv}" target="_blank" rel="noopener noreferrer">TradingView</a>` : ""}
-              ${r.ticker ? `<a class="btn primary" href="#caseStudies" onclick="window.__jumpChart && window.__jumpChart('${(r.ticker||'').toUpperCase()}'); return false;">Open chart</a>` : ""}
-            </div>
-          </div>
-        `;
-
-        container.appendChild(card);
+      // Mutex: rckt-focus and dnli-focus
+      if (key === "rckt-focus") {
+        chipState.rckt = !chipState.rckt;
+        if (chipState.rckt) { chipState.dnli = false; document.querySelector('[data-chip="dnli-focus"]')?.classList.remove("active"); }
+      } else if (key === "dnli-focus") {
+        chipState.dnli = !chipState.dnli;
+        if (chipState.dnli) { chipState.rckt = false; document.querySelector('[data-chip="rckt-focus"]')?.classList.remove("active"); }
+      } else if (key === "score5") {
+        chipState.score5 = !chipState.score5;
+        if (chipState.score5) { chipState.score4 = false; document.querySelector('[data-chip="score4"]')?.classList.remove("active"); }
+      } else if (key === "score4") {
+        chipState.score4 = !chipState.score4;
+        if (chipState.score4) { chipState.score5 = false; document.querySelector('[data-chip="score5"]')?.classList.remove("active"); }
+      } else if (key === "orphan") {
+        chipState.orphan = !chipState.orphan;
       }
-    }
+      ch.classList.toggle("active");
+      renderTable();
+    });
+  });
+}
 
-    function setupControls() {
-      document.getElementById("searchBox").addEventListener("input", () => { renderWatchlist(); refreshNotifications(); });
-      document.getElementById("scoreFilter").addEventListener("change", () => { renderWatchlist(); refreshNotifications(); });
-      document.getElementById("orphanFilter").addEventListener("change", () => { renderWatchlist(); refreshNotifications(); });
-      document.getElementById("clusterFilter").addEventListener("change", () => { renderWatchlist(); refreshNotifications(); });
-      document.getElementById("sortSelect").addEventListener("change", renderWatchlist);
-
-      document.getElementById("jumpWatchlist").addEventListener("click", (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      // Chips
-      const chips = document.querySelectorAll(".chip");
-      chips.forEach(ch => {
-        ch.addEventListener("click", () => {
-          const key = ch.getAttribute("data-chip");
-          if (key === "reset") {
-            chipState.scoreMin = 0;
-            chipState.orphanOnly = false;
-            chipState.cluster4 = false;
-            chips.forEach(c => c.classList.remove("active"));
-            renderWatchlist();
-            refreshNotifications();
-            return;
-          }
-          if (key === "score5") {
-            chipState.scoreMin = (chipState.scoreMin === 5 ? 0 : 5);
-            ch.classList.toggle("active");
-            // turn off score4 if score5 on
-            const score4 = document.querySelector('.chip[data-chip="score4"]');
-            if (chipState.scoreMin === 5 && score4) { score4.classList.remove("active"); }
-          }
-          if (key === "score4") {
-            chipState.scoreMin = (chipState.scoreMin === 4 ? 0 : 4);
-            ch.classList.toggle("active");
-            const score5 = document.querySelector('.chip[data-chip="score5"]');
-            if (chipState.scoreMin === 4 && score5) { score5.classList.remove("active"); }
-          }
-          if (key === "orphan") {
-            chipState.orphanOnly = !chipState.orphanOnly;
-            ch.classList.toggle("active");
-          }
-          if (key === "cluster4") {
-            chipState.cluster4 = !chipState.cluster4;
-            ch.classList.toggle("active");
-          }
-          renderWatchlist();
-          refreshNotifications();
-        });
-      });
-
-      // Notify controls
-      document.getElementById("notifyHorizon")?.addEventListener("change", refreshNotifications);
-      document.getElementById("refreshNotify")?.addEventListener("click", refreshNotifications);
-
-      // “Open chart” helper (scroll to the right chart)
-      window.__jumpChart = (ticker) => {
-        const map = { "RCKT": "tradingview_rckt", "DNLI": "tradingview_dnli", "NUVL": "tradingview_nuvl" };
-        const id = map[ticker];
-        if (!id) return;
-        document.getElementById("caseStudies")?.scrollIntoView({ behavior: "smooth", block: "start" });
-        setTimeout(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 250);
-      };
-    }
-
-    function initTradingViewWidgets() {
-      if (typeof TradingView === "undefined") return;
-
-      new TradingView.widget({
-        container_id: "tradingview_rckt",
-        symbol: "NASDAQ:RCKT",
-        interval: "D",
-        timezone: "Etc/UTC",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        hide_top_toolbar: false,
-        hide_legend: false,
-        height: 260,
-        width: "100%"
-      });
-
-      new TradingView.widget({
-        container_id: "tradingview_dnli",
-        symbol: "NASDAQ:DNLI",
-        interval: "D",
-        timezone: "Etc/UTC",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        hide_top_toolbar: false,
-        hide_legend: false,
-        height: 260,
-        width: "100%"
-      });
-
-      new TradingView.widget({
-        container_id: "tradingview_nuvl",
-        symbol: "NASDAQ:NUVL",
-        interval: "D",
-        timezone: "Etc/UTC",
-        theme: "dark",
-        style: "1",
-        locale: "en",
-        hide_top_toolbar: false,
-        hide_legend: false,
-        height: 260,
-        width: "100%"
-      });
-    }
-
-    /* ===== AI BOT FEELING headlines (no source label shown) =====
-       Uses Google News RSS + allorigins proxy to avoid CORS.
-       If your environment blocks public proxies, replace allorigins with your own backend proxy.
-    */
-    function timeAgo(date) {
-      const ms = Date.now() - date.getTime();
-      const s = Math.max(1, Math.floor(ms / 1000));
-      const m = Math.floor(s / 60);
-      const h = Math.floor(m / 60);
-      const d = Math.floor(h / 24);
-      if (d > 0) return `${d}d ago`;
-      if (h > 0) return `${h}h ago`;
-      if (m > 0) return `${m}m ago`;
-      return `${s}s ago`;
-    }
-
-    function setBotCard(ticker, statusText, items) {
-      const statusEl = document.getElementById(`bot_${ticker.toLowerCase()}_status`);
-      const linesEl = document.getElementById(`bot_${ticker.toLowerCase()}_lines`);
-      if (!statusEl || !linesEl) return;
-
-      statusEl.textContent = statusText;
-      linesEl.innerHTML = "";
-
-      if (!items || !items.length) {
-        linesEl.innerHTML = `<div class="botLine"><span class="botDot"></span><span style="color:var(--muted)">No recent headlines found.</span></div>`;
-        return;
-      }
-
-      for (const it of items.slice(0, 2)) {
-        const when = it.pubDate ? timeAgo(it.pubDate) : "";
-        const safeTitle = it.title || "Headline";
-        const safeLink = it.link || "#";
-        linesEl.innerHTML += `
-          <div class="botLine">
-            <span class="botDot"></span>
-            <div>
-              <a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a>
-              <div style="color:rgba(166,176,194,.78); font-size:10px; margin-top:2px">${when}</div>
-            </div>
-          </div>
-        `;
-      }
-    }
-
-    async function fetchGoogleNewsRSS(query) {
-      const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
-      const proxied = `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`;
-      const res = await fetch(proxied, { cache: "no-store" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const xmlText = await res.text();
-      const doc = new DOMParser().parseFromString(xmlText, "text/xml");
-      const items = Array.from(doc.querySelectorAll("item")).slice(0, 6).map(item => {
-        const title = item.querySelector("title")?.textContent?.trim() || "";
-        const link = item.querySelector("link")?.textContent?.trim() || "";
-        const pub = item.querySelector("pubDate")?.textContent?.trim() || "";
-        const pubDate = pub ? new Date(pub) : null;
-        return { title, link, pubDate };
-      });
-      return items;
-    }
-
-    async function refreshBotNews() {
-      const updatedEl = document.getElementById("botUpdated");
-      if (updatedEl) updatedEl.textContent = "Updating…";
-
-      const queries = [
-        { t: "RCKT", q: "RCKT Rocket Pharmaceuticals" },
-        { t: "DNLI", q: "DNLI Denali Therapeutics" },
-        { t: "NUVL", q: "NUVL Nuvalent" },
-      ];
-
-      const started = Date.now();
-
-      for (const item of queries) {
-        try {
-          setBotCard(item.t, "Scanning…", []);
-          const headlines = await fetchGoogleNewsRSS(item.q);
-          const last = headlines[0]?.pubDate ? timeAgo(headlines[0].pubDate) : "recent";
-          setBotCard(item.t, `Last: ${last}`, headlines);
-        } catch (e) {
-          setBotCard(item.t, "Feed unavailable", []);
-        }
-      }
-
-      const now = new Date();
-      const stamp = now.toLocaleString(undefined, { weekday:"short", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
-      const took = Math.max(1, Math.round((Date.now() - started) / 1000));
-      if (updatedEl) updatedEl.textContent = `Updated ${stamp} • ${took}s`;
-    }
-
-    function initBotNews() {
-      document.getElementById("refreshBot")?.addEventListener("click", refreshBotNews);
-      refreshBotNews();
-      setInterval(refreshBotNews, 15 * 60 * 1000);
-    }
-
-    /* ===== NOTIFICATIONS: entry/exit dates ===== */
-    function daysBetween(a, b) {
-      const ms = b.getTime() - a.getTime();
-      return Math.round(ms / (1000 * 60 * 60 * 24));
-    }
-
-    function sameDay(a, b) {
-      return a.getFullYear() === b.getFullYear() &&
-             a.getMonth() === b.getMonth() &&
-             a.getDate() === b.getDate();
-    }
-
-    function toStartOfDay(d) {
-      return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
-    }
-
-    function parseRangeText(rangeText) {
-      // "Mar 01, 2026 → Apr 10, 2026"
-      if (!rangeText || rangeText === "-") return null;
-      const parts = rangeText.split("→").map(s => s.trim());
-      if (parts.length !== 2) return null;
-      const start = new Date(parts[0]);
-      const end = new Date(parts[1]);
-      if (isNaN(start.getTime()) || isNaN(end.getTime())) return null;
-      return { start, end };
-    }
-
-    function buildNotifications() {
-      const now = toStartOfDay(new Date());
-      const horizonDays = parseInt(document.getElementById("notifyHorizon")?.value || "14", 10);
-      const horizon = new Date(now);
-      horizon.setDate(horizon.getDate() + horizonDays);
-
-      // respect current filters (so notifications match what you see)
-      const search = (document.getElementById("searchBox").value || "").toLowerCase();
-      const minScore = parseInt(document.getElementById("scoreFilter").value, 10);
-      const orphanFilter = document.getElementById("orphanFilter").value;
-      const clusterFilter = document.getElementById("clusterFilter").value;
-
-      const notifs = [];
-
-      for (const r of rows) {
-        if (!isFutureOrToday(r.pdufa_date)) continue;
-
-        // apply same filtering rules used for watchlist (except sorting)
-        const blob = (
-          (r.company || "") + " " +
-          (r.ticker || "") + " " +
-          (r.indication || "") + " " +
-          (r.drug || "") + " " +
-          (r.notes || "") + " " +
-          (r.therapy_type || "") + " " +
-          (r.listing_region || "")
-        ).toLowerCase();
-        if (search && !blob.includes(search)) continue;
-
-        const score = parseInt(r.runup_priority_score_1to5 || "0", 10);
-        if (!isNaN(minScore) && score < minScore) continue;
-
-        if (orphanFilter === "yes" && (r.orphan_drug || "").toLowerCase() !== "yes") continue;
-        if (orphanFilter === "no" && (r.orphan_drug || "").toLowerCase() === "yes") continue;
-
-        if (clusterFilter !== "any" && (r.risk_cluster_key || "") !== clusterFilter) continue;
-
-        if (chipState.scoreMin && score < chipState.scoreMin) continue;
-        if (chipState.orphanOnly && (r.orphan_drug || "").toLowerCase() !== "yes") continue;
-        if (chipState.cluster4 && parseInt(r.runup_priority_score_1to5 || "0", 10) !== 4) continue;
-
-        // Entry start and exit start notifications
-        const entry = r._entryRange;
-        const exit = r._exitRange;
-        const pdufa = new Date(r.pdufa_date + "T00:00:00");
-
-        if (entry?.start) {
-          const d = toStartOfDay(entry.start);
-          if (d <= horizon && d >= now) {
-            notifs.push({
-              kind: "ENTRY",
-              when: d,
-              row: r,
-              pill: "Entry starts",
-              pillClass: "entry",
-              text: `Entry window starts today → ${fmtNice(entry.end)}`
-            });
-          }
-          // if window is currently open and we are inside it, show "ENTRY ACTIVE"
-          const eEnd = toStartOfDay(entry.end);
-          if (now >= d && now <= eEnd) {
-            notifs.push({
-              kind: "ENTRY_ACTIVE",
-              when: now,
-              row: r,
-              pill: "Entry active",
-              pillClass: "entry",
-              text: `Entry window active: ${fmtNice(entry.start)} → ${fmtNice(entry.end)}`
-            });
-          }
-        }
-
-        if (exit?.start) {
-          const d = toStartOfDay(exit.start);
-          if (d <= horizon && d >= now) {
-            notifs.push({
-              kind: "EXIT",
-              when: d,
-              row: r,
-              pill: "Exit starts",
-              pillClass: "exit",
-              text: `Exit window starts today → ${fmtNice(exit.end)}`
-            });
-          }
-          const xEnd = toStartOfDay(exit.end);
-          if (now >= d && now <= xEnd) {
-            notifs.push({
-              kind: "EXIT_ACTIVE",
-              when: now,
-              row: r,
-              pill: "Exit active",
-              pillClass: "exit",
-              text: `Exit window active: ${fmtNice(exit.start)} → ${fmtNice(exit.end)}`
-            });
-          }
-        }
-
-        // PDUFA date approaching
-        const p = toStartOfDay(pdufa);
-        if (p <= horizon && p >= now) {
-          const dd = daysBetween(now, p);
-          notifs.push({
-            kind: "PDUFA",
-            when: p,
-            row: r,
-            pill: `PDUFA in ${dd}d`,
-            pillClass: "pdufa",
-            text: `PDUFA date: ${fmtNice(p)}`
-          });
-        }
-      }
-
-      // De-dupe: if ACTIVE exists, prefer ACTIVE over START for same ticker/kind family
-      // (Keep it simple: remove ENTRY start if ENTRY_ACTIVE exists for same row)
-      const key = (n) => `${n.row.ticker || "NA"}|${n.kind}`;
-      const by = new Map();
-      for (const n of notifs) {
-        // keep all; then prune below
-        by.set(Math.random().toString(36).slice(2), n);
-      }
-      let list = Array.from(by.values());
-
-      const hasActive = new Set(list.filter(n => n.kind === "ENTRY_ACTIVE").map(n => n.row.company + "|" + (n.row.ticker||"")));
-      list = list.filter(n => !(n.kind === "ENTRY" && hasActive.has(n.row.company + "|" + (n.row.ticker||""))));
-
-      const hasExitActive = new Set(list.filter(n => n.kind === "EXIT_ACTIVE").map(n => n.row.company + "|" + (n.row.ticker||"")));
-      list = list.filter(n => !(n.kind === "EXIT" && hasExitActive.has(n.row.company + "|" + (n.row.ticker||""))));
-
-      // Sort by soonest (and then by priority kind)
-      const kindRank = { "ENTRY_ACTIVE": 0, "EXIT_ACTIVE": 1, "ENTRY": 2, "EXIT": 3, "PDUFA": 4 };
-      list.sort((a, b) => {
-        const ta = a.when.getTime();
-        const tb = b.when.getTime();
-        if (ta !== tb) return ta - tb;
-        return (kindRank[a.kind] ?? 99) - (kindRank[b.kind] ?? 99);
-      });
-
-      return list.slice(0, 8); // keep compact
-    }
-
-    function renderNotifications() {
-      const listEl = document.getElementById("notifyList");
-      if (!listEl) return;
-
-      const notifs = buildNotifications();
-      listEl.innerHTML = "";
-
-      if (!notifs.length) {
-        listEl.innerHTML = `
-          <div class="noteCard">
-            <div class="noteLeft">
-              <div class="noteTop">
-                <span class="noteTicker">—</span>
-                <span class="noteWhen">No notifications</span>
-              </div>
-              <div class="noteText" style="color:var(--muted)">Try expanding the horizon or clearing filters.</div>
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      const now = toStartOfDay(new Date());
-
-      for (const n of notifs) {
-        const r = n.row;
-        const whenText = sameDay(n.when, now) ? "Today" : fmtNice(n.when);
-
-        const pillClass =
-          n.pillClass === "exit" ? "notePill exit" :
-          n.pillClass === "pdufa" ? "notePill pdufa" :
-          "notePill";
-
-        const card = document.createElement("div");
-        card.className = "noteCard";
-        card.innerHTML = `
-          <div class="noteLeft">
-            <div class="noteTop">
-              <span>${r.company}</span>
-              <span class="noteTicker">${(r.ticker || "N/A").toUpperCase()}</span>
-              <span class="noteWhen">${whenText}</span>
-            </div>
-            <div class="noteText">${n.text}</div>
-          </div>
-          <div class="noteRight">
-            <span class="${pillClass}">${n.pill}</span>
-            <span class="notePill pdufa">${fmtNice(new Date(r.pdufa_date + "T00:00:00"))}</span>
-          </div>
-        `;
-        // Click notif -> jump to watchlist and auto-search ticker
-        card.addEventListener("click", () => {
-          document.getElementById("searchBox").value = (r.ticker || r.company || "").toUpperCase();
-          renderWatchlist();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-
-        listEl.appendChild(card);
-      }
-    }
-
-    function refreshNotifications() {
-      renderNotifications();
-    }
-
-    /* ===== init ===== */
-    function init() {
-      // Top “Live • <date>”
-      const today = new Date();
-      const todayText = today.toLocaleDateString(undefined, { weekday:"short", year:"numeric", month:"short", day:"2-digit" });
-      document.getElementById("todayLabel").textContent = `Live • ${todayText}`;
-
-      rows = parseCSV(inlineCSV).map(r => {
-        const cluster = assignCluster(r);
-        const entry = windowToDateRange(r.pdufa_date, r.suggested_entry_window_days);
-        const exit = windowToDateRange(r.pdufa_date, r.suggested_exit_window_days);
-
-        return {
-          ...r,
-          risk_cluster: cluster.label,
-          risk_cluster_key: cluster.key,
-          score_rationale: buildRationale(r),
-          _entryRange: entry,
-          _exitRange: exit,
-          entry_dates: buildRangeText(entry),
-          exit_dates: buildRangeText(exit),
-        };
-      });
-
-      setupControls();
-      renderWatchlist();
-      renderNotifications();
-      initBotNews();
-      setTimeout(initTradingViewWidgets, 600);
-    }
-
-    window.addEventListener("load", init);
-  </script>
+window.addEventListener("load", init);
+</script>
 </body>
 </html>
-
-
