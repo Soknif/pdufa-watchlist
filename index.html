@@ -119,16 +119,23 @@
     .analog-body{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
     @media(max-width:800px){.analog-body{grid-template-columns:1fr}}
 
+    /* ── CHART LEGEND PILLS ── */
+    .chart-legend-pills{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+    .clp{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--soft);font-family:var(--mono)}
+    .clp-swatch{width:12px;height:12px;border-radius:3px}
+
     .chart-canvas-wrap{position:relative}
     .chart-canvas-wrap canvas{display:block;width:100%;height:auto}
-    .chart-title{font-size:11px;color:var(--soft);font-family:var(--mono);margin-bottom:10px;letter-spacing:.08em;text-transform:uppercase}
+    .chart-title{font-size:11px;color:var(--soft);font-family:var(--mono);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase}
 
     .analog-legend{display:flex;flex-direction:column;gap:12px;justify-content:center}
     .al-item{border-radius:12px;border:1px solid var(--bd);background:var(--sf2);padding:10px 14px;display:flex;align-items:flex-start;gap:10px}
     .al-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;margin-top:4px}
     .al-name{font-size:12px;font-weight:600;font-family:var(--mono);line-height:1.2}
     .al-det{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4}
-    .al-gain{font-size:18px;font-weight:700;font-family:var(--mono);line-height:1}
+    .al-gains{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:4px}
+    .al-gain{font-size:16px;font-weight:700;font-family:var(--mono);line-height:1}
+    .al-gain-sub{font-size:10px;font-family:var(--mono);color:var(--muted)}
     .al-window{font-size:9px;color:var(--muted);margin-top:2px;font-family:var(--mono)}
 
     /* ── WINDOWS ROW ── */
@@ -360,19 +367,23 @@
   <div class="cluster-section">
     <div class="sec-hdr">
       <div><div class="sec-title">HISTORICAL ANALOGS</div><div class="sec-sub">Pre-PDUFA run-up data from comparable gene therapy &amp; rare disease catalysts</div></div>
-      <span class="stag">T-90 to T-7 windows</span>
+      <span class="stag">VWAP-based analysis</span>
     </div>
     <div class="analog-card">
       <div class="analog-hd">
         <div>
-          <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)">Run-Up Performance vs. Window Entry</div>
-          <div class="analog-sub">Peak gain from entry to T-7 before PDUFA date — orphan / gene therapy / rare disease small-mid caps</div>
+          <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)">Run-Up Performance — Entry vs Exit &amp; VWAP vs Exit</div>
+          <div class="analog-sub">Actual VWAP-computed data from entry open to exit close — orphan / gene therapy / rare disease small-mid caps</div>
         </div>
         <div style="font-size:10px;color:var(--muted);font-family:var(--mono)">Historical reference only</div>
       </div>
       <div class="analog-body">
         <div class="chart-canvas-wrap">
-          <div class="chart-title">Peak Run-Up (%) — T-90 Entry to T-7 Exit</div>
+          <div class="chart-title">Run-Up (%) — Entry vs Exit &amp; VWAP vs Exit</div>
+          <div class="chart-legend-pills">
+            <div class="clp"><div class="clp-swatch" style="background:rgba(167,139,250,.85)"></div>Entry → Exit %</div>
+            <div class="clp"><div class="clp-swatch" style="background:rgba(94,234,212,.65)"></div>VWAP → Exit %</div>
+          </div>
           <canvas id="analogChart" width="600" height="340"></canvas>
         </div>
         <div class="analog-legend" id="analogLegend"></div>
@@ -520,27 +531,27 @@ const ROWS = [
 ];
 
 /* ═══════════════════════════════════════════
-   HISTORICAL ANALOG DATA
+   HISTORICAL ANALOG DATA  ← UPDATED WITH REAL VWAP DATA
 ═══════════════════════════════════════════ */
 const ANALOGS = [
-  { name:"RCKT", label:"Rocket Pharma\n(KRESLADI 2024 run-up)", gain:118, window:"T-90 to T-14", therapy:"Ex vivo gene therapy", disease:"LAD-I", outcome:"CRL (CMC)", color:"#a78bfa" },
-  { name:"BLUE", label:"bluebird bio\n(lovo-cel / Lyfgenia)", gain:87,  window:"T-90 to T-10", therapy:"Ex vivo gene therapy", disease:"Sickle Cell Disease", outcome:"Approved", color:"#60a5fa" },
-  { name:"CRSP", label:"CRISPR Therapeutics\n(Casgevy / exa-cel)", gain:72,  window:"T-90 to T-14", therapy:"Gene editing (CRISPR)", disease:"Sickle Cell / Beta-thal", outcome:"Approved", color:"#34d399" },
-  { name:"RARE", label:"Ultragenyx\n(DTX301 / GSDIb)", gain:48,  window:"T-60 to T-10", therapy:"AAV gene therapy", disease:"GSD Type Ib", outcome:"Approved", color:"#fcd34d" },
-  { name:"RYTM", label:"Rhythm Pharma\n(Imcivree / POMC obesity)", gain:61,  window:"T-90 to T-10", therapy:"Peptide agonist (MC4R)", disease:"POMC deficiency", outcome:"Approved", color:"#f9a8d4" },
-  { name:"DNLI-pre", label:"Denali-like analogs\n(ERT w/ Breakthrough)", gain:55, window:"T-90 to T-14", therapy:"Novel ERT / CNS", disease:"Lysosomal storage", outcome:"Mixed", color:"#5eead4" },
-  { name:"TVTX", label:"Travere\n(FILSPARI / IgAN 2023)", gain:44,  window:"T-60 to T-10", therapy:"Small-molecule dual inhibitor", disease:"IgA nephropathy", outcome:"Approved", color:"#fb923c" },
+  { name:"RCKT",  label:"Rocket Pharma (2025-26)",           entryExit:47,  vwapExit:27, window:"Nov 30 '25 → Mar 13 '26", therapy:"Ex vivo gene therapy",          disease:"LAD-I",                   outcome:"Pre-PDUFA", color:"#a78bfa" },
+  { name:"CRSP",  label:"CRISPR Therapeutics (2023)",         entryExit:43,  vwapExit:36, window:"Sep 8 → Nov 24 '23",      therapy:"Gene editing (CRISPR)",         disease:"Sickle Cell / Beta-thal", outcome:"Approved",  color:"#34d399" },
+  { name:"IOVA",  label:"Iovance Bio (2023-24)",              entryExit:141, vwapExit:20, window:"Oct 19 '23 → Feb 6 '24",  therapy:"TIL cell therapy",              disease:"Melanoma",                outcome:"Approved",  color:"#60a5fa" },
+  { name:"MDGL",  label:"Madrigal Pharma (2023-24)",          entryExit:61,  vwapExit:18, window:"Nov 15 '23 → Mar 4 '24",  therapy:"THRβ agonist",                  disease:"NASH / MASH",             outcome:"Approved",  color:"#fcd34d" },
+  { name:"MIST",  label:"Milestone Scientific (2025)",        entryExit:55,  vwapExit:30, window:"Aug 14 → Dec 2 '25",      therapy:"Device / Biotech",              disease:"—",                       outcome:"Pre-PDUFA", color:"#f9a8d4" },
+  { name:"DNLI",  label:"Denali Therapeutics (2025-26)",      entryExit:36,  vwapExit:9,  window:"Nov 4 '25 → Mar 14 '26",  therapy:"Brain-penetrant ERT",           disease:"Hunter syndrome (MPS II)", outcome:"Pre-PDUFA", color:"#5eead4" },
+  { name:"TVTX",  label:"Travere (2022-23)",                  entryExit:12,  vwapExit:5,  window:"Dec 19 '22 → Feb 7 '23",  therapy:"Small-molecule dual inhibitor", disease:"IgA nephropathy",         outcome:"Approved",  color:"#fb923c" },
 ];
 
 /* ═══════════════════════════════════════════
-   CANVAS CHART — ANALOG CLUSTER
+   CANVAS CHART — GROUPED BAR (Entry vs Exit + VWAP vs Exit)
 ═══════════════════════════════════════════ */
 function drawAnalogChart() {
   const canvas = document.getElementById("analogChart");
   if (!canvas) return;
   const dpr = window.devicePixelRatio || 1;
   const W = canvas.parentElement.clientWidth || 500;
-  const H = Math.round(W * 0.57);
+  const H = Math.round(W * 0.62);
   canvas.width  = W * dpr;
   canvas.height = H * dpr;
   canvas.style.width  = W + "px";
@@ -548,19 +559,23 @@ function drawAnalogChart() {
   const ctx = canvas.getContext("2d");
   ctx.scale(dpr, dpr);
 
-  const PAD = { t:28, r:24, b:44, l:52 };
+  const PAD = { t:32, r:20, b:48, l:52 };
   const cW = W - PAD.l - PAD.r;
   const cH = H - PAD.t - PAD.b;
 
-  // Grid
   ctx.clearRect(0, 0, W, H);
-  const maxGain = 140;
-  const gridLines = [0, 30, 60, 90, 120];
 
-  gridLines.forEach(g => {
-    const y = PAD.t + cH - (g / maxGain) * cH;
+  // Max value across both metrics
+  const maxVal = Math.max(...ANALOGS.map(a => Math.max(a.entryExit, a.vwapExit)));
+  const maxAxis = Math.ceil(maxVal / 20) * 20 + 20;
+
+  // Grid lines
+  const gridCount = 6;
+  for (let i = 0; i <= gridCount; i++) {
+    const gVal = Math.round((maxAxis / gridCount) * i);
+    const y = PAD.t + cH - (gVal / maxAxis) * cH;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(255,255,255,.06)";
+    ctx.strokeStyle = "rgba(255,255,255,.05)";
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
     ctx.moveTo(PAD.l, y);
@@ -568,87 +583,141 @@ function drawAnalogChart() {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = "rgba(148,163,184,.5)";
-    ctx.font = `${Math.round(9 * dpr / dpr)}px 'JetBrains Mono', monospace`;
+    ctx.font = "9px 'JetBrains Mono', monospace";
     ctx.textAlign = "right";
-    ctx.fillText(g + "%", PAD.l - 6, y + 4);
-  });
+    ctx.fillText(gVal + "%", PAD.l - 6, y + 3);
+  }
 
-  // X axis
+  // X axis line
   ctx.beginPath();
-  ctx.strokeStyle = "rgba(255,255,255,.1)";
+  ctx.strokeStyle = "rgba(255,255,255,.12)";
   ctx.lineWidth = 1;
   ctx.moveTo(PAD.l, PAD.t + cH);
   ctx.lineTo(PAD.l + cW, PAD.t + cH);
   ctx.stroke();
 
-  // Bars
   const n = ANALOGS.length;
-  const barW = Math.min(48, (cW / n) * 0.62);
-  const gap  = cW / n;
+  const groupW = cW / n;
+  const barGap = 3;
+  const barW = Math.min(22, (groupW * 0.7) / 2);
 
   ANALOGS.forEach((a, i) => {
-    const x = PAD.l + gap * i + gap / 2;
-    const barH = (a.gain / maxGain) * cH;
-    const y = PAD.t + cH - barH;
+    const cx = PAD.l + groupW * i + groupW / 2;
 
-    // Gradient bar
-    const grad = ctx.createLinearGradient(x - barW/2, y, x - barW/2, PAD.t + cH);
-    grad.addColorStop(0, a.color);
-    grad.addColorStop(1, a.color + "44");
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.roundRect(x - barW/2, y, barW, barH, [4, 4, 0, 0]);
-    ctx.fill();
-
-    // Glow
+    // ── Bar 1: Entry vs Exit (left bar, ticker color) ──
+    const h1 = Math.max(2, (a.entryExit / maxAxis) * cH);
+    const x1 = cx - barW - barGap / 2;
+    const y1 = PAD.t + cH - h1;
+    const grad1 = ctx.createLinearGradient(x1, y1, x1, PAD.t + cH);
+    grad1.addColorStop(0, a.color);
+    grad1.addColorStop(1, a.color + "33");
+    ctx.fillStyle = grad1;
     ctx.shadowColor = a.color;
-    ctx.shadowBlur = 10;
-    ctx.fillStyle = a.color + "22";
+    ctx.shadowBlur = 8;
     ctx.beginPath();
-    ctx.roundRect(x - barW/2 - 3, y - 2, barW + 6, barH + 2, [6, 6, 0, 0]);
+    ctx.roundRect(x1, y1, barW, h1, [3, 3, 0, 0]);
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    // Gain label on top
+    // Entry vs Exit label on top
     ctx.fillStyle = a.color;
-    ctx.font = `bold ${Math.round(11)}px 'JetBrains Mono', monospace`;
+    ctx.font = "bold 10px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
-    ctx.fillText("+" + a.gain + "%", x, y - 6);
+    ctx.fillText("+" + a.entryExit + "%", x1 + barW / 2, y1 - 5);
 
-    // Ticker label below
-    ctx.fillStyle = "rgba(148,163,184,.75)";
-    ctx.font = `${Math.round(10)}px 'JetBrains Mono', monospace`;
-    ctx.fillText(a.name.replace("-pre",""), x, PAD.t + cH + 16);
+    // ── Bar 2: VWAP vs Exit (right bar, teal tint) ──
+    const vwapColor = "#5eead4";
+    const h2 = Math.max(2, (a.vwapExit / maxAxis) * cH);
+    const x2 = cx + barGap / 2;
+    const y2 = PAD.t + cH - h2;
+    const grad2 = ctx.createLinearGradient(x2, y2, x2, PAD.t + cH);
+    grad2.addColorStop(0, vwapColor + "cc");
+    grad2.addColorStop(1, vwapColor + "22");
+    ctx.fillStyle = grad2;
+    ctx.shadowColor = vwapColor;
+    ctx.shadowBlur = 6;
+    ctx.beginPath();
+    ctx.roundRect(x2, y2, barW, h2, [3, 3, 0, 0]);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // VWAP vs Exit label
+    ctx.fillStyle = vwapColor;
+    ctx.font = "bold 9px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("+" + a.vwapExit + "%", x2 + barW / 2, y2 - 5);
+
+    // Ticker label below x-axis
+    ctx.fillStyle = "rgba(148,163,184,.8)";
+    ctx.font = "bold 10px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText(a.name, cx, PAD.t + cH + 16);
+
+    // Outcome dot under ticker
+    const outcomeColor = a.outcome === "Approved" ? "#4ade80" : a.outcome === "Pre-PDUFA" ? "#fcd34d" : "#94a3b8";
+    ctx.beginPath();
+    ctx.arc(cx, PAD.t + cH + 28, 3, 0, Math.PI * 2);
+    ctx.fillStyle = outcomeColor;
+    ctx.fill();
   });
 
   // Y axis label
   ctx.save();
   ctx.translate(12, PAD.t + cH / 2);
   ctx.rotate(-Math.PI / 2);
-  ctx.fillStyle = "rgba(148,163,184,.5)";
+  ctx.fillStyle = "rgba(148,163,184,.4)";
   ctx.font = "9px 'JetBrains Mono', monospace";
   ctx.textAlign = "center";
-  ctx.fillText("PEAK RUN-UP %", 0, 0);
+  ctx.fillText("RETURN %", 0, 0);
   ctx.restore();
+
+  // Outcome legend at bottom
+  const outcomes = [
+    { label: "Approved", color: "#4ade80" },
+    { label: "Pre-PDUFA", color: "#fcd34d" },
+  ];
+  let lx = PAD.l;
+  const ly = H - 6;
+  outcomes.forEach(o => {
+    ctx.beginPath();
+    ctx.arc(lx + 5, ly - 4, 3, 0, Math.PI * 2);
+    ctx.fillStyle = o.color;
+    ctx.fill();
+    ctx.fillStyle = "rgba(148,163,184,.5)";
+    ctx.font = "8px 'JetBrains Mono', monospace";
+    ctx.textAlign = "left";
+    ctx.fillText(o.label, lx + 12, ly);
+    lx += 80;
+  });
 
   // Build legend items
   const leg = document.getElementById("analogLegend");
   if (leg) {
     leg.innerHTML = "";
     ANALOGS.forEach(a => {
-      const o = a.outcome === "Approved" ? "#4ade80" : a.outcome === "CRL (CMC)" ? "#fcd34d" : "#94a3b8";
+      const oc = a.outcome === "Approved" ? "#4ade80" : a.outcome === "Pre-PDUFA" ? "#fcd34d" : "#94a3b8";
+      const vwapSign = a.vwapExit >= 0 ? "+" : "";
+      const entrySign = a.entryExit >= 0 ? "+" : "";
       leg.innerHTML += `
         <div class="al-item">
           <div class="al-dot" style="background:${a.color};box-shadow:0 0 6px ${a.color}55"></div>
-          <div style="flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
-              <div class="al-name" style="color:${a.color}">${a.name.replace("-pre","")}</div>
-              <div style="display:flex;gap:6px;align-items:center">
-                <div class="al-gain" style="color:${a.color}">+${a.gain}%</div>
-                <span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${o}44;background:${o}18;color:${o};font-family:var(--mono)">${a.outcome}</span>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:6px;flex-wrap:wrap">
+              <div class="al-name" style="color:${a.color}">${a.name}</div>
+              <span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${oc}44;background:${oc}18;color:${oc};font-family:var(--mono);flex-shrink:0">${a.outcome}</span>
+            </div>
+            <div class="al-det">${a.label}</div>
+            <div class="al-gains">
+              <div>
+                <div class="al-gain" style="color:${a.color}">${entrySign}${a.entryExit}%</div>
+                <div class="al-gain-sub">Entry→Exit</div>
+              </div>
+              <div style="width:1px;background:var(--bd);align-self:stretch"></div>
+              <div>
+                <div class="al-gain" style="color:#5eead4">${vwapSign}${a.vwapExit}%</div>
+                <div class="al-gain-sub">VWAP→Exit</div>
               </div>
             </div>
-            <div class="al-det">${a.label.replace("\n",": ")}</div>
             <div class="al-window">${a.window} · ${a.therapy}</div>
           </div>
         </div>`;
@@ -903,7 +972,6 @@ function init() {
   renderWindows(dr.pdufa,dr.entry,dr.exit,"dnli-win");
   renderWindows(vr.pdufa,vr.entry,vr.exit,"vera-win");
 
-  // Draw analog chart after fonts load
   document.fonts.ready.then(()=>{ drawAnalogChart(); });
   window.addEventListener("resize", drawAnalogChart);
 
@@ -922,8 +990,3 @@ window.addEventListener("load",init);
 </script>
 </body>
 </html>
-
-
-
-
-
