@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MANTIS — VWAP Capital Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#050810;--bg1:#080c18;
+  --sf:rgba(255,255,255,.035);--sf2:rgba(255,255,255,.06);
+  --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.14);
+  --accent:#7c3aed;--accent2:#a78bfa;
+  --teal:#0d9488;--teal2:#5eead4;
+  --text:#e2e8f0;--muted:#64748b;--soft:#94a3b8;
+  --green:#22c55e;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --disp:'Bebas Neue',sans-serif;
+  --r:14px;--r2:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 900px 500px at -5% 5%,rgba(124,58,237,.15),transparent 55%),
+    radial-gradient(ellipse 700px 400px at 108% 8%,rgba(13,148,136,.13),transparent 55%),
+    radial-gradient(ellipse 600px 350px at 52% 92%,rgba(219,39,119,.10),transparent 60%);}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px 60px}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 0 14px;border-bottom:1px solid var(--bd);flex-wrap:wrap;gap:10px}
+.brand{font-family:var(--disp);font-size:28px;letter-spacing:.06em;background:linear-gradient(135deg,#a78bfa,#7c3aed,#5eead4,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.brand-sub{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:.12em;margin-top:2px}
+.live-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf);font-size:11px;color:var(--soft);font-family:var(--mono)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* BACK LINK */
+.back-link{display:inline-flex;align-items:center;gap:6px;margin:16px 0 0;font-size:11px;color:var(--muted);font-family:var(--mono);text-decoration:none;transition:color .15s}
+.back-link:hover{color:var(--text)}
+
+/* SIMULATOR BOX */
+.sim-box{margin:20px 0;padding:28px 32px;border-radius:var(--r2);border:1px solid rgba(167,139,250,.3);background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(13,148,136,.06));position:relative;overflow:hidden}
+.sim-box::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(124,58,237,.08);pointer-events:none}
+.sim-title{font-family:var(--disp);font-size:26px;letter-spacing:.06em;margin-bottom:4px}
+.sim-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:24px;line-height:1.6}
+
+/* INPUT ROW */
+.input-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.input-wrap{position:relative;flex:0 0 auto}
+.input-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:13px;color:var(--accent2);font-weight:700;pointer-events:none}
+.cap-input{padding:12px 14px 12px 38px;border-radius:var(--r);border:1px solid rgba(167,139,250,.4);background:rgba(124,58,237,.08);color:var(--text);font-family:var(--mono);font-size:16px;font-weight:700;width:240px;outline:none;transition:border-color .2s}
+.cap-input:focus{border-color:rgba(167,139,250,.8);box-shadow:0 0 0 3px rgba(124,58,237,.12)}
+
+/* PRESETS */
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.preset{padding:7px 14px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;transition:all .15s;white-space:nowrap}
+.preset:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.preset.on{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.14);color:var(--accent2)}
+
+/* FEE SLIDER */
+.slider-row{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.slider-lbl{font-size:10px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
+.fee-slider{-webkit-appearance:none;appearance:none;width:180px;height:4px;border-radius:2px;background:var(--bd2);outline:none;cursor:pointer}
+.fee-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent2);border:2px solid var(--bg);box-shadow:0 0 8px rgba(124,58,237,.5);cursor:pointer}
+.fee-val{font-size:13px;font-weight:700;font-family:var(--mono);color:var(--accent2);min-width:36px}
+
+/* SUMMARY CARDS */
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:24px 0 0}
+@media(max-width:900px){.cards{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:580px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;transition:all .2s;animation:fadeUp .4s ease both}
+.card:nth-child(1){border-top:2px solid #a78bfa;animation-delay:.05s}
+.card:nth-child(2){border-top:2px solid #34d399;animation-delay:.10s}
+.card:nth-child(3){border-top:2px solid #5eead4;animation-delay:.15s}
+.card:nth-child(4){border-top:2px solid #fcd34d;animation-delay:.20s}
+.card:nth-child(5){border-top:2px solid #f9a8d4;animation-delay:.25s}
+.card .lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-family:var(--mono);margin-bottom:8px}
+.card .val{font-size:20px;font-weight:700;font-family:var(--mono);line-height:1;transition:all .25s}
+.card .sub{font-size:9px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION */
+.sec{margin:32px 0 14px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--bd);padding-bottom:10px;flex-wrap:wrap}
+.sec-title{font-family:var(--disp);font-size:20px;letter-spacing:.06em}
+.sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono)}
+
+/* CHART */
+.chart-box{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:24px;margin-bottom:16px;animation:fadeUp .5s ease .3s both}
+.toggle-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tbtn{padding:6px 14px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;transition:all .15s;letter-spacing:.08em}
+.tbtn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.tbtn.on{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.14);color:var(--accent2)}
+canvas{display:block;width:100%;height:auto}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);animation:fadeUp .5s ease .4s both}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:10px 14px;font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);border-bottom:1px solid var(--bd);white-space:nowrap}
+td{padding:13px 14px;border-bottom:1px solid var(--bd);font-family:var(--mono);font-size:11px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--sf2)}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;border:1px solid}
+.pill.pos{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.35);color:#4ade80}
+.pill.neg{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#f87171}
+.profit-bar-wrap{width:70px;height:4px;background:var(--sf2);border-radius:2px;display:inline-block;vertical-align:middle;margin-left:8px}
+.profit-bar{height:100%;border-radius:2px;transition:width .3s}
+
+.foot{text-align:right;font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:40px;padding-top:14px;border-top:1px solid var(--bd)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="brand">MANTIS ALPHA FUND</div>
+      <div class="brand-sub">VWAP CAPITAL SIMULATOR &nbsp;·&nbsp; PRE-PDUFA STRATEGY &nbsp;·&nbsp; INTERNAL TOOL</div>
+    </div>
+    <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
+  </div>
+
+  <a class="back-link" href="index.html">← Back to Dashboard</a>
+
+  <!-- SIMULATOR -->
+  <div class="sim-box">
+    <div class="sim-title">CAPITAL SIMULATOR</div>
+    <div class="sim-sub">
+      Based on validated VWAP returns across 7 historical pre-PDUFA trades.<br>
+      Enter any capital amount to see projected profits, success fee and investor returns dynamically.
+    </div>
+
+    <div class="input-row">
+      <div class="input-wrap">
+        <span class="input-prefix">kr</span>
+        <input class="cap-input" id="capitalInput" type="text" placeholder="e.g. 40,000,000"/>
+      </div>
+      <div class="presets" id="presets"></div>
+    </div>
+
+    <div class="slider-row">
+      <span class="slider-lbl">Success Fee:</span>
+      <input class="fee-slider" id="feeSlider" type="range" min="5" max="30" step="1" value="20"/>
+      <span class="fee-val" id="feeVal">20%</span>
+      <span style="font-size:10px;color:var(--muted);font-family:var(--mono)">of gross profit</span>
+    </div>
+
+    <div class="cards" id="cards"></div>
+  </div>
+
+  <!-- CHART -->
+  <div class="sec">
+    <div><div class="sec-title">RETURN PER TRADE</div><div class="sec-sub">VWAP return % and profit per trade — scales with capital input</div></div>
+  </div>
+  <div class="chart-box">
+    <div class="toggle-row" id="toggleRow"></div>
+    <canvas id="mainChart"></canvas>
+  </div>
+
+  <!-- TABLE -->
+  <div class="sec">
+    <div><div class="sec-title">TRADE DETAIL</div><div class="sec-sub">Profit column updates dynamically</div></div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Ticker</th><th>Company</th><th>Return %</th>
+        <th>Allocation</th><th>Profit</th>
+      </tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="foot">MANTIS ALPHA FUND &nbsp;·&nbsp; Historical VWAP Data &nbsp;·&nbsp; G.V / S.N 2026</div>
+</div>
+
+<script>
+/* ── VALIDATED TRADE DATA ─────────────────────────────────────────────────── */
+const TRADES = [
+  { ticker:"RCKT", company:"Rocket Pharmaceuticals",  return_pct:48.00, color:"#a78bfa" },
+  { ticker:"CRSP", company:"CRISPR Therapeutics",      return_pct:43.46, color:"#34d399" },
+  { ticker:"IOVA", company:"Iovance Biotherapeutics",  return_pct:98.12, color:"#60a5fa" },
+  { ticker:"MDGL", company:"Madrigal Pharma",           return_pct:50.63, color:"#fcd34d" },
+  { ticker:"MIST", company:"Milestone Scientific",     return_pct:63.72, color:"#f9a8d4" },
+  { ticker:"DNLI", company:"Denali Therapeutics",      return_pct:28.29, color:"#5eead4" },
+  { ticker:"TVTX", company:"Travere Therapeutics",     return_pct:8.26,  color:"#fb923c" },
+];
+
+/* ── STATE ───────────────────────────────────────────────────────────────── */
+let capital  = 0;
+let feePct   = 20;
+let chartMode = 'both';
+
+/* ── FORMAT ──────────────────────────────────────────────────────────────── */
+const fmtKr  = v => 'kr ' + Math.round(v).toLocaleString('sv-SE');
+const fmtM   = v => v >= 1e6 ? 'kr ' + (v/1e6).toFixed(2) + 'M' : fmtKr(v);
+const fmtP   = v => (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+
+/* ── INIT ────────────────────────────────────────────────────────────────── */
+document.getElementById('todayLabel').textContent =
+  new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});
+
+// Preset buttons
+const PRESETS = [5e6, 10e6, 25e6, 40e6, 100e6, 250e6];
+const presetsEl = document.getElementById('presets');
+PRESETS.forEach(v => {
+  const b = document.createElement('button');
+  b.className = 'preset';
+  b.textContent = 'kr ' + (v >= 1e6 ? (v/1e6) + 'M' : v.toLocaleString());
+  b.dataset.val = v;
+  b.onclick = () => {
+    capital = v;
+    document.getElementById('capitalInput').value = Math.round(v).toLocaleString('sv-SE');
+    document.querySelectorAll('.preset').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    refresh();
+  };
+  presetsEl.appendChild(b);
+});
+
+// Capital input
+const capInput = document.getElementById('capitalInput');
+capInput.addEventListener('input', () => {
+  const raw = capInput.value.replace(/[^0-9.]/g, '');
+  const val = parseFloat(raw);
+  if (!isNaN(val) && val > 0) {
+    capital = val;
+    document.querySelectorAll('.preset').forEach(x => {
+      x.classList.toggle('on', +x.dataset.val === val);
+    });
+    refresh();
+  }
+});
+capInput.addEventListener('blur', () => {
+  if (capital > 0) capInput.value = Math.round(capital).toLocaleString('sv-SE');
+});
+
+// Fee slider
+document.getElementById('feeSlider').addEventListener('input', e => {
+  feePct = +e.target.value;
+  document.getElementById('feeVal').textContent = feePct + '%';
+  refresh();
+});
+
+// Chart toggles
+[['both','Both'],['return','Return %'],['profit','Profit']].forEach(([m,l]) => {
+  const b = document.createElement('button');
+  b.className = 'tbtn' + (m === chartMode ? ' on' : '');
+  b.textContent = l;
+  b.onclick = () => {
+    chartMode = m;
+    document.querySelectorAll('.tbtn').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    drawChart();
+  };
+  document.getElementById('toggleRow').appendChild(b);
+});
+
+/* ── COMPUTE ─────────────────────────────────────────────────────────────── */
+function compute() {
+  const alloc      = capital > 0 ? capital / TRADES.length : 0;
+  const trades     = TRADES.map(t => ({ ...t, alloc, profit: alloc * t.return_pct / 100 }));
+  const gross      = trades.reduce((s, t) => s + t.profit, 0);
+  const totalRet   = capital > 0 ? (gross / capital) * 100 : 0;
+  const fee        = gross * (feePct / 100);
+  const net        = gross - fee;
+  const ending     = capital + gross;
+  return { alloc, trades, gross, totalRet, fee, net, ending };
+}
+
+/* ── SUMMARY CARDS ───────────────────────────────────────────────────────── */
+const CARD_DEFS = [
+  { lbl:'Total Capital',     color:'#a78bfa', key:'capital' },
+  { lbl:'Gross Profit',      color:'#34d399', key:'gross'   },
+  { lbl:'Ending Portfolio',  color:'#5eead4', key:'ending'  },
+  { lbl:'Your Success Fee',  color:'#fcd34d', key:'fee'     },
+  { lbl:'Investor Net',      color:'#f9a8d4', key:'net'     },
+];
+
+function initCards() {
+  const el = document.getElementById('cards');
+  CARD_DEFS.forEach((c, i) => {
+    el.innerHTML += `<div class="card">
+      <div class="lbl">${c.lbl}</div>
+      <div class="val" id="card-val-${i}" style="color:${c.color}">—</div>
+      <div class="sub" id="card-sub-${i}"></div>
+    </div>`;
+  });
+}
+
+function updateCards(res) {
+  const vals = [
+    { v: fmtM(capital),    s: `${TRADES.length} trades equally split` },
+    { v: fmtM(res.gross),  s: fmtP(res.totalRet) + ' total return'    },
+    { v: fmtM(res.ending), s: 'Capital + gross profit'                 },
+    { v: fmtM(res.fee),    s: feePct + '% of gross profit'             },
+    { v: fmtM(res.net),    s: 'After ' + feePct + '% success fee'      },
+  ];
+  vals.forEach((v, i) => {
+    document.getElementById('card-val-' + i).textContent = capital > 0 ? v.v : '—';
+    document.getElementById('card-sub-' + i).textContent = v.s;
+  });
+}
+
+/* ── TABLE ───────────────────────────────────────────────────────────────── */
+function initTable() {
+  const tb = document.getElementById('tableBody');
+  TRADES.forEach((t, i) => {
+    const sign = t.return_pct >= 0 ? '+' : '';
+    const pc   = t.return_pct >= 0 ? 'pos' : 'neg';
+    const tr   = document.createElement('tr');
+    tr.id = 'tr-' + i;
+    tr.innerHTML = `
+      <td><span style="font-weight:700;font-size:13px;color:${t.color};font-family:var(--mono)">${t.ticker}</span></td>
+      <td style="color:var(--soft)">${t.company}</td>
+      <td><span class="pill ${pc}">${sign}${t.return_pct.toFixed(2)}%</span></td>
+      <td class="alloc-cell" style="color:var(--soft)">—</td>
+      <td>
+        <span class="profit-val ${pc}">—</span>
+        <span class="profit-bar-wrap"><span class="profit-bar" id="pb-${i}" style="background:${t.color}"></span></span>
+      </td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function updateTable(res) {
+  const maxP = Math.max(...res.trades.map(t => Math.abs(t.profit)));
+  res.trades.forEach((t, i) => {
+    const tr = document.getElementById('tr-' + i);
+    if (!tr) return;
+    tr.querySelector('.alloc-cell').textContent   = capital > 0 ? fmtM(t.alloc) : '—';
+    tr.querySelector('.profit-val').textContent   = capital > 0 ? fmtM(t.profit) : '—';
+    const pb = document.getElementById('pb-' + i);
+    if (pb) pb.style.width = (capital > 0 && maxP > 0) ? Math.min(100, Math.abs(t.profit) / maxP * 100) + '%' : '0%';
+  });
+}
+
+/* ── CHART ───────────────────────────────────────────────────────────────── */
+function drawChart() {
+  const res    = compute();
+  const canvas = document.getElementById('mainChart');
+  const dpr    = window.devicePixelRatio || 1;
+  const W      = canvas.parentElement.clientWidth - 48;
+  const H      = Math.round(W * 0.40);
+  canvas.width  = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  const PAD = {t:38, r:capital>0&&chartMode!=='return'?64:20, b:48, l:56};
+  const cW  = W - PAD.l - PAD.r;
+  const cH  = H - PAD.t - PAD.b;
+  const showR = chartMode === 'return' || chartMode === 'both';
+  const showP = chartMode === 'profit' || chartMode === 'both';
+  const nB    = (showR && showP) ? 2 : 1;
+  const bG    = 4;
+  const gW    = cW / TRADES.length;
+  const bW    = Math.min(26, (gW * 0.7) / nB);
+
+  const maxR  = Math.max(...TRADES.map(t => t.return_pct));
+  const mRA   = Math.ceil(maxR / 20) * 20 + 20;
+  const maxPr = capital > 0 ? Math.max(...res.trades.map(t => t.profit)) : 1;
+  const mPA   = Math.ceil(maxPr / 500000) * 500000 + 500000;
+
+  for (let i = 0; i <= 5; i++) {
+    const gP = (mRA / 5) * i;
+    const y  = PAD.t + cH - (gP / mRA) * cH;
+    ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,.045)'; ctx.lineWidth = 1;
+    ctx.setLineDash([4,4]); ctx.moveTo(PAD.l, y); ctx.lineTo(PAD.l + cW, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(167,139,250,.55)'; ctx.font = '9px JetBrains Mono,monospace';
+    ctx.textAlign = 'right'; ctx.fillText(Math.round(gP) + '%', PAD.l - 6, y + 3);
+    if (showP && capital > 0) {
+      const gM = (mPA / 5) * i;
+      ctx.fillStyle = 'rgba(94,234,212,.55)'; ctx.textAlign = 'left';
+      ctx.fillText('kr ' + (gM >= 1e6 ? (gM/1e6).toFixed(1)+'M' : Math.round(gM/1000)+'K'), PAD.l + cW + 6, y + 3);
+    }
+  }
+  ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,.1)'; ctx.lineWidth = 1;
+  ctx.moveTo(PAD.l, PAD.t + cH); ctx.lineTo(PAD.l + cW, PAD.t + cH); ctx.stroke();
+
+  res.trades.forEach((t, i) => {
+    const cx   = PAD.l + gW * i + gW / 2;
+    let xOff   = -(nB * bW + (nB - 1) * bG) / 2;
+
+    if (showR) {
+      const h = Math.max(2, (t.return_pct / mRA) * cH);
+      const x = cx + xOff, y = PAD.t + cH - h;
+      const g = ctx.createLinearGradient(x, y, x, PAD.t + cH);
+      g.addColorStop(0, t.color); g.addColorStop(1, t.color + '33');
+      ctx.fillStyle = g; ctx.shadowColor = t.color; ctx.shadowBlur = 10;
+      ctx.beginPath(); ctx.roundRect(x, y, bW, h, [3,3,0,0]); ctx.fill(); ctx.shadowBlur = 0;
+      ctx.fillStyle = t.color; ctx.font = 'bold 10px JetBrains Mono,monospace'; ctx.textAlign = 'center';
+      ctx.fillText('+' + t.return_pct.toFixed(2) + '%', x + bW/2, y - 6);
+      xOff += bW + bG;
+    }
+
+    if (showP && capital > 0) {
+      const pc = '#5eead4';
+      const h  = Math.max(2, (t.profit / mPA) * cH);
+      const x  = cx + xOff, y = PAD.t + cH - h;
+      const g  = ctx.createLinearGradient(x, y, x, PAD.t + cH);
+      g.addColorStop(0, pc + 'cc'); g.addColorStop(1, pc + '22');
+      ctx.fillStyle = g; ctx.shadowColor = pc; ctx.shadowBlur = 8;
+      ctx.beginPath(); ctx.roundRect(x, y, bW, h, [3,3,0,0]); ctx.fill(); ctx.shadowBlur = 0;
+      const pl = t.profit >= 1e6 ? 'kr '+(t.profit/1e6).toFixed(2)+'M' : 'kr '+Math.round(t.profit/1000)+'K';
+      ctx.fillStyle = pc; ctx.font = 'bold 9px JetBrains Mono,monospace'; ctx.textAlign = 'center';
+      ctx.fillText(pl, x + bW/2, y - 5);
+    }
+
+    ctx.fillStyle = 'rgba(148,163,184,.85)'; ctx.font = 'bold 10px JetBrains Mono,monospace';
+    ctx.textAlign = 'center'; ctx.fillText(t.ticker, cx, PAD.t + cH + 16);
+    ctx.fillStyle = t.color; ctx.beginPath();
+    ctx.arc(cx, PAD.t + cH + 28, 3, 0, Math.PI*2); ctx.fill();
+  });
+
+  ctx.save(); ctx.translate(14, PAD.t + cH/2); ctx.rotate(-Math.PI/2);
+  ctx.fillStyle = 'rgba(167,139,250,.4)'; ctx.font = '9px JetBrains Mono,monospace';
+  ctx.textAlign = 'center'; ctx.fillText('RETURN %', 0, 0); ctx.restore();
+
+  if (showP && capital > 0) {
+    ctx.save(); ctx.translate(W - 10, PAD.t + cH/2); ctx.rotate(Math.PI/2);
+    ctx.fillStyle = 'rgba(94,234,212,.4)'; ctx.font = '9px JetBrains Mono,monospace';
+    ctx.textAlign = 'center'; ctx.fillText('PROFIT kr', 0, 0); ctx.restore();
+  }
+}
+
+/* ── REFRESH ─────────────────────────────────────────────────────────────── */
+function refresh() {
+  const res = compute();
+  updateCards(res);
+  updateTable(res);
+  drawChart();
+}
+
+/* ── BOOT ────────────────────────────────────────────────────────────────── */
+initCards();
+initTable();
+document.fonts.ready.then(refresh);
+window.addEventListener('resize', drawChart);
+</script>
+</body>
+</html>
