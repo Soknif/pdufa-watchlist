@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MANTIS — VWAP Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#050810;--bg1:#080c18;
+  --sf:rgba(255,255,255,.035);--sf2:rgba(255,255,255,.06);
+  --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.14);
+  --rckt:#7c3aed;--rckt2:#a78bfa;
+  --teal:#0d9488;--teal2:#5eead4;
+  --text:#e2e8f0;--muted:#64748b;--soft:#94a3b8;
+  --green:#22c55e;--red:#ef4444;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --disp:'Bebas Neue',sans-serif;
+  --r:14px;--r2:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 900px 500px at -5% 5%,rgba(124,58,237,.15),transparent 55%),
+    radial-gradient(ellipse 700px 400px at 108% 8%,rgba(13,148,136,.13),transparent 55%),
+    radial-gradient(ellipse 600px 350px at 52% 92%,rgba(219,39,119,.10),transparent 60%);}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px 60px}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 0 14px;border-bottom:1px solid var(--bd);flex-wrap:wrap;gap:10px}
+.brand{font-family:var(--disp);font-size:28px;letter-spacing:.06em;background:linear-gradient(135deg,#a78bfa,#7c3aed,#5eead4,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.brand-sub{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:.12em;margin-top:2px}
+.live-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf);font-size:11px;color:var(--soft);font-family:var(--mono)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* CALCULATOR */
+.calc-box{margin:24px 0;padding:28px 32px;border-radius:var(--r2);border:1px solid rgba(167,139,250,.25);background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(13,148,136,.05));position:relative;overflow:hidden}
+.calc-box::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(124,58,237,.07);pointer-events:none}
+.calc-title{font-family:var(--disp);font-size:24px;letter-spacing:.06em;margin-bottom:4px}
+.calc-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:24px}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:800px){.form-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr}}
+
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-family:var(--mono)}
+.field input{padding:10px 14px;border-radius:var(--r);border:1px solid var(--bd2);background:rgba(255,255,255,.04);color:var(--text);font-family:var(--mono);font-size:13px;outline:none;transition:border-color .2s}
+.field input:focus{border-color:rgba(167,139,250,.6);box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+.field input::placeholder{color:var(--muted)}
+
+.window-group{display:contents}
+.window-label{grid-column:1/-1;font-size:10px;color:var(--soft);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 0 0;border-top:1px solid var(--bd);margin-top:4px}
+
+.calc-btn{display:flex;align-items:center;gap:10px;padding:12px 28px;border-radius:var(--r);border:none;background:linear-gradient(135deg,var(--rckt),#6d28d9);color:#fff;font-family:var(--mono);font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.06em;transition:all .2s;position:relative;overflow:hidden}
+.calc-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,58,237,.35)}
+.calc-btn:active{transform:translateY(0)}
+.calc-btn .spin{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.calc-btn.loading .spin{display:block}
+.calc-btn.loading .btn-txt{opacity:.6}
+
+/* RESULTS */
+.results{margin-top:24px;display:none}
+.results.show{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.res-ticker{font-family:var(--disp);font-size:32px;letter-spacing:.08em;margin-bottom:2px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+@media(max-width:600px){.res-grid{grid-template-columns:1fr 1fr}}
+.res-card{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px}
+.res-card .lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-family:var(--mono);margin-bottom:6px}
+.res-card .val{font-size:20px;font-weight:700;font-family:var(--mono)}
+.res-card .sub{font-size:9px;color:var(--muted);font-family:var(--mono);margin-top:3px}
+.ret-pos{color:#4ade80}
+.ret-neg{color:#f87171}
+
+/* BATCH TABLE */
+.batch-section{margin-top:28px}
+.batch-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.batch-title{font-family:var(--disp);font-size:18px;letter-spacing:.06em}
+.clear-btn{padding:5px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;transition:color .15s}
+.clear-btn:hover{color:var(--text)}
+.tbl-wrap{overflow-x:auto;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:10px 14px;font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);border-bottom:1px solid var(--bd);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--bd);font-family:var(--mono);font-size:11px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--sf2)}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;border:1px solid}
+.pill.pos{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.35);color:#4ade80}
+.pill.neg{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#f87171}
+
+/* CHART */
+.chart-box{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:24px;margin-top:16px;display:none}
+.chart-box.show{display:block}
+canvas{display:block;width:100%;height:auto}
+
+/* ERROR */
+.err-box{margin-top:14px;padding:12px 16px;border-radius:var(--r);border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);font-size:11px;font-family:var(--mono);color:#f87171;display:none}
+.err-box.show{display:block}
+
+/* SEC */
+.sec{margin:32px 0 14px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--bd);padding-bottom:10px}
+.sec-title{font-family:var(--disp);font-size:20px;letter-spacing:.06em}
+.sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono)}
+
+.foot{text-align:right;font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:40px;padding-top:14px;border-top:1px solid var(--bd)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="brand">MANTIS ALPHA FUND</div>
+      <div class="brand-sub">VWAP CALCULATOR &nbsp;·&nbsp; PRE-PDUFA STRATEGY &nbsp;·&nbsp; INTERNAL TOOL</div>
+    </div>
+    <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-box">
+    <div class="calc-title">VWAP CALCULATOR</div>
+    <div class="calc-sub">Enter a ticker and entry/exit windows to compute the VWAP-based return</div>
+
+    <div class="form-grid">
+      <!-- Ticker -->
+      <div class="field" style="grid-column:1/-1">
+        <label>Ticker Symbol</label>
+        <input id="ticker" type="text" placeholder="e.g. RCKT" maxlength="10" style="max-width:200px;text-transform:uppercase"/>
+      </div>
+
+      <!-- Entry window -->
+      <div class="window-label">Entry Window</div>
+      <div class="field">
+        <label>Entry From</label>
+        <input id="en_start" type="date"/>
+      </div>
+      <div class="field">
+        <label>Entry To</label>
+        <input id="en_end" type="date"/>
+      </div>
+      <div class="field" style="visibility:hidden"></div>
+
+      <!-- Exit window -->
+      <div class="window-label">Exit Window</div>
+      <div class="field">
+        <label>Exit From</label>
+        <input id="ex_start" type="date"/>
+      </div>
+      <div class="field">
+        <label>Exit To</label>
+        <input id="ex_end" type="date"/>
+      </div>
+      <div class="field" style="visibility:hidden"></div>
+    </div>
+
+    <button class="calc-btn" id="calcBtn" onclick="calculate()">
+      <span class="spin"></span>
+      <span class="btn-txt">CALCULATE VWAP</span>
+    </button>
+
+    <div class="err-box" id="errBox"></div>
+
+    <!-- RESULTS -->
+    <div class="results" id="results">
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--bd)">
+        <div class="res-ticker" id="resTicker" style="color:var(--rckt2)"></div>
+        <div style="font-size:10px;color:var(--muted);font-family:var(--mono);margin-bottom:12px" id="resWindows"></div>
+        <div class="res-grid">
+          <div class="res-card" style="border-top:2px solid var(--rckt2)">
+            <div class="lbl">Entry VWAP</div>
+            <div class="val" id="resEntryVwap" style="color:var(--rckt2)">—</div>
+            <div class="sub" id="resEntryDays"></div>
+          </div>
+          <div class="res-card" style="border-top:2px solid var(--teal2)">
+            <div class="lbl">Exit VWAP</div>
+            <div class="val" id="resExitVwap" style="color:var(--teal2)">—</div>
+            <div class="sub" id="resExitDays"></div>
+          </div>
+          <div class="res-card" id="resRetCard">
+            <div class="lbl">VWAP Return</div>
+            <div class="val" id="resReturn">—</div>
+            <div class="sub" id="resRetSub"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BATCH RESULTS -->
+  <div class="batch-section" id="batchSection" style="display:none">
+    <div class="batch-hd">
+      <div class="sec-title">SESSION RESULTS</div>
+      <button class="clear-btn" onclick="clearAll()">Clear all</button>
+    </div>
+
+    <div class="chart-box show" id="chartBox">
+      <canvas id="batchChart"></canvas>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:12px">
+      <table>
+        <thead><tr>
+          <th>Ticker</th>
+          <th>Entry Window</th><th>Entry VWAP</th>
+          <th>Exit Window</th><th>Exit VWAP</th>
+          <th>Return</th><th>Days In/Out</th>
+        </tr></thead>
+        <tbody id="batchBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="foot">MANTIS ALPHA FUND &nbsp;·&nbsp; Internal Tool &nbsp;·&nbsp; G.V / S.N 2026</div>
+</div>
+
+<script>
+const API_KEY = 'HEZZG1533V2XWBPU';
+const COLORS  = {
+  RCKT:'#a78bfa',CRSP:'#34d399',IOVA:'#60a5fa',
+  MDGL:'#fcd34d',MIST:'#f9a8d4',DNLI:'#5eead4',TVTX:'#fb923c',
+};
+const DEFAULT_COLOR = '#94a3b8';
+
+let batch = [];
+
+document.getElementById('todayLabel').textContent =
+  new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});
+
+// Auto-uppercase ticker
+document.getElementById('ticker').addEventListener('input', e => {
+  e.target.value = e.target.value.toUpperCase();
+});
+
+// Allow Enter key to trigger calculate
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') calculate();
+});
+
+function fmtDate(s) {
+  return `${s.slice(8,10)}/${s.slice(5,7)}/${s.slice(2,4)}`;
+}
+
+function showErr(msg) {
+  const el = document.getElementById('errBox');
+  el.textContent = '⚠ ' + msg;
+  el.classList.add('show');
+}
+
+function hideErr() {
+  document.getElementById('errBox').classList.remove('show');
+}
+
+async function fetchOHLCV(ticker, from, to) {
+  // Alpha Vantage daily adjusted
+  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=full&apikey=${API_KEY}`;
+  const res  = await fetch(url);
+  const json = await res.json();
+
+  if (json['Note'] || json['Information']) {
+    throw new Error('API rate limit reached — wait 1 minute and try again (25 calls/day on free tier)');
+  }
+  if (!json['Time Series (Daily)']) {
+    throw new Error(`No data found for "${ticker}". Check the ticker symbol.`);
+  }
+
+  const ts   = json['Time Series (Daily)'];
+  const rows = [];
+
+  for (const [date, v] of Object.entries(ts)) {
+    if (date >= from && date <= to) {
+      rows.push({
+        date,
+        high:   parseFloat(v['2. high']),
+        low:    parseFloat(v['3. low']),
+        close:  parseFloat(v['4. close']),
+        volume: parseFloat(v['5. volume']),
+      });
+    }
+  }
+
+  return rows.sort((a,b) => a.date.localeCompare(b.date));
+}
+
+function calcVwap(rows) {
+  if (!rows.length) return null;
+  let sumPV = 0, sumV = 0;
+  for (const r of rows) {
+    const typical = (r.high + r.low + r.close) / 3;
+    sumPV += typical * r.volume;
+    sumV  += r.volume;
+  }
+  return sumV > 0 ? sumPV / sumV : null;
+}
+
+async function calculate() {
+  hideErr();
+
+  const ticker   = document.getElementById('ticker').value.trim().toUpperCase();
+  const en_start = document.getElementById('en_start').value;
+  const en_end   = document.getElementById('en_end').value;
+  const ex_start = document.getElementById('ex_start').value;
+  const ex_end   = document.getElementById('ex_end').value;
+
+  if (!ticker)                       return showErr('Please enter a ticker symbol.');
+  if (!en_start || !en_end)          return showErr('Please fill in the entry window dates.');
+  if (!ex_start || !ex_end)          return showErr('Please fill in the exit window dates.');
+  if (en_start > en_end)             return showErr('Entry "From" must be before entry "To".');
+  if (ex_start > ex_end)             return showErr('Exit "From" must be before exit "To".');
+
+  // Loading state
+  const btn = document.getElementById('calcBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  document.getElementById('results').classList.remove('show');
+
+  try {
+    // Fetch full range
+    const allRows   = await fetchOHLCV(ticker, en_start, ex_end);
+    const entryRows = allRows.filter(r => r.date >= en_start && r.date <= en_end);
+    const exitRows  = allRows.filter(r => r.date >= ex_start && r.date <= ex_end);
+
+    if (!entryRows.length) throw new Error('No trading data found in the entry window. Check your dates.');
+    if (!exitRows.length)  throw new Error('No trading data found in the exit window. Check your dates.');
+
+    const entryVwap = calcVwap(entryRows);
+    const exitVwap  = calcVwap(exitRows);
+    const ret       = ((exitVwap - entryVwap) / entryVwap) * 100;
+    const sign      = ret >= 0 ? '+' : '';
+    const color     = COLORS[ticker] || DEFAULT_COLOR;
+
+    // Show results
+    document.getElementById('resTicker').textContent  = ticker;
+    document.getElementById('resTicker').style.color  = color;
+    document.getElementById('resWindows').textContent =
+      `Entry: ${fmtDate(en_start)} → ${fmtDate(en_end)}   ·   Exit: ${fmtDate(ex_start)} → ${fmtDate(ex_end)}`;
+    document.getElementById('resEntryVwap').textContent = `kr ${entryVwap.toFixed(4)}`;
+    document.getElementById('resEntryDays').textContent = `${entryRows.length} trading days`;
+    document.getElementById('resExitVwap').textContent  = `kr ${exitVwap.toFixed(4)}`;
+    document.getElementById('resExitDays').textContent  = `${exitRows.length} trading days`;
+
+    const retEl   = document.getElementById('resReturn');
+    const retCard = document.getElementById('resRetCard');
+    retEl.textContent = `${sign}${ret.toFixed(2)}%`;
+    retEl.className   = 'val ' + (ret >= 0 ? 'ret-pos' : 'ret-neg');
+    retCard.style.borderTop = `2px solid ${ret >= 0 ? '#4ade80' : '#f87171'}`;
+    document.getElementById('resRetSub').textContent = ret >= 0
+      ? 'Exit VWAP above entry' : 'Exit VWAP below entry';
+
+    document.getElementById('results').classList.add('show');
+
+    // Add to batch
+    batch.push({
+      ticker, color,
+      entry_vwap:  +entryVwap.toFixed(4),
+      exit_vwap:   +exitVwap.toFixed(4),
+      return_pct:  +ret.toFixed(2),
+      entry_days:  entryRows.length,
+      exit_days:   exitRows.length,
+      en_start, en_end, ex_start, ex_end,
+    });
+    renderBatch();
+
+  } catch(e) {
+    showErr(e.message || 'Something went wrong. Please try again.');
+  }
+
+  btn.classList.remove('loading');
+  btn.disabled = false;
+}
+
+function renderBatch() {
+  if (!batch.length) {
+    document.getElementById('batchSection').style.display = 'none';
+    return;
+  }
+  document.getElementById('batchSection').style.display = 'block';
+
+  // Table
+  const tbody = document.getElementById('batchBody');
+  tbody.innerHTML = '';
+  batch.forEach(r => {
+    const sign = r.return_pct >= 0 ? '+' : '';
+    const pc   = r.return_pct >= 0 ? 'pos' : 'neg';
+    tbody.innerHTML += `<tr>
+      <td><span style="font-weight:700;font-family:var(--mono);font-size:13px;color:${r.color}">${r.ticker}</span></td>
+      <td style="color:var(--soft)">${fmtDate(r.en_start)} → ${fmtDate(r.en_end)}</td>
+      <td style="color:var(--soft)">kr ${r.entry_vwap.toFixed(4)}</td>
+      <td style="color:var(--soft)">${fmtDate(r.ex_start)} → ${fmtDate(r.ex_end)}</td>
+      <td style="color:var(--soft)">kr ${r.exit_vwap.toFixed(4)}</td>
+      <td><span class="pill ${pc}">${sign}${r.return_pct.toFixed(2)}%</span></td>
+      <td style="color:var(--muted)">${r.entry_days}d / ${r.exit_days}d</td>
+    </tr>`;
+  });
+
+  // Chart
+  drawBatchChart();
+}
+
+function drawBatchChart() {
+  const canvas = document.getElementById('batchChart');
+  const dpr    = window.devicePixelRatio || 1;
+  const W      = canvas.parentElement.clientWidth - 48;
+  const H      = Math.max(180, Math.round(W * 0.32));
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  const PAD  = {t:36, r:20, b:40, l:56};
+  const cW   = W - PAD.l - PAD.r;
+  const cH   = H - PAD.t - PAD.b;
+  const maxR = Math.max(...batch.map(d => Math.abs(d.return_pct)));
+  const maxA = Math.ceil(maxR / 20) * 20 + 20;
+
+  // Grid
+  for (let i = 0; i <= 5; i++) {
+    const gV = (maxA / 5) * i;
+    const y  = PAD.t + cH - (gV / maxA) * cH;
+    ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,.045)';
+    ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+    ctx.moveTo(PAD.l, y); ctx.lineTo(PAD.l + cW, y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(148,163,184,.5)';
+    ctx.font = '9px JetBrains Mono,monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(gV) + '%', PAD.l - 6, y + 3);
+  }
+  ctx.beginPath(); ctx.strokeStyle = 'rgba(255,255,255,.1)';
+  ctx.lineWidth = 1;
+  ctx.moveTo(PAD.l, PAD.t + cH); ctx.lineTo(PAD.l + cW, PAD.t + cH);
+  ctx.stroke();
+
+  // Bars
+  const gW = cW / batch.length;
+  const bW = Math.min(48, gW * 0.55);
+  batch.forEach((d, i) => {
+    const cx = PAD.l + gW * i + gW / 2;
+    const h  = Math.max(2, (Math.abs(d.return_pct) / maxA) * cH);
+    const x  = cx - bW / 2;
+    const y  = PAD.t + cH - h;
+    const g  = ctx.createLinearGradient(x, y, x, PAD.t + cH);
+    g.addColorStop(0, d.color);
+    g.addColorStop(1, d.color + '22');
+    ctx.fillStyle = g;
+    ctx.shadowColor = d.color; ctx.shadowBlur = 12;
+    ctx.beginPath(); ctx.roundRect(x, y, bW, h, [4,4,0,0]); ctx.fill();
+    ctx.shadowBlur = 0;
+    const sign = d.return_pct >= 0 ? '+' : '';
+    ctx.fillStyle = d.color;
+    ctx.font = 'bold 10px JetBrains Mono,monospace'; ctx.textAlign = 'center';
+    ctx.fillText(sign + d.return_pct.toFixed(2) + '%', cx, y - 7);
+    ctx.fillStyle = 'rgba(226,232,240,.9)';
+    ctx.font = 'bold 10px JetBrains Mono,monospace';
+    ctx.fillText(d.ticker, cx, PAD.t + cH + 16);
+  });
+
+  ctx.save(); ctx.translate(14, PAD.t + cH / 2); ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle = 'rgba(148,163,184,.4)';
+  ctx.font = '9px JetBrains Mono,monospace'; ctx.textAlign = 'center';
+  ctx.fillText('VWAP RETURN %', 0, 0); ctx.restore();
+}
+
+function clearAll() {
+  batch = [];
+  document.getElementById('batchSection').style.display = 'none';
+  document.getElementById('results').classList.remove('show');
+}
+
+window.addEventListener('resize', () => { if (batch.length) drawBatchChart(); });
+</script>
+</body>
+</html>
