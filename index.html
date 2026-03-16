@@ -372,18 +372,14 @@
     <div class="analog-card">
       <div class="analog-hd">
         <div>
-          <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)">Run-Up Performance / Entry vs Exit / VWAP vs Exit</div>
-          <div class="analog-sub">Actual VWAP-computed data from entry open to exit close — orphan / gene therapy / rare disease </div>
+          <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)">Historical Pre-PDUFA VWAP Returns</div>
+          <div class="analog-sub">VWAP-based returns across historical pre-PDUFA biotech catalysts</div>
         </div>
         <div style="font-size:10px;color:var(--muted);font-family:var(--mono)">Historical Data</div>
       </div>
       <div class="analog-body">
         <div class="chart-canvas-wrap">
-          <div class="chart-title">Run-Up (%) — Entry vs Exit &amp; VWAP vs Exit</div>
-          <div class="chart-legend-pills">
-            <div class="clp"><div class="clp-swatch" style="background:rgba(167,139,250,.85)"></div>Entry → Exit %</div>
-            <div class="clp"><div class="clp-swatch" style="background:rgba(94,234,212,.65)"></div>VWAP → Exit %</div>
-          </div>
+          <div class="chart-title">VWAP-Based Return (%) — Historical Pre-PDUFA Trades</div>
           <canvas id="analogChart" width="600" height="340"></canvas>
         </div>
         <div class="analog-legend" id="analogLegend"></div>
@@ -472,9 +468,6 @@
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
-   DATA
-═══════════════════════════════════════════ */
 const ROWS = [
   { pdufa:"2026-03-20", drug:"setmelanotide", brand:"Imcivree", co:"Rhythm Pharmaceuticals", tkr:"RYTM",
     ind:"Acquired hypothalamic obesity", orph:true, therapy:"Peptide agonist (MC4R)", score:4,
@@ -531,17 +524,21 @@ const ROWS = [
 ];
 
 /* ═══════════════════════════════════════════
-   HISTORICAL ANALOG DATA  ← UPDATED WITH REAL VWAP DATA
+   HISTORICAL ANALOG DATA — FINAL VALIDATED NUMBERS
+   RCKT: our calculation (+48.00%)
+   CRSP, IOVA, MDGL, MIST, TVTX: Bloomberg
+   DNLI: our calculation (+28.29%)
 ═══════════════════════════════════════════ */
 const ANALOGS = [
-  { name:"RCKT",  label:"Rocket Pharma (2025-26)",           entryExit:47,  vwapExit:27, window:"Nov 30 '25 → Mar 13 '26", therapy:"Ex vivo gene therapy",          disease:"LAD-I",                   outcome:"Pre-PDUFA", color:"#a78bfa" },
-  { name:"CRSP",  label:"CRISPR Therapeutics (2023)",         entryExit:43,  vwapExit:36, window:"Sep 8 → Nov 24 '23",      therapy:"Gene editing (CRISPR)",         disease:"Sickle Cell / Beta-thal", outcome:"Approved",  color:"#34d399" },
-  { name:"IOVA",  label:"Iovance Bio (2023-24)",              entryExit:141, vwapExit:20, window:"Oct 19 '23 → Feb 6 '24",  therapy:"TIL cell therapy",              disease:"Melanoma",                outcome:"Approved",  color:"#60a5fa" },
-  { name:"MDGL",  label:"Madrigal Pharma (2023-24)",          entryExit:61,  vwapExit:18, window:"Nov 15 '23 → Mar 4 '24",  therapy:"THRβ agonist",                  disease:"NASH / MASH",             outcome:"Approved",  color:"#fcd34d" },
-  { name:"MIST",  label:"Milestone Scientific (2025)",        entryExit:55,  vwapExit:30, window:"Aug 14 → Dec 2 '25",      therapy:"Device / Biotech",              disease:"—",                       outcome:"Pre-PDUFA", color:"#f9a8d4" },
-  { name:"DNLI",  label:"Denali Therapeutics (2025-26)",      entryExit:36,  vwapExit:9,  window:"Nov 4 '25 → Mar 14 '26",  therapy:"Brain-penetrant ERT",           disease:"Hunter syndrome (MPS II)", outcome:"Pre-PDUFA", color:"#5eead4" },
-  { name:"TVTX",  label:"Travere (2022-23)",                  entryExit:12,  vwapExit:5,  window:"Dec 19 '22 → Feb 7 '23",  therapy:"Small-molecule dual inhibitor", disease:"IgA nephropathy",         outcome:"Approved",  color:"#fb923c" },
+  { name:"RCKT", label:"Rocket Pharmaceuticals", return_pct:48.00, disease:"LAD-I",                   outcome:"Pre-PDUFA", color:"#a78bfa" },
+  { name:"CRSP", label:"CRISPR Therapeutics",    return_pct:43.46, disease:"Sickle Cell / Beta-thal", outcome:"Approved",  color:"#34d399" },
+  { name:"IOVA", label:"Iovance Biotherapeutics",return_pct:98.12, disease:"Melanoma",                outcome:"Approved",  color:"#60a5fa" },
+  { name:"MDGL", label:"Madrigal Pharma",         return_pct:50.63, disease:"NASH / MASH",             outcome:"Approved",  color:"#fcd34d" },
+  { name:"MIST", label:"Milestone Scientific",    return_pct:63.72, disease:"Pre-PDUFA Catalyst",      outcome:"Pre-PDUFA", color:"#f9a8d4" },
+  { name:"DNLI", label:"Denali Therapeutics",     return_pct:28.29, disease:"Hunter Syndrome (MPS II)",outcome:"Pre-PDUFA", color:"#5eead4" },
+  { name:"TVTX", label:"Travere Therapeutics",    return_pct:8.26,  disease:"IgA Nephropathy",         outcome:"Approved",  color:"#fb923c" },
 ];
+
 
 /* ═══════════════════════════════════════════
    CANVAS CHART — GROUPED BAR (Entry vs Exit + VWAP vs Exit)
@@ -551,7 +548,7 @@ function drawAnalogChart() {
   if (!canvas) return;
   const dpr = window.devicePixelRatio || 1;
   const W = canvas.parentElement.clientWidth || 500;
-  const H = Math.round(W * 0.62);
+  const H = Math.round(W * 0.55);
   canvas.width  = W * dpr;
   canvas.height = H * dpr;
   canvas.style.width  = W + "px";
@@ -559,20 +556,17 @@ function drawAnalogChart() {
   const ctx = canvas.getContext("2d");
   ctx.scale(dpr, dpr);
 
-  const PAD = { t:32, r:20, b:48, l:52 };
+  const PAD = { t:36, r:20, b:44, l:52 };
   const cW = W - PAD.l - PAD.r;
   const cH = H - PAD.t - PAD.b;
-
   ctx.clearRect(0, 0, W, H);
 
-  // Max value across both metrics
-  const maxVal = Math.max(...ANALOGS.map(a => Math.max(a.entryExit, a.vwapExit)));
+  const maxVal = Math.max(...ANALOGS.map(a => a.return_pct));
   const maxAxis = Math.ceil(maxVal / 20) * 20 + 20;
 
   // Grid lines
-  const gridCount = 6;
-  for (let i = 0; i <= gridCount; i++) {
-    const gVal = Math.round((maxAxis / gridCount) * i);
+  for (let i = 0; i <= 5; i++) {
+    const gVal = Math.round((maxAxis / 5) * i);
     const y = PAD.t + cH - (gVal / maxAxis) * cH;
     ctx.beginPath();
     ctx.strokeStyle = "rgba(255,255,255,.05)";
@@ -582,15 +576,15 @@ function drawAnalogChart() {
     ctx.lineTo(PAD.l + cW, y);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = "rgba(148,163,184,.5)";
+    ctx.fillStyle = "rgba(148,163,184,.45)";
     ctx.font = "9px 'JetBrains Mono', monospace";
     ctx.textAlign = "right";
     ctx.fillText(gVal + "%", PAD.l - 6, y + 3);
   }
 
-  // X axis line
+  // X axis
   ctx.beginPath();
-  ctx.strokeStyle = "rgba(255,255,255,.12)";
+  ctx.strokeStyle = "rgba(255,255,255,.1)";
   ctx.lineWidth = 1;
   ctx.moveTo(PAD.l, PAD.t + cH);
   ctx.lineTo(PAD.l + cW, PAD.t + cH);
@@ -598,66 +592,43 @@ function drawAnalogChart() {
 
   const n = ANALOGS.length;
   const groupW = cW / n;
-  const barGap = 3;
-  const barW = Math.min(22, (groupW * 0.7) / 2);
+  const barW = Math.min(36, groupW * 0.55);
 
   ANALOGS.forEach((a, i) => {
     const cx = PAD.l + groupW * i + groupW / 2;
+    const h = Math.max(2, (a.return_pct / maxAxis) * cH);
+    const x = cx - barW / 2;
+    const y = PAD.t + cH - h;
 
-    // ── Bar 1: Entry vs Exit (left bar, ticker color) ──
-    const h1 = Math.max(2, (a.entryExit / maxAxis) * cH);
-    const x1 = cx - barW - barGap / 2;
-    const y1 = PAD.t + cH - h1;
-    const grad1 = ctx.createLinearGradient(x1, y1, x1, PAD.t + cH);
-    grad1.addColorStop(0, a.color);
-    grad1.addColorStop(1, a.color + "33");
-    ctx.fillStyle = grad1;
+    // Bar gradient
+    const grad = ctx.createLinearGradient(x, y, x, PAD.t + cH);
+    grad.addColorStop(0, a.color);
+    grad.addColorStop(1, a.color + "22");
+    ctx.fillStyle = grad;
     ctx.shadowColor = a.color;
-    ctx.shadowBlur = 8;
+    ctx.shadowBlur = 12;
     ctx.beginPath();
-    ctx.roundRect(x1, y1, barW, h1, [3, 3, 0, 0]);
+    ctx.roundRect(x, y, barW, h, [4, 4, 0, 0]);
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    // Entry vs Exit label on top
+    // Return % label on top
     ctx.fillStyle = a.color;
-    ctx.font = "bold 10px 'JetBrains Mono', monospace";
+    ctx.font = "bold 11px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
-    ctx.fillText("+" + a.entryExit + "%", x1 + barW / 2, y1 - 5);
+    ctx.fillText("+" + a.return_pct.toFixed(2) + "%", cx, y - 8);
 
-    // ── Bar 2: VWAP vs Exit (right bar, teal tint) ──
-    const vwapColor = "#5eead4";
-    const h2 = Math.max(2, (a.vwapExit / maxAxis) * cH);
-    const x2 = cx + barGap / 2;
-    const y2 = PAD.t + cH - h2;
-    const grad2 = ctx.createLinearGradient(x2, y2, x2, PAD.t + cH);
-    grad2.addColorStop(0, vwapColor + "cc");
-    grad2.addColorStop(1, vwapColor + "22");
-    ctx.fillStyle = grad2;
-    ctx.shadowColor = vwapColor;
-    ctx.shadowBlur = 6;
-    ctx.beginPath();
-    ctx.roundRect(x2, y2, barW, h2, [3, 3, 0, 0]);
-    ctx.fill();
-    ctx.shadowBlur = 0;
-
-    // VWAP vs Exit label
-    ctx.fillStyle = vwapColor;
-    ctx.font = "bold 9px 'JetBrains Mono', monospace";
-    ctx.textAlign = "center";
-    ctx.fillText("+" + a.vwapExit + "%", x2 + barW / 2, y2 - 5);
-
-    // Ticker label below x-axis
-    ctx.fillStyle = "rgba(148,163,184,.8)";
-    ctx.font = "bold 10px 'JetBrains Mono', monospace";
+    // Ticker label
+    ctx.fillStyle = "rgba(226,232,240,.9)";
+    ctx.font = "bold 11px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
     ctx.fillText(a.name, cx, PAD.t + cH + 16);
 
-    // Outcome dot under ticker
-    const outcomeColor = a.outcome === "Approved" ? "#4ade80" : a.outcome === "Pre-PDUFA" ? "#fcd34d" : "#94a3b8";
+    // Outcome dot
+    const oc = a.outcome === "Approved" ? "#4ade80" : "#fcd34d";
     ctx.beginPath();
     ctx.arc(cx, PAD.t + cH + 28, 3, 0, Math.PI * 2);
-    ctx.fillStyle = outcomeColor;
+    ctx.fillStyle = oc;
     ctx.fill();
   });
 
@@ -668,70 +639,53 @@ function drawAnalogChart() {
   ctx.fillStyle = "rgba(148,163,184,.4)";
   ctx.font = "9px 'JetBrains Mono', monospace";
   ctx.textAlign = "center";
-  ctx.fillText("RETURN %", 0, 0);
+  ctx.fillText("VWAP RETURN %", 0, 0);
   ctx.restore();
 
-  // Outcome legend at bottom
-  const outcomes = [
-    { label: "Approved", color: "#4ade80" },
-    { label: "Pre-PDUFA", color: "#fcd34d" },
-  ];
+  // Outcome legend
+  const outcomes = [{ label: "Approved", color: "#4ade80" }, { label: "Active / Pre-PDUFA", color: "#fcd34d" }];
   let lx = PAD.l;
-  const ly = H - 6;
+  const ly = H - 5;
   outcomes.forEach(o => {
-    ctx.beginPath();
-    ctx.arc(lx + 5, ly - 4, 3, 0, Math.PI * 2);
-    ctx.fillStyle = o.color;
-    ctx.fill();
+    ctx.beginPath(); ctx.arc(lx + 5, ly - 4, 3, 0, Math.PI * 2);
+    ctx.fillStyle = o.color; ctx.fill();
     ctx.fillStyle = "rgba(148,163,184,.5)";
     ctx.font = "8px 'JetBrains Mono', monospace";
     ctx.textAlign = "left";
     ctx.fillText(o.label, lx + 12, ly);
-    lx += 80;
+    lx += 110;
   });
 
-  // Build legend items
+  // Build legend cards
   const leg = document.getElementById("analogLegend");
   if (leg) {
     leg.innerHTML = "";
     ANALOGS.forEach(a => {
-      const oc = a.outcome === "Approved" ? "#4ade80" : a.outcome === "Pre-PDUFA" ? "#fcd34d" : "#94a3b8";
-      const vwapSign = a.vwapExit >= 0 ? "+" : "";
-      const entrySign = a.entryExit >= 0 ? "+" : "";
+      const oc = a.outcome === "Approved" ? "#4ade80" : "#fcd34d";
       leg.innerHTML += `
         <div class="al-item">
           <div class="al-dot" style="background:${a.color};box-shadow:0 0 6px ${a.color}55"></div>
           <div style="flex:1;min-width:0">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:6px;flex-wrap:wrap">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
               <div class="al-name" style="color:${a.color}">${a.name}</div>
               <span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${oc}44;background:${oc}18;color:${oc};font-family:var(--mono);flex-shrink:0">${a.outcome}</span>
             </div>
-            <div class="al-det">${a.label}</div>
-            <div class="al-gains">
+            <div class="al-det">${a.label} &nbsp;·&nbsp; ${a.disease}</div>
+            <div class="al-gains" style="margin-top:6px">
               <div>
-                <div class="al-gain" style="color:${a.color}">${entrySign}${a.entryExit}%</div>
-                <div class="al-gain-sub">Entry→Exit</div>
-              </div>
-              <div style="width:1px;background:var(--bd);align-self:stretch"></div>
-              <div>
-                <div class="al-gain" style="color:#5eead4">${vwapSign}${a.vwapExit}%</div>
-                <div class="al-gain-sub">VWAP→Exit</div>
+                <div class="al-gain" style="color:${a.color}">+${a.return_pct.toFixed(2)}%</div>
+                <div class="al-gain-sub">VWAP Return</div>
               </div>
             </div>
-            <div class="al-window">${a.window} · ${a.therapy}</div>
           </div>
         </div>`;
     });
   }
 }
 
-/* ═══════════════════════════════════════════
-   UTILS
-═══════════════════════════════════════════ */
 function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 const today = startOfDay(new Date());
 function isFOT(iso) { return new Date(iso + "T00:00:00") >= today; }
-
 function parseWin(str) {
   if (!str) return null;
   const m = str.match(/T-(\d+)\s*to\s*T-(\d+)/i);
@@ -748,9 +702,6 @@ function winDates(iso, str) {
 function fmt(d) { return d.toLocaleDateString(undefined,{month:"short",day:"2-digit",year:"numeric"}); }
 function fmtS(d) { return d.toLocaleDateString(undefined,{month:"short",day:"2-digit"}); }
 
-/* ═══════════════════════════════════════════
-   COUNTDOWN
-═══════════════════════════════════════════ */
 function buildCountdown(iso, elId) {
   const el = document.getElementById(elId); if (!el) return;
   function upd() {
@@ -762,9 +713,6 @@ function buildCountdown(iso, elId) {
   upd(); setInterval(upd,1000);
 }
 
-/* ═══════════════════════════════════════════
-   PROGRESS BAR
-═══════════════════════════════════════════ */
 function setProgress(startISO, pdufaISO, fillId, markId) {
   const s=new Date(startISO+"T00:00:00").getTime(), e=new Date(pdufaISO+"T00:00:00").getTime(), n=Date.now();
   const pct=Math.min(100,Math.max(0,((n-s)/(e-s))*100)).toFixed(1);
@@ -773,9 +721,6 @@ function setProgress(startISO, pdufaISO, fillId, markId) {
   if(m) m.style.left=pct+"%";
 }
 
-/* ═══════════════════════════════════════════
-   TRADING WINDOWS
-═══════════════════════════════════════════ */
 function renderWindows(pdufa, entry_str, exit_str, elId) {
   const el = document.getElementById(elId); if (!el) return;
   const entry = winDates(pdufa, entry_str), exit_ = winDates(pdufa, exit_str);
@@ -793,9 +738,6 @@ function renderWindows(pdufa, entry_str, exit_str, elId) {
     `<div class="winrow" style="margin-top:6px"><div class="wrl">PDUFA</div><div class="wrd">${fmt(pDate)}</div><span class="wp nd">${daysTo}d away</span></div>`;
 }
 
-/* ═══════════════════════════════════════════
-   NEWS
-═══════════════════════════════════════════ */
 function tAgo(d) {
   const s = Math.max(0, Math.floor((Date.now()-d)/1000));
   if(s<60) return "just now"; if(s<3600) return `${Math.floor(s/60)}m ago`;
@@ -830,9 +772,6 @@ async function fetchNews(key) {
   }
 }
 
-/* ═══════════════════════════════════════════
-   TRADINGVIEW
-═══════════════════════════════════════════ */
 function initCharts() {
   if(typeof TradingView==="undefined") { setTimeout(initCharts,600); return; }
   [{id:"tv_rckt",sym:"NASDAQ:RCKT"},{id:"tv_dnli",sym:"NASDAQ:DNLI"},
@@ -844,16 +783,11 @@ function initCharts() {
   });
 }
 
-/* ═══════════════════════════════════════════
-   WATCHLIST TABLE
-═══════════════════════════════════════════ */
 const CS = { rckt:false, dnli:false, vera:false, s5:false, s4:false, orph:false, gene:false };
-
 function scCls(s) { return s>=5?"s5":s>=4?"s4":s>=3?"s3":"s2"; }
 function tkrClr(t) {
   return {RCKT:"var(--rckt2)",DNLI:"var(--dnli2)",VERA:"var(--vera2)",RARE:"var(--rare2)",NUVL:"var(--nuvl2)"}[t.toUpperCase()]||"var(--soft)";
 }
-
 function sortRows(arr, val) {
   const [key,dir]=val.split(":"), d=dir==="desc"?-1:1;
   return [...arr].sort((a,b)=>{
@@ -864,13 +798,11 @@ function sortRows(arr, val) {
     return va<vb?-d:va>vb?d:0;
   });
 }
-
 function renderTable() {
   const tbody=document.getElementById("wl-tbody"), empty=document.getElementById("wl-empty");
   const search=(document.getElementById("searchBox").value||"").toLowerCase();
   const minSc=+document.getElementById("scoreFilter").value;
   const sortV=document.getElementById("sortSelect").value;
-
   let rows=ROWS.filter(r=>{
     if(!isFOT(r.pdufa)) return false;
     const blob=[r.co,r.tkr,r.ind,r.drug,r.notes,r.therapy].join(" ").toLowerCase();
@@ -886,10 +818,8 @@ function renderTable() {
     return true;
   });
   rows=sortRows(rows,sortV);
-
   tbody.innerHTML="";
   empty.style.display=rows.length?"none":"block";
-
   for(const r of rows){
     const en=winDates(r.pdufa,r.entry), ex=winDates(r.pdufa,r.exit);
     const eStr=en?`${fmtS(en.start)} &rarr; ${fmtS(en.end)}`:"—";
@@ -915,9 +845,6 @@ function renderTable() {
   }
 }
 
-/* ═══════════════════════════════════════════
-   CHIPS
-═══════════════════════════════════════════ */
 function setupChips() {
   document.querySelectorAll(".chip").forEach(ch=>{
     ch.addEventListener("click",()=>{
@@ -951,35 +878,25 @@ function setupChips() {
   });
 }
 
-/* ═══════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════ */
 function init() {
   document.getElementById("todayLabel").textContent =
     new Date().toLocaleDateString(undefined,{weekday:"short",month:"short",day:"2-digit",year:"numeric"});
-
   buildCountdown("2026-03-28","rckt-cd");
   buildCountdown("2026-04-05","dnli-cd");
   buildCountdown("2026-07-07","vera-cd");
-
   setProgress("2025-10-14","2026-03-28","rckt-fill","rckt-mark");
   setProgress("2025-07-07","2026-04-05","dnli-fill","dnli-mark");
   setProgress("2026-01-07","2026-07-07","vera-fill","vera-mark");
-
   const byTkr=t=>ROWS.find(r=>r.tkr===t)||{};
   const rr=byTkr("RCKT"), dr=byTkr("DNLI"), vr=byTkr("VERA");
   renderWindows(rr.pdufa,rr.entry,rr.exit,"rckt-win");
   renderWindows(dr.pdufa,dr.entry,dr.exit,"dnli-win");
   renderWindows(vr.pdufa,vr.entry,vr.exit,"vera-win");
-
   document.fonts.ready.then(()=>{ drawAnalogChart(); });
   window.addEventListener("resize", drawAnalogChart);
-
   ["rckt","dnli","vera"].forEach(fetchNews);
   setInterval(()=>["rckt","dnli","vera"].forEach(fetchNews),15*60*1000);
-
   setTimeout(initCharts,700);
-
   setupChips();
   renderTable();
   document.getElementById("searchBox").addEventListener("input",renderTable);
