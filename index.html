@@ -4,13 +4,10 @@
   <meta charset="UTF-8"/>
   <title>MANTIS ALPHA FUND</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="theme-color" content="#050810"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
   <script src="https://s3.tradingview.com/tv.js"></script>
-
   <style>
     :root{
       --bg:#050810; --bg1:#080c18;
@@ -21,7 +18,8 @@
       --vera:#db2777; --vera2:#f9a8d4;
       --rare:#d97706; --rare2:#fcd34d;
       --nuvl:#0284c7; --nuvl2:#7dd3fc;
-      --green:#22c55e; --text:#e2e8f0; --muted:#64748b; --soft:#94a3b8;
+      --green:#22c55e; --red:#ef4444; --yellow:#f59e0b;
+      --text:#e2e8f0; --muted:#64748b; --soft:#94a3b8;
       --mono:'JetBrains Mono',monospace;
       --sans:'Space Grotesk',system-ui,sans-serif;
       --disp:'Bebas Neue',sans-serif;
@@ -38,117 +36,104 @@
         radial-gradient(ellipse 600px 350px at 52% 92%,rgba(219,39,119,.10),transparent 60%);
     }
     .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 14px 56px}
-
-    /* ── TOPBAR ── */
     .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0 12px;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--bd)}
     .brand-mark{font-family:var(--disp);font-size:28px;letter-spacing:.06em;line-height:1;background:linear-gradient(135deg,#a78bfa,#7c3aed,#5eead4,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .brand-sub{font-size:10px;color:var(--muted);margin-top:3px;font-family:var(--mono);letter-spacing:.12em}
     .live-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf);font-size:11px;color:var(--soft);font-family:var(--mono)}
     .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
-    /* ── LEGEND ── */
     .legend-bar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 0 14px;border-bottom:1px solid var(--bd);margin-bottom:16px;align-items:center}
     .leg-lbl{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
     .leg-i{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--soft);font-family:var(--mono)}
     .leg-d{width:8px;height:8px;border-radius:50%}
 
-    /* ── HERO GRID ── */
+    .sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 0 12px;border-bottom:1px solid var(--bd);gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .sec-title{font-family:var(--disp);font-size:22px;letter-spacing:.06em}
+    .sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+    .stag{font-size:9px;padding:3px 9px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
+
+    .agent-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:18px}
+    @media(max-width:980px){.agent-wrap{grid-template-columns:1fr}}
+    .panel{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden}
+    .phd{padding:11px 16px 9px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+    .ptitle{font-family:var(--mono);font-size:13px;font-weight:700}
+    .pnote{font-size:10px;color:var(--muted);font-family:var(--mono)}
+    .term{padding:14px 16px 16px;min-height:228px;background:linear-gradient(180deg,rgba(8,12,24,.95),rgba(5,8,16,.9))}
+    .term-line{display:flex;gap:10px;font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--soft);padding:4px 0;border-bottom:1px dashed rgba(255,255,255,.04)}
+    .term-line:last-child{border-bottom:none}
+    .term-ts{color:var(--muted);min-width:54px}
+    .term-agent{min-width:74px;font-weight:700}
+    .term-agent.a1{color:#7dd3fc}.term-agent.a2{color:#5eead4}.term-agent.a3{color:#fcd34d}.term-agent.a4{color:#f9a8d4}
+    .term-msg.ok{color:#cbd5e1}.term-msg.good{color:#86efac}.term-msg.warn{color:#fcd34d}
+    .agent-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--bd)}
+    .metric{background:var(--bg1);padding:14px}
+    .metric .k{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+    .metric .v{font-size:22px;font-family:var(--mono);font-weight:700;line-height:1}
+    .metric .s{font-size:10px;color:var(--muted);margin-top:6px}
+    .published{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px}
+    .pub-item{padding:11px 12px;border-radius:12px;background:var(--sf2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .pub-left{min-width:0}
+    .pub-tkr{font-family:var(--mono);font-size:15px;font-weight:700}
+    .pub-meta{font-size:11px;color:var(--soft);margin-top:2px;line-height:1.35}
+    .pub-badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .mb{display:inline-block;font-size:9px;padding:2px 6px;border-radius:999px;font-family:var(--mono);letter-spacing:.07em;border:1px solid var(--bd);background:var(--sf2);color:var(--muted);white-space:nowrap}
+    .mb.orph{border-color:rgba(125,211,252,.3);color:#7dd3fc;background:rgba(125,211,252,.08)}
+    .mb.gene{border-color:rgba(167,139,250,.35);color:var(--rckt2);background:rgba(124,58,237,.08)}
+    .mb.ert{border-color:rgba(94,234,212,.35);color:var(--dnli2);background:rgba(13,148,136,.08)}
+    .mb.onco{border-color:rgba(249,168,212,.35);color:var(--vera2);background:rgba(219,39,119,.08)}
+    .mb.kidney{border-color:rgba(52,211,153,.35);color:#6ee7b7;background:rgba(16,185,129,.08)}
     .heroes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
     @media(max-width:1100px){.heroes{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.heroes{grid-template-columns:1fr}}
-
     .hero{border-radius:var(--r2);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(12px);overflow:hidden;position:relative}
     .hero::before{content:'';position:absolute;top:-70px;right:-70px;width:220px;height:220px;border-radius:50%;opacity:.14;pointer-events:none}
     .hero.rckt{border-top:2px solid var(--rckt)}.hero.rckt::before{background:var(--rckt)}
     .hero.dnli{border-top:2px solid var(--dnli)}.hero.dnli::before{background:var(--dnli)}
     .hero.vera{border-top:2px solid var(--vera)}.hero.vera::before{background:var(--vera)}
-
+    .hero.rare{border-top:2px solid var(--rare)}.hero.rare::before{background:var(--rare)}
+    .hero.nuvl{border-top:2px solid var(--nuvl)}.hero.nuvl::before{background:var(--nuvl)}
+    .hero.std::before{background:#64748b}
     .hero-hd{padding:16px 18px 12px;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
     .hticker{font-family:var(--mono);font-weight:700;font-size:24px;letter-spacing:.08em;line-height:1}
-    .rckt .hticker{color:var(--rckt2)}.dnli .hticker{color:var(--dnli2)}.vera .hticker{color:var(--vera2)}
+    .rckt .hticker{color:var(--rckt2)}.dnli .hticker{color:var(--dnli2)}.vera .hticker{color:var(--vera2)}.rare .hticker{color:var(--rare2)}.nuvl .hticker{color:var(--nuvl2)}
+    .std .hticker{color:#cbd5e1}
     .hname{font-size:12px;color:var(--soft);margin-top:3px}
     .brow{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
     .bd{font-size:9px;padding:2px 8px;border-radius:999px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--bd2);background:var(--sf2);color:var(--soft)}
-    .rckt .bd.a{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.14);color:var(--rckt2)}
-    .dnli .bd.a{border-color:rgba(94,234,212,.5);background:rgba(13,148,136,.14);color:var(--dnli2)}
-    .vera .bd.a{border-color:rgba(249,168,212,.5);background:rgba(219,39,119,.14);color:var(--vera2)}
-    .bd.sc{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.45);color:#4ade80}
-
+    .bd.sc5{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.45);color:#4ade80}
+    .bd.sc4{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.35);color:#fcd34d}
+    .bd.sc3{background:rgba(125,211,252,.10);border-color:rgba(125,211,252,.3);color:#7dd3fc}
     .hkpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
     .kpi{background:var(--bg1);padding:11px 12px}
     .kpi .k{font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);margin-bottom:5px}
-    .kpi .v{font-size:14px;font-family:var(--mono);font-weight:700;line-height:1.2}
-    .rckt .kpi .v{color:var(--rckt2)}.dnli .kpi .v{color:var(--dnli2)}.vera .kpi .v{color:var(--vera2)}
+    .kpi .v{font-size:14px;font-family:var(--mono);font-weight:700;line-height:1.2;color:#e2e8f0}
     .kpi .s{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3}
-
     .cdb{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
     .cdlbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono);flex:0 0 auto}
     .cdd{display:flex;gap:5px;flex:1}
     .cdu{text-align:center;min-width:42px;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:6px 7px}
-    .cdn{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1}
-    .rckt .cdn{color:var(--rckt2)}.dnli .cdn{color:var(--dnli2)}.vera .cdn{color:var(--vera2)}
+    .cdn{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1;color:#e2e8f0}
     .cdl{font-size:8px;color:var(--muted);margin-top:2px;letter-spacing:.1em;text-transform:uppercase}
     .cdt{font-size:11px;color:var(--soft);font-family:var(--mono);white-space:nowrap}
-
     .pbb{padding:12px 16px;border-bottom:1px solid var(--bd)}
     .pbl{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:8px}
     .pbr{position:relative;height:7px;background:var(--sf2);border-radius:4px}
-    .pbf{height:100%;border-radius:4px;position:absolute;left:0;top:0;transition:width .6s}
-    .rckt .pbf{background:linear-gradient(90deg,rgba(124,58,237,.4),var(--rckt2))}
-    .dnli .pbf{background:linear-gradient(90deg,rgba(13,148,136,.4),var(--dnli2))}
-    .vera .pbf{background:linear-gradient(90deg,rgba(219,39,119,.4),var(--vera2))}
-    .pbm{position:absolute;top:-5px;width:17px;height:17px;border-radius:50%;border:2px solid var(--bg);transform:translateX(-50%);box-shadow:0 0 10px currentColor}
-    .rckt .pbm{background:var(--rckt2);color:var(--rckt2)}.dnli .pbm{background:var(--dnli2);color:var(--dnli2)}.vera .pbm{background:var(--vera2);color:var(--vera2)}
+    .pbf{height:100%;border-radius:4px;position:absolute;left:0;top:0;transition:width .6s;background:linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.85))}
+    .pbm{position:absolute;top:-5px;width:17px;height:17px;border-radius:50%;border:2px solid var(--bg);transform:translateX(-50%);box-shadow:0 0 10px rgba(255,255,255,.5);background:#fff}
     .pbls{display:flex;justify-content:space-between;margin-top:7px}
     .pbls span{font-size:8px;color:var(--muted);font-family:var(--mono)}
-
     .thesis{padding:12px 16px 16px}
     .tttl{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:9px}
     .tpts{display:flex;flex-direction:column;gap:6px}
     .tpt{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:var(--text);line-height:1.45}
-    .td2{width:6px;height:6px;border-radius:50%;flex:0 0 auto;margin-top:4px}
-    .rckt .td2{background:var(--rckt2);box-shadow:0 0 5px var(--rckt)}.dnli .td2{background:var(--dnli2);box-shadow:0 0 5px var(--dnli)}.vera .td2{background:var(--vera2);box-shadow:0 0 5px var(--vera)}
-
-    /* ── HISTORICAL ANALOG CLUSTER ── */
-    .cluster-section{margin-bottom:20px}
-    .analog-card{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden}
-    .analog-hd{padding:14px 20px 12px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-    .analog-title{font-family:var(--disp);font-size:20px;letter-spacing:.05em}
-    .analog-sub{font-size:11px;color:var(--muted)}
-    .analog-body{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    @media(max-width:800px){.analog-body{grid-template-columns:1fr}}
-
-    /* ── CHART LEGEND PILLS ── */
-    .chart-legend-pills{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
-    .clp{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--soft);font-family:var(--mono)}
-    .clp-swatch{width:12px;height:12px;border-radius:3px}
-
-    .chart-canvas-wrap{position:relative}
-    .chart-canvas-wrap canvas{display:block;width:100%;height:auto}
-    .chart-title{font-size:11px;color:var(--soft);font-family:var(--mono);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase}
-
-    .analog-legend{display:flex;flex-direction:column;gap:12px;justify-content:center}
-    .al-item{border-radius:12px;border:1px solid var(--bd);background:var(--sf2);padding:10px 14px;display:flex;align-items:flex-start;gap:10px}
-    .al-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;margin-top:4px}
-    .al-name{font-size:12px;font-weight:600;font-family:var(--mono);line-height:1.2}
-    .al-det{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4}
-    .al-gains{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:4px}
-    .al-gain{font-size:16px;font-weight:700;font-family:var(--mono);line-height:1}
-    .al-gain-sub{font-size:10px;font-family:var(--mono);color:var(--muted)}
-    .al-window{font-size:9px;color:var(--muted);margin-top:2px;font-family:var(--mono)}
-
-    /* ── WINDOWS ROW ── */
+    .td2{width:6px;height:6px;border-radius:50%;flex:0 0 auto;margin-top:4px;background:#cbd5e1;box-shadow:0 0 5px rgba(255,255,255,.25)}
     .windows-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
     @media(max-width:1100px){.windows-row{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.windows-row{grid-template-columns:1fr}}
-
     .win-card{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);padding:14px 16px}
-    .win-card.rckt{border-top:2px solid var(--rckt)}.win-card.dnli{border-top:2px solid var(--dnli)}.win-card.vera{border-top:2px solid var(--vera)}
     .winhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;flex-wrap:wrap;gap:6px}
     .winttl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono)}
-    .wintkr{font-family:var(--mono);font-weight:700;font-size:13px}
-    .rckt .wintkr{color:var(--rckt2)}.dnli .wintkr{color:var(--dnli2)}.vera .wintkr{color:var(--vera2)}
+    .wintkr{font-family:var(--mono);font-weight:700;font-size:13px;color:#e2e8f0}
     .winrows{display:flex;flex-direction:column;gap:8px}
     .winrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
     .wrl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
@@ -159,26 +144,30 @@
     .wp.act{animation:pg .9s infinite alternate}
     @keyframes pg{from{opacity:.7}to{opacity:1}}
     .wp.nd{background:var(--sf2);border:1px solid var(--bd2);color:var(--soft)}
-
-    /* ── LAYOUT PANELS ── */
+    .cluster-section{margin-bottom:20px}
+    .analog-card{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden}
+    .analog-hd{padding:14px 20px 12px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    .analog-sub{font-size:11px;color:var(--muted)}
+    .analog-body{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    @media(max-width:800px){.analog-body{grid-template-columns:1fr}}
+    .chart-canvas-wrap canvas{display:block;width:100%;height:auto}
+    .chart-title{font-size:11px;color:var(--soft);font-family:var(--mono);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase}
+    .analog-legend{display:flex;flex-direction:column;gap:12px;justify-content:center}
+    .al-item{border-radius:12px;border:1px solid var(--bd);background:var(--sf2);padding:10px 14px;display:flex;align-items:flex-start;gap:10px}
+    .al-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;margin-top:4px}
+    .al-name{font-size:12px;font-weight:600;font-family:var(--mono);line-height:1.2}
+    .al-det{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4}
+    .al-gains{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:4px}
+    .al-gain{font-size:16px;font-weight:700;font-family:var(--mono);line-height:1}
+    .al-gain-sub{font-size:10px;font-family:var(--mono);color:var(--muted)}
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
     .three-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
     @media(max-width:1100px){.three-col{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.two-col,.three-col{grid-template-columns:1fr}}
-
-    .panel{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden}
-    .phd{padding:11px 16px 9px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-    .ptitle{font-family:var(--mono);font-size:13px;font-weight:700}
-    .pnote{font-size:10px;color:var(--muted);font-family:var(--mono)}
     .chart-ct{height:260px}
-
-    /* ── NEWS ── */
     .nbody{padding:12px 16px;display:flex;flex-direction:column;gap:10px;min-height:120px}
     .ni{display:flex;gap:10px;align-items:flex-start}
-    .ndot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
-    .rckt .ndot{background:var(--rckt2);box-shadow:0 0 5px var(--rckt)}
-    .dnli .ndot{background:var(--dnli2);box-shadow:0 0 5px var(--dnli)}
-    .vera .ndot{background:var(--vera2);box-shadow:0 0 5px var(--vera)}
+    .ndot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#cbd5e1}
     .ntxt a{font-size:11px;color:var(--text);text-decoration:none;line-height:1.4;display:block}
     .ntxt a:hover{color:#fff}
     .nmeta{font-size:9px;color:var(--muted);margin-top:2px;font-family:var(--mono)}
@@ -186,14 +175,6 @@
     .rbtn{padding:4px 10px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--soft);font-size:9px;cursor:pointer;font-family:var(--mono);transition:color .15s}
     .rbtn:hover{color:var(--text)}
     .nempty{font-size:11px;color:var(--muted);padding:8px 0}
-
-    /* ── SECTION HEADER ── */
-    .sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 0 12px;border-bottom:1px solid var(--bd);gap:10px;flex-wrap:wrap;margin-bottom:14px}
-    .sec-title{font-family:var(--disp);font-size:22px;letter-spacing:.06em}
-    .sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
-    .stag{font-size:9px;padding:3px 9px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
-
-    /* ── FILTERS ── */
     .frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
     .sw{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);flex:1 1 220px}
     .sw input{border:none;outline:none;background:transparent;color:var(--text);font-size:12px;font-family:var(--sans);width:100%}
@@ -203,10 +184,8 @@
     .chip{padding:6px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;letter-spacing:.08em;transition:all .15s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
     .chip:hover,.chip:active{color:var(--text);border-color:rgba(255,255,255,.2)}
     .chip.on{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.14);color:var(--rckt2)}
-    .chip[data-c="dnli"].on{border-color:rgba(94,234,212,.5);background:rgba(13,148,136,.14);color:var(--dnli2)}
-    .chip[data-c="vera"].on{border-color:rgba(249,168,212,.5);background:rgba(219,39,119,.14);color:var(--vera2)}
-
-    /* ── TABLE ── */
+    .chip[data-c="hero1"].on{border-color:rgba(94,234,212,.5);background:rgba(13,148,136,.14);color:var(--dnli2)}
+    .chip[data-c="hero2"].on{border-color:rgba(249,168,212,.5);background:rgba(219,39,119,.14);color:var(--vera2)}
     .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
     table{width:100%;border-collapse:collapse}
     th{text-align:left;padding:8px 12px;font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);border-bottom:1px solid var(--bd);white-space:nowrap}
@@ -217,7 +196,7 @@
     .tdco{font-size:12px;font-weight:600}
     .tdtk{font-family:var(--mono);font-size:11px;letter-spacing:.1em}
     .tddrug{font-size:11px;color:var(--soft)}
-    .tdind{font-size:11px;color:var(--muted);max-width:200px;line-height:1.35}
+    .tdind{font-size:11px;color:var(--muted);max-width:240px;line-height:1.35}
     .tddate{font-family:var(--mono);font-size:11px;white-space:nowrap}
     .tdsc{text-align:center}
     .scb{display:inline-block;width:26px;height:26px;border-radius:50%;line-height:26px;text-align:center;font-size:12px;font-weight:700;font-family:var(--mono)}
@@ -226,32 +205,25 @@
     .s3{background:rgba(125,211,252,.1);color:#7dd3fc;border:1px solid rgba(125,211,252,.3)}
     .s2{background:var(--sf2);color:var(--muted);border:1px solid var(--bd)}
     .tdwin{font-size:10px;font-family:var(--mono);color:var(--soft);line-height:1.55}
-    .mb{display:inline-block;font-size:9px;padding:2px 6px;border-radius:999px;font-family:var(--mono);letter-spacing:.07em;border:1px solid var(--bd);background:var(--sf2);color:var(--muted);white-space:nowrap}
-    .mb.orph{border-color:rgba(125,211,252,.3);color:#7dd3fc;background:rgba(125,211,252,.08)}
-    .mb.gene{border-color:rgba(167,139,250,.35);color:var(--rckt2);background:rgba(124,58,237,.08)}
-    .mb.ert{border-color:rgba(94,234,212,.35);color:var(--dnli2);background:rgba(13,148,136,.08)}
-    .mb.onco{border-color:rgba(249,168,212,.35);color:var(--vera2);background:rgba(219,39,119,.08)}
+    .tdclass{font-size:10px;color:var(--muted);font-family:var(--mono)}
     .empty-st{padding:32px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--bd);border-radius:var(--r);margin-top:10px}
+    .hide-m{display:table-cell}
     @media(max-width:700px){.hide-m{display:none!important}td,th{padding:9px 7px}}
-
-    /* ── FOOTER ── */
     .foot{margin-top:32px;padding:16px 0;border-top:1px solid var(--bd);text-align:right;font-size:10px;color:var(--muted);font-family:var(--mono)}
+    .load-err{padding:24px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);border-radius:16px;color:#fecaca}
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
 <body>
 <div class="wrap">
-
-  <!-- TOPBAR -->
   <div class="topbar">
     <div>
       <div class="brand-mark">MANTIS ALPHA FUND</div>
-      <div class="brand-sub"> Development Stage &nbsp;</div>
+      <div class="brand-sub">Development Stage · JSON-fed watchlist</div>
     </div>
     <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
   </div>
 
-  <!-- LEGEND -->
   <div class="legend-bar">
     <span class="leg-lbl">Run-Up Score</span>
     <div class="leg-i"><div class="leg-d" style="background:#4ade80"></div>5 = Top binary catalyst</div>
@@ -260,122 +232,47 @@
     <div class="leg-i"><div class="leg-d" style="background:#94a3b8"></div>2 = Background / large-cap</div>
   </div>
 
-  <!-- HERO CARDS -->
-  <div class="heroes">
-    <div class="hero rckt">
-      <div class="hero-hd">
-        <div><div class="hticker">RCKT</div><div class="hname">Rocket Pharmaceuticals</div></div>
-        <div class="brow"><span class="bd a">Ex-Vivo Gene Therapy</span><span class="bd a">Orphan / PRV</span><span class="bd sc">Score 5</span></div>
-      </div>
-      <div class="hkpis">
-        <div class="kpi"><div class="k">Drug</div><div class="v">KRESLADI</div><div class="s">marnetegragene autotemcel</div></div>
-        <div class="kpi"><div class="k">Disease</div><div class="v">LAD-I</div><div class="s">Ultra-rare immune disorder</div></div>
-        <div class="kpi"><div class="k">Filing</div><div class="v">BLA</div><div class="s">Resubmission · Priority</div></div>
-      </div>
-      <div class="cdb">
-        <div class="cdlbl">PDUFA<br>Countdown</div>
-        <div class="cdd" id="rckt-cd"></div>
-        <div class="cdt">Mar 28, 2026</div>
-      </div>
-      <div class="pbb">
-        <div class="pbl">FDA Review Progress</div>
-        <div class="pbr"><div class="pbf" id="rckt-fill"></div><div class="pbm" id="rckt-mark"></div></div>
-        <div class="pbls"><span>BLA Accept Oct 14 '25</span><span>Today</span><span>PDUFA Mar 28 '26</span></div>
-      </div>
-      <div class="thesis">
-        <div class="tttl">Thesis</div>
-        <div class="tpts">
-          <div class="tpt"><div class="td2"></div>100% overall survival at 12m in Phase 1/2, all endpoints met, zero treatment-related SAEs.</div>
-          <div class="tpt"><div class="td2"></div>Resubmission after CMC-only CRL; no efficacy or safety issues raised by FDA.</div>
-          <div class="tpt"><div class="td2"></div>Rare Pediatric Disease PRV eligible, potential $100M+ windfall on approval.</div>
-          <div class="tpt"><div class="td2"></div>Small-cap ex-gene-therapy binary: high event beta, textbook run-up setup.</div>
-        </div>
-      </div>
+  <div class="sec-hdr">
+    <div><div class="sec-title">MANTIS AGENT ACTIVITY</div><div class="sec-sub">Simulated multi-agent validation flow fed by data.json</div></div>
+    <span class="stag" id="generatedLabel">Awaiting dataset</span>
+  </div>
+  <div class="agent-wrap">
+    <div class="panel">
+      <div class="phd"><div class="ptitle">Agent Terminal</div><div class="pnote">IR · SEC · FDA date validation · MANTIS scoring</div></div>
+      <div class="term" id="agentTerminal"></div>
     </div>
-
-    <div class="hero dnli">
-      <div class="hero-hd">
-        <div><div class="hticker">DNLI</div><div class="hname">Denali Therapeutics</div></div>
-        <div class="brow"><span class="bd a">Brain-Penetrant ERT</span><span class="bd a">Breakthrough Therapy</span><span class="bd sc">Score 5</span></div>
+    <div class="panel">
+      <div class="phd"><div class="ptitle">Published Snapshot</div><div class="pnote">Future-dated 2026 candidates only</div></div>
+      <div class="agent-metrics">
+        <div class="metric"><div class="k">Rows Loaded</div><div class="v" id="mRows">-</div><div class="s">Total records in JSON</div></div>
+        <div class="metric"><div class="k">Active Setups</div><div class="v" id="mActive">-</div><div class="s">Future-dated candidates</div></div>
+        <div class="metric"><div class="k">Prime / Strong</div><div class="v" id="mHigh">-</div><div class="s">Score 4+</div></div>
+        <div class="metric"><div class="k">Quarter-only</div><div class="v" id="mQuarter">-</div><div class="s">Timing less precise</div></div>
       </div>
-      <div class="hkpis">
-        <div class="kpi"><div class="k">Drug</div><div class="v">Tividenofusp</div><div class="s">DNL310 / ETV:IDS</div></div>
-        <div class="kpi"><div class="k">Disease</div><div class="v">MPS II</div><div class="s">Hunter syndrome</div></div>
-        <div class="kpi"><div class="k">Filing</div><div class="v">BLA</div><div class="s">Accelerated · Priority</div></div>
-      </div>
-      <div class="cdb">
-        <div class="cdlbl">PDUFA<br>Countdown</div>
-        <div class="cdd" id="dnli-cd"></div>
-        <div class="cdt">Apr 5, 2026</div>
-      </div>
-      <div class="pbb">
-        <div class="pbl">FDA Review Progress</div>
-        <div class="pbr"><div class="pbf" id="dnli-fill"></div><div class="pbm" id="dnli-mark"></div></div>
-        <div class="pbls"><span>BLA Accept Jul 7 '25</span><span>Today</span><span>PDUFA Apr 5 '26</span></div>
-      </div>
-      <div class="thesis">
-        <div class="tttl">Thesis</div>
-        <div class="tpts">
-          <div class="tpt"><div class="td2"></div>First BBB-crossing ERT for Hunter syndrome, biggest advance in nearly 20 years.</div>
-          <div class="tpt"><div class="td2"></div>NEJM publication Jan 2026 + Breakthrough Therapy = strong FDA goodwill.</div>
-          <div class="tpt"><div class="td2"></div>Extension was PK/pharmacology only, FDA confirmed no efficacy or safety concerns.</div>
-          <div class="tpt"><div class="td2"></div>Mid-cap with TransportVehicle platform optionality across LSDs and CNS.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero vera">
-      <div class="hero-hd">
-        <div><div class="hticker">VERA</div><div class="hname">Vera Therapeutics</div></div>
-        <div class="brow"><span class="bd a">Dual BAFF/APRIL</span><span class="bd a">Breakthrough Therapy</span><span class="bd sc">Score 5</span></div>
-      </div>
-      <div class="hkpis">
-        <div class="kpi"><div class="k">Drug</div><div class="v">Atacicept</div><div class="s">TACI-Fc fusion protein</div></div>
-        <div class="kpi"><div class="k">Disease</div><div class="v">IgAN</div><div class="s">IgA nephropathy</div></div>
-        <div class="kpi"><div class="k">Filing</div><div class="v">BLA</div><div class="s">Accelerated · Priority</div></div>
-      </div>
-      <div class="cdb">
-        <div class="cdlbl">PDUFA<br>Countdown</div>
-        <div class="cdd" id="vera-cd"></div>
-        <div class="cdt">Jul 7, 2026</div>
-      </div>
-      <div class="pbb">
-        <div class="pbl">FDA Review Progress</div>
-        <div class="pbr"><div class="pbf" id="vera-fill"></div><div class="pbm" id="vera-mark"></div></div>
-        <div class="pbls"><span>BLA Accept Jan 7 '26</span><span>Today</span><span>PDUFA Jul 7 '26</span></div>
-      </div>
-      <div class="thesis">
-        <div class="tttl">Thesis</div>
-        <div class="tpts">
-          <div class="tpt"><div class="td2"></div>Phase 3 ORIGIN met primary endpoint: 42% UPCR reduction vs placebo (p&lt;0.0001) published in NEJM.</div>
-          <div class="tpt"><div class="td2"></div>First-in-class dual BAFF/APRIL mechanism in a high-prevalence autoimmune kidney disease.</div>
-          <div class="tpt"><div class="td2"></div>$714M+ cash runway well past launch; commercial team hired and ready.</div>
-          <div class="tpt"><div class="td2"></div>Safety profile comparable to placebo, no immunosuppression signals detected.</div>
-        </div>
-      </div>
+      <div class="published" id="publishedList"></div>
     </div>
   </div>
 
-  <!-- TRADING WINDOWS -->
-  <div class="windows-row">
-    <div class="win-card rckt"><div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">RCKT</div></div><div class="winrows" id="rckt-win"></div></div>
-    <div class="win-card dnli"><div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">DNLI</div></div><div class="winrows" id="dnli-win"></div></div>
-    <div class="win-card vera"><div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">VERA</div></div><div class="winrows" id="vera-win"></div></div>
+  <div class="sec-hdr">
+    <div><div class="sec-title">TOP CANDIDATES</div><div class="sec-sub">Auto-selected from highest-scoring future-dated names</div></div>
+    <span class="stag">Dynamic heroes</span>
   </div>
+  <div class="heroes" id="heroes"></div>
 
-  <!-- HISTORICAL ANALOG CLUSTER -->
+  <div class="windows-row" id="windowsRow"></div>
+
   <div class="cluster-section">
     <div class="sec-hdr">
-      <div><div class="sec-title">HISTORICAL ANALOGS</div><div class="sec-sub">Pre-PDUFA run-up data from comparable gene therapy and rare disease catalysts</div></div>
+      <div><div class="sec-title">HISTORICAL ANALOGS</div><div class="sec-sub">Pre-PDUFA run-up data from comparable biotech catalysts</div></div>
       <span class="stag">VWAP-based analysis</span>
     </div>
     <div class="analog-card">
       <div class="analog-hd">
         <div>
           <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)">Historical Pre-PDUFA VWAP Returns</div>
-          <div class="analog-sub">VWAP-based returns across historical pre-PDUFA biotech catalysts</div>
+          <div class="analog-sub">Historical analog panel for benchmarking current setups</div>
         </div>
-        <div style="font-size:10px;color:var(--muted);font-family:var(--mono)">Historical Data</div>
+        <div style="font-size:10px;color:var(--muted);font-family:var(--mono)">Static analog dataset</div>
       </div>
       <div class="analog-body">
         <div class="chart-canvas-wrap">
@@ -387,523 +284,541 @@
     </div>
   </div>
 
-  <!-- CHARTS -->
   <div class="sec-hdr">
-    <div><div class="sec-title">LIVE CHARTS</div><div class="sec-sub">TradingView daily</div></div>
+    <div><div class="sec-title">LIVE CHARTS</div><div class="sec-sub">Auto-bound to top 4 U.S.-listed tickers</div></div>
     <span class="stag">Requires internet</span>
   </div>
-  <div class="two-col" style="margin-bottom:14px">
-    <div class="panel" style="border-top:2px solid var(--rckt)">
-      <div class="phd"><div class="ptitle" style="color:var(--rckt2)">RCKT</div><div class="pnote">PDUFA Mar 28 '26</div></div>
-      <div class="chart-ct" id="tv_rckt"></div>
-    </div>
-    <div class="panel" style="border-top:2px solid var(--dnli)">
-      <div class="phd"><div class="ptitle" style="color:var(--dnli2)">DNLI</div><div class="pnote">PDUFA Apr 5 '26</div></div>
-      <div class="chart-ct" id="tv_dnli"></div>
-    </div>
-  </div>
-  <div class="two-col" style="margin-bottom:20px">
-    <div class="panel" style="border-top:2px solid var(--vera)">
-      <div class="phd"><div class="ptitle" style="color:var(--vera2)">VERA</div><div class="pnote">PDUFA Jul 7 '26</div></div>
-      <div class="chart-ct" id="tv_vera"></div>
-    </div>
-    <div class="panel" style="border-top:2px solid var(--nuvl2)">
-      <div class="phd"><div class="ptitle" style="color:var(--nuvl2)">NUVL</div><div class="pnote">PDUFA Sep 18 '26</div></div>
-      <div class="chart-ct" id="tv_nuvl"></div>
-    </div>
-  </div>
+  <div class="two-col" id="chartsTop"></div>
+  <div class="two-col" style="margin-bottom:20px" id="chartsBottom"></div>
 
-  <!-- NEWS -->
   <div class="sec-hdr">
-    <div><div class="sec-title">LIVE NEWS</div><div class="sec-sub">Auto-refreshes every 15 min</div></div>
+    <div><div class="sec-title">LIVE NEWS</div><div class="sec-sub">Google News RSS via AllOrigins · refreshes every 15 min</div></div>
   </div>
-  <div class="three-col" style="margin-bottom:20px">
-    <div class="panel" style="border-top:2px solid var(--rckt)">
-      <div class="phd"><div style="display:flex;align-items:center;gap:10px"><div class="ptitle" style="color:var(--rckt2)">RCKT</div><div class="nst" id="rckt-st">Loading…</div></div><button class="rbtn" onclick="fetchNews('rckt')">Refresh</button></div>
-      <div class="nbody rckt" id="rckt-news"></div>
-    </div>
-    <div class="panel" style="border-top:2px solid var(--dnli)">
-      <div class="phd"><div style="display:flex;align-items:center;gap:10px"><div class="ptitle" style="color:var(--dnli2)">DNLI</div><div class="nst" id="dnli-st">Loading…</div></div><button class="rbtn" onclick="fetchNews('dnli')">Refresh</button></div>
-      <div class="nbody dnli" id="dnli-news"></div>
-    </div>
-    <div class="panel" style="border-top:2px solid var(--vera)">
-      <div class="phd"><div style="display:flex;align-items:center;gap:10px"><div class="ptitle" style="color:var(--vera2)">VERA</div><div class="nst" id="vera-st">Loading…</div></div><button class="rbtn" onclick="fetchNews('vera')">Refresh</button></div>
-      <div class="nbody vera" id="vera-news"></div>
-    </div>
-  </div>
+  <div class="three-col" style="margin-bottom:20px" id="newsGrid"></div>
 
-  <!-- WATCHLIST -->
   <div class="sec-hdr">
-    <div><div class="sec-title">FULL WATCHLIST 2026</div><div class="sec-sub">All confirmed US PDUFA events · past dates auto-removed · click row to open chart</div></div>
+    <div><div class="sec-title">FULL WATCHLIST 2026</div><div class="sec-sub">Past dates auto-removed · click a row for TradingView or source</div></div>
   </div>
   <div class="frow">
-    <div class="sw"><span style="color:var(--muted);font-size:13px">&#9906;</span><input id="searchBox" type="text" placeholder="Search ticker, drug, indication…"/></div>
+    <div class="sw"><span style="color:var(--muted);font-size:13px">&#9906;</span><input id="searchBox" type="text" placeholder="Search ticker, company, drug, indication…"/></div>
     <select class="fsel" id="scoreFilter"><option value="0">Score: Any</option><option value="4">Score 4+</option><option value="5">Score 5</option></select>
-    <select class="fsel" id="sortSelect"><option value="pdufa:asc">Date earliest</option><option value="pdufa:desc">Date latest</option><option value="score:desc">Score highest</option></select>
+    <select class="fsel" id="sortSelect">
+      <option value="pdufa:asc">Date earliest</option>
+      <option value="pdufa:desc">Date latest</option>
+      <option value="score:desc">Score highest</option>
+    </select>
   </div>
-  <div class="crow">
-    <div class="chip" data-c="rckt">RCKT Focus</div>
-    <div class="chip" data-c="dnli">DNLI Focus</div>
-    <div class="chip" data-c="vera">VERA Focus</div>
+  <div class="crow" id="chipRow">
+    <div class="chip" data-c="hero0">Hero 1</div>
+    <div class="chip" data-c="hero1">Hero 2</div>
+    <div class="chip" data-c="hero2">Hero 3</div>
     <div class="chip" data-c="s5">Score 5</div>
     <div class="chip" data-c="s4">Score 4+</div>
     <div class="chip" data-c="orph">Orphan Only</div>
-    <div class="chip" data-c="gene">Gene Therapy</div>
+    <div class="chip" data-c="gene">Gene / Cell Therapy</div>
     <div class="chip" data-c="rst">Reset</div>
   </div>
   <div class="tbl-wrap">
-    <table><thead><tr>
-      <th>Ticker</th><th>Company / Drug</th>
-      <th class="hide-m">Indication</th>
-      <th>PDUFA</th><th>Score</th>
-      <th class="hide-m">Entry Window</th>
-      <th class="hide-m">Exit Window</th>
-      <th class="hide-m">Tags</th>
-    </tr></thead>
-    <tbody id="wl-tbody"></tbody></table>
-    <div id="wl-empty" class="empty-st" style="display:none">No matches — try broadening your search.</div>
+    <table>
+      <thead><tr>
+        <th>Ticker</th><th>Company / Drug</th>
+        <th class="hide-m">Indication</th>
+        <th>PDUFA</th><th>Score</th>
+        <th class="hide-m">Class</th>
+        <th class="hide-m">Entry Window</th>
+        <th class="hide-m">Exit Window</th>
+        <th class="hide-m">Tags</th>
+      </tr></thead>
+      <tbody id="wl-tbody"></tbody>
+    </table>
+    <div id="wl-empty" class="empty-st" style="display:none">No matches — try broadening your filters.</div>
   </div>
 
-  <div class="foot">G.V / S.N 2026
+  <div class="foot">MANTIS ALPHA · dynamic index.html + data.json</div>
 </div>
 
 <script>
-const ROWS = [
-  { pdufa:"2026-03-20", drug:"setmelanotide", brand:"Imcivree", co:"Rhythm Pharmaceuticals", tkr:"RYTM",
-    ind:"Acquired hypothalamic obesity", orph:true, therapy:"Peptide agonist (MC4R)", score:4,
-    entry:"T-120 to T-60", exit:"T-20 to T-10",
-    notes:"Label expansion in rare obesity; sentiment-sensitive single-franchise story." },
-  { pdufa:"2026-03-28", drug:"marnetegragene autotemcel", brand:"KRESLADI", co:"Rocket Pharmaceuticals", tkr:"RCKT",
-    ind:"LAD-I (ultra-rare immune disorder)", orph:true, therapy:"Ex vivo gene therapy", score:5,
-    entry:"T-150 to T-90", exit:"T-20 to T-7",
-    notes:"Resubmission after CMC-only CRL. 100% OS in Phase 1/2. PRV eligible. Nearest catalyst on the desk." },
-  { pdufa:"2026-04-05", drug:"tividenofusp alfa", brand:"DNL310", co:"Denali Therapeutics", tkr:"DNLI",
-    ind:"Hunter syndrome (MPS II)", orph:true, therapy:"Brain-penetrant ERT", score:5,
-    entry:"T-150 to T-90", exit:"T-20 to T-7",
-    notes:"First BBB-crossing ERT; NEJM Jan 2026; Breakthrough Therapy; extension PK-only, no safety concerns." },
-  { pdufa:"2026-04-13", drug:"sparsentan", brand:"FILSPARI", co:"Travere Therapeutics", tkr:"TVTX",
-    ind:"FSGS (focal segmental glomerulosclerosis)", orph:true, therapy:"Small-molecule dual ETAR/AT1R inhibitor", score:4,
-    entry:"T-90 to T-45", exit:"T-20 to T-10",
-    notes:"Already approved for IgAN; sNDA FSGS label expansion. Extended to Apr 13 from Jan 13." },
-  { pdufa:"2026-07-07", drug:"atacicept", brand:"—", co:"Vera Therapeutics", tkr:"VERA",
-    ind:"IgA nephropathy (IgAN)", orph:false, therapy:"Dual BAFF/APRIL inhibitor", score:5,
-    entry:"T-120 to T-60", exit:"T-20 to T-7",
-    notes:"Phase 3 42% UPCR reduction vs placebo (p<0.0001). First-in-class. $714M cash past launch." },
-  { pdufa:"2026-07-11", drug:"relacorilant", brand:"—", co:"Corcept Therapeutics", tkr:"CORT",
-    ind:"Platinum-resistant ovarian cancer", orph:true, therapy:"Cortisol receptor modulator", score:4,
-    entry:"T-120 to T-60", exit:"T-20 to T-7",
-    notes:"Strong Phase 3 ROSELLA data. Mid-cap single-franchise; high event sensitivity." },
-  { pdufa:"2026-07-03", drug:"manganese chloride", brand:"Orviglance", co:"Ascelia Pharma", tkr:"ACE.ST",
-    ind:"Liver MRI contrast (renal impairment)", orph:true, therapy:"Imaging contrast agent", score:4,
-    entry:"T-120 to T-60", exit:"T-20 to T-7",
-    notes:"Orphan contrast agent; unmet need in renally impaired patients who cannot receive gadolinium." },
-  { pdufa:"2026-07-26", drug:"furosemide autoinjector", brand:"FUROSCIX ReadyFlow", co:"MannKind / scPharmaceuticals", tkr:"MNKD",
-    ind:"Edema in CHF / CKD", orph:false, therapy:"Device + small-molecule", score:3,
-    entry:"T-90 to T-45", exit:"T-20 to T-10",
-    notes:"sNDA for new autoinjector. Subcutaneous diuresis narrative. MannKind volatile on device catalysts." },
-  { pdufa:"2026-08-23", drug:"pariglasgene brecaparvovec", brand:"DTX401", co:"Ultragenyx", tkr:"RARE",
-    ind:"Glycogen Storage Disease Type Ia (GSDIa)", orph:true, therapy:"AAV8 gene therapy", score:5,
-    entry:"T-120 to T-60", exit:"T-20 to T-7",
-    notes:"Priority Review accepted Feb 23 '26. First pharmacologic treatment for GSDIa. RMAT + Orphan + RPD designations. No approved comparator." },
-  { pdufa:"2026-09-01", drug:"rebisufligene etisparvovec", brand:"UX111", co:"Ultragenyx", tkr:"RARE",
-    ind:"Sanfilippo syndrome Type A (MPS IIIA)", orph:true, therapy:"AAV9 gene therapy (CNS)", score:4,
-    entry:"T-120 to T-60", exit:"T-20 to T-7",
-    notes:"Resubmission after CMC-only CRL. First-ever potential therapy for a fatal pediatric neurological disease." },
-  { pdufa:"2026-09-18", drug:"zidesamtinib", brand:"—", co:"Nuvalent", tkr:"NUVL",
-    ind:"ROS1+ non-small cell lung cancer", orph:true, therapy:"Small-molecule kinase inhibitor", score:5,
-    entry:"T-150 to T-90", exit:"T-20 to T-7",
-    notes:"Clean single-asset story. No direct approved competitor in ROS1+ NSCLC. Strong pivotal dataset." },
-  { pdufa:"2026-06-18", drug:"nilotinib reformulation", brand:"XS003", co:"Xspray Pharma", tkr:"XSPRAY.ST",
-    ind:"Chronic myeloid leukemia (CML)", orph:false, therapy:"TKI reformulation 505(b)(2)", score:4,
-    entry:"T-120 to T-60", exit:"T-20 to T-7",
-    notes:"Swedish small-cap with US PDUFA; improved bioavailability vs Tasigna. Small float = high event beta." },
-  { pdufa:"2026-10-10", drug:"tabelecleucel", brand:"Tab-cel", co:"Atara Biotherapeutics", tkr:"ATRA",
-    ind:"EBV+ PTLD (post-transplant lymphoma)", orph:true, therapy:"Allogeneic T-cell therapy", score:3,
-    entry:"T-120 to T-60", exit:"T-20 to T-10",
-    notes:"Received CRL Jan 2026. Resubmission expected. Small float, high volatility history." },
-];
+const STATE = {
+  DATA: null,
+  FUTURE_ROWS: [],
+  HEROES: [],
+  ANALOGS: [],
+  CHIPS: {hero0:false, hero1:false, hero2:false, s5:false, s4:false, orph:false, gene:false}
+};
 
-/* ═══════════════════════════════════════════
-   HISTORICAL ANALOG DATA — FINAL VALIDATED NUMBERS
-   RCKT: our calculation (+48.00%)
-   CRSP, IOVA, MDGL, MIST, TVTX: Bloomberg
-   DNLI: our calculation (+28.29%)
-═══════════════════════════════════════════ */
-const ANALOGS = [
-  { name:"RCKT", label:"Rocket Pharmaceuticals", return_pct:48.00, disease:"LAD-I",                   outcome:"Pre-PDUFA", color:"#a78bfa" },
-  { name:"CRSP", label:"CRISPR Therapeutics",    return_pct:43.46, disease:"Sickle Cell / Beta-thal", outcome:"Approved",  color:"#34d399" },
-  { name:"IOVA", label:"Iovance Biotherapeutics",return_pct:98.12, disease:"Melanoma",                outcome:"Approved",  color:"#60a5fa" },
-  { name:"MDGL", label:"Madrigal Pharma",         return_pct:50.63, disease:"NASH / MASH",             outcome:"Approved",  color:"#fcd34d" },
-  { name:"MIST", label:"Milestone Scientific",    return_pct:63.72, disease:"Pre-PDUFA Catalyst",      outcome:"Pre-PDUFA", color:"#f9a8d4" },
-  { name:"DNLI", label:"Denali Therapeutics",     return_pct:28.29, disease:"Hunter Syndrome (MPS II)",outcome:"Pre-PDUFA", color:"#5eead4" },
-  { name:"TVTX", label:"Travere Therapeutics",    return_pct:8.26,  disease:"IgA Nephropathy",         outcome:"Approved",  color:"#fb923c" },
-];
+function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+const TODAY = startOfDay(new Date());
 
-
-/* ═══════════════════════════════════════════
-   CANVAS CHART — GROUPED BAR (Entry vs Exit + VWAP vs Exit)
-═══════════════════════════════════════════ */
-function drawAnalogChart() {
-  const canvas = document.getElementById("analogChart");
-  if (!canvas) return;
-  const dpr = window.devicePixelRatio || 1;
-  const W = canvas.parentElement.clientWidth || 500;
-  const H = Math.round(W * 0.55);
-  canvas.width  = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.width  = W + "px";
-  canvas.style.height = H + "px";
-  const ctx = canvas.getContext("2d");
-  ctx.scale(dpr, dpr);
-
-  const PAD = { t:36, r:20, b:44, l:52 };
-  const cW = W - PAD.l - PAD.r;
-  const cH = H - PAD.t - PAD.b;
-  ctx.clearRect(0, 0, W, H);
-
-  const maxVal = Math.max(...ANALOGS.map(a => a.return_pct));
-  const maxAxis = Math.ceil(maxVal / 20) * 20 + 20;
-
-  // Grid lines
-  for (let i = 0; i <= 5; i++) {
-    const gVal = Math.round((maxAxis / 5) * i);
-    const y = PAD.t + cH - (gVal / maxAxis) * cH;
-    ctx.beginPath();
-    ctx.strokeStyle = "rgba(255,255,255,.05)";
-    ctx.lineWidth = 1;
-    ctx.setLineDash([4, 4]);
-    ctx.moveTo(PAD.l, y);
-    ctx.lineTo(PAD.l + cW, y);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = "rgba(148,163,184,.45)";
-    ctx.font = "9px 'JetBrains Mono', monospace";
-    ctx.textAlign = "right";
-    ctx.fillText(gVal + "%", PAD.l - 6, y + 3);
-  }
-
-  // X axis
-  ctx.beginPath();
-  ctx.strokeStyle = "rgba(255,255,255,.1)";
-  ctx.lineWidth = 1;
-  ctx.moveTo(PAD.l, PAD.t + cH);
-  ctx.lineTo(PAD.l + cW, PAD.t + cH);
-  ctx.stroke();
-
-  const n = ANALOGS.length;
-  const groupW = cW / n;
-  const barW = Math.min(36, groupW * 0.55);
-
-  ANALOGS.forEach((a, i) => {
-    const cx = PAD.l + groupW * i + groupW / 2;
-    const h = Math.max(2, (a.return_pct / maxAxis) * cH);
-    const x = cx - barW / 2;
-    const y = PAD.t + cH - h;
-
-    // Bar gradient
-    const grad = ctx.createLinearGradient(x, y, x, PAD.t + cH);
-    grad.addColorStop(0, a.color);
-    grad.addColorStop(1, a.color + "22");
-    ctx.fillStyle = grad;
-    ctx.shadowColor = a.color;
-    ctx.shadowBlur = 12;
-    ctx.beginPath();
-    ctx.roundRect(x, y, barW, h, [4, 4, 0, 0]);
-    ctx.fill();
-    ctx.shadowBlur = 0;
-
-    // Return % label on top
-    ctx.fillStyle = a.color;
-    ctx.font = "bold 11px 'JetBrains Mono', monospace";
-    ctx.textAlign = "center";
-    ctx.fillText("+" + a.return_pct.toFixed(2) + "%", cx, y - 8);
-
-    // Ticker label
-    ctx.fillStyle = "rgba(226,232,240,.9)";
-    ctx.font = "bold 11px 'JetBrains Mono', monospace";
-    ctx.textAlign = "center";
-    ctx.fillText(a.name, cx, PAD.t + cH + 16);
-
-    // Outcome dot
-    const oc = a.outcome === "Approved" ? "#4ade80" : "#fcd34d";
-    ctx.beginPath();
-    ctx.arc(cx, PAD.t + cH + 28, 3, 0, Math.PI * 2);
-    ctx.fillStyle = oc;
-    ctx.fill();
-  });
-
-  // Y axis label
-  ctx.save();
-  ctx.translate(12, PAD.t + cH / 2);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillStyle = "rgba(148,163,184,.4)";
-  ctx.font = "9px 'JetBrains Mono', monospace";
-  ctx.textAlign = "center";
-  ctx.fillText("VWAP RETURN %", 0, 0);
-  ctx.restore();
-
-  // Outcome legend
-  const outcomes = [{ label: "Approved", color: "#4ade80" }, { label: "Active / Pre-PDUFA", color: "#fcd34d" }];
-  let lx = PAD.l;
-  const ly = H - 5;
-  outcomes.forEach(o => {
-    ctx.beginPath(); ctx.arc(lx + 5, ly - 4, 3, 0, Math.PI * 2);
-    ctx.fillStyle = o.color; ctx.fill();
-    ctx.fillStyle = "rgba(148,163,184,.5)";
-    ctx.font = "8px 'JetBrains Mono', monospace";
-    ctx.textAlign = "left";
-    ctx.fillText(o.label, lx + 12, ly);
-    lx += 110;
-  });
-
-  // Build legend cards
-  const leg = document.getElementById("analogLegend");
-  if (leg) {
-    leg.innerHTML = "";
-    ANALOGS.forEach(a => {
-      const oc = a.outcome === "Approved" ? "#4ade80" : "#fcd34d";
-      leg.innerHTML += `
-        <div class="al-item">
-          <div class="al-dot" style="background:${a.color};box-shadow:0 0 6px ${a.color}55"></div>
-          <div style="flex:1;min-width:0">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
-              <div class="al-name" style="color:${a.color}">${a.name}</div>
-              <span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${oc}44;background:${oc}18;color:${oc};font-family:var(--mono);flex-shrink:0">${a.outcome}</span>
-            </div>
-            <div class="al-det">${a.label} &nbsp;·&nbsp; ${a.disease}</div>
-            <div class="al-gains" style="margin-top:6px">
-              <div>
-                <div class="al-gain" style="color:${a.color}">+${a.return_pct.toFixed(2)}%</div>
-                <div class="al-gain-sub">VWAP Return</div>
-              </div>
-            </div>
-          </div>
-        </div>`;
-    });
-  }
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
-
-function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
-const today = startOfDay(new Date());
-function isFOT(iso) { return new Date(iso + "T00:00:00") >= today; }
-function parseWin(str) {
-  if (!str) return null;
-  const m = str.match(/T-(\d+)\s*to\s*T-(\d+)/i);
-  return m ? { a: +m[1], b: +m[2] } : null;
+function cleanText(v){
+  if(v === null || v === undefined || v === '' || v === '-') return '—';
+  return String(v);
 }
-function winDates(iso, str) {
-  const w = parseWin(str); if (!w) return null;
-  const p = new Date(iso + "T00:00:00");
+function parsePdufa(value, type){
+  if(!value) return null;
+  if((type || '').toLowerCase().includes('quarter')){
+    const m = String(value).match(/Q([1-4])\s*(\d{4})/i);
+    if(!m) return null;
+    const q = +m[1], y = +m[2];
+    const map = {1:'02-15',2:'05-15',3:'08-15',4:'11-15'};
+    return new Date(`${y}-${map[q]}T00:00:00`);
+  }
+  if(/^\d{4}-\d{2}-\d{2}$/.test(String(value))) return new Date(`${value}T00:00:00`);
+  return null;
+}
+function isFutureRow(r){
+  const d = parsePdufa(r.pdufa, r.date_type);
+  return d ? startOfDay(d) >= TODAY : false;
+}
+function fmtDate(d){
+  return d.toLocaleDateString(undefined,{month:'short',day:'2-digit',year:'numeric'});
+}
+function fmtDateShort(d){
+  return d.toLocaleDateString(undefined,{month:'short',day:'2-digit'});
+}
+function displayPdufa(r){
+  if((r.date_type || '').toLowerCase().includes('quarter')) return r.pdufa;
+  const d = parsePdufa(r.pdufa, r.date_type);
+  return d ? fmtDate(d) : cleanText(r.pdufa);
+}
+function scoreClass(s){ return s >= 5 ? 's5' : s >= 4 ? 's4' : s >= 3 ? 's3' : 's2'; }
+function therapyTagClass(therapy=''){
+  const t = therapy.toLowerCase();
+  if(t.includes('gene') || t.includes('cell')) return 'gene';
+  if(t.includes('ert') || t.includes('enzyme')) return 'ert';
+  if(t.includes('inhibitor') || t.includes('kinase') || t.includes('oncology')) return 'onco';
+  if(t.includes('baff') || t.includes('kidney') || t.includes('neph')) return 'kidney';
+  return '';
+}
+function heroTheme(tkr=''){
+  const t = tkr.toUpperCase();
+  if(t === 'RCKT') return 'rckt';
+  if(t === 'DNLI' || t === 'VRDN') return 'dnli';
+  if(t === 'VERA' || t === 'CELC' || t === 'SVRA') return 'vera';
+  if(t === 'RARE' || t === 'CAPR') return 'rare';
+  if(t === 'NUVL') return 'nuvl';
+  return 'std';
+}
+function parseWindow(str){
+  const m = String(str || '').match(/T-(\d+)\s*to\s*T-(\d+)/i);
+  return m ? {a:+m[1], b:+m[2]} : null;
+}
+function winDates(pdufa, dateType, str){
+  const w = parseWindow(str); const p = parsePdufa(pdufa, dateType);
+  if(!w || !p) return null;
   const s = new Date(p); s.setDate(s.getDate() - w.a);
   const e = new Date(p); e.setDate(e.getDate() - w.b);
   [s,e].forEach(d => { if(d.getDay()===6) d.setDate(d.getDate()-1); if(d.getDay()===0) d.setDate(d.getDate()-2); });
-  return { start:s, end:e };
+  return {start:s, end:e};
 }
-function fmt(d) { return d.toLocaleDateString(undefined,{month:"short",day:"2-digit",year:"numeric"}); }
-function fmtS(d) { return d.toLocaleDateString(undefined,{month:"short",day:"2-digit"}); }
-
-function buildCountdown(iso, elId) {
-  const el = document.getElementById(elId); if (!el) return;
-  function upd() {
-    const diff = Math.max(0, new Date(iso+"T00:00:00").getTime() - Date.now());
-    const D=Math.floor(diff/864e5), H=Math.floor((diff%864e5)/36e5), M=Math.floor((diff%36e5)/6e4), S=Math.floor((diff%6e4)/1e3);
-    el.innerHTML=[{n:D,l:"DAYS"},{n:H,l:"HRS"},{n:M,l:"MIN"},{n:S,l:"SEC"}]
-      .map(x=>`<div class="cdu"><div class="cdn">${String(x.n).padStart(2,"0")}</div><div class="cdl">${x.l}</div></div>`).join('');
+function sortRows(arr, mode){
+  const [key,dir] = mode.split(':'); const mult = dir === 'desc' ? -1 : 1;
+  return [...arr].sort((a,b) => {
+    let va, vb;
+    if(key === 'score'){ va = a.score || 0; vb = b.score || 0; }
+    else {
+      va = parsePdufa(a.pdufa, a.date_type)?.getTime() || 0;
+      vb = parsePdufa(b.pdufa, b.date_type)?.getTime() || 0;
+    }
+    return va < vb ? -mult : va > vb ? mult : 0;
+  });
+}
+function chooseHeroes(rows){
+  const exact = rows.filter(r => !String(r.date_type).toLowerCase().includes('quarter'));
+  const ranked = [...exact].sort((a,b) => {
+    if((b.score||0)!==(a.score||0)) return (b.score||0)-(a.score||0);
+    const ad = parsePdufa(a.pdufa,a.date_type)?.getTime() || 0;
+    const bd = parsePdufa(b.pdufa,b.date_type)?.getTime() || 0;
+    return ad - bd;
+  });
+  return ranked.slice(0,3);
+}
+function renderAgentTerminal(lines){
+  const el = document.getElementById('agentTerminal');
+  el.innerHTML = '';
+  let i = 0;
+  function pushNext(){
+    if(i >= lines.length) return;
+    const line = lines[i++];
+    const row = document.createElement('div');
+    row.className = 'term-line';
+    row.innerHTML = `<div class="term-ts">${esc(line.ts)}</div><div class="term-agent ${esc(line.agentClass)}">${esc(line.agent)}</div><div class="term-msg ${esc(line.kind)}">${esc(line.msg)}</div>`;
+    el.appendChild(row);
+    el.scrollTop = el.scrollHeight;
+    setTimeout(pushNext, i < 4 ? 450 : 650);
   }
-  upd(); setInterval(upd,1000);
+  pushNext();
 }
-
-function setProgress(startISO, pdufaISO, fillId, markId) {
-  const s=new Date(startISO+"T00:00:00").getTime(), e=new Date(pdufaISO+"T00:00:00").getTime(), n=Date.now();
-  const pct=Math.min(100,Math.max(0,((n-s)/(e-s))*100)).toFixed(1);
-  const f=document.getElementById(fillId), m=document.getElementById(markId);
-  if(f) f.style.width=pct+"%";
-  if(m) m.style.left=pct+"%";
+function buildAgentLines(data){
+  const rows = data.rows || [];
+  const future = rows.filter(isFutureRow);
+  const exact = rows.filter(r => !String(r.date_type).toLowerCase().includes('quarter'));
+  const heroes = STATE.HEROES;
+  return [
+    {ts:'00:01', agent:'AGENT-01', agentClass:'a1', kind:'ok', msg:`Loaded ${rows.length} total rows from data.json.`},
+    {ts:'00:02', agent:'AGENT-02', agentClass:'a2', kind:'ok', msg:`Validated ${future.length} future-dated 2026 setups; ${rows.length - future.length} archived/past.`},
+    {ts:'00:03', agent:'AGENT-03', agentClass:'a3', kind:'ok', msg:`Found ${exact.length} rows with exact dates and ${rows.length - exact.length} quarter-only windows.`},
+    {ts:'00:04', agent:'AGENT-04', agentClass:'a4', kind:'good', msg:`Published top candidates: ${heroes.map(h => h.tkr).join(', ')}.`},
+    {ts:'00:05', agent:'AGENT-02', agentClass:'a2', kind:'warn', msg:`Quarter-only records remain lower-confidence until exact FDA action dates are disclosed.`},
+    {ts:'00:06', agent:'AGENT-03', agentClass:'a3', kind:'good', msg:`MANTIS ranking engine finished. Watchlist ready for interaction.`},
+  ];
 }
-
-function renderWindows(pdufa, entry_str, exit_str, elId) {
-  const el = document.getElementById(elId); if (!el) return;
-  const entry = winDates(pdufa, entry_str), exit_ = winDates(pdufa, exit_str);
-  const pDate = new Date(pdufa + "T00:00:00");
-  const daysTo = Math.max(0, Math.round((pDate - today) / 864e5));
-  function row(label, r, kind) {
-    if (!r) return "";
-    const isAct = today >= r.start && today <= r.end;
-    const isCom = today < r.start && r.start <= new Date(today.getTime()+45*864e5);
-    const pill = isAct ? `<span class="wp ${kind} act">ACTIVE</span>` :
-                 isCom ? `<span class="wp ${kind}">UPCOMING</span>` : "";
-    return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtS(r.start)} &rarr; ${fmtS(r.end)}</div>${pill}</div>`;
+function renderMetrics(data){
+  const rows = data.rows || []; const future = STATE.FUTURE_ROWS;
+  document.getElementById('mRows').textContent = rows.length;
+  document.getElementById('mActive').textContent = future.length;
+  document.getElementById('mHigh').textContent = future.filter(r => (r.score || 0) >= 4).length;
+  document.getElementById('mQuarter').textContent = rows.filter(r => String(r.date_type).toLowerCase().includes('quarter')).length;
+}
+function buildPublishedItem(r){
+  const tagCls = therapyTagClass(r.therapy);
+  const tagHtml = tagCls ? `<span class="mb ${tagCls}">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>` : `<span class="mb">${esc(cleanText(r.therapy))}</span>`;
+  const orph = r.orph ? `<span class="mb orph">Orphan</span>` : '';
+  return `<div class="pub-item">
+    <div class="pub-left">
+      <div class="pub-tkr">${esc(r.tkr)}</div>
+      <div class="pub-meta">${esc(cleanText(r.co))} · ${esc(displayPdufa(r))} · ${esc(cleanText(r.ind))}</div>
+    </div>
+    <div class="pub-badges">
+      <span class="mb ${scoreClass(r.score)}">Score ${esc(r.score)}</span>
+      ${orph}${tagHtml}
+    </div>
+  </div>`;
+}
+function renderPublished(){
+  const el = document.getElementById('publishedList');
+  el.innerHTML = STATE.HEROES.map(buildPublishedItem).join('');
+}
+function countdownBlocks(row){
+  const p = parsePdufa(row.pdufa, row.date_type); if(!p) return '<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
+  const diff = Math.max(0, p.getTime() - Date.now());
+  const D=Math.floor(diff/864e5), H=Math.floor((diff%864e5)/36e5), M=Math.floor((diff%36e5)/6e4), S=Math.floor((diff%6e4)/1e3);
+  return [{n:D,l:'DAYS'},{n:H,l:'HRS'},{n:M,l:'MIN'},{n:S,l:'SEC'}].map(x=>`<div class="cdu"><div class="cdn">${String(x.n).padStart(2,'0')}</div><div class="cdl">${x.l}</div></div>`).join('');
+}
+function heroBullets(row){
+  const bullets = [];
+  bullets.push(cleanText(row.notes));
+  bullets.push(`${cleanText(row.mantis_class)} · ${cleanText(row.therapy)}`);
+  bullets.push(`${row.orph ? 'Orphan / rare-disease sensitive' : 'Non-orphan / broader market'} · ${cleanText(row.date_type)} timing`);
+  bullets.push(`Modeled windows: Entry ${cleanText(row.entry)} · Exit ${cleanText(row.exit)}`);
+  return bullets.slice(0,4).map(b => `<div class="tpt"><div class="td2"></div>${esc(b)}</div>`).join('');
+}
+function heroCard(row){
+  const theme = heroTheme(row.tkr);
+  const date = parsePdufa(row.pdufa, row.date_type);
+  const progressStart = winDates(row.pdufa,row.date_type,row.entry)?.start || TODAY;
+  const total = Math.max(1, date ? date.getTime() - progressStart.getTime() : 1);
+  const passed = Math.max(0, Math.min(total, Date.now() - progressStart.getTime()));
+  const pct = Math.max(0, Math.min(100, (passed / total) * 100));
+  return `<div class="hero ${theme}">
+    <div class="hero-hd">
+      <div><div class="hticker">${esc(row.tkr)}</div><div class="hname">${esc(cleanText(row.co))}</div></div>
+      <div class="brow">
+        ${row.orph ? '<span class="bd">Orphan</span>' : '<span class="bd">Non-orphan</span>'}
+        <span class="bd">${esc(cleanText(row.therapy).split(' ').slice(0,2).join(' '))}</span>
+        <span class="bd ${scoreClass(row.score)}">Score ${esc(row.score)}</span>
+      </div>
+    </div>
+    <div class="hkpis">
+      <div class="kpi"><div class="k">Drug</div><div class="v">${esc(cleanText(row.drug))}</div><div class="s">${esc(cleanText(row.therapy))}</div></div>
+      <div class="kpi"><div class="k">Disease</div><div class="v">${esc(cleanText(row.ind))}</div><div class="s">${esc(cleanText(row.mantis_class))}</div></div>
+      <div class="kpi"><div class="k">Timing</div><div class="v">${esc(cleanText(row.date_type))}</div><div class="s">${esc(displayPdufa(row))}</div></div>
+    </div>
+    <div class="cdb">
+      <div class="cdlbl">PDUFA<br>Countdown</div>
+      <div class="cdd" data-countdown="${esc(row.tkr)}">${countdownBlocks(row)}</div>
+      <div class="cdt">${esc(displayPdufa(row))}</div>
+    </div>
+    <div class="pbb">
+      <div class="pbl">MANTIS Timeline Progress</div>
+      <div class="pbr"><div class="pbf" style="width:${pct.toFixed(1)}%"></div><div class="pbm" style="left:${pct.toFixed(1)}%"></div></div>
+      <div class="pbls"><span>Entry opens</span><span>Today</span><span>PDUFA</span></div>
+    </div>
+    <div class="thesis">
+      <div class="tttl">Thesis</div>
+      <div class="tpts">${heroBullets(row)}</div>
+    </div>
+  </div>`;
+}
+function renderHeroes(){
+  document.getElementById('heroes').innerHTML = STATE.HEROES.map(heroCard).join('');
+}
+function renderWindows(){
+  const el = document.getElementById('windowsRow');
+  el.innerHTML = STATE.HEROES.map((r, idx) => {
+    const en = winDates(r.pdufa, r.date_type, r.entry);
+    const ex = winDates(r.pdufa, r.date_type, r.exit);
+    const p = parsePdufa(r.pdufa, r.date_type);
+    const daysTo = p ? Math.max(0, Math.round((startOfDay(p) - TODAY) / 864e5)) : '—';
+    const rowHtml = (label, range, kind) => {
+      if(!range) return '';
+      const isAct = TODAY >= startOfDay(range.start) && TODAY <= startOfDay(range.end);
+      const isCom = TODAY < startOfDay(range.start) && range.start <= new Date(TODAY.getTime()+45*864e5);
+      const pill = isAct ? `<span class="wp ${kind} act">ACTIVE</span>` : (isCom ? `<span class="wp ${kind}">UPCOMING</span>` : '');
+      return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div>${pill}</div>`;
+    };
+    return `<div class="win-card">
+      <div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">${esc(r.tkr)}</div></div>
+      <div class="winrows">
+        ${rowHtml('Entry', en, 'en')}
+        ${rowHtml('Exit', ex, 'ex')}
+        <div class="winrow" style="margin-top:6px"><div class="wrl">PDUFA</div><div class="wrd">${esc(displayPdufa(r))}</div><span class="wp nd">${daysTo}d away</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function buildChartPanels(){
+  const tradable = STATE.FUTURE_ROWS.filter(r => /^[A-Z]{1,5}$/.test(String(r.tkr || '')));
+  const seen = new Set(); const selected = [];
+  for(const r of sortRows(tradable,'score:desc')){
+    if(!seen.has(r.tkr)){ seen.add(r.tkr); selected.push(r); }
+    if(selected.length >= 4) break;
   }
-  el.innerHTML = row("Entry", entry, "en") + row("Exit", exit_, "ex") +
-    `<div class="winrow" style="margin-top:6px"><div class="wrl">PDUFA</div><div class="wrd">${fmt(pDate)}</div><span class="wp nd">${daysTo}d away</span></div>`;
+  const slots = selected.map(r => `<div class="panel">
+      <div class="phd"><div class="ptitle">${esc(r.tkr)}</div><div class="pnote">${esc(displayPdufa(r))}</div></div>
+      <div class="chart-ct" id="tv_${esc(r.tkr.toLowerCase())}"></div>
+    </div>`);
+  document.getElementById('chartsTop').innerHTML = slots.slice(0,2).join('');
+  document.getElementById('chartsBottom').innerHTML = slots.slice(2,4).join('');
+  if(typeof TradingView === 'undefined'){ setTimeout(buildChartPanels, 700); return; }
+  setTimeout(() => {
+    selected.forEach(r => {
+      const id = `tv_${r.tkr.toLowerCase()}`;
+      if(document.getElementById(id) && !document.getElementById(id).dataset.bound){
+        document.getElementById(id).dataset.bound = '1';
+        new TradingView.widget({
+          container_id:id, symbol:`NASDAQ:${r.tkr}`, interval:'D', timezone:'Etc/UTC',
+          theme:'dark', style:'1', locale:'en', height:260, width:'100%',
+          toolbar_bg:'#080c18', withdateranges:true, allow_symbol_change:true
+        });
+      }
+    });
+  }, 100);
 }
-
-function tAgo(d) {
+function tAgo(d){
   const s = Math.max(0, Math.floor((Date.now()-d)/1000));
-  if(s<60) return "just now"; if(s<3600) return `${Math.floor(s/60)}m ago`;
-  if(s<86400) return `${Math.floor(s/3600)}h ago`; return `${Math.floor(s/86400)}d ago`;
+  if(s < 60) return 'just now'; if(s < 3600) return `${Math.floor(s/60)}m ago`;
+  if(s < 86400) return `${Math.floor(s/3600)}h ago`; return `${Math.floor(s/86400)}d ago`;
 }
-const NEWS_Q = {
-  rckt:"Rocket Pharmaceuticals RCKT KRESLADI FDA LAD-I 2026",
-  dnli:"Denali Therapeutics DNLI tividenofusp Hunter syndrome FDA 2026",
-  vera:"Vera Therapeutics VERA atacicept IgA nephropathy FDA 2026"
-};
-async function fetchNews(key) {
-  const stEl=document.getElementById(`${key}-st`), bdEl=document.getElementById(`${key}-news`);
-  if(!stEl||!bdEl) return;
-  stEl.textContent="Fetching…"; bdEl.innerHTML="";
-  try {
-    const rss=`https://news.google.com/rss/search?q=${encodeURIComponent(NEWS_Q[key])}&hl=en-US&gl=US&ceid=US:en`;
-    const res=await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`,{cache:"no-store"});
-    if(!res.ok) throw new Error("HTTP "+res.status);
-    const xml=await res.text();
-    const doc=new DOMParser().parseFromString(xml,"text/xml");
-    const items=Array.from(doc.querySelectorAll("item")).slice(0,4).map(i=>({
-      title:(i.querySelector("title")?.textContent||"").trim(),
-      link: (i.querySelector("link")?.textContent||"#").trim(),
-      pub:  new Date(i.querySelector("pubDate")?.textContent||"")
+async function fetchNewsItem(row){
+  const key = row.tkr.toLowerCase();
+  const stEl = document.getElementById(`${key}-st`);
+  const bdEl = document.getElementById(`${key}-news`);
+  if(!stEl || !bdEl) return;
+  stEl.textContent = 'Fetching…'; bdEl.innerHTML = '';
+  const query = `${row.co} ${row.tkr} ${row.drug} FDA ${row.ind} 2026`;
+  try{
+    const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`, {cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const xml = await res.text();
+    const doc = new DOMParser().parseFromString(xml, 'text/xml');
+    const items = Array.from(doc.querySelectorAll('item')).slice(0,4).map(i => ({
+      title:(i.querySelector('title')?.textContent || '').trim(),
+      link:(i.querySelector('link')?.textContent || '#').trim(),
+      pub:new Date(i.querySelector('pubDate')?.textContent || '')
     }));
-    if(!items.length) throw new Error("empty");
-    stEl.textContent=`${tAgo(items[0].pub.getTime())} — latest`;
-    bdEl.innerHTML=items.map(it=>`<div class="ni"><div class="ndot"></div><div class="ntxt"><a href="${it.link}" target="_blank" rel="noopener">${it.title}</a><div class="nmeta">${isNaN(it.pub)?"":`${tAgo(it.pub.getTime())}`}</div></div></div>`).join('');
-  } catch {
-    stEl.textContent="Unavailable";
-    bdEl.innerHTML=`<div class="nempty">Feed unavailable — requires internet connection.</div>`;
+    if(!items.length) throw new Error('empty');
+    stEl.textContent = `${tAgo(items[0].pub.getTime())} — latest`;
+    bdEl.innerHTML = items.map(it => `<div class="ni"><div class="ndot"></div><div class="ntxt"><a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.title)}</a><div class="nmeta">${isNaN(it.pub) ? '' : tAgo(it.pub.getTime())}</div></div></div>`).join('');
+  }catch{
+    stEl.textContent = 'Unavailable';
+    bdEl.innerHTML = `<div class="nempty">Feed unavailable — requires internet connection.</div>`;
   }
 }
-
-function initCharts() {
-  if(typeof TradingView==="undefined") { setTimeout(initCharts,600); return; }
-  [{id:"tv_rckt",sym:"NASDAQ:RCKT"},{id:"tv_dnli",sym:"NASDAQ:DNLI"},
-   {id:"tv_vera",sym:"NASDAQ:VERA"},{id:"tv_nuvl",sym:"NASDAQ:NUVL"}]
-  .forEach(({id,sym})=>{
-    new TradingView.widget({container_id:id,symbol:sym,interval:"D",timezone:"Etc/UTC",
-      theme:"dark",style:"1",locale:"en",height:260,width:"100%",
-      toolbar_bg:"#080c18",withdateranges:true,allow_symbol_change:true});
+function buildNewsGrid(){
+  const grid = document.getElementById('newsGrid');
+  grid.innerHTML = STATE.HEROES.map(r => `<div class="panel">
+    <div class="phd"><div style="display:flex;align-items:center;gap:10px"><div class="ptitle">${esc(r.tkr)}</div><div class="nst" id="${esc(r.tkr.toLowerCase())}-st">Loading…</div></div><button class="rbtn" onclick="manualRefresh('${esc(r.tkr.toLowerCase())}')">Refresh</button></div>
+    <div class="nbody" id="${esc(r.tkr.toLowerCase())}-news"></div>
+  </div>`).join('');
+  STATE.HEROES.forEach(fetchNewsItem);
+}
+window.manualRefresh = function(key){
+  const row = STATE.HEROES.find(r => r.tkr.toLowerCase() === key);
+  if(row) fetchNewsItem(row);
+};
+function drawAnalogChart(){
+  const canvas = document.getElementById('analogChart'); if(!canvas) return;
+  const data = STATE.ANALOGS || []; if(!data.length) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth || 500;
+  const H = Math.round(W * 0.55);
+  canvas.width  = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr); ctx.clearRect(0,0,W,H);
+  const PAD={t:36,r:20,b:44,l:52}, cW=W-PAD.l-PAD.r, cH=H-PAD.t-PAD.b;
+  const maxVal = Math.max(...data.map(a => a.return_pct));
+  const maxAxis = Math.ceil(maxVal / 20) * 20 + 20;
+  for(let i=0;i<=5;i++){
+    const gVal = Math.round((maxAxis / 5) * i);
+    const y = PAD.t + cH - (gVal / maxAxis) * cH;
+    ctx.beginPath(); ctx.strokeStyle='rgba(255,255,255,.05)'; ctx.lineWidth=1; ctx.setLineDash([4,4]); ctx.moveTo(PAD.l,y); ctx.lineTo(PAD.l+cW,y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle='rgba(148,163,184,.45)'; ctx.font="9px 'JetBrains Mono', monospace"; ctx.textAlign='right'; ctx.fillText(gVal + '%', PAD.l - 6, y + 3);
+  }
+  ctx.beginPath(); ctx.strokeStyle='rgba(255,255,255,.1)'; ctx.moveTo(PAD.l,PAD.t+cH); ctx.lineTo(PAD.l+cW,PAD.t+cH); ctx.stroke();
+  const groupW = cW / data.length, barW = Math.min(36, groupW * 0.55);
+  data.forEach((a,i) => {
+    const cx = PAD.l + groupW * i + groupW / 2;
+    const h = Math.max(2, (a.return_pct / maxAxis) * cH);
+    const x = cx - barW / 2, y = PAD.t + cH - h;
+    const grad = ctx.createLinearGradient(x, y, x, PAD.t + cH);
+    grad.addColorStop(0, a.color); grad.addColorStop(1, a.color + '22');
+    ctx.fillStyle = grad; ctx.shadowColor = a.color; ctx.shadowBlur = 12;
+    ctx.beginPath(); ctx.roundRect(x, y, barW, h, [4,4,0,0]); ctx.fill(); ctx.shadowBlur = 0;
+    ctx.fillStyle = a.color; ctx.font = "bold 11px 'JetBrains Mono', monospace"; ctx.textAlign='center'; ctx.fillText('+' + a.return_pct.toFixed(2) + '%', cx, y - 8);
+    ctx.fillStyle='rgba(226,232,240,.9)'; ctx.fillText(a.name, cx, PAD.t + cH + 16);
+    const oc = a.outcome === 'Approved' ? '#4ade80' : '#fcd34d';
+    ctx.beginPath(); ctx.arc(cx, PAD.t + cH + 28, 3, 0, Math.PI * 2); ctx.fillStyle = oc; ctx.fill();
+  });
+  const leg = document.getElementById('analogLegend');
+  leg.innerHTML = data.map(a => {
+    const oc = a.outcome === 'Approved' ? '#4ade80' : '#fcd34d';
+    return `<div class="al-item">
+      <div class="al-dot" style="background:${a.color};box-shadow:0 0 6px ${a.color}55"></div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+          <div class="al-name" style="color:${a.color}">${esc(a.name)}</div>
+          <span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${oc}44;background:${oc}18;color:${oc};font-family:var(--mono);flex-shrink:0">${esc(a.outcome)}</span>
+        </div>
+        <div class="al-det">${esc(a.label)} · ${esc(a.disease)}</div>
+        <div class="al-gains" style="margin-top:6px"><div><div class="al-gain" style="color:${a.color}">+${a.return_pct.toFixed(2)}%</div><div class="al-gain-sub">VWAP Return</div></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function updateHeroCountdowns(){
+  document.querySelectorAll('[data-countdown]').forEach(el => {
+    const tkr = el.getAttribute('data-countdown');
+    const row = STATE.HEROES.find(r => r.tkr === tkr);
+    if(row) el.innerHTML = countdownBlocks(row);
   });
 }
-
-const CS = { rckt:false, dnli:false, vera:false, s5:false, s4:false, orph:false, gene:false };
-function scCls(s) { return s>=5?"s5":s>=4?"s4":s>=3?"s3":"s2"; }
-function tkrClr(t) {
-  return {RCKT:"var(--rckt2)",DNLI:"var(--dnli2)",VERA:"var(--vera2)",RARE:"var(--rare2)",NUVL:"var(--nuvl2)"}[t.toUpperCase()]||"var(--soft)";
-}
-function sortRows(arr, val) {
-  const [key,dir]=val.split(":"), d=dir==="desc"?-1:1;
-  return [...arr].sort((a,b)=>{
-    let va = key==="score"?a.score:(a[key]||"");
-    let vb = key==="score"?b.score:(b[key]||"");
-    if(key==="pdufa"){va=new Date(va+"T00:00:00");vb=new Date(vb+"T00:00:00");}
-    if(typeof va==="string"){va=va.toLowerCase();vb=vb.toLowerCase();}
-    return va<vb?-d:va>vb?d:0;
+function buildChips(){
+  const labels = STATE.HEROES.map(h => h.tkr);
+  document.querySelectorAll('#chipRow .chip').forEach(ch => {
+    const c = ch.dataset.c;
+    if(c === 'hero0') ch.textContent = labels[0] ? `${labels[0]} Focus` : 'Hero 1';
+    if(c === 'hero1') ch.textContent = labels[1] ? `${labels[1]} Focus` : 'Hero 2';
+    if(c === 'hero2') ch.textContent = labels[2] ? `${labels[2]} Focus` : 'Hero 3';
   });
 }
-function renderTable() {
-  const tbody=document.getElementById("wl-tbody"), empty=document.getElementById("wl-empty");
-  const search=(document.getElementById("searchBox").value||"").toLowerCase();
-  const minSc=+document.getElementById("scoreFilter").value;
-  const sortV=document.getElementById("sortSelect").value;
-  let rows=ROWS.filter(r=>{
-    if(!isFOT(r.pdufa)) return false;
-    const blob=[r.co,r.tkr,r.ind,r.drug,r.notes,r.therapy].join(" ").toLowerCase();
+function renderTable(){
+  const tbody = document.getElementById('wl-tbody'), empty = document.getElementById('wl-empty');
+  const search = (document.getElementById('searchBox').value || '').toLowerCase();
+  const minSc = +document.getElementById('scoreFilter').value;
+  const sortV = document.getElementById('sortSelect').value;
+  let rows = STATE.FUTURE_ROWS.filter(r => {
+    const blob = [r.tkr,r.co,r.drug,r.ind,r.notes,r.therapy].join(' ').toLowerCase();
     if(search && !blob.includes(search)) return false;
-    if(r.score<minSc) return false;
-    if(CS.s5 && r.score!==5) return false;
-    if(CS.s4 && r.score<4) return false;
-    if(CS.orph && !r.orph) return false;
-    if(CS.gene && !r.therapy.toLowerCase().includes("gene")) return false;
-    if(CS.rckt && r.tkr!=="RCKT") return false;
-    if(CS.dnli && r.tkr!=="DNLI") return false;
-    if(CS.vera && r.tkr!=="VERA") return false;
+    if((r.score || 0) < minSc) return false;
+    if(STATE.CHIPS.s5 && r.score !== 5) return false;
+    if(STATE.CHIPS.s4 && (r.score || 0) < 4) return false;
+    if(STATE.CHIPS.orph && !r.orph) return false;
+    if(STATE.CHIPS.gene){
+      const th = String(r.therapy || '').toLowerCase();
+      if(!(th.includes('gene') || th.includes('cell'))) return false;
+    }
+    ['hero0','hero1','hero2'].forEach((k,i) => {
+      if(STATE.CHIPS[k] && STATE.HEROES[i] && r.tkr !== STATE.HEROES[i].tkr) rows = rows.filter(x => false);
+    });
     return true;
   });
-  rows=sortRows(rows,sortV);
-  tbody.innerHTML="";
-  empty.style.display=rows.length?"none":"block";
-  for(const r of rows){
-    const en=winDates(r.pdufa,r.entry), ex=winDates(r.pdufa,r.exit);
-    const eStr=en?`${fmtS(en.start)} &rarr; ${fmtS(en.end)}`:"—";
-    const xStr=ex?`${fmtS(ex.start)} &rarr; ${fmtS(ex.end)}`:"—";
-    const th=r.therapy.toLowerCase();
-    const tag=th.includes("gene")?`<span class="mb gene">Gene</span>`:
-              th.includes("ert")||th.includes("enzyme")?`<span class="mb ert">ERT</span>`:
-              th.includes("kinase")||th.includes("tki")||th.includes("inhibitor")?`<span class="mb onco">Kinase</span>`:
-              `<span class="mb">${r.therapy.split(" ").slice(0,2).join(" ")}</span>`;
-    const tr=document.createElement("tr");
-    tr.title="Click to open on TradingView";
-    tr.addEventListener("click",()=>{ if(r.tkr&&!r.tkr.includes(".")) window.open(`https://www.tradingview.com/symbols/NASDAQ:${r.tkr}/`,"_blank"); });
-    tr.innerHTML=`
-      <td><div class="tdtk" style="color:${tkrClr(r.tkr)}">${r.tkr}</div></td>
-      <td><div class="tdco">${r.co}</div><div class="tddrug">${r.drug}${r.brand&&r.brand!=="—"?` &middot; ${r.brand}`:""}</div></td>
-      <td class="tdind hide-m">${r.ind}</td>
-      <td class="tddate">${fmt(new Date(r.pdufa+"T00:00:00"))}</td>
-      <td class="tdsc"><span class="scb ${scCls(r.score)}">${r.score}</span></td>
+  rows = sortRows(rows, sortV);
+  tbody.innerHTML = '';
+  empty.style.display = rows.length ? 'none' : 'block';
+  rows.forEach(r => {
+    const en = winDates(r.pdufa, r.date_type, r.entry), ex = winDates(r.pdufa, r.date_type, r.exit);
+    const eStr = en ? `${fmtDateShort(en.start)} → ${fmtDateShort(en.end)}` : '—';
+    const xStr = ex ? `${fmtDateShort(ex.start)} → ${fmtDateShort(ex.end)}` : '—';
+    const tagCls = therapyTagClass(r.therapy);
+    const therapyTag = tagCls ? `<span class="mb ${tagCls}">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>` : `<span class="mb">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>`;
+    const tr = document.createElement('tr');
+    tr.title = 'Click to open TradingView or source';
+    tr.addEventListener('click', () => {
+      const tkr = String(r.tkr || '');
+      if(/^[A-Z]{1,5}$/.test(tkr)) window.open(`https://www.tradingview.com/symbols/NASDAQ:${tkr}/`, '_blank');
+      else if(r.source) window.open(r.source, '_blank');
+    });
+    tr.innerHTML = `
+      <td><div class="tdtk">${esc(r.tkr)}</div></td>
+      <td><div class="tdco">${esc(cleanText(r.co))}</div><div class="tddrug">${esc(cleanText(r.drug))}</div></td>
+      <td class="tdind hide-m">${esc(cleanText(r.ind))}</td>
+      <td class="tddate">${esc(displayPdufa(r))}</td>
+      <td class="tdsc"><span class="scb ${scoreClass(r.score)}">${esc(r.score)}</span></td>
+      <td class="tdclass hide-m">${esc(cleanText(r.mantis_class))}</td>
       <td class="tdwin hide-m">${eStr}</td>
       <td class="tdwin hide-m">${xStr}</td>
-      <td class="hide-m">${r.orph?`<span class="mb orph">Orphan</span> `:""}${tag}</td>`;
+      <td class="hide-m">${r.orph ? `<span class="mb orph">Orphan</span> ` : ''}${therapyTag}</td>`;
     tbody.appendChild(tr);
-  }
+  });
 }
-
-function setupChips() {
-  document.querySelectorAll(".chip").forEach(ch=>{
-    ch.addEventListener("click",()=>{
-      const c=ch.dataset.c;
-      if(c==="rst"){
-        Object.keys(CS).forEach(k=>CS[k]=false);
-        document.querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));
+function setupChips(){
+  document.querySelectorAll('.chip').forEach(ch => {
+    ch.addEventListener('click', () => {
+      const c = ch.dataset.c;
+      if(c === 'rst'){
+        Object.keys(STATE.CHIPS).forEach(k => STATE.CHIPS[k] = false);
+        document.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
         renderTable(); return;
       }
-      const tickers=["rckt","dnli","vera"];
-      if(tickers.includes(c)){
-        const was=CS[c];
-        tickers.forEach(t=>{ CS[t]=false; document.querySelector(`.chip[data-c="${t}"]`)?.classList.remove("on"); });
-        CS[c]=!was;
-        ch.classList.toggle("on",CS[c]);
-      } else if(c==="s5"){
-        CS.s5=!CS.s5; CS.s4=false;
-        document.querySelector('.chip[data-c="s4"]')?.classList.remove("on");
-        ch.classList.toggle("on",CS.s5);
-      } else if(c==="s4"){
-        CS.s4=!CS.s4; CS.s5=false;
-        document.querySelector('.chip[data-c="s5"]')?.classList.remove("on");
-        ch.classList.toggle("on",CS.s4);
-      } else if(c==="orph"){
-        CS.orph=!CS.orph; ch.classList.toggle("on",CS.orph);
-      } else if(c==="gene"){
-        CS.gene=!CS.gene; ch.classList.toggle("on",CS.gene);
+      if(['hero0','hero1','hero2'].includes(c)){
+        const was = STATE.CHIPS[c];
+        ['hero0','hero1','hero2'].forEach(k => { STATE.CHIPS[k] = false; document.querySelector(`.chip[data-c="${k}"]`)?.classList.remove('on'); });
+        STATE.CHIPS[c] = !was; ch.classList.toggle('on', STATE.CHIPS[c]);
+      } else if(c === 's5'){
+        STATE.CHIPS.s5 = !STATE.CHIPS.s5; if(STATE.CHIPS.s5){ STATE.CHIPS.s4 = false; document.querySelector('.chip[data-c="s4"]')?.classList.remove('on'); } ch.classList.toggle('on', STATE.CHIPS.s5);
+      } else if(c === 's4'){
+        STATE.CHIPS.s4 = !STATE.CHIPS.s4; if(STATE.CHIPS.s4){ STATE.CHIPS.s5 = false; document.querySelector('.chip[data-c="s5"]')?.classList.remove('on'); } ch.classList.toggle('on', STATE.CHIPS.s4);
+      } else if(c === 'orph'){
+        STATE.CHIPS.orph = !STATE.CHIPS.orph; ch.classList.toggle('on', STATE.CHIPS.orph);
+      } else if(c === 'gene'){
+        STATE.CHIPS.gene = !STATE.CHIPS.gene; ch.classList.toggle('on', STATE.CHIPS.gene);
       }
       renderTable();
     });
   });
 }
-
-function init() {
-  document.getElementById("todayLabel").textContent =
-    new Date().toLocaleDateString(undefined,{weekday:"short",month:"short",day:"2-digit",year:"numeric"});
-  buildCountdown("2026-03-28","rckt-cd");
-  buildCountdown("2026-04-05","dnli-cd");
-  buildCountdown("2026-07-07","vera-cd");
-  setProgress("2025-10-14","2026-03-28","rckt-fill","rckt-mark");
-  setProgress("2025-07-07","2026-04-05","dnli-fill","dnli-mark");
-  setProgress("2026-01-07","2026-07-07","vera-fill","vera-mark");
-  const byTkr=t=>ROWS.find(r=>r.tkr===t)||{};
-  const rr=byTkr("RCKT"), dr=byTkr("DNLI"), vr=byTkr("VERA");
-  renderWindows(rr.pdufa,rr.entry,rr.exit,"rckt-win");
-  renderWindows(dr.pdufa,dr.entry,dr.exit,"dnli-win");
-  renderWindows(vr.pdufa,vr.entry,vr.exit,"vera-win");
-  document.fonts.ready.then(()=>{ drawAnalogChart(); });
-  window.addEventListener("resize", drawAnalogChart);
-  ["rckt","dnli","vera"].forEach(fetchNews);
-  setInterval(()=>["rckt","dnli","vera"].forEach(fetchNews),15*60*1000);
-  setTimeout(initCharts,700);
+async function loadData(){
+  const res = await fetch('./data.json', {cache:'no-store'});
+  if(!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
+  const data = await res.json();
+  STATE.DATA = data;
+  STATE.ANALOGS = data.analogs || [];
+  STATE.FUTURE_ROWS = (data.rows || []).filter(isFutureRow);
+  STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
+  document.getElementById('generatedLabel').textContent = `Generated ${data.generated_at || '—'}`;
+}
+async function init(){
+  document.getElementById('todayLabel').textContent = new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});
+  try{
+    await loadData();
+  }catch(err){
+    document.querySelector('.wrap').innerHTML = `<div class="load-err"><strong>Unable to load data.json.</strong><br>${esc(err.message)}<br><br>On GitHub Pages this file should sit next to index.html.</div>`;
+    return;
+  }
+  renderMetrics(STATE.DATA);
+  renderPublished();
+  renderHeroes();
+  renderWindows();
+  buildChips();
   setupChips();
   renderTable();
-  document.getElementById("searchBox").addEventListener("input",renderTable);
-  document.getElementById("scoreFilter").addEventListener("change",renderTable);
-  document.getElementById("sortSelect").addEventListener("change",renderTable);
+  buildChartPanels();
+  buildNewsGrid();
+  drawAnalogChart();
+  const lines = buildAgentLines(STATE.DATA);
+  renderAgentTerminal(lines);
+  window.addEventListener('resize', drawAnalogChart);
+  setInterval(updateHeroCountdowns, 1000);
+  setInterval(() => STATE.HEROES.forEach(fetchNewsItem), 15 * 60 * 1000);
+  document.getElementById('searchBox').addEventListener('input', renderTable);
+  document.getElementById('scoreFilter').addEventListener('change', renderTable);
+  document.getElementById('sortSelect').addEventListener('change', renderTable);
 }
-window.addEventListener("load",init);
+window.addEventListener('load', init);
 </script>
 </body>
 </html>
