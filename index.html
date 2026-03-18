@@ -457,8 +457,8 @@ function buildAgentLines(data){
   const exact = rows.filter(r => !String(r.date_type).toLowerCase().includes('quarter'));
   const heroes = STATE.HEROES;
   return [
-    {ts:'00:01', agent:'AGENT-01', agentClass:'a1', kind:'ok', msg:`Loaded ${rows.length} total rows from data.json.`},
-    {ts:'00:02', agent:'AGENT-02', agentClass:'a2', kind:'ok', msg:`Validated ${future.length} future-dated 2026 setups; ${rows.length - future.length} archived/past.`},
+    {ts:'00:01', agent:'AGENT-01', agentClass:'a1', kind:'ok', msg:`Loaded ${rows.length} pdufa websources`},
+    {ts:'00:02', agent:'AGENT-02', agentClass:'a2', kind:'ok', msg:`I will do the job ${future.length} future-dated 2026 setups; ${rows.length - future.length} archived/past.`},
     {ts:'00:03', agent:'AGENT-03', agentClass:'a3', kind:'ok', msg:`Found ${exact.length} rows with exact dates and ${rows.length - exact.length} quarter-only windows.`},
     {ts:'00:04', agent:'AGENT-04', agentClass:'a4', kind:'good', msg:`Published top candidates: ${heroes.map(h => h.tkr).join(', ')}.`},
     {ts:'00:05', agent:'AGENT-02', agentClass:'a2', kind:'warn', msg:`Quarter-only records remain lower-confidence until exact FDA action dates are disclosed.`},
