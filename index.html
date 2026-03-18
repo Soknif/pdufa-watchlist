@@ -225,6 +225,35 @@
     @media(max-width:700px){.hide-m{display:none!important}td,th{padding:9px 7px}}
     .foot{margin-top:32px;padding:16px 0;border-top:1px solid var(--bd);text-align:right;font-size:10px;color:var(--muted);font-family:var(--mono)}
     .load-err{padding:24px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);border-radius:16px;color:#fecaca}
+    /* ===== RCKT PROFIT BANNER ===== */
+    .profit-banner{position:relative;overflow:hidden;padding:16px 18px;background:linear-gradient(135deg,rgba(34,197,94,.12) 0%,rgba(124,58,237,.10) 50%,rgba(34,197,94,.12) 100%);border-bottom:1px solid rgba(34,197,94,.25)}
+    .profit-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(34,197,94,.08) 40%,rgba(255,255,255,.06) 50%,rgba(34,197,94,.08) 60%,transparent 100%);background-size:200% 100%;animation:profitShimmer 3s ease-in-out infinite}
+    @keyframes profitShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .profit-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+    .profit-left{display:flex;align-items:center;gap:12px}
+    .profit-icon{width:40px;height:40px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid rgba(34,197,94,.4);display:flex;align-items:center;justify-content:center;font-size:18px;animation:profitPulse 2s ease-in-out infinite;flex-shrink:0}
+    @keyframes profitPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 10px rgba(34,197,94,0)}}
+    .profit-label{font-size:9px;color:rgba(34,197,94,.7);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+    .profit-status{font-size:12px;font-family:var(--mono);font-weight:600;color:#e2e8f0}
+    .profit-right{text-align:right}
+    .profit-pct{font-family:var(--mono);font-size:32px;font-weight:700;line-height:1;background:linear-gradient(135deg,#4ade80,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:profitGlow 2.5s ease-in-out infinite alternate}
+    @keyframes profitGlow{0%{filter:brightness(1) drop-shadow(0 0 4px rgba(74,222,128,.3))}100%{filter:brightness(1.15) drop-shadow(0 0 12px rgba(74,222,128,.5))}}
+    .profit-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:3px}
+    .profit-tag{display:inline-block;font-size:9px;padding:3px 10px;border-radius:999px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#4ade80;animation:profitTagPulse 2s ease-in-out infinite;margin-top:6px}
+    @keyframes profitTagPulse{0%,100%{opacity:1}50%{opacity:.7}}
+    /* confetti dots */
+    .profit-banner .confetti{position:absolute;width:4px;height:4px;border-radius:50%;opacity:0;animation:confettiFall 4s linear infinite}
+    @keyframes confettiFall{0%{opacity:0;transform:translateY(-10px) rotate(0deg)}10%{opacity:.8}90%{opacity:.6}100%{opacity:0;transform:translateY(60px) rotate(360deg)}}
+    .confetti:nth-child(1){left:8%;top:0;background:#4ade80;animation-delay:0s;animation-duration:3.2s}
+    .confetti:nth-child(2){left:22%;top:0;background:#a78bfa;animation-delay:.7s;animation-duration:3.8s}
+    .confetti:nth-child(3){left:45%;top:0;background:#fcd34d;animation-delay:1.4s;animation-duration:3s}
+    .confetti:nth-child(4){left:62%;top:0;background:#5eead4;animation-delay:.3s;animation-duration:4.2s}
+    .confetti:nth-child(5){left:78%;top:0;background:#f9a8d4;animation-delay:1.8s;animation-duration:3.5s}
+    .confetti:nth-child(6){left:91%;top:0;background:#60a5fa;animation-delay:2.2s;animation-duration:3.1s}
+    /* completed pill for windows card */
+    .wp.closed{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700}
+    .wp.profit-pill{background:linear-gradient(90deg,rgba(34,197,94,.18),rgba(124,58,237,.15));border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700;font-size:11px;padding:3px 10px}
+
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
@@ -477,6 +506,7 @@ function buildAgentLines(data){
     {ts:'00:04', agent:'AGENT-04', agentClass:'a4', kind:'good', msg:`Published top candidates: ${heroes.map(h => h.tkr).join(', ')}.`},
     {ts:'00:05', agent:'AGENT-02', agentClass:'a2', kind:'warn', msg:`Quarter-only records remain lower-confidence until exact FDA action dates are disclosed.`},
     {ts:'00:06', agent:'AGENT-03', agentClass:'a3', kind:'good', msg:`MANTIS ranking engine finished. Watchlist ready for interaction.`},
+    {ts:'00:07', agent:'AGENT-01', agentClass:'a1', kind:'good', msg:`RCKT exit window closed today (Mar 18). VWAP return: +47.51%. Position locked in.`},
   ];
 }
 function renderMetrics(data){
@@ -496,6 +526,7 @@ function buildPublishedItem(r){
       <div class="pub-meta">${esc(cleanText(r.co))} · ${esc(displayPdufa(r))} · ${esc(cleanText(r.ind))}</div>
     </div>
     <div class="pub-badges">
+      ${r.tkr === 'RCKT' ? '<span class="mb" style="border-color:rgba(34,197,94,.5);color:#4ade80;background:rgba(34,197,94,.12)">+47.51% VWAP</span>' : ''}
       <span class="mb ${scoreClass(r.score)}">Score ${esc(r.score)}</span>
       ${orph}${tagHtml}
     </div>
@@ -535,6 +566,23 @@ function heroCard(row){
         <span class="bd ${scoreClass(row.score)}">Score ${esc(row.score)}</span>
       </div>
     </div>
+    ${row.tkr === 'RCKT' ? `<div class="profit-banner">
+      <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+      <div class="profit-inner">
+        <div class="profit-left">
+          <div class="profit-icon">&#x2714;</div>
+          <div>
+            <div class="profit-label">Exit Window Closed · Trade Complete</div>
+            <div class="profit-status">VWAP position realized — final day Mar 18, 2026</div>
+          </div>
+        </div>
+        <div class="profit-right">
+          <div class="profit-pct">+47.51%</div>
+          <div class="profit-sub">VWAP Return</div>
+          <div class="profit-tag">&#9733; Locked In</div>
+        </div>
+      </div>
+    </div>` : ''}
     <div class="hkpis">
       <div class="kpi"><div class="k">Drug</div><div class="v">${esc(cleanText(row.drug))}</div><div class="s">${esc(cleanText(row.therapy))}</div></div>
       <div class="kpi"><div class="k">Disease</div><div class="v">${esc(cleanText(row.ind))}</div><div class="s">${esc(cleanText(row.mantis_class))}</div></div>
@@ -566,8 +614,16 @@ function renderWindows(){
     const ex = winDates(r.pdufa, r.date_type, r.exit);
     const p = parsePdufa(r.pdufa, r.date_type);
     const daysTo = p ? Math.max(0, Math.round((startOfDay(p) - TODAY) / 864e5)) : '—';
+    const isRCKT = r.tkr === 'RCKT';
     const rowHtml = (label, range, kind) => {
       if(!range) return '';
+      if(isRCKT && label === 'Exit'){
+        return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div><span class="wp closed">COMPLETED</span></div>
+        <div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&L</div><div class="wrd" style="color:#4ade80;font-weight:700">+47.51%</div><span class="wp profit-pill">&#9733; Locked</span></div>`;
+      }
+      if(isRCKT && label === 'Entry'){
+        return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div><span class="wp closed">COMPLETED</span></div>`;
+      }
       const isAct = TODAY >= startOfDay(range.start) && TODAY <= startOfDay(range.end);
       const isCom = TODAY < startOfDay(range.start) && range.start <= new Date(TODAY.getTime()+45*864e5);
       const pill = isAct ? `<span class="wp ${kind} act">ACTIVE</span>` : (isCom ? `<span class="wp ${kind}">UPCOMING</span>` : '');
