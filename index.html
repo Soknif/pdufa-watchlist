@@ -46,42 +46,10 @@
     .leg-lbl{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
     .leg-i{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--soft);font-family:var(--mono)}
     .leg-d{width:8px;height:8px;border-radius:50%}
-
     .sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 0 12px;border-bottom:1px solid var(--bd);gap:10px;flex-wrap:wrap;margin-bottom:14px}
     .sec-title{font-family:var(--disp);font-size:22px;letter-spacing:.06em}
     .sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
     .stag{font-size:9px;padding:3px 9px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
-
-    .agent-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:18px}
-    @media(max-width:980px){.agent-wrap{grid-template-columns:1fr}}
-    .panel{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden;min-width:0}
-    .phd{padding:11px 16px 9px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-    .ptitle{font-family:var(--mono);font-size:13px;font-weight:700}
-    .pnote{font-size:10px;color:var(--muted);font-family:var(--mono)}
-    .term{padding:14px 16px 16px;min-height:228px;background:linear-gradient(180deg,rgba(8,12,24,.95),rgba(5,8,16,.9))}
-    .term-line{display:flex;gap:10px;font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--soft);padding:4px 0;border-bottom:1px dashed rgba(255,255,255,.04)}
-    .term-line:last-child{border-bottom:none}
-    .term-ts{color:var(--muted);min-width:54px}
-    .term-agent{min-width:74px;font-weight:700}
-    .term-agent.a1{color:#7dd3fc}.term-agent.a2{color:#5eead4}.term-agent.a3{color:#fcd34d}.term-agent.a4{color:#f9a8d4}
-    .term-msg.ok{color:#cbd5e1}.term-msg.good{color:#86efac}.term-msg.warn{color:#fcd34d}
-    .agent-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--bd)}
-    .metric{background:var(--bg1);padding:14px}
-    .metric .k{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
-    .metric .v{font-size:22px;font-family:var(--mono);font-weight:700;line-height:1}
-    .metric .s{font-size:10px;color:var(--muted);margin-top:6px}
-    .published{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px}
-    .pub-item{padding:11px 12px;border-radius:12px;background:var(--sf2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .pub-left{min-width:0}
-    .pub-tkr{font-family:var(--mono);font-size:15px;font-weight:700}
-    .pub-meta{font-size:11px;color:var(--soft);margin-top:2px;line-height:1.35}
-    .pub-badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-    .mb{display:inline-block;font-size:9px;padding:2px 6px;border-radius:999px;font-family:var(--mono);letter-spacing:.07em;border:1px solid var(--bd);background:var(--sf2);color:var(--muted);white-space:nowrap}
-    .mb.orph{border-color:rgba(125,211,252,.3);color:#7dd3fc;background:rgba(125,211,252,.08)}
-    .mb.gene{border-color:rgba(167,139,250,.35);color:var(--rckt2);background:rgba(124,58,237,.08)}
-    .mb.ert{border-color:rgba(94,234,212,.35);color:var(--dnli2);background:rgba(13,148,136,.08)}
-    .mb.onco{border-color:rgba(249,168,212,.35);color:var(--vera2);background:rgba(219,39,119,.08)}
-    .mb.kidney{border-color:rgba(52,211,153,.35);color:#6ee7b7;background:rgba(16,185,129,.08)}
     .heroes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
     @media(max-width:1100px){.heroes{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.heroes{grid-template-columns:1fr}}
@@ -127,8 +95,6 @@
     .tpts{display:flex;flex-direction:column;gap:6px}
     .tpt{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:var(--text);line-height:1.45}
     .td2{width:6px;height:6px;border-radius:50%;flex:0 0 auto;margin-top:4px;background:#cbd5e1;box-shadow:0 0 5px rgba(255,255,255,.25)}
-
-    /* ===== FIXED: Live Charts — wider breakpoint, taller containers ===== */
     .windows-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
     @media(max-width:1100px){.windows-row{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.windows-row{grid-template-columns:1fr}}
@@ -162,22 +128,18 @@
     .al-gains{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:4px}
     .al-gain{font-size:16px;font-weight:700;font-family:var(--mono);line-height:1}
     .al-gain-sub{font-size:10px;font-family:var(--mono);color:var(--muted)}
-
-    /* ===== FIXED: two-col for charts — stack at 900px instead of 720px, taller chart ===== */
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
     @media(max-width:900px){.two-col{grid-template-columns:1fr}}
-
-    /* ===== FIXED: three-col for news — stack to 2-col at 1000px, 1-col at 640px ===== */
     .three-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
     @media(max-width:1000px){.three-col{grid-template-columns:1fr 1fr}}
     @media(max-width:640px){.three-col{grid-template-columns:1fr}}
-
-    /* ===== FIXED: chart container — taller on desktop, responsive on mobile ===== */
     .chart-ct{height:340px;min-height:260px}
     @media(max-width:900px){.chart-ct{height:300px}}
     @media(max-width:480px){.chart-ct{height:260px}}
-
-    /* ===== FIXED: news body — more room, better item spacing ===== */
+    .panel{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden;min-width:0}
+    .phd{padding:11px 16px 9px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+    .ptitle{font-family:var(--mono);font-size:13px;font-weight:700}
+    .pnote{font-size:10px;color:var(--muted);font-family:var(--mono)}
     .nbody{padding:14px 16px;display:flex;flex-direction:column;gap:12px;min-height:160px}
     .ni{display:flex;gap:10px;align-items:flex-start}
     .ndot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#cbd5e1}
@@ -220,12 +182,18 @@
     .s2{background:var(--sf2);color:var(--muted);border:1px solid var(--bd)}
     .tdwin{font-size:10px;font-family:var(--mono);color:var(--soft);line-height:1.55}
     .tdclass{font-size:10px;color:var(--muted);font-family:var(--mono)}
+    .mb{display:inline-block;font-size:9px;padding:2px 6px;border-radius:999px;font-family:var(--mono);letter-spacing:.07em;border:1px solid var(--bd);background:var(--sf2);color:var(--muted);white-space:nowrap}
+    .mb.orph{border-color:rgba(125,211,252,.3);color:#7dd3fc;background:rgba(125,211,252,.08)}
+    .mb.gene{border-color:rgba(167,139,250,.35);color:var(--rckt2);background:rgba(124,58,237,.08)}
+    .mb.ert{border-color:rgba(94,234,212,.35);color:var(--dnli2);background:rgba(13,148,136,.08)}
+    .mb.onco{border-color:rgba(249,168,212,.35);color:var(--vera2);background:rgba(219,39,119,.08)}
+    .mb.kidney{border-color:rgba(52,211,153,.35);color:#6ee7b7;background:rgba(16,185,129,.08)}
     .empty-st{padding:32px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--bd);border-radius:var(--r);margin-top:10px}
     .hide-m{display:table-cell}
     @media(max-width:700px){.hide-m{display:none!important}td,th{padding:9px 7px}}
     .foot{margin-top:32px;padding:16px 0;border-top:1px solid var(--bd);text-align:right;font-size:10px;color:var(--muted);font-family:var(--mono)}
     .load-err{padding:24px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);border-radius:16px;color:#fecaca}
-    /* ===== RCKT PROFIT BANNER ===== */
+    /* ===== PROFIT BANNER — shared RCKT + DNLI ===== */
     .profit-banner{position:relative;overflow:hidden;padding:16px 18px;background:linear-gradient(135deg,rgba(34,197,94,.12) 0%,rgba(124,58,237,.10) 50%,rgba(34,197,94,.12) 100%);border-bottom:1px solid rgba(34,197,94,.25)}
     .profit-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(34,197,94,.08) 40%,rgba(255,255,255,.06) 50%,rgba(34,197,94,.08) 60%,transparent 100%);background-size:200% 100%;animation:profitShimmer 3s ease-in-out infinite}
     @keyframes profitShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -241,7 +209,6 @@
     .profit-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:3px}
     .profit-tag{display:inline-block;font-size:9px;padding:3px 10px;border-radius:999px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#4ade80;animation:profitTagPulse 2s ease-in-out infinite;margin-top:6px}
     @keyframes profitTagPulse{0%,100%{opacity:1}50%{opacity:.7}}
-    /* confetti dots */
     .profit-banner .confetti{position:absolute;width:4px;height:4px;border-radius:50%;opacity:0;animation:confettiFall 4s linear infinite}
     @keyframes confettiFall{0%{opacity:0;transform:translateY(-10px) rotate(0deg)}10%{opacity:.8}90%{opacity:.6}100%{opacity:0;transform:translateY(60px) rotate(360deg)}}
     .confetti:nth-child(1){left:8%;top:0;background:#4ade80;animation-delay:0s;animation-duration:3.2s}
@@ -250,10 +217,8 @@
     .confetti:nth-child(4){left:62%;top:0;background:#5eead4;animation-delay:.3s;animation-duration:4.2s}
     .confetti:nth-child(5){left:78%;top:0;background:#f9a8d4;animation-delay:1.8s;animation-duration:3.5s}
     .confetti:nth-child(6){left:91%;top:0;background:#60a5fa;animation-delay:2.2s;animation-duration:3.1s}
-    /* completed pill for windows card */
     .wp.closed{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700}
     .wp.profit-pill{background:linear-gradient(90deg,rgba(34,197,94,.18),rgba(124,58,237,.15));border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700;font-size:11px;padding:3px 10px}
-
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
@@ -262,7 +227,7 @@
   <div class="topbar">
     <div>
       <div class="brand-mark">MANTIS ALPHA FUND</div>
-      <div class="brand-sub">Development Stage · Agents Searching Mode </div>
+      <div class="brand-sub">Development Stage · Agents Searching Mode</div>
     </div>
     <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
   </div>
@@ -275,27 +240,7 @@
     <div class="leg-i"><div class="leg-d" style="background:#94a3b8"></div>2 = Background / large-cap</div>
   </div>
 
-  <div class="sec-hdr">
-    <div><div class="sec-title">MANTIS AGENT ACTIVITY</div><div class="sec-sub">Fetching data...</div></div>
-    <span class="stag" id="generatedLabel">Awaiting dataset</span>
-  </div>
-  <div class="agent-wrap">
-    <div class="panel">
-      <div class="phd"><div class="ptitle">Agent Terminal</div><div class="pnote">IR · SEC · FDA date validation · MANTIS scoring</div></div>
-      <div class="term" id="agentTerminal"></div>
-    </div>
-    <div class="panel">
-      <div class="phd"><div class="ptitle">Published Snapshot</div><div class="pnote">Future-dated 2026 candidates only</div></div>
-      <div class="agent-metrics">
-        <div class="metric"><div class="k">Rows Loaded</div><div class="v" id="mRows">-</div><div class="s">Total records fetched</div></div>
-        <div class="metric"><div class="k">Active Setups</div><div class="v" id="mActive">-</div><div class="s">Future-dated candidates</div></div>
-        <div class="metric"><div class="k">Prime / Strong</div><div class="v" id="mHigh">-</div><div class="s">Score 4+</div></div>
-        <div class="metric"><div class="k">Quarter-only</div><div class="v" id="mQuarter">-</div><div class="s">Timing less precise</div></div>
-      </div>
-      <div class="published" id="publishedList"></div>
-    </div>
-  </div>
-
+  <!-- TOP CANDIDATES -->
   <div class="sec-hdr">
     <div><div class="sec-title">TOP CANDIDATES</div><div class="sec-sub">Auto-selected from highest-scoring future-dated names</div></div>
     <span class="stag">Dynamic heroes</span>
@@ -304,6 +249,7 @@
 
   <div class="windows-row" id="windowsRow"></div>
 
+  <!-- HISTORICAL ANALOGS -->
   <div class="cluster-section">
     <div class="sec-hdr">
       <div><div class="sec-title">HISTORICAL ANALOGS</div><div class="sec-sub">Pre-PDUFA run-up data from comparable biotech catalysts</div></div>
@@ -327,6 +273,7 @@
     </div>
   </div>
 
+  <!-- LIVE CHARTS -->
   <div class="sec-hdr">
     <div><div class="sec-title">LIVE CHARTS</div><div class="sec-sub">Auto-bound to top 4 U.S.-listed tickers</div></div>
     <span class="stag">Requires internet</span>
@@ -334,11 +281,13 @@
   <div class="two-col" id="chartsTop"></div>
   <div class="two-col" style="margin-bottom:20px" id="chartsBottom"></div>
 
+  <!-- LIVE NEWS -->
   <div class="sec-hdr">
     <div><div class="sec-title">LIVE NEWS</div><div class="sec-sub">Google News RSS via AllOrigins · refreshes every 15 min</div></div>
   </div>
   <div class="three-col" style="margin-bottom:20px" id="newsGrid"></div>
 
+  <!-- FULL WATCHLIST -->
   <div class="sec-hdr">
     <div><div class="sec-title">FULL WATCHLIST 2026</div><div class="sec-sub">Past dates auto-removed · click a row for TradingView or source</div></div>
   </div>
@@ -377,7 +326,7 @@
     <div id="wl-empty" class="empty-st" style="display:none">No matches — try broadening your filters.</div>
   </div>
 
-  <div class="foot"> G.V / S.N 2026</div>
+  <div class="foot">G.V / S.N 2026</div>
 </div>
 
 <script>
@@ -478,70 +427,29 @@ function chooseHeroes(rows){
   });
   return ranked.slice(0,3);
 }
-function renderAgentTerminal(lines){
-  const el = document.getElementById('agentTerminal');
-  el.innerHTML = '';
-  let i = 0;
-  function pushNext(){
-    if(i >= lines.length) return;
-    const line = lines[i++];
-    const row = document.createElement('div');
-    row.className = 'term-line';
-    row.innerHTML = `<div class="term-ts">${esc(line.ts)}</div><div class="term-agent ${esc(line.agentClass)}">${esc(line.agent)}</div><div class="term-msg ${esc(line.kind)}">${esc(line.msg)}</div>`;
-    el.appendChild(row);
-    el.scrollTop = el.scrollHeight;
-    setTimeout(pushNext, i < 4 ? 450 : 650);
-  }
-  pushNext();
-}
-function buildAgentLines(data){
-  const rows = data.rows || [];
-  const future = rows.filter(isFutureRow);
-  const exact = rows.filter(r => !String(r.date_type).toLowerCase().includes('quarter'));
-  const heroes = STATE.HEROES;
-  return [
-    {ts:'00:01', agent:'AGENT-01', agentClass:'a1', kind:'ok', msg:`Loaded ${rows.length} pdufa websources`},
-    {ts:'00:02', agent:'AGENT-02', agentClass:'a2', kind:'ok', msg:`I will do the job ${future.length} future-dated 2026 setups; ${rows.length - future.length} archived/past.`},
-    {ts:'00:03', agent:'AGENT-03', agentClass:'a3', kind:'ok', msg:`Found ${exact.length} rows with exact dates and ${rows.length - exact.length} quarter-only windows.`},
-    {ts:'00:04', agent:'AGENT-04', agentClass:'a4', kind:'good', msg:`Published top candidates: ${heroes.map(h => h.tkr).join(', ')}.`},
-    {ts:'00:05', agent:'AGENT-02', agentClass:'a2', kind:'warn', msg:`Quarter-only records remain lower-confidence until exact FDA action dates are disclosed.`},
-    {ts:'00:06', agent:'AGENT-03', agentClass:'a3', kind:'good', msg:`MANTIS ranking engine finished. Watchlist ready for interaction.`},
-    {ts:'00:07', agent:'AGENT-01', agentClass:'a1', kind:'good', msg:`RCKT exit window closed today (Mar 18). VWAP return: +47.51%. Position locked in.`},
-  ];
-}
-function renderMetrics(data){
-  const rows = data.rows || []; const future = STATE.FUTURE_ROWS;
-  document.getElementById('mRows').textContent = rows.length;
-  document.getElementById('mActive').textContent = future.length;
-  document.getElementById('mHigh').textContent = future.filter(r => (r.score || 0) >= 4).length;
-  document.getElementById('mQuarter').textContent = rows.filter(r => String(r.date_type).toLowerCase().includes('quarter')).length;
-}
-function buildPublishedItem(r){
-  const tagCls = therapyTagClass(r.therapy);
-  const tagHtml = tagCls ? `<span class="mb ${tagCls}">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>` : `<span class="mb">${esc(cleanText(r.therapy))}</span>`;
-  const orph = r.orph ? `<span class="mb orph">Orphan</span>` : '';
-  return `<div class="pub-item">
-    <div class="pub-left">
-      <div class="pub-tkr">${esc(r.tkr)}</div>
-      <div class="pub-meta">${esc(cleanText(r.co))} · ${esc(displayPdufa(r))} · ${esc(cleanText(r.ind))}</div>
-    </div>
-    <div class="pub-badges">
-      ${r.tkr === 'RCKT' ? '<span class="mb" style="border-color:rgba(34,197,94,.5);color:#4ade80;background:rgba(34,197,94,.12)">+47.51% VWAP</span>' : ''}
-      <span class="mb ${scoreClass(r.score)}">Score ${esc(r.score)}</span>
-      ${orph}${tagHtml}
+
+/* ── PROFIT BANNER — reusable for any completed ticker ── */
+function profitBanner(tkr, returnPct, exitDateLabel, entryNote){
+  return `<div class="profit-banner">
+    <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+    <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+    <div class="profit-inner">
+      <div class="profit-left">
+        <div class="profit-icon">&#x2714;</div>
+        <div>
+          <div class="profit-label">Exit Window Closed · Trade Complete</div>
+          <div class="profit-status">VWAP position realized — final day ${esc(exitDateLabel)}</div>
+        </div>
+      </div>
+      <div class="profit-right">
+        <div class="profit-pct">${esc(returnPct)}</div>
+        <div class="profit-sub">VWAP Return</div>
+        <div class="profit-tag">&#9733; Locked In</div>
+      </div>
     </div>
   </div>`;
 }
-function renderPublished(){
-  const el = document.getElementById('publishedList');
-  el.innerHTML = STATE.HEROES.map(buildPublishedItem).join('');
-}
-function countdownBlocks(row){
-  const p = parsePdufa(row.pdufa, row.date_type); if(!p) return '<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
-  const diff = Math.max(0, p.getTime() - Date.now());
-  const D=Math.floor(diff/864e5), H=Math.floor((diff%864e5)/36e5), M=Math.floor((diff%36e5)/6e4), S=Math.floor((diff%6e4)/1e3);
-  return [{n:D,l:'DAYS'},{n:H,l:'HRS'},{n:M,l:'MIN'},{n:S,l:'SEC'}].map(x=>`<div class="cdu"><div class="cdn">${String(x.n).padStart(2,'0')}</div><div class="cdl">${x.l}</div></div>`).join('');
-}
+
 function heroBullets(row){
   const bullets = [];
   bullets.push(cleanText(row.notes));
@@ -550,6 +458,7 @@ function heroBullets(row){
   bullets.push(`Modeled windows: Entry ${cleanText(row.entry)} · Exit ${cleanText(row.exit)}`);
   return bullets.slice(0,4).map(b => `<div class="tpt"><div class="td2"></div>${esc(b)}</div>`).join('');
 }
+
 function heroCard(row){
   const theme = heroTheme(row.tkr);
   const date = parsePdufa(row.pdufa, row.date_type);
@@ -557,6 +466,14 @@ function heroCard(row){
   const total = Math.max(1, date ? date.getTime() - progressStart.getTime() : 1);
   const passed = Math.max(0, Math.min(total, Date.now() - progressStart.getTime()));
   const pct = Math.max(0, Math.min(100, (passed / total) * 100));
+
+  // Completed trades banner map
+  const completed = {
+    'RCKT': { pct: '+47.51%', exitDate: 'Mar 18, 2026' },
+    'DNLI': { pct: '+15.86%', exitDate: 'Mar 25, 2026' },
+  };
+  const done = completed[row.tkr];
+
   return `<div class="hero ${theme}">
     <div class="hero-hd">
       <div><div class="hticker">${esc(row.tkr)}</div><div class="hname">${esc(cleanText(row.co))}</div></div>
@@ -566,23 +483,7 @@ function heroCard(row){
         <span class="bd ${scoreClass(row.score)}">Score ${esc(row.score)}</span>
       </div>
     </div>
-    ${row.tkr === 'RCKT' ? `<div class="profit-banner">
-      <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
-      <div class="profit-inner">
-        <div class="profit-left">
-          <div class="profit-icon">&#x2714;</div>
-          <div>
-            <div class="profit-label">Exit Window Closed · Trade Complete</div>
-            <div class="profit-status">VWAP position realized — final day Mar 18, 2026</div>
-          </div>
-        </div>
-        <div class="profit-right">
-          <div class="profit-pct">+47.51%</div>
-          <div class="profit-sub">VWAP Return</div>
-          <div class="profit-tag">&#9733; Locked In</div>
-        </div>
-      </div>
-    </div>` : ''}
+    ${done ? profitBanner(row.tkr, done.pct, done.exitDate) : ''}
     <div class="hkpis">
       <div class="kpi"><div class="k">Drug</div><div class="v">${esc(cleanText(row.drug))}</div><div class="s">${esc(cleanText(row.therapy))}</div></div>
       <div class="kpi"><div class="k">Disease</div><div class="v">${esc(cleanText(row.ind))}</div><div class="s">${esc(cleanText(row.mantis_class))}</div></div>
@@ -604,41 +505,72 @@ function heroCard(row){
     </div>
   </div>`;
 }
+
+function countdownBlocks(row){
+  const p = parsePdufa(row.pdufa, row.date_type); if(!p) return '<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
+  const diff = Math.max(0, p.getTime() - Date.now());
+  const D=Math.floor(diff/864e5), H=Math.floor((diff%864e5)/36e5), M=Math.floor((diff%36e5)/6e4), S=Math.floor((diff%6e4)/1e3);
+  return [{n:D,l:'DAYS'},{n:H,l:'HRS'},{n:M,l:'MIN'},{n:S,l:'SEC'}].map(x=>`<div class="cdu"><div class="cdn">${String(x.n).padStart(2,'0')}</div><div class="cdl">${x.l}</div></div>`).join('');
+}
+
 function renderHeroes(){
   document.getElementById('heroes').innerHTML = STATE.HEROES.map(heroCard).join('');
 }
+
 function renderWindows(){
   const el = document.getElementById('windowsRow');
-  el.innerHTML = STATE.HEROES.map((r, idx) => {
+  const completed = {
+    'RCKT': { pct: '+47.51%', entryLabel: 'Oct 29 → Dec 26', exitLabel: 'Mar 06 → Mar 18' },
+    'DNLI': { pct: '+15.86%', entryLabel: 'Oct 03 → Nov 30', exitLabel: 'Mar 07 → Mar 25' },
+  };
+  el.innerHTML = STATE.HEROES.map((r) => {
     const en = winDates(r.pdufa, r.date_type, r.entry);
     const ex = winDates(r.pdufa, r.date_type, r.exit);
     const p = parsePdufa(r.pdufa, r.date_type);
     const daysTo = p ? Math.max(0, Math.round((startOfDay(p) - TODAY) / 864e5)) : '—';
-    const isRCKT = r.tkr === 'RCKT';
+    const done = completed[r.tkr];
+
     const rowHtml = (label, range, kind) => {
-      if(!range) return '';
-      if(isRCKT && label === 'Exit'){
-        return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div><span class="wp closed">COMPLETED</span></div>
-        <div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&L</div><div class="wrd" style="color:#4ade80;font-weight:700">+47.51%</div><span class="wp profit-pill">&#9733; Locked</span></div>`;
-      }
-      if(isRCKT && label === 'Entry'){
-        return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div><span class="wp closed">COMPLETED</span></div>`;
+      if(!range && !done) return '';
+      if(done){
+        const lbl = label === 'Entry' ? done.entryLabel : done.exitLabel;
+        const extraRow = label === 'Exit' ? `
+          <div class="winrow" style="margin-top:4px">
+            <div class="wrl">VWAP P&L</div>
+            <div class="wrd" style="color:#4ade80;font-weight:700">${done.pct}</div>
+            <span class="wp profit-pill">&#9733; Locked</span>
+          </div>` : '';
+        return `<div class="winrow">
+          <div class="wrl">${label}</div>
+          <div class="wrd">${lbl}</div>
+          <span class="wp closed">COMPLETED</span>
+        </div>${extraRow}`;
       }
       const isAct = TODAY >= startOfDay(range.start) && TODAY <= startOfDay(range.end);
       const isCom = TODAY < startOfDay(range.start) && range.start <= new Date(TODAY.getTime()+45*864e5);
       const pill = isAct ? `<span class="wp ${kind} act">ACTIVE</span>` : (isCom ? `<span class="wp ${kind}">UPCOMING</span>` : '');
-      return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div>${pill}</div>`;
+      return `<div class="winrow">
+        <div class="wrl">${label}</div>
+        <div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div>
+        ${pill}
+      </div>`;
     };
+
     return `<div class="win-card">
       <div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">${esc(r.tkr)}</div></div>
       <div class="winrows">
         ${rowHtml('Entry', en, 'en')}
         ${rowHtml('Exit', ex, 'ex')}
-        <div class="winrow" style="margin-top:6px"><div class="wrl">PDUFA</div><div class="wrd">${esc(displayPdufa(r))}</div><span class="wp nd">${daysTo}d away</span></div>
+        <div class="winrow" style="margin-top:6px">
+          <div class="wrl">PDUFA</div>
+          <div class="wrd">${esc(displayPdufa(r))}</div>
+          <span class="wp nd">${done ? 'Complete' : daysTo+'d away'}</span>
+        </div>
       </div>
     </div>`;
   }).join('');
 }
+
 function buildChartPanels(){
   const tradable = STATE.FUTURE_ROWS.filter(r => /^[A-Z]{1,5}$/.test(String(r.tkr || '')));
   const seen = new Set(); const selected = [];
@@ -669,6 +601,7 @@ function buildChartPanels(){
     });
   }, 100);
 }
+
 function tAgo(d){
   const s = Math.max(0, Math.floor((Date.now()-d)/1000));
   if(s < 60) return 'just now'; if(s < 3600) return `${Math.floor(s/60)}m ago`;
@@ -712,6 +645,7 @@ window.manualRefresh = function(key){
   const row = STATE.HEROES.find(r => r.tkr.toLowerCase() === key);
   if(row) fetchNewsItem(row);
 };
+
 function drawAnalogChart(){
   const canvas = document.getElementById('analogChart'); if(!canvas) return;
   const data = STATE.ANALOGS || []; if(!data.length) return;
@@ -761,6 +695,7 @@ function drawAnalogChart(){
     </div>`;
   }).join('');
 }
+
 function updateHeroCountdowns(){
   document.querySelectorAll('[data-countdown]').forEach(el => {
     const tkr = el.getAttribute('data-countdown');
@@ -793,9 +728,6 @@ function renderTable(){
       const th = String(r.therapy || '').toLowerCase();
       if(!(th.includes('gene') || th.includes('cell'))) return false;
     }
-    ['hero0','hero1','hero2'].forEach((k,i) => {
-      if(STATE.CHIPS[k] && STATE.HEROES[i] && r.tkr !== STATE.HEROES[i].tkr) rows = rows.filter(x => false);
-    });
     return true;
   });
   rows = sortRows(rows, sortV);
@@ -861,7 +793,7 @@ async function loadData(){
   STATE.ANALOGS = data.analogs || [];
   STATE.FUTURE_ROWS = (data.rows || []).filter(isFutureRow);
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
-  document.getElementById('generatedLabel').textContent = `Generated ${data.generated_at || '—'}`;
+  document.getElementById('generatedLabel') && (document.getElementById('generatedLabel').textContent = `Generated ${data.generated_at || '—'}`);
 }
 async function init(){
   document.getElementById('todayLabel').textContent = new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});
@@ -871,8 +803,6 @@ async function init(){
     document.querySelector('.wrap').innerHTML = `<div class="load-err"><strong>Unable to load data.json.</strong><br>${esc(err.message)}<br><br>On GitHub Pages this file should sit next to index.html.</div>`;
     return;
   }
-  renderMetrics(STATE.DATA);
-  renderPublished();
   renderHeroes();
   renderWindows();
   buildChips();
@@ -881,8 +811,6 @@ async function init(){
   buildChartPanels();
   buildNewsGrid();
   drawAnalogChart();
-  const lines = buildAgentLines(STATE.DATA);
-  renderAgentTerminal(lines);
   window.addEventListener('resize', drawAnalogChart);
   setInterval(updateHeroCountdowns, 1000);
   setInterval(() => STATE.HEROES.forEach(fetchNewsItem), 15 * 60 * 1000);
