@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-17T21:26:06Z",
+  "generated_at": "2026-03-26T00:00:00Z",
   "rows": [
     {
       "tkr": "FBIO",
@@ -126,7 +126,7 @@
       "therapy": "Ex vivo gene therapy",
       "entry": "T-150 to T-90",
       "exit": "T-20 to T-7",
-      "notes": "Reference archetype for small-cap gene-therapy run-ups; timing is now late rather than early.",
+      "notes": "Reference archetype for small-cap gene-therapy run-ups; exit window closed Mar 18 2026 \u2014 VWAP return +47.51% locked in.",
       "source": "https://www.businesswire.com/news/home/20251106225105/en/Rocket-Pharmaceuticals-Reports-Third-Quarter-2025-Financial-Results-and-Highlights-Recent-Progress"
     },
     {
@@ -142,7 +142,7 @@
       "therapy": "Brain-penetrant ERT",
       "entry": "T-150 to T-90",
       "exit": "T-20 to T-7",
-      "notes": "Historical benchmark quality, but now more late-cycle than early accumulation.",
+      "notes": "Exit window closed Mar 25 2026 \u2014 VWAP return +15.86% locked in. Hunter syndrome orphan gene therapy, Priority Review.",
       "source": "https://www.globenewswire.com/news-release/2025/10/13/3165786/0/en/Denali-Therapeutics-Announces-FDA-Review-Extension-of-BLA-for-Tividenofusp-Alfa-for-the-Treatment-of-MPS-II-Hunter-Syndrome.html"
     },
     {
@@ -646,9 +646,9 @@
     {
       "name": "RCKT",
       "label": "Rocket Pharmaceuticals",
-      "return_pct": 48.0,
+      "return_pct": 47.51,
       "disease": "LAD-I",
-      "outcome": "Pre-PDUFA",
+      "outcome": "Completed",
       "color": "#a78bfa"
     },
     {
@@ -686,9 +686,9 @@
     {
       "name": "DNLI",
       "label": "Denali Therapeutics",
-      "return_pct": 28.29,
+      "return_pct": 15.86,
       "disease": "Hunter Syndrome (MPS II)",
-      "outcome": "Pre-PDUFA",
+      "outcome": "Completed",
       "color": "#5eead4"
     },
     {
