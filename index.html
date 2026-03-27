@@ -193,6 +193,7 @@
     @media(max-width:700px){.hide-m{display:none!important}td,th{padding:9px 7px}}
     .foot{margin-top:32px;padding:16px 0;border-top:1px solid var(--bd);text-align:right;font-size:10px;color:var(--muted);font-family:var(--mono)}
     .load-err{padding:24px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);border-radius:16px;color:#fecaca}
+
     /* ===== PROFIT BANNER — shared RCKT + DNLI ===== */
     .profit-banner{position:relative;overflow:hidden;padding:16px 18px;background:linear-gradient(135deg,rgba(34,197,94,.12) 0%,rgba(124,58,237,.10) 50%,rgba(34,197,94,.12) 100%);border-bottom:1px solid rgba(34,197,94,.25)}
     .profit-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(34,197,94,.08) 40%,rgba(255,255,255,.06) 50%,rgba(34,197,94,.08) 60%,transparent 100%);background-size:200% 100%;animation:profitShimmer 3s ease-in-out infinite}
@@ -219,6 +220,40 @@
     .confetti:nth-child(6){left:91%;top:0;background:#60a5fa;animation-delay:2.2s;animation-duration:3.1s}
     .wp.closed{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700}
     .wp.profit-pill{background:linear-gradient(90deg,rgba(34,197,94,.18),rgba(124,58,237,.15));border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700;font-size:11px;padding:3px 10px}
+
+    /* ===== FDA RESULT SECTION — replaces countdown for decided tickers ===== */
+    .fda-result{padding:0;border-bottom:1px solid var(--bd);overflow:hidden}
+    .fda-result-banner{position:relative;padding:14px 16px;overflow:hidden}
+    .fda-result-banner.approved{background:linear-gradient(135deg,rgba(34,197,94,.08) 0%,rgba(34,197,94,.04) 40%,rgba(124,58,237,.06) 100%)}
+    .fda-result-banner.crl{background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(239,68,68,.04) 100%)}
+    .fda-result-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(34,197,94,.04),transparent);background-size:300% 100%;animation:fdaShimmer 5s ease-in-out infinite}
+    .fda-result-banner.crl::before{background:linear-gradient(90deg,transparent,rgba(239,68,68,.04),transparent);background-size:300% 100%}
+    @keyframes fdaShimmer{0%{background-position:300% 0}100%{background-position:-300% 0}}
+    .fda-result-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;position:relative;z-index:1}
+    .fda-result-badge{display:flex;align-items:center;gap:7px;padding:5px 14px;border-radius:999px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+    .fda-result-badge.approved{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.45);color:#4ade80;box-shadow:0 0 16px rgba(34,197,94,.15)}
+    .fda-result-badge.crl{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:#f87171;box-shadow:0 0 16px rgba(239,68,68,.15)}
+    .fda-result-badge .badge-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+    .fda-result-badge.approved .badge-icon{background:rgba(34,197,94,.25);border:1px solid rgba(34,197,94,.5)}
+    .fda-result-date{font-size:10px;color:var(--muted);font-family:var(--mono)}
+    .fda-result-body{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
+    @media(max-width:500px){.fda-result-body{grid-template-columns:1fr}}
+    .fda-result-details{display:flex;flex-direction:column;gap:6px}
+    .fda-detail-row{display:flex;gap:8px;align-items:baseline;font-size:11px;line-height:1.4}
+    .fda-detail-label{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;flex:0 0 70px}
+    .fda-detail-value{color:var(--text);font-family:var(--mono);font-size:11px;flex:1}
+    .fda-detail-value.brand-name{font-weight:700;font-size:13px;letter-spacing:.04em}
+    .fda-extras{display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+    .fda-extra-pill{font-size:8px;padding:3px 10px;border-radius:999px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+    .fda-extra-pill.prv{background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.35);color:var(--rckt2)}
+    .fda-extra-pill.accel{background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.3);color:#fcd34d}
+    .fda-extra-pill.first{background:rgba(94,234,212,.10);border:1px solid rgba(94,234,212,.3);color:var(--dnli2)}
+
+    /* completed progress bar override */
+    .pbb-complete .pbf{background:linear-gradient(90deg,rgba(34,197,94,.3),rgba(34,197,94,.85))!important;width:100%!important}
+    .pbb-complete .pbm{left:100%!important;background:#4ade80!important;box-shadow:0 0 10px rgba(34,197,94,.5)!important}
+    .pbb-complete .pbls span{color:#4ade80}
+
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
@@ -341,11 +376,47 @@ const STATE = {
 function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 const TODAY = startOfDay(new Date());
 
+/* ── FDA DECISIONS — completed tickers with full result data ── */
+const FDA_DECISIONS = {
+  'RCKT': {
+    outcome: 'approved',
+    decisionDate: 'Mar 27, 2026',
+    brandName: 'KRESLADI\u2122',
+    genericName: 'marnetegragene autotemcel',
+    approvalType: 'Accelerated Approval',
+    indication: 'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',
+    mechanism: 'Autologous hematopoietic stem cell-based gene therapy',
+    extras: [
+      { label: 'PRV Granted', cls: 'prv' },
+      { label: 'Accelerated', cls: 'accel' },
+      { label: 'First Gene Therapy for LAD-I', cls: 'first' }
+    ],
+    pct: '+47.51%',
+    exitDate: 'Mar 18, 2026'
+  },
+  'DNLI': {
+    outcome: 'approved',
+    decisionDate: 'Mar 25, 2026',
+    brandName: 'AVLAYAH\u2122',
+    genericName: 'tividenofusp alfa-eknm',
+    approvalType: 'Accelerated Approval',
+    indication: 'Neurologic manifestations of Hunter syndrome (MPS II)',
+    mechanism: 'First FDA-approved biologic to cross the blood-brain barrier',
+    extras: [
+      { label: 'PRV Granted', cls: 'prv' },
+      { label: 'Accelerated', cls: 'accel' },
+      { label: 'First BBB-Crossing Biologic', cls: 'first' }
+    ],
+    pct: '+15.86%',
+    exitDate: 'Mar 25, 2026'
+  }
+};
+
 function esc(s){
   return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 function cleanText(v){
-  if(v === null || v === undefined || v === '' || v === '-') return '—';
+  if(v === null || v === undefined || v === '' || v === '-') return '\u2014';
   return String(v);
 }
 function parsePdufa(value, type){
@@ -362,6 +433,8 @@ function parsePdufa(value, type){
 }
 function isFutureRow(r){
   const d = parsePdufa(r.pdufa, r.date_type);
+  // Keep decided tickers in the list even if date has passed
+  if(FDA_DECISIONS[r.tkr]) return true;
   return d ? startOfDay(d) >= TODAY : false;
 }
 function fmtDate(d){
@@ -429,7 +502,7 @@ function chooseHeroes(rows){
 }
 
 /* ── PROFIT BANNER — reusable for any completed ticker ── */
-function profitBanner(tkr, returnPct, exitDateLabel, entryNote){
+function profitBanner(tkr, returnPct, exitDateLabel){
   return `<div class="profit-banner">
     <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
     <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
@@ -437,8 +510,8 @@ function profitBanner(tkr, returnPct, exitDateLabel, entryNote){
       <div class="profit-left">
         <div class="profit-icon">&#x2714;</div>
         <div>
-          <div class="profit-label">Exit Window Closed · Trade Complete</div>
-          <div class="profit-status">VWAP position realized — final day ${esc(exitDateLabel)}</div>
+          <div class="profit-label">Exit Window Closed \u00b7 Trade Complete</div>
+          <div class="profit-status">VWAP position realized \u2014 final day ${esc(exitDateLabel)}</div>
         </div>
       </div>
       <div class="profit-right">
@@ -450,29 +523,98 @@ function profitBanner(tkr, returnPct, exitDateLabel, entryNote){
   </div>`;
 }
 
+/* ── FDA RESULT SECTION — replaces countdown for decided tickers ── */
+function fdaResultSection(tkr){
+  const fda = FDA_DECISIONS[tkr];
+  if(!fda) return '';
+  const isApproved = fda.outcome === 'approved';
+  const ocls = isApproved ? 'approved' : 'crl';
+  const icon = isApproved ? '\u2714' : '\u2718';
+  const label = isApproved ? 'FDA APPROVED' : 'CRL ISSUED';
+
+  const extraPills = (fda.extras || []).map(e =>
+    `<div class="fda-extra-pill ${esc(e.cls)}">${esc(e.label)}</div>`
+  ).join('');
+
+  return `<div class="fda-result">
+    <div class="fda-result-banner ${ocls}">
+      <div class="fda-result-top">
+        <div class="fda-result-badge ${ocls}">
+          <span class="badge-icon">${icon}</span>
+          ${label}
+        </div>
+        <div class="fda-result-date">${esc(fda.decisionDate)}</div>
+      </div>
+      <div class="fda-result-body">
+        <div class="fda-result-details">
+          <div class="fda-detail-row">
+            <span class="fda-detail-label">Brand</span>
+            <span class="fda-detail-value brand-name">${esc(fda.brandName)}</span>
+          </div>
+          <div class="fda-detail-row">
+            <span class="fda-detail-label">Generic</span>
+            <span class="fda-detail-value">${esc(fda.genericName)}</span>
+          </div>
+          <div class="fda-detail-row">
+            <span class="fda-detail-label">Type</span>
+            <span class="fda-detail-value">${esc(fda.approvalType)}</span>
+          </div>
+          <div class="fda-detail-row">
+            <span class="fda-detail-label">For</span>
+            <span class="fda-detail-value">${esc(fda.indication)}</span>
+          </div>
+          <div class="fda-detail-row">
+            <span class="fda-detail-label">MOA</span>
+            <span class="fda-detail-value">${esc(fda.mechanism)}</span>
+          </div>
+        </div>
+        <div class="fda-extras">
+          ${extraPills}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
 function heroBullets(row){
   const bullets = [];
   bullets.push(cleanText(row.notes));
-  bullets.push(`${cleanText(row.mantis_class)} · ${cleanText(row.therapy)}`);
-  bullets.push(`${row.orph ? 'Orphan / rare-disease sensitive' : 'Non-orphan / broader market'} · ${cleanText(row.date_type)} timing`);
-  bullets.push(`Modeled windows: Entry ${cleanText(row.entry)} · Exit ${cleanText(row.exit)}`);
+  bullets.push(`${cleanText(row.mantis_class)} \u00b7 ${cleanText(row.therapy)}`);
+  bullets.push(`${row.orph ? 'Orphan / rare-disease sensitive' : 'Non-orphan / broader market'} \u00b7 ${cleanText(row.date_type)} timing`);
+  bullets.push(`Modeled windows: Entry ${cleanText(row.entry)} \u00b7 Exit ${cleanText(row.exit)}`);
   return bullets.slice(0,4).map(b => `<div class="tpt"><div class="td2"></div>${esc(b)}</div>`).join('');
 }
 
 function heroCard(row){
   const theme = heroTheme(row.tkr);
   const date = parsePdufa(row.pdufa, row.date_type);
+  const fda = FDA_DECISIONS[row.tkr];
+  const isDone = !!fda;
+
+  // Progress bar
   const progressStart = winDates(row.pdufa,row.date_type,row.entry)?.start || TODAY;
   const total = Math.max(1, date ? date.getTime() - progressStart.getTime() : 1);
   const passed = Math.max(0, Math.min(total, Date.now() - progressStart.getTime()));
-  const pct = Math.max(0, Math.min(100, (passed / total) * 100));
+  const pct = isDone ? 100 : Math.max(0, Math.min(100, (passed / total) * 100));
 
-  // Completed trades banner map
-  const completed = {
-    'RCKT': { pct: '+47.51%', exitDate: 'Mar 18, 2026' },
-    'DNLI': { pct: '+15.86%', exitDate: 'Mar 25, 2026' },
-  };
-  const done = completed[row.tkr];
+  // Countdown vs FDA result section
+  let middleSection;
+  if(isDone){
+    // Show FDA result instead of countdown
+    middleSection = fdaResultSection(row.tkr);
+  } else {
+    // Standard countdown
+    middleSection = `<div class="cdb">
+      <div class="cdlbl">PDUFA<br>Countdown</div>
+      <div class="cdd" data-countdown="${esc(row.tkr)}">${countdownBlocks(row)}</div>
+      <div class="cdt">${esc(displayPdufa(row))}</div>
+    </div>`;
+  }
+
+  // Progress bar labels
+  const pbLabels = isDone
+    ? '<span>Entry</span><span>PDUFA</span><span>Complete \u2714</span>'
+    : '<span>Entry opens</span><span>Today</span><span>PDUFA</span>';
 
   return `<div class="hero ${theme}">
     <div class="hero-hd">
@@ -483,21 +625,17 @@ function heroCard(row){
         <span class="bd ${scoreClass(row.score)}">Score ${esc(row.score)}</span>
       </div>
     </div>
-    ${done ? profitBanner(row.tkr, done.pct, done.exitDate) : ''}
+    ${isDone ? profitBanner(row.tkr, fda.pct, fda.exitDate) : ''}
     <div class="hkpis">
-      <div class="kpi"><div class="k">Drug</div><div class="v">${esc(cleanText(row.drug))}</div><div class="s">${esc(cleanText(row.therapy))}</div></div>
+      <div class="kpi"><div class="k">Drug</div><div class="v">${esc(isDone ? fda.brandName : cleanText(row.drug))}</div><div class="s">${esc(cleanText(row.therapy))}</div></div>
       <div class="kpi"><div class="k">Disease</div><div class="v">${esc(cleanText(row.ind))}</div><div class="s">${esc(cleanText(row.mantis_class))}</div></div>
-      <div class="kpi"><div class="k">Timing</div><div class="v">${esc(cleanText(row.date_type))}</div><div class="s">${esc(displayPdufa(row))}</div></div>
+      <div class="kpi"><div class="k">${isDone ? 'Decision' : 'Timing'}</div><div class="v">${isDone ? esc(fda.approvalType) : esc(cleanText(row.date_type))}</div><div class="s">${isDone ? esc(fda.decisionDate) : esc(displayPdufa(row))}</div></div>
     </div>
-    <div class="cdb">
-      <div class="cdlbl">PDUFA<br>Countdown</div>
-      <div class="cdd" data-countdown="${esc(row.tkr)}">${countdownBlocks(row)}</div>
-      <div class="cdt">${esc(displayPdufa(row))}</div>
-    </div>
-    <div class="pbb">
-      <div class="pbl">MANTIS Timeline Progress</div>
+    ${middleSection}
+    <div class="pbb ${isDone ? 'pbb-complete' : ''}">
+      <div class="pbl">${isDone ? 'MANTIS Cycle Complete' : 'MANTIS Timeline Progress'}</div>
       <div class="pbr"><div class="pbf" style="width:${pct.toFixed(1)}%"></div><div class="pbm" style="left:${pct.toFixed(1)}%"></div></div>
-      <div class="pbls"><span>Entry opens</span><span>Today</span><span>PDUFA</span></div>
+      <div class="pbls">${pbLabels}</div>
     </div>
     <div class="thesis">
       <div class="tttl">Thesis</div>
@@ -507,6 +645,11 @@ function heroCard(row){
 }
 
 function countdownBlocks(row){
+  const fda = FDA_DECISIONS[row.tkr];
+  if(fda){
+    // No countdown for decided tickers — this function shouldn't be called but safety fallback
+    return '<div class="cdu" style="min-width:auto;padding:6px 14px"><div class="cdn" style="font-size:12px;color:#4ade80">\u2714</div><div class="cdl">DECIDED</div></div>';
+  }
   const p = parsePdufa(row.pdufa, row.date_type); if(!p) return '<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
   const diff = Math.max(0, p.getTime() - Date.now());
   const D=Math.floor(diff/864e5), H=Math.floor((diff%864e5)/36e5), M=Math.floor((diff%36e5)/6e4), S=Math.floor((diff%6e4)/1e3);
@@ -519,25 +662,26 @@ function renderHeroes(){
 
 function renderWindows(){
   const el = document.getElementById('windowsRow');
-  const completed = {
-    'RCKT': { pct: '+47.51%', entryLabel: 'Oct 29 → Dec 26', exitLabel: 'Mar 06 → Mar 18' },
-    'DNLI': { pct: '+15.86%', entryLabel: 'Oct 03 → Nov 30', exitLabel: 'Mar 07 → Mar 25' },
+  const completedWindows = {
+    'RCKT': { entryLabel: 'Oct 29 \u2192 Dec 26', exitLabel: 'Mar 06 \u2192 Mar 18' },
+    'DNLI': { entryLabel: 'Oct 03 \u2192 Nov 30', exitLabel: 'Mar 07 \u2192 Mar 25' },
   };
   el.innerHTML = STATE.HEROES.map((r) => {
     const en = winDates(r.pdufa, r.date_type, r.entry);
     const ex = winDates(r.pdufa, r.date_type, r.exit);
     const p = parsePdufa(r.pdufa, r.date_type);
-    const daysTo = p ? Math.max(0, Math.round((startOfDay(p) - TODAY) / 864e5)) : '—';
-    const done = completed[r.tkr];
+    const fda = FDA_DECISIONS[r.tkr];
+    const done = completedWindows[r.tkr];
+    const daysTo = p ? Math.max(0, Math.round((startOfDay(p) - TODAY) / 864e5)) : '\u2014';
 
     const rowHtml = (label, range, kind) => {
       if(!range && !done) return '';
       if(done){
         const lbl = label === 'Entry' ? done.entryLabel : done.exitLabel;
-        const extraRow = label === 'Exit' ? `
+        const extraRow = label === 'Exit' && fda ? `
           <div class="winrow" style="margin-top:4px">
             <div class="wrl">VWAP P&L</div>
-            <div class="wrd" style="color:#4ade80;font-weight:700">${done.pct}</div>
+            <div class="wrd" style="color:#4ade80;font-weight:700">${fda.pct}</div>
             <span class="wp profit-pill">&#9733; Locked</span>
           </div>` : '';
         return `<div class="winrow">
@@ -556,6 +700,10 @@ function renderWindows(){
       </div>`;
     };
 
+    const pdfuaStatus = fda
+      ? `<span class="wp closed">${fda.outcome === 'approved' ? 'APPROVED' : 'CRL'}</span>`
+      : `<span class="wp nd">${daysTo}d away</span>`;
+
     return `<div class="win-card">
       <div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">${esc(r.tkr)}</div></div>
       <div class="winrows">
@@ -564,7 +712,7 @@ function renderWindows(){
         <div class="winrow" style="margin-top:6px">
           <div class="wrl">PDUFA</div>
           <div class="wrd">${esc(displayPdufa(r))}</div>
-          <span class="wp nd">${done ? 'Complete' : daysTo+'d away'}</span>
+          ${pdfuaStatus}
         </div>
       </div>
     </div>`;
@@ -612,7 +760,7 @@ async function fetchNewsItem(row){
   const stEl = document.getElementById(`${key}-st`);
   const bdEl = document.getElementById(`${key}-news`);
   if(!stEl || !bdEl) return;
-  stEl.textContent = 'Fetching…'; bdEl.innerHTML = '';
+  stEl.textContent = 'Fetching\u2026'; bdEl.innerHTML = '';
   const query = `${row.co} ${row.tkr} ${row.drug} FDA ${row.ind} 2026`;
   try{
     const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
@@ -626,17 +774,17 @@ async function fetchNewsItem(row){
       pub:new Date(i.querySelector('pubDate')?.textContent || '')
     }));
     if(!items.length) throw new Error('empty');
-    stEl.textContent = `${tAgo(items[0].pub.getTime())} — latest`;
+    stEl.textContent = `${tAgo(items[0].pub.getTime())} \u2014 latest`;
     bdEl.innerHTML = items.map(it => `<div class="ni"><div class="ndot"></div><div class="ntxt"><a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.title)}</a><div class="nmeta">${isNaN(it.pub) ? '' : tAgo(it.pub.getTime())}</div></div></div>`).join('');
   }catch{
     stEl.textContent = 'Unavailable';
-    bdEl.innerHTML = `<div class="nempty">Feed unavailable — requires internet connection.</div>`;
+    bdEl.innerHTML = `<div class="nempty">Feed unavailable \u2014 requires internet connection.</div>`;
   }
 }
 function buildNewsGrid(){
   const grid = document.getElementById('newsGrid');
   grid.innerHTML = STATE.HEROES.map(r => `<div class="panel">
-    <div class="phd"><div style="display:flex;align-items:center;gap:10px"><div class="ptitle">${esc(r.tkr)}</div><div class="nst" id="${esc(r.tkr.toLowerCase())}-st">Loading…</div></div><button class="rbtn" onclick="manualRefresh('${esc(r.tkr.toLowerCase())}')">Refresh</button></div>
+    <div class="phd"><div style="display:flex;align-items:center;gap:10px"><div class="ptitle">${esc(r.tkr)}</div><div class="nst" id="${esc(r.tkr.toLowerCase())}-st">Loading\u2026</div></div><button class="rbtn" onclick="manualRefresh('${esc(r.tkr.toLowerCase())}')">Refresh</button></div>
     <div class="nbody" id="${esc(r.tkr.toLowerCase())}-news"></div>
   </div>`).join('');
   STATE.HEROES.forEach(fetchNewsItem);
@@ -689,7 +837,7 @@ function drawAnalogChart(){
           <div class="al-name" style="color:${a.color}">${esc(a.name)}</div>
           <span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${oc}44;background:${oc}18;color:${oc};font-family:var(--mono);flex-shrink:0">${esc(a.outcome)}</span>
         </div>
-        <div class="al-det">${esc(a.label)} · ${esc(a.disease)}</div>
+        <div class="al-det">${esc(a.label)} \u00b7 ${esc(a.disease)}</div>
         <div class="al-gains" style="margin-top:6px"><div><div class="al-gain" style="color:${a.color}">+${a.return_pct.toFixed(2)}%</div><div class="al-gain-sub">VWAP Return</div></div></div>
       </div>
     </div>`;
@@ -699,6 +847,8 @@ function drawAnalogChart(){
 function updateHeroCountdowns(){
   document.querySelectorAll('[data-countdown]').forEach(el => {
     const tkr = el.getAttribute('data-countdown');
+    // Skip countdown updates for decided tickers
+    if(FDA_DECISIONS[tkr]) return;
     const row = STATE.HEROES.find(r => r.tkr === tkr);
     if(row) el.innerHTML = countdownBlocks(row);
   });
@@ -735,10 +885,11 @@ function renderTable(){
   empty.style.display = rows.length ? 'none' : 'block';
   rows.forEach(r => {
     const en = winDates(r.pdufa, r.date_type, r.entry), ex = winDates(r.pdufa, r.date_type, r.exit);
-    const eStr = en ? `${fmtDateShort(en.start)} → ${fmtDateShort(en.end)}` : '—';
-    const xStr = ex ? `${fmtDateShort(ex.start)} → ${fmtDateShort(ex.end)}` : '—';
+    const eStr = en ? `${fmtDateShort(en.start)} \u2192 ${fmtDateShort(en.end)}` : '\u2014';
+    const xStr = ex ? `${fmtDateShort(ex.start)} \u2192 ${fmtDateShort(ex.end)}` : '\u2014';
     const tagCls = therapyTagClass(r.therapy);
     const therapyTag = tagCls ? `<span class="mb ${tagCls}">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>` : `<span class="mb">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>`;
+    const fda = FDA_DECISIONS[r.tkr];
     const tr = document.createElement('tr');
     tr.title = 'Click to open TradingView or source';
     tr.addEventListener('click', () => {
@@ -746,16 +897,19 @@ function renderTable(){
       if(/^[A-Z]{1,5}$/.test(tkr)) window.open(`https://www.tradingview.com/symbols/NASDAQ:${tkr}/`, '_blank');
       else if(r.source) window.open(r.source, '_blank');
     });
+    const pdfuaDisplay = fda
+      ? `<span style="color:#4ade80;font-weight:600">${esc(fda.decisionDate)}</span>`
+      : esc(displayPdufa(r));
     tr.innerHTML = `
       <td><div class="tdtk">${esc(r.tkr)}</div></td>
-      <td><div class="tdco">${esc(cleanText(r.co))}</div><div class="tddrug">${esc(cleanText(r.drug))}</div></td>
+      <td><div class="tdco">${esc(cleanText(r.co))}</div><div class="tddrug">${fda ? esc(fda.brandName) : esc(cleanText(r.drug))}</div></td>
       <td class="tdind hide-m">${esc(cleanText(r.ind))}</td>
-      <td class="tddate">${esc(displayPdufa(r))}</td>
+      <td class="tddate">${pdfuaDisplay}</td>
       <td class="tdsc"><span class="scb ${scoreClass(r.score)}">${esc(r.score)}</span></td>
       <td class="tdclass hide-m">${esc(cleanText(r.mantis_class))}</td>
       <td class="tdwin hide-m">${eStr}</td>
       <td class="tdwin hide-m">${xStr}</td>
-      <td class="hide-m">${r.orph ? `<span class="mb orph">Orphan</span> ` : ''}${therapyTag}</td>`;
+      <td class="hide-m">${r.orph ? `<span class="mb orph">Orphan</span> ` : ''}${therapyTag}${fda ? ' <span class="mb" style="border-color:rgba(34,197,94,.4);color:#4ade80;background:rgba(34,197,94,.1)">\u2714 Approved</span>' : ''}</td>`;
     tbody.appendChild(tr);
   });
 }
@@ -793,7 +947,7 @@ async function loadData(){
   STATE.ANALOGS = data.analogs || [];
   STATE.FUTURE_ROWS = (data.rows || []).filter(isFutureRow);
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
-  document.getElementById('generatedLabel') && (document.getElementById('generatedLabel').textContent = `Generated ${data.generated_at || '—'}`);
+  document.getElementById('generatedLabel') && (document.getElementById('generatedLabel').textContent = `Generated ${data.generated_at || '\u2014'}`);
 }
 async function init(){
   document.getElementById('todayLabel').textContent = new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});
