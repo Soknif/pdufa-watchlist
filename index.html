@@ -19,6 +19,9 @@
       --rare:#d97706; --rare2:#fcd34d;
       --nuvl:#0284c7; --nuvl2:#7dd3fc;
       --camx:#16a34a; --camx2:#86efac;
+      --svra:#0891b2; --svra2:#67e8f9;
+      --capr:#f59e0b; --capr2:#fde68a;
+      --prax:#8b5cf6; --prax2:#c4b5fd;
       --green:#22c55e; --red:#ef4444; --yellow:#f59e0b;
       --text:#e2e8f0; --muted:#64748b; --soft:#94a3b8;
       --mono:'JetBrains Mono',monospace;
@@ -238,6 +241,12 @@
     .hero.nuvl::before{background:var(--nuvl)}
     .hero.camx{border-top:2px solid var(--camx)}
     .hero.camx::before{background:var(--camx)}
+    .hero.svra{border-top:2px solid var(--svra)}
+    .hero.svra::before{background:var(--svra)}
+    .hero.capr{border-top:2px solid var(--capr)}
+    .hero.capr::before{background:var(--capr)}
+    .hero.prax{border-top:2px solid var(--prax)}
+    .hero.prax::before{background:var(--prax)}
     .hero.std::before{background:#64748b}
 
     .hero-hd{
@@ -264,6 +273,9 @@
     .rare .hticker{color:var(--rare2)}
     .nuvl .hticker{color:var(--nuvl2)}
     .camx .hticker{color:var(--camx2)}
+    .svra .hticker{color:var(--svra2)}
+    .capr .hticker{color:var(--capr2)}
+    .prax .hticker{color:var(--prax2)}
     .std .hticker{color:#cbd5e1}
 
     .hname{
@@ -1529,7 +1541,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">TOP CANDIDATES</div>
-      <div class="sec-sub">Pinned heroes include CAMURUS for June PDUFA monitoring</div>
+      <div class="sec-sub">Pinned heroes include RCKT, DNLI, VERA, CAMURUS plus new score-5 adds SVRA, CAPR and PRAX</div>
     </div>
     <span class="stag">Dynamic heroes</span>
   </div>
@@ -1579,7 +1591,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">LIVE NEWS</div>
-      <div class="sec-sub">Google News RSS via AllOrigins · refreshes every 15 min</div>
+      <div class="sec-sub">Primary: Alpha Vantage / Finnhub · Google RSS fallback · refreshes every 15 min</div>
     </div>
   </div>
 
@@ -1662,11 +1674,21 @@ const TV_SYMBOLS = {
   CAMX:'OMXSTO:CAMX',
   RCKT:'NASDAQ:RCKT',
   DNLI:'NASDAQ:DNLI',
-  VERA:'NASDAQ:VERA'
+  VERA:'NASDAQ:VERA',
+  SVRA:'NASDAQ:SVRA',
+  CAPR:'NASDAQ:CAPR',
+  PRAX:'NASDAQ:PRAX'
 };
 
-const PINNED_HEROES = ['RCKT','DNLI','VERA','CAMX'];
+const HERO_ORDER = ['RCKT','DNLI','VERA','CAMX','SVRA','CAPR','PRAX'];
 const PINNED_CHARTS = ['RCKT','DNLI','VERA','CAMX'];
+
+const NEWS_CONFIG = {
+  proxyBase: '',
+  alphaVantageKey: '',
+  finnhubKey: '',
+  googleRssFallback: true
+};
 
 const CAMURUS_ROW = {
   tkr:'CAMX',
@@ -1678,12 +1700,71 @@ const CAMURUS_ROW = {
   score:3,
   mantis_class:'High Tier-2 · Quality catalyst / lower torque',
   therapy:'Long-acting octreotide depot',
+  catalyst_type:'NDA',
+  priority_review:false,
   orph:false,
   entry:'T-70 to T-35',
   exit:'T-14 to T-3',
   notes:'Strong clinical and financial profile, but lower speculative rerating potential for core MANTIS run-up strategy. Modeled as a later-entry, lower-torque setup versus higher-beta MANTIS names.',
   source:'https://www.tradingview.com/symbols/OMXSTO-CAMX/'
 };
+
+const MANTIS_ADDS = [
+  {
+    tkr:'SVRA',
+    co:'Savara Inc.',
+    drug:'MOLBREEVI (molgramostim)',
+    ind:'Autoimmune pulmonary alveolar proteinosis (aPAP)',
+    pdufa:'2026-11-22',
+    date_type:'Exact',
+    score:5,
+    mantis_class:'M5 Prime · Rare respiratory / first-commercial inflection',
+    therapy:'Inhaled biologic / rare respiratory disease',
+    catalyst_type:'BLA',
+    priority_review:true,
+    orph:true,
+    entry:'T-180 to T-90',
+    exit:'T-30 to T-7',
+    notes:'Clear FDA catalyst, priority review, rare-disease rerating profile, first-commercial inflection setup and extended runway after review extension.',
+    source:'https://www.marketscreener.com/news/savara-announces-the-u-s-food-drug-administration-fda-has-extended-the-review-period-for-the-mo-ce7e50dcd08bff2d/'
+  },
+  {
+    tkr:'CAPR',
+    co:'Capricor Therapeutics',
+    drug:'Deramiocel',
+    ind:'Duchenne muscular dystrophy (DMD)',
+    pdufa:'2026-08-22',
+    date_type:'Exact',
+    score:5,
+    mantis_class:'M5 Prime · High-emotion rare-disease catalyst',
+    therapy:'Cell therapy / rare neuromuscular disease',
+    catalyst_type:'BLA resubmission',
+    priority_review:true,
+    orph:true,
+    entry:'T-130 to T-60',
+    exit:'T-25 to T-5',
+    notes:'Company-defining DMD event with rare-disease torque, strong narrative visibility, and genuine pre-decision rerating potential.',
+    source:'https://www.capricor.com/investors/news-events/press-releases/detail/338/capricor-therapeutics-announces-establishment-of-new-pdufa'
+  },
+  {
+    tkr:'PRAX',
+    co:'Praxis Precision Medicines',
+    drug:'Relutrigine',
+    ind:'SCN2A/SCN8A developmental and epileptic encephalopathies',
+    pdufa:'2026-09-27',
+    date_type:'Exact',
+    score:5,
+    mantis_class:'M5 Prime · Precision neurology / rare pediatric epilepsy',
+    therapy:'Precision neurology / rare pediatric epilepsy',
+    catalyst_type:'NDA',
+    priority_review:true,
+    orph:true,
+    entry:'T-150 to T-70',
+    exit:'T-25 to T-5',
+    notes:'High-unmet-need rare neuro story with exact FDA date, priority review, strong visibility, and high speculative narrative quality.',
+    source:'https://ir.praxismedicines.com/news-releases/news-release-details/praxis-precision-medicines-announces-fda-acceptance-and-priority/'
+  }
+];
 
 const FDA_DECISIONS = {
   'RCKT': {
@@ -1790,10 +1871,13 @@ function heroTheme(tkr=''){
   const t = tkr.toUpperCase();
   if(t === 'RCKT') return 'rckt';
   if(t === 'DNLI' || t === 'VRDN') return 'dnli';
-  if(t === 'VERA' || t === 'CELC' || t === 'SVRA') return 'vera';
-  if(t === 'RARE' || t === 'CAPR') return 'rare';
+  if(t === 'VERA' || t === 'CELC') return 'vera';
+  if(t === 'RARE') return 'rare';
   if(t === 'NUVL') return 'nuvl';
   if(t === 'CAMX') return 'camx';
+  if(t === 'SVRA') return 'svra';
+  if(t === 'CAPR') return 'capr';
+  if(t === 'PRAX') return 'prax';
   return 'std';
 }
 
@@ -1844,17 +1928,24 @@ function sortRows(arr, mode){
   });
 }
 
-function ensureCamurusRow(rows){
-  return rows.some(r => r.tkr === 'CAMX') ? rows : [...rows, CAMURUS_ROW];
+function mergeSpecialRows(rows){
+  const out = [...rows];
+  const byTicker = new Set(out.map(r => r.tkr));
+
+  if(!byTicker.has('CAMX')) out.push(CAMURUS_ROW);
+  MANTIS_ADDS.forEach(r => {
+    if(!byTicker.has(r.tkr)) out.push(r);
+  });
+
+  return out;
 }
 
 function chooseHeroes(rows){
-  const exact = rows.filter(r => !String(r.date_type).toLowerCase().includes('quarter'));
-  const byTicker = new Map(exact.map(r => [r.tkr, r]));
-  const pinned = PINNED_HEROES.map(t => byTicker.get(t)).filter(Boolean);
+  const byTicker = new Map(rows.map(r => [r.tkr, r]));
+  const pinned = HERO_ORDER.map(t => byTicker.get(t)).filter(Boolean);
 
-  const ranked = [...exact]
-    .filter(r => !PINNED_HEROES.includes(r.tkr))
+  const ranked = [...rows]
+    .filter(r => !HERO_ORDER.includes(r.tkr))
     .sort((a,b) => {
       if((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
       const ad = parsePdufa(a.pdufa,a.date_type)?.getTime() || 0;
@@ -1862,7 +1953,7 @@ function chooseHeroes(rows){
       return ad - bd;
     });
 
-  return [...pinned, ...ranked].slice(0,4);
+  return [...pinned, ...ranked];
 }
 
 function tvSymbolFor(tkr){
@@ -1872,6 +1963,10 @@ function tvSymbolFor(tkr){
 function tradingViewUrlFor(tkr){
   if(tkr === 'CAMX') return 'https://www.tradingview.com/symbols/OMXSTO-CAMX/';
   return `https://www.tradingview.com/symbols/NASDAQ:${tkr}/`;
+}
+
+function newsSymbolFor(row){
+  return row.news_ticker || row.news_symbol || row.tkr;
 }
 
 function profitBanner(tkr, returnPct, exitDateLabel){
@@ -1957,7 +2052,7 @@ function heroBullets(row){
   const bullets = [
     cleanText(row.notes),
     `${cleanText(row.mantis_class)} · ${cleanText(row.therapy)}`,
-    `${row.orph ? 'Orphan / rare-disease sensitive' : 'Non-orphan / broader market'} · ${cleanText(row.date_type)} timing`,
+    `${cleanText(row.catalyst_type || 'FDA catalyst')} · Priority review: ${row.priority_review === true ? 'Yes' : row.priority_review === false ? 'No' : 'Not stated'}`,
     `Modeled windows: Entry ${modeledWindowLabel(row, 'entry')} · Exit ${modeledWindowLabel(row, 'exit')}`
   ];
 
@@ -2005,6 +2100,7 @@ function heroCard(row){
         <div class="brow">
           ${row.orph ? '<span class="bd">Orphan</span>' : '<span class="bd">Non-orphan</span>'}
           <span class="bd">${esc(cleanText(row.therapy).split(' ').slice(0,2).join(' '))}</span>
+          <span class="bd">${esc(cleanText(row.catalyst_type || 'FDA'))}</span>
           <span class="bd ${scoreClass(row.score)}">Score ${esc(row.score)}</span>
         </div>
       </div>
@@ -2199,6 +2295,146 @@ function tAgo(d){
   return `${Math.floor(s/86400)}d ago`;
 }
 
+function renderNewsItems(key, items, statusText){
+  const stEl = document.getElementById(`${key}-st`);
+  const bdEl = document.getElementById(`${key}-news`);
+  if(!stEl || !bdEl) return;
+
+  stEl.textContent = statusText || 'latest';
+
+  if(!items || !items.length){
+    bdEl.innerHTML = `<div class="nempty">No recent news items found.</div>`;
+    return;
+  }
+
+  bdEl.innerHTML = items.slice(0,4).map(it => `
+    <div class="ni">
+      <div class="ndot"></div>
+      <div class="ntxt">
+        <a href="${esc(it.link || '#')}" target="_blank" rel="noopener">${esc(it.title || 'Untitled')}</a>
+        <div class="nmeta">${esc(it.source || 'source')}${it.pub ? ` · ${esc(tAgo(it.pub))}` : ''}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function normalizeAlphaVantage(feed){
+  return (feed || []).map(x => ({
+    title: x.title,
+    link: x.url,
+    source: x.source,
+    pub: parseAlphaVantageTime(x.time_published)
+  }));
+}
+
+function parseAlphaVantageTime(s){
+  if(!s) return null;
+  const m = String(s).match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})$/);
+  if(!m) return null;
+  return new Date(`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6]}Z`).getTime();
+}
+
+function normalizeFinnhub(feed){
+  return (feed || []).map(x => ({
+    title: x.headline,
+    link: x.url,
+    source: x.source,
+    pub: x.datetime ? x.datetime * 1000 : null
+  }));
+}
+
+async function fetchJson(url){
+  const res = await fetch(url, {cache:'no-store'});
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function fetchNewsFromProxy(row){
+  if(!NEWS_CONFIG.proxyBase) return null;
+  const symbol = newsSymbolFor(row);
+  const url = `${NEWS_CONFIG.proxyBase}?ticker=${encodeURIComponent(symbol)}&company=${encodeURIComponent(row.co || '')}&drug=${encodeURIComponent(row.drug || '')}`;
+  const data = await fetchJson(url);
+  if(!data || !Array.isArray(data.items) || !data.items.length) return null;
+  return {
+    sourceName: data.source || 'proxy',
+    items: data.items
+  };
+}
+
+async function fetchNewsFromAlphaVantage(row){
+  if(!NEWS_CONFIG.alphaVantageKey) return null;
+  const symbol = newsSymbolFor(row);
+  const url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${encodeURIComponent(symbol)}&limit=5&sort=LATEST&apikey=${encodeURIComponent(NEWS_CONFIG.alphaVantageKey)}`;
+  const data = await fetchJson(url);
+  if(!data || !Array.isArray(data.feed) || !data.feed.length) return null;
+
+  const items = normalizeAlphaVantage(data.feed)
+    .filter(x => x.title && x.link);
+
+  if(!items.length) return null;
+
+  return {
+    sourceName:'Alpha Vantage',
+    items
+  };
+}
+
+function ymd(d){
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth()+1).padStart(2,'0');
+  const da = String(d.getUTCDate()).padStart(2,'0');
+  return `${y}-${m}-${da}`;
+}
+
+async function fetchNewsFromFinnhub(row){
+  if(!NEWS_CONFIG.finnhubKey) return null;
+  const symbol = newsSymbolFor(row);
+
+  const to = new Date();
+  const from = new Date(Date.now() - 60*864e5);
+  const url = `https://finnhub.io/api/v1/company-news?symbol=${encodeURIComponent(symbol)}&from=${ymd(from)}&to=${ymd(to)}&token=${encodeURIComponent(NEWS_CONFIG.finnhubKey)}`;
+
+  const data = await fetchJson(url);
+  if(!Array.isArray(data) || !data.length) return null;
+
+  const items = normalizeFinnhub(data)
+    .filter(x => x.title && x.link)
+    .sort((a,b) => (b.pub || 0) - (a.pub || 0));
+
+  if(!items.length) return null;
+
+  return {
+    sourceName:'Finnhub',
+    items
+  };
+}
+
+async function fetchNewsFromGoogleRSS(row){
+  if(!NEWS_CONFIG.googleRssFallback) return null;
+
+  const query = `${row.co} ${row.tkr} ${row.drug} FDA ${row.ind} 2026`;
+  const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
+  const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`, {cache:'no-store'});
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+
+  const xml = await res.text();
+  const doc = new DOMParser().parseFromString(xml, 'text/xml');
+
+  const items = Array.from(doc.querySelectorAll('item')).slice(0,4).map(i => ({
+    title:(i.querySelector('title')?.textContent || '').trim(),
+    link:(i.querySelector('link')?.textContent || '#').trim(),
+    source:'Google News',
+    pub:new Date(i.querySelector('pubDate')?.textContent || '').getTime()
+  })).filter(x => x.title && x.link);
+
+  if(!items.length) return null;
+
+  return {
+    sourceName:'Google RSS',
+    items
+  };
+}
+
 async function fetchNewsItem(row){
   const key = row.tkr.toLowerCase();
   const stEl = document.getElementById(`${key}-st`);
@@ -2209,39 +2445,33 @@ async function fetchNewsItem(row){
   stEl.textContent = 'Fetching…';
   bdEl.innerHTML = '';
 
-  const query = `${row.co} ${row.tkr} ${row.drug} FDA ${row.ind} 2026`;
+  const sources = [
+    () => fetchNewsFromProxy(row),
+    () => fetchNewsFromAlphaVantage(row),
+    () => fetchNewsFromFinnhub(row),
+    () => fetchNewsFromGoogleRSS(row)
+  ];
 
-  try{
-    const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`, {cache:'no-store'});
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  for(const fn of sources){
+    try{
+      const result = await fn();
+      if(result && result.items && result.items.length){
+        const newest = result.items
+          .map(x => x.pub)
+          .filter(Boolean)
+          .sort((a,b) => b-a)[0];
 
-    const xml = await res.text();
-    const doc = new DOMParser().parseFromString(xml, 'text/xml');
-
-    const items = Array.from(doc.querySelectorAll('item')).slice(0,4).map(i => ({
-      title:(i.querySelector('title')?.textContent || '').trim(),
-      link:(i.querySelector('link')?.textContent || '#').trim(),
-      pub:new Date(i.querySelector('pubDate')?.textContent || '')
-    }));
-
-    if(!items.length) throw new Error('empty');
-
-    stEl.textContent = `${tAgo(items[0].pub.getTime())} — latest`;
-
-    bdEl.innerHTML = items.map(it => `
-      <div class="ni">
-        <div class="ndot"></div>
-        <div class="ntxt">
-          <a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.title)}</a>
-          <div class="nmeta">${isNaN(it.pub) ? '' : tAgo(it.pub.getTime())}</div>
-        </div>
-      </div>
-    `).join('');
-  }catch{
-    stEl.textContent = 'Unavailable';
-    bdEl.innerHTML = `<div class="nempty">Feed unavailable — requires internet connection.</div>`;
+        const status = newest ? `${result.sourceName} · ${tAgo(newest)}` : result.sourceName;
+        renderNewsItems(key, result.items, status);
+        return;
+      }
+    }catch(err){
+      // try next source
+    }
   }
+
+  stEl.textContent = 'Unavailable';
+  bdEl.innerHTML = `<div class="nempty">All feeds unavailable — add API keys or keep Google RSS fallback enabled.</div>`;
 }
 
 function buildNewsGrid(){
@@ -2400,12 +2630,20 @@ function buildChips(){
   });
 }
 
+function activeHeroFocusTicker(){
+  const focusKey = ['hero0','hero1','hero2','hero3'].find(k => STATE.CHIPS[k]);
+  if(!focusKey) return null;
+  const idx = Number(focusKey.replace('hero',''));
+  return STATE.HEROES[idx]?.tkr || null;
+}
+
 function renderTable(){
   const tbody = document.getElementById('wl-tbody');
   const empty = document.getElementById('wl-empty');
   const search = (document.getElementById('searchBox').value || '').toLowerCase();
   const minSc = +document.getElementById('scoreFilter').value;
   const sortV = document.getElementById('sortSelect').value;
+  const focusTicker = activeHeroFocusTicker();
 
   let rows = STATE.FUTURE_ROWS.filter(r => {
     const blob = [r.tkr,r.co,r.drug,r.ind,r.notes,r.therapy].join(' ').toLowerCase();
@@ -2418,6 +2656,7 @@ function renderTable(){
       const th = String(r.therapy || '').toLowerCase();
       if(!(th.includes('gene') || th.includes('cell'))) return false;
     }
+    if(focusTicker && r.tkr !== focusTicker) return false;
     return true;
   });
 
@@ -2465,6 +2704,7 @@ function renderTable(){
       <td class="hide-m">
         ${r.orph ? `<span class="mb orph">Orphan</span> ` : ''}
         ${therapyTag}
+        <span class="mb">${esc(cleanText(r.catalyst_type || 'FDA'))}</span>
         ${fda ? ' <span class="mb" style="border-color:rgba(34,197,94,.4);color:#4ade80;background:rgba(34,197,94,.1)">✔ Approved</span>' : ''}
       </td>
     `;
@@ -2531,7 +2771,7 @@ async function loadData(){
   const data = await res.json();
   STATE.DATA = data;
   STATE.ANALOGS = data.analogs || [];
-  STATE.FUTURE_ROWS = ensureCamurusRow((data.rows || []).filter(isFutureRow));
+  STATE.FUTURE_ROWS = mergeSpecialRows((data.rows || []).filter(isFutureRow));
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
 }
 
