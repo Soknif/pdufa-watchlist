@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T00:00:00Z",
+  "generated_at": "2026-04-15T00:00:00Z",
   "rows": [
     {
       "tkr": "FBIO",
@@ -126,7 +126,7 @@
       "therapy": "Ex vivo gene therapy",
       "entry": "T-150 to T-90",
       "exit": "T-20 to T-7",
-      "notes": "Reference archetype for small-cap gene-therapy run-ups; exit window closed Mar 18 2026 \u2014 VWAP return +47.51% locked in.",
+      "notes": "Reference archetype for small-cap gene-therapy run-ups; exit window closed Mar 18 2026 — VWAP return +46.32% locked in.",
       "source": "https://www.businesswire.com/news/home/20251106225105/en/Rocket-Pharmaceuticals-Reports-Third-Quarter-2025-Financial-Results-and-Highlights-Recent-Progress"
     },
     {
@@ -142,7 +142,7 @@
       "therapy": "Brain-penetrant ERT",
       "entry": "T-150 to T-90",
       "exit": "T-20 to T-7",
-      "notes": "Exit window closed Mar 25 2026 \u2014 VWAP return +15.86% locked in. Hunter syndrome orphan gene therapy, Priority Review.",
+      "notes": "Exit window closed Mar 25 2026 — VWAP return +27.7% locked in. Hunter syndrome orphan gene therapy, Priority Review.",
       "source": "https://www.globenewswire.com/news-release/2025/10/13/3165786/0/en/Denali-Therapeutics-Announces-FDA-Review-Extension-of-BLA-for-Tividenofusp-Alfa-for-the-Treatment-of-MPS-II-Hunter-Syndrome.html"
     },
     {
@@ -215,14 +215,14 @@
       "date_type": "Exact",
       "co": "Axsome Therapeutics",
       "drug": "AXS-05",
-      "ind": "Alzheimer\u2019s disease agitation",
+      "ind": "Alzheimer’s disease agitation",
       "score": 3,
       "mantis_class": "M3 Tradable",
       "orph": false,
       "therapy": "CNS small-molecule",
       "entry": "T-90 to T-45",
       "exit": "T-20 to T-10",
-      "notes": "Tradable but more speculative or timing-sensitive; useful as a watch candidate for Alzheimer\u2019s disease agitation.",
+      "notes": "Tradable but more speculative or timing-sensitive; useful as a watch candidate for Alzheimer’s disease agitation.",
       "source": "https://www.globenewswire.com/news-release/2025/12/31/3211743/33090/en/Axsome-Therapeutics-Announces-FDA-Acceptance-and-Priority-Review-of-Supplemental-New-Drug-Application-for-AXS-05-for-the-Treatment-of-Alzheimer-s-Disease-Agitation.html"
     },
     {
@@ -247,7 +247,7 @@
       "date_type": "Exact",
       "co": "Biogen (with Eisai)",
       "drug": "LEQEMBI IQLIK (lecanemab) subcutaneous starting dose sBLA",
-      "ind": "Early Alzheimer\u2019s disease",
+      "ind": "Early Alzheimer’s disease",
       "score": 2,
       "mantis_class": "M2 Low-conviction",
       "orph": false,
@@ -304,6 +304,22 @@
       "exit": "T-20 to T-10",
       "notes": "Tradable but more speculative or timing-sensitive; useful as a watch candidate for current labeled indication.",
       "source": "https://ir.arvinas.com/news-releases/news-release-details/arvinas-announces-fda-acceptance-new-drug-application/"
+    },
+    {
+      "tkr": "CAMX",
+      "pdufa": "2026-06-10",
+      "date_type": "Exact",
+      "co": "Camurus AB",
+      "drug": "Oclaiz",
+      "ind": "Acromegaly",
+      "score": 3,
+      "mantis_class": "High Tier-2 · Quality catalyst / lower torque",
+      "orph": false,
+      "therapy": "Long-acting octreotide depot",
+      "entry": "T-70 to T-35",
+      "exit": "T-14 to T-3",
+      "notes": "Strong clinical and financial profile, but lower speculative rerating potential for core MANTIS run-up strategy. Modeled as a later-entry, lower-torque setup versus higher-beta MANTIS names.",
+      "source": "https://www.tradingview.com/symbols/OMXSTO-CAMX/"
     },
     {
       "tkr": "LNTH",
@@ -423,7 +439,7 @@
       "date_type": "Exact",
       "co": "Lantheus",
       "drug": "MK-6240",
-      "ind": "Tau PET imaging in Alzheimer\u2019s disease",
+      "ind": "Tau PET imaging in Alzheimer’s disease",
       "score": 2,
       "mantis_class": "M2 Low-conviction",
       "orph": false,
@@ -646,9 +662,9 @@
     {
       "name": "RCKT",
       "label": "Rocket Pharmaceuticals",
-      "return_pct": 47.51,
+      "return_pct": 46.32,
       "disease": "LAD-I",
-      "outcome": "Completed",
+      "outcome": "Approved",
       "color": "#a78bfa"
     },
     {
@@ -686,9 +702,9 @@
     {
       "name": "DNLI",
       "label": "Denali Therapeutics",
-      "return_pct": 15.86,
+      "return_pct": 27.7,
       "disease": "Hunter Syndrome (MPS II)",
-      "outcome": "Completed",
+      "outcome": "Approved",
       "color": "#5eead4"
     },
     {
