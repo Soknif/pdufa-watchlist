@@ -1305,21 +1305,21 @@
     .fda-result{
       padding:0;
       border-bottom:1px solid var(--bd);
-      overflow:hidden
+      overflow:hidden;
     }
 
     .fda-result-banner{
       position:relative;
-      padding:14px 16px;
-      overflow:hidden
+      padding:12px 16px;
+      overflow:hidden;
     }
 
     .fda-result-banner.approved{
-      background:linear-gradient(135deg,rgba(34,197,94,.08) 0%,rgba(34,197,94,.04) 40%,rgba(124,58,237,.06) 100%)
+      background:linear-gradient(135deg,rgba(34,197,94,.08) 0%,rgba(34,197,94,.04) 40%,rgba(124,58,237,.06) 100%);
     }
 
     .fda-result-banner.crl{
-      background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(239,68,68,.04) 100%)
+      background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(239,68,68,.04) 100%);
     }
 
     .fda-result-banner::before{
@@ -1328,12 +1328,12 @@
       inset:0;
       background:linear-gradient(90deg,transparent,rgba(34,197,94,.04),transparent);
       background-size:300% 100%;
-      animation:fdaShimmer 5s ease-in-out infinite
+      animation:fdaShimmer 5s ease-in-out infinite;
     }
 
     .fda-result-banner.crl::before{
       background:linear-gradient(90deg,transparent,rgba(239,68,68,.04),transparent);
-      background-size:300% 100%
+      background-size:300% 100%;
     }
 
     @keyframes fdaShimmer{
@@ -1344,10 +1344,12 @@
     .fda-result-top{
       display:flex;
       align-items:center;
+      justify-content:space-between;
       gap:10px;
       margin-bottom:10px;
       position:relative;
-      z-index:1
+      z-index:1;
+      flex-wrap:wrap;
     }
 
     .fda-result-badge{
@@ -1360,21 +1362,21 @@
       font-size:11px;
       font-weight:700;
       letter-spacing:.12em;
-      text-transform:uppercase
+      text-transform:uppercase;
     }
 
     .fda-result-badge.approved{
       background:rgba(34,197,94,.15);
       border:1px solid rgba(34,197,94,.45);
       color:#4ade80;
-      box-shadow:0 0 16px rgba(34,197,94,.15)
+      box-shadow:0 0 16px rgba(34,197,94,.15);
     }
 
     .fda-result-badge.crl{
       background:rgba(239,68,68,.15);
       border:1px solid rgba(239,68,68,.45);
       color:#f87171;
-      box-shadow:0 0 16px rgba(239,68,68,.15)
+      box-shadow:0 0 16px rgba(239,68,68,.15);
     }
 
     .fda-result-badge .badge-icon{
@@ -1385,74 +1387,79 @@
       align-items:center;
       justify-content:center;
       font-size:11px;
-      flex-shrink:0
+      flex-shrink:0;
     }
 
     .fda-result-badge.approved .badge-icon{
       background:rgba(34,197,94,.25);
-      border:1px solid rgba(34,197,94,.5)
+      border:1px solid rgba(34,197,94,.5);
     }
 
     .fda-result-date{
       font-size:10px;
       color:var(--muted);
-      font-family:var(--mono)
+      font-family:var(--mono);
     }
 
     .fda-result-body{
       position:relative;
       z-index:1;
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:14px;
-      align-items:start
-    }
-
-    @media(max-width:500px){
-      .fda-result-body{grid-template-columns:1fr}
-    }
-
-    .fda-result-details{
       display:flex;
       flex-direction:column;
-      gap:6px
+      gap:10px;
+    }
+
+    .fda-result-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px 14px;
+    }
+
+    @media(max-width:520px){
+      .fda-result-grid{grid-template-columns:1fr}
     }
 
     .fda-detail-row{
       display:flex;
-      gap:8px;
-      align-items:baseline;
-      font-size:11px;
-      line-height:1.4
+      flex-direction:column;
+      gap:3px;
+      min-width:0;
     }
 
     .fda-detail-label{
-      font-size:9px;
+      font-size:8px;
       color:var(--muted);
       font-family:var(--mono);
       letter-spacing:.1em;
       text-transform:uppercase;
-      flex:0 0 70px
     }
 
     .fda-detail-value{
       color:var(--text);
       font-family:var(--mono);
       font-size:11px;
-      flex:1
+      line-height:1.35;
+      word-break:break-word;
     }
 
     .fda-detail-value.brand-name{
       font-weight:700;
-      font-size:13px;
-      letter-spacing:.04em
+      font-size:12px;
+      letter-spacing:.03em;
+    }
+
+    .fda-detail-value.clamp-2{
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
     }
 
     .fda-extras{
       display:flex;
-      flex-direction:column;
-      gap:5px;
-      align-items:flex-end
+      flex-wrap:wrap;
+      gap:6px;
+      align-items:flex-start;
     }
 
     .fda-extra-pill{
@@ -1462,36 +1469,36 @@
       font-family:var(--mono);
       letter-spacing:.1em;
       text-transform:uppercase;
-      white-space:nowrap
+      white-space:nowrap;
     }
 
     .fda-extra-pill.prv{
       background:rgba(167,139,250,.12);
       border:1px solid rgba(167,139,250,.35);
-      color:var(--rckt2)
+      color:var(--rckt2);
     }
 
     .fda-extra-pill.accel{
       background:rgba(245,158,11,.10);
       border:1px solid rgba(245,158,11,.3);
-      color:#fcd34d
+      color:#fcd34d;
     }
 
     .fda-extra-pill.first{
       background:rgba(94,234,212,.10);
       border:1px solid rgba(94,234,212,.3);
-      color:var(--dnli2)
+      color:var(--dnli2);
     }
 
     .pbb-complete .pbf{
       background:linear-gradient(90deg,rgba(34,197,94,.3),rgba(34,197,94,.85))!important;
-      width:100%!important
+      width:100%!important;
     }
 
     .pbb-complete .pbm{
       left:100%!important;
       background:#4ade80!important;
-      box-shadow:0 0 10px rgba(34,197,94,.5)!important
+      box-shadow:0 0 10px rgba(34,197,94,.5)!important;
     }
 
     .pbb-complete .pbls span{color:#4ade80}
@@ -1917,13 +1924,28 @@ function fdaResultSection(tkr){
         </div>
 
         <div class="fda-result-body">
-          <div class="fda-result-details">
-            <div class="fda-detail-row"><span class="fda-detail-label">Brand</span><span class="fda-detail-value brand-name">${esc(fda.brandName)}</span></div>
-            <div class="fda-detail-row"><span class="fda-detail-label">Generic</span><span class="fda-detail-value">${esc(fda.genericName)}</span></div>
-            <div class="fda-detail-row"><span class="fda-detail-label">Type</span><span class="fda-detail-value">${esc(fda.approvalType)}</span></div>
-            <div class="fda-detail-row"><span class="fda-detail-label">For</span><span class="fda-detail-value">${esc(fda.indication)}</span></div>
-            <div class="fda-detail-row"><span class="fda-detail-label">MOA</span><span class="fda-detail-value">${esc(fda.mechanism)}</span></div>
+          <div class="fda-result-grid">
+            <div class="fda-detail-row">
+              <span class="fda-detail-label">Brand</span>
+              <span class="fda-detail-value brand-name">${esc(fda.brandName)}</span>
+            </div>
+
+            <div class="fda-detail-row">
+              <span class="fda-detail-label">Type</span>
+              <span class="fda-detail-value">${esc(fda.approvalType)}</span>
+            </div>
+
+            <div class="fda-detail-row">
+              <span class="fda-detail-label">Generic</span>
+              <span class="fda-detail-value clamp-2">${esc(fda.genericName)}</span>
+            </div>
+
+            <div class="fda-detail-row">
+              <span class="fda-detail-label">For</span>
+              <span class="fda-detail-value clamp-2">${esc(fda.indication)}</span>
+            </div>
           </div>
+
           <div class="fda-extras">${extraPills}</div>
         </div>
       </div>
@@ -2511,8 +2533,6 @@ async function loadData(){
   STATE.ANALOGS = data.analogs || [];
   STATE.FUTURE_ROWS = ensureCamurusRow((data.rows || []).filter(isFutureRow));
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
-
-  document.getElementById('generatedLabel') && (document.getElementById('generatedLabel').textContent = `Generated ${data.generated_at || '—'}`);
 }
 
 async function init(){
@@ -2558,4 +2578,3 @@ window.addEventListener('load', init);
 </script>
 </body>
 </html>
-
