@@ -1541,7 +1541,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">TOP CANDIDATES</div>
-      <div class="sec-sub">Pinned heroes include RCKT, DNLI, VERA, CAMURUS plus new score-5 adds SVRA, CAPR and PRAX</div>
+      <div class="sec-sub">Pinned heroes: RCKT, DNLI, VERA, CAMX, SVRA, CAPR and PRAX</div>
     </div>
     <span class="stag">Dynamic heroes</span>
   </div>
@@ -1709,63 +1709,6 @@ const CAMURUS_ROW = {
   source:'https://www.tradingview.com/symbols/OMXSTO-CAMX/'
 };
 
-const MANTIS_ADDS = [
-  {
-    tkr:'SVRA',
-    co:'Savara Inc.',
-    drug:'MOLBREEVI (molgramostim)',
-    ind:'Autoimmune pulmonary alveolar proteinosis (aPAP)',
-    pdufa:'2026-11-22',
-    date_type:'Exact',
-    score:5,
-    mantis_class:'M5 Prime · Rare respiratory / first-commercial inflection',
-    therapy:'Inhaled biologic / rare respiratory disease',
-    catalyst_type:'BLA',
-    priority_review:true,
-    orph:true,
-    entry:'T-180 to T-90',
-    exit:'T-30 to T-7',
-    notes:'Clear FDA catalyst, priority review, rare-disease rerating profile, first-commercial inflection setup and extended runway after review extension.',
-    source:'https://www.marketscreener.com/news/savara-announces-the-u-s-food-drug-administration-fda-has-extended-the-review-period-for-the-mo-ce7e50dcd08bff2d/'
-  },
-  {
-    tkr:'CAPR',
-    co:'Capricor Therapeutics',
-    drug:'Deramiocel',
-    ind:'Duchenne muscular dystrophy (DMD)',
-    pdufa:'2026-08-22',
-    date_type:'Exact',
-    score:5,
-    mantis_class:'M5 Prime · High-emotion rare-disease catalyst',
-    therapy:'Cell therapy / rare neuromuscular disease',
-    catalyst_type:'BLA resubmission',
-    priority_review:true,
-    orph:true,
-    entry:'T-130 to T-60',
-    exit:'T-25 to T-5',
-    notes:'Company-defining DMD event with rare-disease torque, strong narrative visibility, and genuine pre-decision rerating potential.',
-    source:'https://www.capricor.com/investors/news-events/press-releases/detail/338/capricor-therapeutics-announces-establishment-of-new-pdufa'
-  },
-  {
-    tkr:'PRAX',
-    co:'Praxis Precision Medicines',
-    drug:'Relutrigine',
-    ind:'SCN2A/SCN8A developmental and epileptic encephalopathies',
-    pdufa:'2026-09-27',
-    date_type:'Exact',
-    score:5,
-    mantis_class:'M5 Prime · Precision neurology / rare pediatric epilepsy',
-    therapy:'Precision neurology / rare pediatric epilepsy',
-    catalyst_type:'NDA',
-    priority_review:true,
-    orph:true,
-    entry:'T-150 to T-70',
-    exit:'T-25 to T-5',
-    notes:'High-unmet-need rare neuro story with exact FDA date, priority review, strong visibility, and high speculative narrative quality.',
-    source:'https://ir.praxismedicines.com/news-releases/news-release-details/praxis-precision-medicines-announces-fda-acceptance-and-priority/'
-  }
-];
-
 const FDA_DECISIONS = {
   'RCKT': {
     outcome:'approved',
@@ -1928,32 +1871,13 @@ function sortRows(arr, mode){
   });
 }
 
-function mergeSpecialRows(rows){
-  const out = [...rows];
-  const byTicker = new Set(out.map(r => r.tkr));
-
-  if(!byTicker.has('CAMX')) out.push(CAMURUS_ROW);
-  MANTIS_ADDS.forEach(r => {
-    if(!byTicker.has(r.tkr)) out.push(r);
-  });
-
-  return out;
+function ensureCamurusRow(rows){
+  return rows.some(r => r.tkr === 'CAMX') ? rows : [...rows, CAMURUS_ROW];
 }
 
 function chooseHeroes(rows){
   const byTicker = new Map(rows.map(r => [r.tkr, r]));
-  const pinned = HERO_ORDER.map(t => byTicker.get(t)).filter(Boolean);
-
-  const ranked = [...rows]
-    .filter(r => !HERO_ORDER.includes(r.tkr))
-    .sort((a,b) => {
-      if((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
-      const ad = parsePdufa(a.pdufa,a.date_type)?.getTime() || 0;
-      const bd = parsePdufa(b.pdufa,b.date_type)?.getTime() || 0;
-      return ad - bd;
-    });
-
-  return [...pinned, ...ranked];
+  return HERO_ORDER.map(t => byTicker.get(t)).filter(Boolean);
 }
 
 function tvSymbolFor(tkr){
@@ -2771,7 +2695,7 @@ async function loadData(){
   const data = await res.json();
   STATE.DATA = data;
   STATE.ANALOGS = data.analogs || [];
-  STATE.FUTURE_ROWS = mergeSpecialRows((data.rows || []).filter(isFutureRow));
+  STATE.FUTURE_ROWS = ensureCamurusRow((data.rows || []).filter(isFutureRow));
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
 }
 
