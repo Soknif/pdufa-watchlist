@@ -26,268 +26,1479 @@
       --disp:'Bebas Neue',sans-serif;
       --r:14px; --r2:20px;
     }
+
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
-    body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body{
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased
+    }
+
     body::before{
-      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      content:'';
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
       background:
         radial-gradient(ellipse 900px 500px at -5% 5%, rgba(124,58,237,.15),transparent 55%),
         radial-gradient(ellipse 700px 400px at 108% 8%,rgba(13,148,136,.13),transparent 55%),
         radial-gradient(ellipse 600px 350px at 52% 92%,rgba(219,39,119,.10),transparent 60%);
     }
-    .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 14px 56px}
-    .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0 12px;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--bd)}
-    .brand-mark{font-family:var(--disp);font-size:28px;letter-spacing:.06em;line-height:1;background:linear-gradient(135deg,#a78bfa,#7c3aed,#5eead4,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .brand-sub{font-size:10px;color:var(--muted);margin-top:3px;font-family:var(--mono);letter-spacing:.12em}
-    .live-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf);font-size:11px;color:var(--soft);font-family:var(--mono)}
-    .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-    .legend-bar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 0 14px;border-bottom:1px solid var(--bd);margin-bottom:16px;align-items:center}
-    .leg-lbl{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
-    .leg-i{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--soft);font-family:var(--mono)}
-    .leg-d{width:8px;height:8px;border-radius:50%}
-    .sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 0 12px;border-bottom:1px solid var(--bd);gap:10px;flex-wrap:wrap;margin-bottom:14px}
-    .sec-title{font-family:var(--disp);font-size:22px;letter-spacing:.06em}
-    .sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
-    .stag{font-size:9px;padding:3px 9px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
-    .heroes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
-    @media(max-width:1280px){.heroes{grid-template-columns:1fr 1fr}}
-    @media(max-width:720px){.heroes{grid-template-columns:1fr}}
-    .hero{border-radius:var(--r2);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(12px);overflow:hidden;position:relative}
-    .hero::before{content:'';position:absolute;top:-70px;right:-70px;width:220px;height:220px;border-radius:50%;opacity:.14;pointer-events:none}
-    .hero.rckt{border-top:2px solid var(--rckt)}.hero.rckt::before{background:var(--rckt)}
-    .hero.dnli{border-top:2px solid var(--dnli)}.hero.dnli::before{background:var(--dnli)}
-    .hero.vera{border-top:2px solid var(--vera)}.hero.vera::before{background:var(--vera)}
-    .hero.rare{border-top:2px solid var(--rare)}.hero.rare::before{background:var(--rare)}
-    .hero.nuvl{border-top:2px solid var(--nuvl)}.hero.nuvl::before{background:var(--nuvl)}
-    .hero.camx{border-top:2px solid var(--camx)}.hero.camx::before{background:var(--camx)}
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:1440px;
+      margin:0 auto;
+      padding:0 14px 56px
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 0 12px;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom:1px solid var(--bd)
+    }
+
+    .brand-mark{
+      font-family:var(--disp);
+      font-size:28px;
+      letter-spacing:.06em;
+      line-height:1;
+      background:linear-gradient(135deg,#a78bfa,#7c3aed,#5eead4,#f9a8d4);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text
+    }
+
+    .brand-sub{
+      font-size:10px;
+      color:var(--muted);
+      margin-top:3px;
+      font-family:var(--mono);
+      letter-spacing:.12em
+    }
+
+    .live-pill{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:5px 12px;
+      border-radius:999px;
+      border:1px solid var(--bd2);
+      background:var(--sf);
+      font-size:11px;
+      color:var(--soft);
+      font-family:var(--mono)
+    }
+
+    .live-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 8px var(--green);
+      animation:blink 2s infinite
+    }
+
+    @keyframes blink{
+      0%,100%{opacity:1}
+      50%{opacity:.3}
+    }
+
+    .legend-bar{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      padding:10px 0 14px;
+      border-bottom:1px solid var(--bd);
+      margin-bottom:16px;
+      align-items:center
+    }
+
+    .leg-lbl{
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono);
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      margin-right:4px
+    }
+
+    .leg-i{
+      display:flex;
+      align-items:center;
+      gap:5px;
+      font-size:10px;
+      color:var(--soft);
+      font-family:var(--mono)
+    }
+
+    .leg-d{
+      width:8px;
+      height:8px;
+      border-radius:50%
+    }
+
+    .sec-hdr{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 0 12px;
+      border-bottom:1px solid var(--bd);
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:14px
+    }
+
+    .sec-title{
+      font-family:var(--disp);
+      font-size:22px;
+      letter-spacing:.06em
+    }
+
+    .sec-sub{
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono);
+      margin-top:2px
+    }
+
+    .stag{
+      font-size:9px;
+      padding:3px 9px;
+      border-radius:999px;
+      border:1px solid var(--bd2);
+      background:var(--sf2);
+      color:var(--muted);
+      font-family:var(--mono);
+      letter-spacing:.1em;
+      text-transform:uppercase
+    }
+
+    .heroes{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:16px;
+      align-items:start;
+    }
+
+    @media(max-width:1280px){
+      .heroes{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:720px){
+      .heroes{grid-template-columns:1fr}
+    }
+
+    .hero{
+      border-radius:var(--r2);
+      border:1px solid var(--bd);
+      background:var(--sf);
+      backdrop-filter:blur(12px);
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      align-self:start;
+      height:auto;
+      min-height:0;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      top:-70px;
+      right:-70px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      opacity:.14;
+      pointer-events:none
+    }
+
+    .hero.rckt{border-top:2px solid var(--rckt)}
+    .hero.rckt::before{background:var(--rckt)}
+    .hero.dnli{border-top:2px solid var(--dnli)}
+    .hero.dnli::before{background:var(--dnli)}
+    .hero.vera{border-top:2px solid var(--vera)}
+    .hero.vera::before{background:var(--vera)}
+    .hero.rare{border-top:2px solid var(--rare)}
+    .hero.rare::before{background:var(--rare)}
+    .hero.nuvl{border-top:2px solid var(--nuvl)}
+    .hero.nuvl::before{background:var(--nuvl)}
+    .hero.camx{border-top:2px solid var(--camx)}
+    .hero.camx::before{background:var(--camx)}
     .hero.std::before{background:#64748b}
-    .hero-hd{padding:16px 18px 12px;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
-    .hticker{font-family:var(--mono);font-weight:700;font-size:24px;letter-spacing:.08em;line-height:1}
-    .rckt .hticker{color:var(--rckt2)}.dnli .hticker{color:var(--dnli2)}.vera .hticker{color:var(--vera2)}.rare .hticker{color:var(--rare2)}.nuvl .hticker{color:var(--nuvl2)}.camx .hticker{color:var(--camx2)}
+
+    .hero-hd{
+      padding:16px 18px 12px;
+      border-bottom:1px solid var(--bd);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap
+    }
+
+    .hticker{
+      font-family:var(--mono);
+      font-weight:700;
+      font-size:24px;
+      letter-spacing:.08em;
+      line-height:1
+    }
+
+    .rckt .hticker{color:var(--rckt2)}
+    .dnli .hticker{color:var(--dnli2)}
+    .vera .hticker{color:var(--vera2)}
+    .rare .hticker{color:var(--rare2)}
+    .nuvl .hticker{color:var(--nuvl2)}
+    .camx .hticker{color:var(--camx2)}
     .std .hticker{color:#cbd5e1}
-    .hname{font-size:12px;color:var(--soft);margin-top:3px}
-    .brow{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
-    .bd{font-size:9px;padding:2px 8px;border-radius:999px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--bd2);background:var(--sf2);color:var(--soft)}
-    .bd.sc5{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.45);color:#4ade80}
-    .bd.sc4{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.35);color:#fcd34d}
-    .bd.sc3{background:rgba(125,211,252,.10);border-color:rgba(125,211,252,.3);color:#7dd3fc}
-    .hkpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
-    .kpi{background:var(--bg1);padding:11px 12px}
-    .kpi .k{font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);margin-bottom:5px}
-    .kpi .v{font-size:14px;font-family:var(--mono);font-weight:700;line-height:1.2;color:#e2e8f0}
-    .kpi .s{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3}
-    .cdb{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .cdlbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono);flex:0 0 auto}
-    .cdd{display:flex;gap:5px;flex:1}
-    .cdu{text-align:center;min-width:42px;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:6px 7px}
-    .cdn{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1;color:#e2e8f0}
-    .cdl{font-size:8px;color:var(--muted);margin-top:2px;letter-spacing:.1em;text-transform:uppercase}
-    .cdt{font-size:11px;color:var(--soft);font-family:var(--mono);white-space:nowrap}
-    .pbb{padding:12px 16px;border-bottom:1px solid var(--bd)}
-    .pbl{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:8px}
-    .pbr{position:relative;height:7px;background:var(--sf2);border-radius:4px}
-    .pbf{height:100%;border-radius:4px;position:absolute;left:0;top:0;transition:width .6s;background:linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.85))}
-    .pbm{position:absolute;top:-5px;width:17px;height:17px;border-radius:50%;border:2px solid var(--bg);transform:translateX(-50%);box-shadow:0 0 10px rgba(255,255,255,.5);background:#fff}
-    .pbls{display:flex;justify-content:space-between;margin-top:7px}
-    .pbls span{font-size:8px;color:var(--muted);font-family:var(--mono)}
-    .thesis{padding:12px 16px 16px}
-    .tttl{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:9px}
-    .tpts{display:flex;flex-direction:column;gap:6px}
-    .tpt{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:var(--text);line-height:1.45}
-    .td2{width:6px;height:6px;border-radius:50%;flex:0 0 auto;margin-top:4px;background:#cbd5e1;box-shadow:0 0 5px rgba(255,255,255,.25)}
-    .windows-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
-    @media(max-width:1280px){.windows-row{grid-template-columns:1fr 1fr}}
-    @media(max-width:720px){.windows-row{grid-template-columns:1fr}}
-    .win-card{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);padding:14px 16px;min-width:0}
-    .winhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;flex-wrap:wrap;gap:6px}
-    .winttl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono)}
-    .wintkr{font-family:var(--mono);font-weight:700;font-size:13px;color:#e2e8f0}
-    .winrows{display:flex;flex-direction:column;gap:8px}
-    .winrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-    .wrl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
-    .wrd{font-size:11px;font-family:var(--mono);color:var(--text)}
-    .wp{font-size:9px;padding:2px 8px;border-radius:999px;font-weight:600;font-family:var(--mono);white-space:nowrap}
-    .wp.en{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);color:#4ade80}
-    .wp.ex{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:#fcd34d}
+
+    .hname{
+      font-size:12px;
+      color:var(--soft);
+      margin-top:3px
+    }
+
+    .brow{
+      display:flex;
+      gap:5px;
+      flex-wrap:wrap;
+      justify-content:flex-end
+    }
+
+    .bd{
+      font-size:9px;
+      padding:2px 8px;
+      border-radius:999px;
+      font-family:var(--mono);
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      border:1px solid var(--bd2);
+      background:var(--sf2);
+      color:var(--soft)
+    }
+
+    .bd.sc5{
+      background:rgba(34,197,94,.12);
+      border-color:rgba(34,197,94,.45);
+      color:#4ade80
+    }
+
+    .bd.sc4{
+      background:rgba(245,158,11,.12);
+      border-color:rgba(245,158,11,.35);
+      color:#fcd34d
+    }
+
+    .bd.sc3{
+      background:rgba(125,211,252,.10);
+      border-color:rgba(125,211,252,.3);
+      color:#7dd3fc
+    }
+
+    .hkpis{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1px;
+      background:var(--bd)
+    }
+
+    .kpi{
+      background:var(--bg1);
+      padding:11px 12px
+    }
+
+    .kpi .k{
+      font-size:9px;
+      color:var(--muted);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-family:var(--mono);
+      margin-bottom:5px
+    }
+
+    .kpi .v{
+      font-size:14px;
+      font-family:var(--mono);
+      font-weight:700;
+      line-height:1.2;
+      color:#e2e8f0
+    }
+
+    .kpi .s{
+      font-size:9px;
+      color:var(--muted);
+      margin-top:3px;
+      line-height:1.3
+    }
+
+    .cdb{
+      padding:12px 16px;
+      border-bottom:1px solid var(--bd);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap
+    }
+
+    .cdlbl{
+      font-size:9px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-family:var(--mono);
+      flex:0 0 auto
+    }
+
+    .cdd{
+      display:flex;
+      gap:5px;
+      flex:1
+    }
+
+    .cdu{
+      text-align:center;
+      min-width:42px;
+      background:var(--sf2);
+      border:1px solid var(--bd);
+      border-radius:9px;
+      padding:6px 7px
+    }
+
+    .cdn{
+      font-family:var(--mono);
+      font-size:18px;
+      font-weight:700;
+      line-height:1;
+      color:#e2e8f0
+    }
+
+    .cdl{
+      font-size:8px;
+      color:var(--muted);
+      margin-top:2px;
+      letter-spacing:.1em;
+      text-transform:uppercase
+    }
+
+    .cdt{
+      font-size:11px;
+      color:var(--soft);
+      font-family:var(--mono);
+      white-space:nowrap
+    }
+
+    .pbb{
+      padding:12px 16px;
+      border-bottom:1px solid var(--bd)
+    }
+
+    .pbl{
+      font-size:9px;
+      color:var(--muted);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-family:var(--mono);
+      margin-bottom:8px
+    }
+
+    .pbr{
+      position:relative;
+      height:7px;
+      background:var(--sf2);
+      border-radius:4px
+    }
+
+    .pbf{
+      height:100%;
+      border-radius:4px;
+      position:absolute;
+      left:0;
+      top:0;
+      transition:width .6s;
+      background:linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.85))
+    }
+
+    .pbm{
+      position:absolute;
+      top:-5px;
+      width:17px;
+      height:17px;
+      border-radius:50%;
+      border:2px solid var(--bg);
+      transform:translateX(-50%);
+      box-shadow:0 0 10px rgba(255,255,255,.5);
+      background:#fff
+    }
+
+    .pbls{
+      display:flex;
+      justify-content:space-between;
+      margin-top:7px
+    }
+
+    .pbls span{
+      font-size:8px;
+      color:var(--muted);
+      font-family:var(--mono)
+    }
+
+    .thesis{
+      padding:12px 16px 16px
+    }
+
+    .tttl{
+      font-size:9px;
+      color:var(--muted);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-family:var(--mono);
+      margin-bottom:9px
+    }
+
+    .tpts{
+      display:flex;
+      flex-direction:column;
+      gap:6px
+    }
+
+    .tpt{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      font-size:11px;
+      color:var(--text);
+      line-height:1.45
+    }
+
+    .td2{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      flex:0 0 auto;
+      margin-top:4px;
+      background:#cbd5e1;
+      box-shadow:0 0 5px rgba(255,255,255,.25)
+    }
+
+    .windows-row{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:16px;
+      align-items:start;
+    }
+
+    @media(max-width:1280px){
+      .windows-row{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:720px){
+      .windows-row{grid-template-columns:1fr}
+    }
+
+    .win-card{
+      border-radius:var(--r);
+      border:1px solid var(--bd);
+      background:var(--sf);
+      padding:14px 16px;
+      min-width:0;
+      align-self:start;
+    }
+
+    .winhd{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:11px;
+      flex-wrap:wrap;
+      gap:6px
+    }
+
+    .winttl{
+      font-size:9px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-family:var(--mono)
+    }
+
+    .wintkr{
+      font-family:var(--mono);
+      font-weight:700;
+      font-size:13px;
+      color:#e2e8f0
+    }
+
+    .winrows{
+      display:flex;
+      flex-direction:column;
+      gap:8px
+    }
+
+    .winrow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap
+    }
+
+    .wrl{
+      font-size:9px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      font-family:var(--mono)
+    }
+
+    .wrd{
+      font-size:11px;
+      font-family:var(--mono);
+      color:var(--text)
+    }
+
+    .wp{
+      font-size:9px;
+      padding:2px 8px;
+      border-radius:999px;
+      font-weight:600;
+      font-family:var(--mono);
+      white-space:nowrap
+    }
+
+    .wp.en{
+      background:rgba(34,197,94,.12);
+      border:1px solid rgba(34,197,94,.35);
+      color:#4ade80
+    }
+
+    .wp.ex{
+      background:rgba(245,158,11,.12);
+      border:1px solid rgba(245,158,11,.35);
+      color:#fcd34d
+    }
+
     .wp.act{animation:pg .9s infinite alternate}
-    @keyframes pg{from{opacity:.7}to{opacity:1}}
-    .wp.nd{background:var(--sf2);border:1px solid var(--bd2);color:var(--soft)}
+
+    @keyframes pg{
+      from{opacity:.7}
+      to{opacity:1}
+    }
+
+    .wp.nd{
+      background:var(--sf2);
+      border:1px solid var(--bd2);
+      color:var(--soft)
+    }
+
     .cluster-section{margin-bottom:20px}
-    .analog-card{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden}
-    .analog-hd{padding:14px 20px 12px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-    .analog-sub{font-size:11px;color:var(--muted)}
-    .analog-body{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    @media(max-width:800px){.analog-body{grid-template-columns:1fr}}
-    .chart-canvas-wrap canvas{display:block;width:100%;height:auto}
-    .chart-title{font-size:11px;color:var(--soft);font-family:var(--mono);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase}
-    .analog-legend{display:flex;flex-direction:column;gap:12px;justify-content:center}
-    .al-item{border-radius:12px;border:1px solid var(--bd);background:var(--sf2);padding:10px 14px;display:flex;align-items:flex-start;gap:10px}
-    .al-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;margin-top:4px}
-    .al-name{font-size:12px;font-weight:600;font-family:var(--mono);line-height:1.2}
-    .al-det{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4}
-    .al-gains{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:4px}
-    .al-gain{font-size:16px;font-weight:700;font-family:var(--mono);line-height:1}
-    .al-gain-sub{font-size:10px;font-family:var(--mono);color:var(--muted)}
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-    @media(max-width:900px){.two-col{grid-template-columns:1fr}}
-    .three-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
-    @media(max-width:1000px){.three-col{grid-template-columns:1fr 1fr}}
-    @media(max-width:640px){.three-col{grid-template-columns:1fr}}
-    .chart-ct{height:340px;min-height:260px}
-    @media(max-width:900px){.chart-ct{height:300px}}
-    @media(max-width:480px){.chart-ct{height:260px}}
-    .panel{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);backdrop-filter:blur(8px);overflow:hidden;min-width:0}
-    .phd{padding:11px 16px 9px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-    .ptitle{font-family:var(--mono);font-size:13px;font-weight:700}
-    .pnote{font-size:10px;color:var(--muted);font-family:var(--mono)}
-    .nbody{padding:14px 16px;display:flex;flex-direction:column;gap:12px;min-height:160px}
-    .ni{display:flex;gap:10px;align-items:flex-start}
-    .ndot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#cbd5e1}
+
+    .analog-card{
+      border-radius:var(--r);
+      border:1px solid var(--bd);
+      background:var(--sf);
+      backdrop-filter:blur(8px);
+      overflow:hidden
+    }
+
+    .analog-hd{
+      padding:14px 20px 12px;
+      border-bottom:1px solid var(--bd);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px
+    }
+
+    .analog-sub{
+      font-size:11px;
+      color:var(--muted)
+    }
+
+    .analog-body{
+      padding:16px 20px 20px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px
+    }
+
+    @media(max-width:800px){
+      .analog-body{grid-template-columns:1fr}
+    }
+
+    .chart-canvas-wrap canvas{
+      display:block;
+      width:100%;
+      height:auto
+    }
+
+    .chart-title{
+      font-size:11px;
+      color:var(--soft);
+      font-family:var(--mono);
+      margin-bottom:6px;
+      letter-spacing:.08em;
+      text-transform:uppercase
+    }
+
+    .analog-legend{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      justify-content:center
+    }
+
+    .al-item{
+      border-radius:12px;
+      border:1px solid var(--bd);
+      background:var(--sf2);
+      padding:10px 14px;
+      display:flex;
+      align-items:flex-start;
+      gap:10px
+    }
+
+    .al-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      flex:0 0 auto;
+      margin-top:4px
+    }
+
+    .al-name{
+      font-size:12px;
+      font-weight:600;
+      font-family:var(--mono);
+      line-height:1.2
+    }
+
+    .al-det{
+      font-size:10px;
+      color:var(--muted);
+      margin-top:3px;
+      line-height:1.4
+    }
+
+    .al-gains{
+      display:flex;
+      gap:10px;
+      align-items:baseline;
+      flex-wrap:wrap;
+      margin-top:4px
+    }
+
+    .al-gain{
+      font-size:16px;
+      font-weight:700;
+      font-family:var(--mono);
+      line-height:1
+    }
+
+    .al-gain-sub{
+      font-size:10px;
+      font-family:var(--mono);
+      color:var(--muted)
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-bottom:14px
+    }
+
+    @media(max-width:900px){
+      .two-col{grid-template-columns:1fr}
+    }
+
+    .three-col{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:16px
+    }
+
+    @media(max-width:1000px){
+      .three-col{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:640px){
+      .three-col{grid-template-columns:1fr}
+    }
+
+    .chart-ct{
+      height:340px;
+      min-height:260px
+    }
+
+    @media(max-width:900px){
+      .chart-ct{height:300px}
+    }
+
+    @media(max-width:480px){
+      .chart-ct{height:260px}
+    }
+
+    .panel{
+      border-radius:var(--r);
+      border:1px solid var(--bd);
+      background:var(--sf);
+      backdrop-filter:blur(8px);
+      overflow:hidden;
+      min-width:0
+    }
+
+    .phd{
+      padding:11px 16px 9px;
+      border-bottom:1px solid var(--bd);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap
+    }
+
+    .ptitle{
+      font-family:var(--mono);
+      font-size:13px;
+      font-weight:700
+    }
+
+    .pnote{
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono)
+    }
+
+    .nbody{
+      padding:14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-height:160px
+    }
+
+    .ni{
+      display:flex;
+      gap:10px;
+      align-items:flex-start
+    }
+
+    .ndot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      flex-shrink:0;
+      margin-top:5px;
+      background:#cbd5e1
+    }
+
     .ntxt{min-width:0}
-    .ntxt a{font-size:11px;color:var(--text);text-decoration:none;line-height:1.5;display:block;word-break:break-word}
+
+    .ntxt a{
+      font-size:11px;
+      color:var(--text);
+      text-decoration:none;
+      line-height:1.5;
+      display:block;
+      word-break:break-word
+    }
+
     .ntxt a:hover{color:#fff}
-    .nmeta{font-size:9px;color:var(--muted);margin-top:3px;font-family:var(--mono)}
-    .nst{font-size:10px;color:var(--muted);font-family:var(--mono)}
-    .rbtn{padding:4px 10px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--soft);font-size:9px;cursor:pointer;font-family:var(--mono);transition:color .15s}
+
+    .nmeta{
+      font-size:9px;
+      color:var(--muted);
+      margin-top:3px;
+      font-family:var(--mono)
+    }
+
+    .nst{
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono)
+    }
+
+    .rbtn{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--bd2);
+      background:var(--sf2);
+      color:var(--soft);
+      font-size:9px;
+      cursor:pointer;
+      font-family:var(--mono);
+      transition:color .15s
+    }
+
     .rbtn:hover{color:var(--text)}
-    .nempty{font-size:11px;color:var(--muted);padding:8px 0}
-    .frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
-    .sw{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);flex:1 1 220px}
-    .sw input{border:none;outline:none;background:transparent;color:var(--text);font-size:12px;font-family:var(--sans);width:100%}
+
+    .nempty{
+      font-size:11px;
+      color:var(--muted);
+      padding:8px 0
+    }
+
+    .frow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom:10px
+    }
+
+    .sw{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--bd2);
+      background:var(--sf2);
+      flex:1 1 220px
+    }
+
+    .sw input{
+      border:none;
+      outline:none;
+      background:transparent;
+      color:var(--text);
+      font-size:12px;
+      font-family:var(--sans);
+      width:100%
+    }
+
     .sw input::placeholder{color:var(--muted)}
-    .fsel{padding:8px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--soft);font-size:11px;font-family:var(--sans);outline:none;min-width:130px}
-    .crow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-    .chip{padding:6px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;letter-spacing:.08em;transition:all .15s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
-    .chip:hover,.chip:active{color:var(--text);border-color:rgba(255,255,255,.2)}
-    .chip.on{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.14);color:var(--rckt2)}
-    .chip[data-c="hero1"].on{border-color:rgba(94,234,212,.5);background:rgba(13,148,136,.14);color:var(--dnli2)}
-    .chip[data-c="hero2"].on{border-color:rgba(249,168,212,.5);background:rgba(219,39,119,.14);color:var(--vera2)}
-    .chip[data-c="hero3"].on{border-color:rgba(134,239,172,.5);background:rgba(22,163,74,.14);color:var(--camx2)}
-    .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    table{width:100%;border-collapse:collapse}
-    th{text-align:left;padding:8px 12px;font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);border-bottom:1px solid var(--bd);white-space:nowrap}
-    td{padding:11px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
+
+    .fsel{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--bd2);
+      background:var(--sf2);
+      color:var(--soft);
+      font-size:11px;
+      font-family:var(--sans);
+      outline:none;
+      min-width:130px
+    }
+
+    .crow{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      margin-bottom:12px
+    }
+
+    .chip{
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid var(--bd2);
+      background:var(--sf2);
+      color:var(--muted);
+      font-size:10px;
+      font-family:var(--mono);
+      cursor:pointer;
+      letter-spacing:.08em;
+      transition:all .15s;
+      white-space:nowrap;
+      -webkit-tap-highlight-color:transparent
+    }
+
+    .chip:hover,.chip:active{
+      color:var(--text);
+      border-color:rgba(255,255,255,.2)
+    }
+
+    .chip.on{
+      border-color:rgba(167,139,250,.5);
+      background:rgba(124,58,237,.14);
+      color:var(--rckt2)
+    }
+
+    .chip[data-c="hero1"].on{
+      border-color:rgba(94,234,212,.5);
+      background:rgba(13,148,136,.14);
+      color:var(--dnli2)
+    }
+
+    .chip[data-c="hero2"].on{
+      border-color:rgba(249,168,212,.5);
+      background:rgba(219,39,119,.14);
+      color:var(--vera2)
+    }
+
+    .chip[data-c="hero3"].on{
+      border-color:rgba(134,239,172,.5);
+      background:rgba(22,163,74,.14);
+      color:var(--camx2)
+    }
+
+    .tbl-wrap{
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse
+    }
+
+    th{
+      text-align:left;
+      padding:8px 12px;
+      font-size:9px;
+      color:var(--muted);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-family:var(--mono);
+      border-bottom:1px solid var(--bd);
+      white-space:nowrap
+    }
+
+    td{
+      padding:11px 12px;
+      border-bottom:1px solid var(--bd);
+      vertical-align:top
+    }
+
     tr:last-child td{border-bottom:none}
-    tr{cursor:pointer;transition:background .12s}
+
+    tr{
+      cursor:pointer;
+      transition:background .12s
+    }
+
     tr:hover td{background:var(--sf)}
-    .tdco{font-size:12px;font-weight:600}
-    .tdtk{font-family:var(--mono);font-size:11px;letter-spacing:.1em}
-    .tddrug{font-size:11px;color:var(--soft)}
-    .tdind{font-size:11px;color:var(--muted);max-width:240px;line-height:1.35}
-    .tddate{font-family:var(--mono);font-size:11px;white-space:nowrap}
+
+    .tdco{
+      font-size:12px;
+      font-weight:600
+    }
+
+    .tdtk{
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:.1em
+    }
+
+    .tddrug{
+      font-size:11px;
+      color:var(--soft)
+    }
+
+    .tdind{
+      font-size:11px;
+      color:var(--muted);
+      max-width:240px;
+      line-height:1.35
+    }
+
+    .tddate{
+      font-family:var(--mono);
+      font-size:11px;
+      white-space:nowrap
+    }
+
     .tdsc{text-align:center}
-    .scb{display:inline-block;width:26px;height:26px;border-radius:50%;line-height:26px;text-align:center;font-size:12px;font-weight:700;font-family:var(--mono)}
-    .s5{background:rgba(34,197,94,.2);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
-    .s4{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.35)}
-    .s3{background:rgba(125,211,252,.1);color:#7dd3fc;border:1px solid rgba(125,211,252,.3)}
-    .s2{background:var(--sf2);color:var(--muted);border:1px solid var(--bd)}
-    .tdwin{font-size:10px;font-family:var(--mono);color:var(--soft);line-height:1.55}
-    .tdclass{font-size:10px;color:var(--muted);font-family:var(--mono)}
-    .mb{display:inline-block;font-size:9px;padding:2px 6px;border-radius:999px;font-family:var(--mono);letter-spacing:.07em;border:1px solid var(--bd);background:var(--sf2);color:var(--muted);white-space:nowrap}
-    .mb.orph{border-color:rgba(125,211,252,.3);color:#7dd3fc;background:rgba(125,211,252,.08)}
-    .mb.gene{border-color:rgba(167,139,250,.35);color:var(--rckt2);background:rgba(124,58,237,.08)}
-    .mb.ert{border-color:rgba(94,234,212,.35);color:var(--dnli2);background:rgba(13,148,136,.08)}
-    .mb.onco{border-color:rgba(249,168,212,.35);color:var(--vera2);background:rgba(219,39,119,.08)}
-    .mb.kidney{border-color:rgba(52,211,153,.35);color:#6ee7b7;background:rgba(16,185,129,.08)}
-    .empty-st{padding:32px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--bd);border-radius:var(--r);margin-top:10px}
+
+    .scb{
+      display:inline-block;
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      line-height:26px;
+      text-align:center;
+      font-size:12px;
+      font-weight:700;
+      font-family:var(--mono)
+    }
+
+    .s5{
+      background:rgba(34,197,94,.2);
+      color:#4ade80;
+      border:1px solid rgba(34,197,94,.4)
+    }
+
+    .s4{
+      background:rgba(245,158,11,.15);
+      color:#fcd34d;
+      border:1px solid rgba(245,158,11,.35)
+    }
+
+    .s3{
+      background:rgba(125,211,252,.1);
+      color:#7dd3fc;
+      border:1px solid rgba(125,211,252,.3)
+    }
+
+    .s2{
+      background:var(--sf2);
+      color:var(--muted);
+      border:1px solid var(--bd)
+    }
+
+    .tdwin{
+      font-size:10px;
+      font-family:var(--mono);
+      color:var(--soft);
+      line-height:1.55
+    }
+
+    .tdclass{
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono)
+    }
+
+    .mb{
+      display:inline-block;
+      font-size:9px;
+      padding:2px 6px;
+      border-radius:999px;
+      font-family:var(--mono);
+      letter-spacing:.07em;
+      border:1px solid var(--bd);
+      background:var(--sf2);
+      color:var(--muted);
+      white-space:nowrap
+    }
+
+    .mb.orph{
+      border-color:rgba(125,211,252,.3);
+      color:#7dd3fc;
+      background:rgba(125,211,252,.08)
+    }
+
+    .mb.gene{
+      border-color:rgba(167,139,250,.35);
+      color:var(--rckt2);
+      background:rgba(124,58,237,.08)
+    }
+
+    .mb.ert{
+      border-color:rgba(94,234,212,.35);
+      color:var(--dnli2);
+      background:rgba(13,148,136,.08)
+    }
+
+    .mb.onco{
+      border-color:rgba(249,168,212,.35);
+      color:var(--vera2);
+      background:rgba(219,39,119,.08)
+    }
+
+    .mb.kidney{
+      border-color:rgba(52,211,153,.35);
+      color:#6ee7b7;
+      background:rgba(16,185,129,.08)
+    }
+
+    .empty-st{
+      padding:32px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      border:1px dashed var(--bd);
+      border-radius:var(--r);
+      margin-top:10px
+    }
+
     .hide-m{display:table-cell}
-    @media(max-width:700px){.hide-m{display:none!important}td,th{padding:9px 7px}}
-    .foot{margin-top:32px;padding:16px 0;border-top:1px solid var(--bd);text-align:right;font-size:10px;color:var(--muted);font-family:var(--mono)}
-    .load-err{padding:24px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);border-radius:16px;color:#fecaca}
-    .profit-banner{position:relative;overflow:hidden;padding:16px 18px;background:linear-gradient(135deg,rgba(34,197,94,.12) 0%,rgba(124,58,237,.10) 50%,rgba(34,197,94,.12) 100%);border-bottom:1px solid rgba(34,197,94,.25)}
-    .profit-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(34,197,94,.08) 40%,rgba(255,255,255,.06) 50%,rgba(34,197,94,.08) 60%,transparent 100%);background-size:200% 100%;animation:profitShimmer 3s ease-in-out infinite}
-    @keyframes profitShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-    .profit-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
-    .profit-left{display:flex;align-items:center;gap:12px}
-    .profit-icon{width:40px;height:40px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid rgba(34,197,94,.4);display:flex;align-items:center;justify-content:center;font-size:18px;animation:profitPulse 2s ease-in-out infinite;flex-shrink:0}
-    @keyframes profitPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 10px rgba(34,197,94,0)}}
-    .profit-label{font-size:9px;color:rgba(34,197,94,.7);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
-    .profit-status{font-size:12px;font-family:var(--mono);font-weight:600;color:#e2e8f0}
+
+    @media(max-width:700px){
+      .hide-m{display:none!important}
+      td,th{padding:9px 7px}
+    }
+
+    .foot{
+      margin-top:32px;
+      padding:16px 0;
+      border-top:1px solid var(--bd);
+      text-align:right;
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono)
+    }
+
+    .load-err{
+      padding:24px;
+      border:1px solid rgba(239,68,68,.3);
+      background:rgba(239,68,68,.08);
+      border-radius:16px;
+      color:#fecaca
+    }
+
+    .profit-banner{
+      position:relative;
+      overflow:hidden;
+      padding:16px 18px;
+      background:linear-gradient(135deg,rgba(34,197,94,.12) 0%,rgba(124,58,237,.10) 50%,rgba(34,197,94,.12) 100%);
+      border-bottom:1px solid rgba(34,197,94,.25)
+    }
+
+    .profit-banner::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg,transparent 0%,rgba(34,197,94,.08) 40%,rgba(255,255,255,.06) 50%,rgba(34,197,94,.08) 60%,transparent 100%);
+      background-size:200% 100%;
+      animation:profitShimmer 3s ease-in-out infinite
+    }
+
+    @keyframes profitShimmer{
+      0%{background-position:200% 0}
+      100%{background-position:-200% 0}
+    }
+
+    .profit-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1
+    }
+
+    .profit-left{
+      display:flex;
+      align-items:center;
+      gap:12px
+    }
+
+    .profit-icon{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:rgba(34,197,94,.15);
+      border:2px solid rgba(34,197,94,.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      animation:profitPulse 2s ease-in-out infinite;
+      flex-shrink:0
+    }
+
+    @keyframes profitPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}
+      50%{box-shadow:0 0 0 10px rgba(34,197,94,0)}
+    }
+
+    .profit-label{
+      font-size:9px;
+      color:rgba(34,197,94,.7);
+      font-family:var(--mono);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:2px
+    }
+
+    .profit-status{
+      font-size:12px;
+      font-family:var(--mono);
+      font-weight:600;
+      color:#e2e8f0
+    }
+
     .profit-right{text-align:right}
-    .profit-pct{font-family:var(--mono);font-size:32px;font-weight:700;line-height:1;background:linear-gradient(135deg,#4ade80,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:profitGlow 2.5s ease-in-out infinite alternate}
-    @keyframes profitGlow{0%{filter:brightness(1) drop-shadow(0 0 4px rgba(74,222,128,.3))}100%{filter:brightness(1.15) drop-shadow(0 0 12px rgba(74,222,128,.5))}}
-    .profit-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:3px}
-    .profit-tag{display:inline-block;font-size:9px;padding:3px 10px;border-radius:999px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#4ade80;animation:profitTagPulse 2s ease-in-out infinite;margin-top:6px}
-    @keyframes profitTagPulse{0%,100%{opacity:1}50%{opacity:.7}}
-    .profit-banner .confetti{position:absolute;width:4px;height:4px;border-radius:50%;opacity:0;animation:confettiFall 4s linear infinite}
-    @keyframes confettiFall{0%{opacity:0;transform:translateY(-10px) rotate(0deg)}10%{opacity:.8}90%{opacity:.6}100%{opacity:0;transform:translateY(60px) rotate(360deg)}}
+
+    .profit-pct{
+      font-family:var(--mono);
+      font-size:32px;
+      font-weight:700;
+      line-height:1;
+      background:linear-gradient(135deg,#4ade80,#a78bfa);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      animation:profitGlow 2.5s ease-in-out infinite alternate
+    }
+
+    @keyframes profitGlow{
+      0%{filter:brightness(1) drop-shadow(0 0 4px rgba(74,222,128,.3))}
+      100%{filter:brightness(1.15) drop-shadow(0 0 12px rgba(74,222,128,.5))}
+    }
+
+    .profit-sub{
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono);
+      margin-top:3px
+    }
+
+    .profit-tag{
+      display:inline-block;
+      font-size:9px;
+      padding:3px 10px;
+      border-radius:999px;
+      font-family:var(--mono);
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      background:rgba(34,197,94,.15);
+      border:1px solid rgba(34,197,94,.4);
+      color:#4ade80;
+      animation:profitTagPulse 2s ease-in-out infinite;
+      margin-top:6px
+    }
+
+    @keyframes profitTagPulse{
+      0%,100%{opacity:1}
+      50%{opacity:.7}
+    }
+
+    .profit-banner .confetti{
+      position:absolute;
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      opacity:0;
+      animation:confettiFall 4s linear infinite
+    }
+
+    @keyframes confettiFall{
+      0%{opacity:0;transform:translateY(-10px) rotate(0deg)}
+      10%{opacity:.8}
+      90%{opacity:.6}
+      100%{opacity:0;transform:translateY(60px) rotate(360deg)}
+    }
+
     .confetti:nth-child(1){left:8%;top:0;background:#4ade80;animation-delay:0s;animation-duration:3.2s}
     .confetti:nth-child(2){left:22%;top:0;background:#a78bfa;animation-delay:.7s;animation-duration:3.8s}
     .confetti:nth-child(3){left:45%;top:0;background:#fcd34d;animation-delay:1.4s;animation-duration:3s}
     .confetti:nth-child(4){left:62%;top:0;background:#5eead4;animation-delay:.3s;animation-duration:4.2s}
     .confetti:nth-child(5){left:78%;top:0;background:#f9a8d4;animation-delay:1.8s;animation-duration:3.5s}
     .confetti:nth-child(6){left:91%;top:0;background:#60a5fa;animation-delay:2.2s;animation-duration:3.1s}
-    .wp.closed{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700}
-    .wp.profit-pill{background:linear-gradient(90deg,rgba(34,197,94,.18),rgba(124,58,237,.15));border:1px solid rgba(34,197,94,.4);color:#4ade80;font-weight:700;font-size:11px;padding:3px 10px}
-    .fda-result{padding:0;border-bottom:1px solid var(--bd);overflow:hidden}
-    .fda-result-banner{position:relative;padding:14px 16px;overflow:hidden}
-    .fda-result-banner.approved{background:linear-gradient(135deg,rgba(34,197,94,.08) 0%,rgba(34,197,94,.04) 40%,rgba(124,58,237,.06) 100%)}
-    .fda-result-banner.crl{background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(239,68,68,.04) 100%)}
-    .fda-result-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(34,197,94,.04),transparent);background-size:300% 100%;animation:fdaShimmer 5s ease-in-out infinite}
-    .fda-result-banner.crl::before{background:linear-gradient(90deg,transparent,rgba(239,68,68,.04),transparent);background-size:300% 100%}
-    @keyframes fdaShimmer{0%{background-position:300% 0}100%{background-position:-300% 0}}
-    .fda-result-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;position:relative;z-index:1}
-    .fda-result-badge{display:flex;align-items:center;gap:7px;padding:5px 14px;border-radius:999px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-    .fda-result-badge.approved{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.45);color:#4ade80;box-shadow:0 0 16px rgba(34,197,94,.15)}
-    .fda-result-badge.crl{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:#f87171;box-shadow:0 0 16px rgba(239,68,68,.15)}
-    .fda-result-badge .badge-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
-    .fda-result-badge.approved .badge-icon{background:rgba(34,197,94,.25);border:1px solid rgba(34,197,94,.5)}
-    .fda-result-date{font-size:10px;color:var(--muted);font-family:var(--mono)}
-    .fda-result-body{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
-    @media(max-width:500px){.fda-result-body{grid-template-columns:1fr}}
-    .fda-result-details{display:flex;flex-direction:column;gap:6px}
-    .fda-detail-row{display:flex;gap:8px;align-items:baseline;font-size:11px;line-height:1.4}
-    .fda-detail-label{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;flex:0 0 70px}
-    .fda-detail-value{color:var(--text);font-family:var(--mono);font-size:11px;flex:1}
-    .fda-detail-value.brand-name{font-weight:700;font-size:13px;letter-spacing:.04em}
-    .fda-extras{display:flex;flex-direction:column;gap:5px;align-items:flex-end}
-    .fda-extra-pill{font-size:8px;padding:3px 10px;border-radius:999px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-    .fda-extra-pill.prv{background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.35);color:var(--rckt2)}
-    .fda-extra-pill.accel{background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.3);color:#fcd34d}
-    .fda-extra-pill.first{background:rgba(94,234,212,.10);border:1px solid rgba(94,234,212,.3);color:var(--dnli2)}
-    .pbb-complete .pbf{background:linear-gradient(90deg,rgba(34,197,94,.3),rgba(34,197,94,.85))!important;width:100%!important}
-    .pbb-complete .pbm{left:100%!important;background:#4ade80!important;box-shadow:0 0 10px rgba(34,197,94,.5)!important}
+
+    .wp.closed{
+      background:rgba(34,197,94,.15);
+      border:1px solid rgba(34,197,94,.4);
+      color:#4ade80;
+      font-weight:700
+    }
+
+    .wp.profit-pill{
+      background:linear-gradient(90deg,rgba(34,197,94,.18),rgba(124,58,237,.15));
+      border:1px solid rgba(34,197,94,.4);
+      color:#4ade80;
+      font-weight:700;
+      font-size:11px;
+      padding:3px 10px
+    }
+
+    .fda-result{
+      padding:0;
+      border-bottom:1px solid var(--bd);
+      overflow:hidden
+    }
+
+    .fda-result-banner{
+      position:relative;
+      padding:14px 16px;
+      overflow:hidden
+    }
+
+    .fda-result-banner.approved{
+      background:linear-gradient(135deg,rgba(34,197,94,.08) 0%,rgba(34,197,94,.04) 40%,rgba(124,58,237,.06) 100%)
+    }
+
+    .fda-result-banner.crl{
+      background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(239,68,68,.04) 100%)
+    }
+
+    .fda-result-banner::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg,transparent,rgba(34,197,94,.04),transparent);
+      background-size:300% 100%;
+      animation:fdaShimmer 5s ease-in-out infinite
+    }
+
+    .fda-result-banner.crl::before{
+      background:linear-gradient(90deg,transparent,rgba(239,68,68,.04),transparent);
+      background-size:300% 100%
+    }
+
+    @keyframes fdaShimmer{
+      0%{background-position:300% 0}
+      100%{background-position:-300% 0}
+    }
+
+    .fda-result-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+      position:relative;
+      z-index:1
+    }
+
+    .fda-result-badge{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      padding:5px 14px;
+      border-radius:999px;
+      font-family:var(--mono);
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase
+    }
+
+    .fda-result-badge.approved{
+      background:rgba(34,197,94,.15);
+      border:1px solid rgba(34,197,94,.45);
+      color:#4ade80;
+      box-shadow:0 0 16px rgba(34,197,94,.15)
+    }
+
+    .fda-result-badge.crl{
+      background:rgba(239,68,68,.15);
+      border:1px solid rgba(239,68,68,.45);
+      color:#f87171;
+      box-shadow:0 0 16px rgba(239,68,68,.15)
+    }
+
+    .fda-result-badge .badge-icon{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      flex-shrink:0
+    }
+
+    .fda-result-badge.approved .badge-icon{
+      background:rgba(34,197,94,.25);
+      border:1px solid rgba(34,197,94,.5)
+    }
+
+    .fda-result-date{
+      font-size:10px;
+      color:var(--muted);
+      font-family:var(--mono)
+    }
+
+    .fda-result-body{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      align-items:start
+    }
+
+    @media(max-width:500px){
+      .fda-result-body{grid-template-columns:1fr}
+    }
+
+    .fda-result-details{
+      display:flex;
+      flex-direction:column;
+      gap:6px
+    }
+
+    .fda-detail-row{
+      display:flex;
+      gap:8px;
+      align-items:baseline;
+      font-size:11px;
+      line-height:1.4
+    }
+
+    .fda-detail-label{
+      font-size:9px;
+      color:var(--muted);
+      font-family:var(--mono);
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      flex:0 0 70px
+    }
+
+    .fda-detail-value{
+      color:var(--text);
+      font-family:var(--mono);
+      font-size:11px;
+      flex:1
+    }
+
+    .fda-detail-value.brand-name{
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.04em
+    }
+
+    .fda-extras{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      align-items:flex-end
+    }
+
+    .fda-extra-pill{
+      font-size:8px;
+      padding:3px 10px;
+      border-radius:999px;
+      font-family:var(--mono);
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      white-space:nowrap
+    }
+
+    .fda-extra-pill.prv{
+      background:rgba(167,139,250,.12);
+      border:1px solid rgba(167,139,250,.35);
+      color:var(--rckt2)
+    }
+
+    .fda-extra-pill.accel{
+      background:rgba(245,158,11,.10);
+      border:1px solid rgba(245,158,11,.3);
+      color:#fcd34d
+    }
+
+    .fda-extra-pill.first{
+      background:rgba(94,234,212,.10);
+      border:1px solid rgba(94,234,212,.3);
+      color:var(--dnli2)
+    }
+
+    .pbb-complete .pbf{
+      background:linear-gradient(90deg,rgba(34,197,94,.3),rgba(34,197,94,.85))!important;
+      width:100%!important
+    }
+
+    .pbb-complete .pbm{
+      left:100%!important;
+      background:#4ade80!important;
+      box-shadow:0 0 10px rgba(34,197,94,.5)!important
+    }
+
     .pbb-complete .pbls span{color:#4ade80}
-    .mantis-advisory{border-radius:var(--r);border:1px solid rgba(245,158,11,.25);background:linear-gradient(135deg,rgba(245,158,11,.04) 0%,rgba(245,158,11,.02) 50%,rgba(239,68,68,.03) 100%);backdrop-filter:blur(8px);overflow:hidden;margin-bottom:20px;position:relative}
-    .mantis-advisory::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--yellow),var(--red),var(--yellow))}
-    .adv-header{padding:14px 20px 12px;border-bottom:1px solid rgba(245,158,11,.15);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .adv-header-left{display:flex;align-items:center;gap:10px}
-    .adv-icon{width:32px;height:32px;border-radius:8px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-    .adv-title{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fcd34d}
-    .adv-subtitle{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
-    .adv-ticker{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--vera2);padding:4px 12px;border-radius:999px;border:1px solid rgba(219,39,119,.35);background:rgba(219,39,119,.1)}
-    .adv-body{padding:16px 20px 20px}
-    .adv-intro{font-size:12px;color:var(--soft);line-height:1.6;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
-    .adv-intro strong{color:var(--text);font-weight:600}
-    .adv-mantis-voice{color:#fcd34d;font-family:var(--mono);font-size:10px;letter-spacing:.08em}
-    .adv-risks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-    @media(max-width:900px){.adv-risks{grid-template-columns:1fr}}
-    .adv-risk{border-radius:12px;border:1px solid var(--bd);background:var(--sf2);padding:14px 16px;position:relative}
-    .adv-risk::before{content:'';position:absolute;top:12px;left:0;width:3px;height:20px;border-radius:0 3px 3px 0}
-    .adv-risk.amber::before{background:var(--yellow)}
-    .adv-risk.red::before{background:var(--red)}
-    .adv-risk.orange::before{background:#f97316}
-    .adv-risk-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-    .adv-risk-label{font-size:9px;color:var(--muted);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase}
-    .adv-risk-severity{font-size:8px;padding:2px 8px;border-radius:999px;font-family:var(--mono);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-    .sev-elevated{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:#fcd34d}
-    .sev-high{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);color:#f87171}
-    .sev-watch{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.35);color:#fb923c}
-    .adv-risk-stat{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);line-height:1;margin-bottom:6px}
-    .adv-risk-detail{font-size:10px;color:var(--soft);line-height:1.5}
-    .adv-risk-impact{font-size:9px;color:var(--muted);font-family:var(--mono);margin-top:8px;padding-top:8px;border-top:1px solid var(--bd);line-height:1.5}
-    .adv-risk-impact strong{color:#fcd34d;font-weight:600}
-    .adv-footer{padding:14px 20px;border-top:1px solid rgba(245,158,11,.15);display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
-    .adv-footer-icon{width:28px;height:28px;border-radius:50%;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:2px}
-    .adv-footer-text{flex:1;min-width:0}
-    .adv-action{font-size:11px;color:var(--text);line-height:1.55;font-weight:500}
-    .adv-action em{color:#fcd34d;font-style:normal;font-family:var(--mono);font-size:10px}
-    .adv-timestamp{font-size:9px;color:var(--muted);font-family:var(--mono);margin-top:6px}
-    .adv-topics{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .adv-topic{font-size:8px;padding:3px 8px;border-radius:999px;font-family:var(--mono);letter-spacing:.08em;border:1px solid var(--bd2);background:var(--sf);color:var(--soft)}
-    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
+
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
 <body>
@@ -299,6 +1510,7 @@
     </div>
     <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
   </div>
+
   <div class="legend-bar">
     <span class="leg-lbl">Run-Up Score</span>
     <div class="leg-i"><div class="leg-d" style="background:#4ade80"></div>5 = Top binary catalyst</div>
@@ -306,20 +1518,27 @@
     <div class="leg-i"><div class="leg-d" style="background:#7dd3fc"></div>3 = Speculative / watch</div>
     <div class="leg-i"><div class="leg-d" style="background:#94a3b8"></div>2 = Background / large-cap</div>
   </div>
+
   <div class="sec-hdr">
-    <div><div class="sec-title">TOP CANDIDATES</div><div class="sec-sub">Pinned heroes include CAMURUS for June PDUFA monitoring</div></div>
+    <div>
+      <div class="sec-title">TOP CANDIDATES</div>
+      <div class="sec-sub">Pinned heroes include CAMURUS for June PDUFA monitoring</div>
+    </div>
     <span class="stag">Dynamic heroes</span>
   </div>
+
   <div class="heroes" id="heroes"></div>
   <div class="windows-row" id="windowsRow"></div>
 
-  <div id="mantisAdvisory"></div>
-
   <div class="cluster-section">
     <div class="sec-hdr">
-      <div><div class="sec-title">HISTORICAL ANALOGS</div><div class="sec-sub">Pre-PDUFA run-up data from comparable biotech catalysts</div></div>
+      <div>
+        <div class="sec-title">HISTORICAL ANALOGS</div>
+        <div class="sec-sub">Pre-PDUFA run-up data from comparable biotech catalysts</div>
+      </div>
       <span class="stag">VWAP-based analysis</span>
     </div>
+
     <div class="analog-card">
       <div class="analog-hd">
         <div>
@@ -328,6 +1547,7 @@
         </div>
         <div style="font-size:10px;color:var(--muted);font-family:var(--mono)">Agents analog searching</div>
       </div>
+
       <div class="analog-body">
         <div class="chart-canvas-wrap">
           <div class="chart-title">VWAP-Based Return (%) — Historical Pre-PDUFA Trades</div>
@@ -337,28 +1557,53 @@
       </div>
     </div>
   </div>
+
   <div class="sec-hdr">
-    <div><div class="sec-title">LIVE CHARTS</div><div class="sec-sub">Top heroes, including CAMURUS on Nasdaq Stockholm</div></div>
+    <div>
+      <div class="sec-title">LIVE CHARTS</div>
+      <div class="sec-sub">Top heroes, including CAMURUS on Nasdaq Stockholm</div>
+    </div>
     <span class="stag">Requires internet</span>
   </div>
+
   <div class="two-col" id="chartsTop"></div>
   <div class="two-col" style="margin-bottom:20px" id="chartsBottom"></div>
+
   <div class="sec-hdr">
-    <div><div class="sec-title">LIVE NEWS</div><div class="sec-sub">Google News RSS via AllOrigins · refreshes every 15 min</div></div>
+    <div>
+      <div class="sec-title">LIVE NEWS</div>
+      <div class="sec-sub">Google News RSS via AllOrigins · refreshes every 15 min</div>
+    </div>
   </div>
+
   <div class="three-col" style="margin-bottom:20px" id="newsGrid"></div>
+
   <div class="sec-hdr">
-    <div><div class="sec-title">FULL WATCHLIST 2026</div><div class="sec-sub">Past dates auto-removed · click a row for TradingView or source</div></div>
+    <div>
+      <div class="sec-title">FULL WATCHLIST 2026</div>
+      <div class="sec-sub">Past dates auto-removed · click a row for TradingView or source</div>
+    </div>
   </div>
+
   <div class="frow">
-    <div class="sw"><span style="color:var(--muted);font-size:13px">&#9906;</span><input id="searchBox" type="text" placeholder="Search ticker, company, drug, indication…"/></div>
-    <select class="fsel" id="scoreFilter"><option value="0">Score: Any</option><option value="4">Score 4+</option><option value="5">Score 5</option></select>
+    <div class="sw">
+      <span style="color:var(--muted);font-size:13px">&#9906;</span>
+      <input id="searchBox" type="text" placeholder="Search ticker, company, drug, indication…"/>
+    </div>
+
+    <select class="fsel" id="scoreFilter">
+      <option value="0">Score: Any</option>
+      <option value="4">Score 4+</option>
+      <option value="5">Score 5</option>
+    </select>
+
     <select class="fsel" id="sortSelect">
       <option value="pdufa:asc">Date earliest</option>
       <option value="pdufa:desc">Date latest</option>
       <option value="score:desc">Score highest</option>
     </select>
   </div>
+
   <div class="crow" id="chipRow">
     <div class="chip" data-c="hero0">Hero 1</div>
     <div class="chip" data-c="hero1">Hero 2</div>
@@ -370,29 +1615,49 @@
     <div class="chip" data-c="gene">Gene / Cell Therapy</div>
     <div class="chip" data-c="rst">Reset</div>
   </div>
+
   <div class="tbl-wrap">
     <table>
-      <thead><tr>
-        <th>Ticker</th><th>Company / Drug</th>
-        <th class="hide-m">Indication</th>
-        <th>PDUFA</th><th>Score</th>
-        <th class="hide-m">Class</th>
-        <th class="hide-m">Entry Window</th>
-        <th class="hide-m">Exit Window</th>
-        <th class="hide-m">Tags</th>
-      </tr></thead>
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Company / Drug</th>
+          <th class="hide-m">Indication</th>
+          <th>PDUFA</th>
+          <th>Score</th>
+          <th class="hide-m">Class</th>
+          <th class="hide-m">Entry Window</th>
+          <th class="hide-m">Exit Window</th>
+          <th class="hide-m">Tags</th>
+        </tr>
+      </thead>
       <tbody id="wl-tbody"></tbody>
     </table>
     <div id="wl-empty" class="empty-st" style="display:none">No matches — try broadening your filters.</div>
   </div>
+
   <div class="foot">G.V / S.N 2026</div>
 </div>
 
 <script>
-const STATE = { DATA: null, FUTURE_ROWS: [], HEROES: [], ANALOGS: [], CHIPS: {hero0:false, hero1:false, hero2:false, hero3:false, s5:false, s4:false, orph:false, gene:false} };
+const STATE = {
+  DATA: null,
+  FUTURE_ROWS: [],
+  HEROES: [],
+  ANALOGS: [],
+  CHIPS: {hero0:false, hero1:false, hero2:false, hero3:false, s5:false, s4:false, orph:false, gene:false}
+};
+
 function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 const TODAY = startOfDay(new Date());
-const TV_SYMBOLS = { CAMX:'OMXSTO:CAMX', RCKT:'NASDAQ:RCKT', DNLI:'NASDAQ:DNLI', VERA:'NASDAQ:VERA' };
+
+const TV_SYMBOLS = {
+  CAMX:'OMXSTO:CAMX',
+  RCKT:'NASDAQ:RCKT',
+  DNLI:'NASDAQ:DNLI',
+  VERA:'NASDAQ:VERA'
+};
+
 const PINNED_HEROES = ['RCKT','DNLI','VERA','CAMX'];
 const PINNED_CHARTS = ['RCKT','DNLI','VERA','CAMX'];
 
@@ -407,267 +1672,888 @@ const CAMURUS_ROW = {
   mantis_class:'High Tier-2 · Quality catalyst / lower torque',
   therapy:'Long-acting octreotide depot',
   orph:false,
-  entry:'—',
-  exit:'—',
-  notes:'Strong clinical and financial profile, but lower speculative rerating potential for core MANTIS run-up strategy.',
+  entry:'T-70 to T-35',
+  exit:'T-14 to T-3',
+  notes:'Strong clinical and financial profile, but lower speculative rerating potential for core MANTIS run-up strategy. Modeled as a later-entry, lower-torque setup versus higher-beta MANTIS names.',
   source:'https://www.tradingview.com/symbols/OMXSTO-CAMX/'
 };
 
 const FDA_DECISIONS = {
-  'RCKT': { outcome:'approved', decisionDate:'Mar 27, 2026', brandName:'KRESLADI™', genericName:'marnetegragene autotemcel', approvalType:'Accelerated Approval', indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)', mechanism:'Autologous hematopoietic stem cell-based gene therapy', extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First Gene Therapy for LAD-I',cls:'first'}], pct:'+46.32%', exitDate:'Mar 18, 2026' },
-  'DNLI': { outcome:'approved', decisionDate:'Mar 25, 2026', brandName:'AVLAYAH™', genericName:'tividenofusp alfa-eknm', approvalType:'Accelerated Approval', indication:'Neurologic manifestations of Hunter syndrome (MPS II)', mechanism:'First FDA-approved biologic to cross the blood-brain barrier', extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First BBB-Crossing Biologic',cls:'first'}], pct:'+27.7%', exitDate:'Mar 25, 2026' }
+  'RCKT': {
+    outcome:'approved',
+    decisionDate:'Mar 27, 2026',
+    brandName:'KRESLADI™',
+    genericName:'marnetegragene autotemcel',
+    approvalType:'Accelerated Approval',
+    indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',
+    mechanism:'Autologous hematopoietic stem cell-based gene therapy',
+    extras:[
+      {label:'PRV Granted',cls:'prv'},
+      {label:'Accelerated',cls:'accel'},
+      {label:'First Gene Therapy for LAD-I',cls:'first'}
+    ],
+    pct:'+46.32%',
+    exitDate:'Mar 18, 2026'
+  },
+  'DNLI': {
+    outcome:'approved',
+    decisionDate:'Mar 25, 2026',
+    brandName:'AVLAYAH™',
+    genericName:'tividenofusp alfa-eknm',
+    approvalType:'Accelerated Approval',
+    indication:'Neurologic manifestations of Hunter syndrome (MPS II)',
+    mechanism:'First FDA-approved biologic to cross the blood-brain barrier',
+    extras:[
+      {label:'PRV Granted',cls:'prv'},
+      {label:'Accelerated',cls:'accel'},
+      {label:'First BBB-Crossing Biologic',cls:'first'}
+    ],
+    pct:'+27.7%',
+    exitDate:'Mar 25, 2026'
+  }
 };
 
-function esc(s){ return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-function cleanText(v){ if(v === null || v === undefined || v === '' || v === '-') return '—'; return String(v); }
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, m => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[m]));
+}
+
+function cleanText(v){
+  if(v === null || v === undefined || v === '' || v === '-') return '—';
+  return String(v);
+}
+
 function parsePdufa(value, type){
   if(!value) return null;
-  if((type || '').toLowerCase().includes('quarter')){ const m = String(value).match(/Q([1-4])\s*(\d{4})/i); if(!m) return null; const q = +m[1], y = +m[2]; const map = {1:'02-15',2:'05-15',3:'08-15',4:'11-15'}; return new Date(`${y}-${map[q]}T00:00:00`); }
-  if(/^\d{4}-\d{2}-\d{2}$/.test(String(value))) return new Date(`${value}T00:00:00`); return null;
+
+  if((type || '').toLowerCase().includes('quarter')){
+    const m = String(value).match(/Q([1-4])\s*(\d{4})/i);
+    if(!m) return null;
+    const q = +m[1], y = +m[2];
+    const map = {1:'02-15',2:'05-15',3:'08-15',4:'11-15'};
+    return new Date(`${y}-${map[q]}T00:00:00`);
+  }
+
+  if(/^\d{4}-\d{2}-\d{2}$/.test(String(value))){
+    return new Date(`${value}T00:00:00`);
+  }
+
+  return null;
 }
-function isFutureRow(r){ if(FDA_DECISIONS[r.tkr]) return true; const d = parsePdufa(r.pdufa, r.date_type); return d ? startOfDay(d) >= TODAY : false; }
-function fmtDate(d){ return d.toLocaleDateString(undefined,{month:'short',day:'2-digit',year:'numeric'}); }
-function fmtDateShort(d){ return d.toLocaleDateString(undefined,{month:'short',day:'2-digit'}); }
-function displayPdufa(r){ if((r.date_type || '').toLowerCase().includes('quarter')) return r.pdufa; const d = parsePdufa(r.pdufa, r.date_type); return d ? fmtDate(d) : cleanText(r.pdufa); }
-function scoreClass(s){ return s >= 5 ? 's5' : s >= 4 ? 's4' : s >= 3 ? 's3' : 's2'; }
-function therapyTagClass(therapy=''){ const t = therapy.toLowerCase(); if(t.includes('gene') || t.includes('cell')) return 'gene'; if(t.includes('ert') || t.includes('enzyme')) return 'ert'; if(t.includes('inhibitor') || t.includes('kinase') || t.includes('oncology')) return 'onco'; if(t.includes('baff') || t.includes('kidney') || t.includes('neph')) return 'kidney'; return ''; }
-function heroTheme(tkr=''){ const t = tkr.toUpperCase(); if(t === 'RCKT') return 'rckt'; if(t === 'DNLI' || t === 'VRDN') return 'dnli'; if(t === 'VERA' || t === 'CELC' || t === 'SVRA') return 'vera'; if(t === 'RARE' || t === 'CAPR') return 'rare'; if(t === 'NUVL') return 'nuvl'; if(t === 'CAMX') return 'camx'; return 'std'; }
-function parseWindow(str){ const m = String(str || '').match(/T-(\d+)\s*to\s*T-(\d+)/i); return m ? {a:+m[1], b:+m[2]} : null; }
-function winDates(pdufa, dateType, str){ const w = parseWindow(str); const p = parsePdufa(pdufa, dateType); if(!w || !p) return null; const s = new Date(p); s.setDate(s.getDate() - w.a); const e = new Date(p); e.setDate(e.getDate() - w.b); [s,e].forEach(d => { if(d.getDay()===6) d.setDate(d.getDate()-1); if(d.getDay()===0) d.setDate(d.getDate()-2); }); return {start:s, end:e}; }
-function sortRows(arr, mode){ const [key,dir] = mode.split(':'); const mult = dir === 'desc' ? -1 : 1; return [...arr].sort((a,b) => { let va, vb; if(key === 'score'){ va = a.score || 0; vb = b.score || 0; } else { va = parsePdufa(a.pdufa, a.date_type)?.getTime() || 0; vb = parsePdufa(b.pdufa, b.date_type)?.getTime() || 0; } return va < vb ? -mult : va > vb ? mult : 0; }); }
-function ensureCamurusRow(rows){ return rows.some(r => r.tkr === 'CAMX') ? rows : [...rows, CAMURUS_ROW]; }
+
+function isFutureRow(r){
+  if(FDA_DECISIONS[r.tkr]) return true;
+  const d = parsePdufa(r.pdufa, r.date_type);
+  return d ? startOfDay(d) >= TODAY : false;
+}
+
+function fmtDate(d){
+  return d.toLocaleDateString(undefined,{month:'short',day:'2-digit',year:'numeric'});
+}
+
+function fmtDateShort(d){
+  return d.toLocaleDateString(undefined,{month:'short',day:'2-digit'});
+}
+
+function displayPdufa(r){
+  if((r.date_type || '').toLowerCase().includes('quarter')) return r.pdufa;
+  const d = parsePdufa(r.pdufa, r.date_type);
+  return d ? fmtDate(d) : cleanText(r.pdufa);
+}
+
+function scoreClass(s){
+  return s >= 5 ? 's5' : s >= 4 ? 's4' : s >= 3 ? 's3' : 's2';
+}
+
+function therapyTagClass(therapy=''){
+  const t = therapy.toLowerCase();
+  if(t.includes('gene') || t.includes('cell')) return 'gene';
+  if(t.includes('ert') || t.includes('enzyme')) return 'ert';
+  if(t.includes('inhibitor') || t.includes('kinase') || t.includes('oncology')) return 'onco';
+  if(t.includes('baff') || t.includes('kidney') || t.includes('neph')) return 'kidney';
+  return '';
+}
+
+function heroTheme(tkr=''){
+  const t = tkr.toUpperCase();
+  if(t === 'RCKT') return 'rckt';
+  if(t === 'DNLI' || t === 'VRDN') return 'dnli';
+  if(t === 'VERA' || t === 'CELC' || t === 'SVRA') return 'vera';
+  if(t === 'RARE' || t === 'CAPR') return 'rare';
+  if(t === 'NUVL') return 'nuvl';
+  if(t === 'CAMX') return 'camx';
+  return 'std';
+}
+
+function parseWindow(str){
+  const m = String(str || '').match(/T-(\d+)\s*to\s*T-(\d+)/i);
+  return m ? {a:+m[1], b:+m[2]} : null;
+}
+
+function winDates(pdufa, dateType, str){
+  const w = parseWindow(str);
+  const p = parsePdufa(pdufa, dateType);
+  if(!w || !p) return null;
+
+  const s = new Date(p);
+  s.setDate(s.getDate() - w.a);
+
+  const e = new Date(p);
+  e.setDate(e.getDate() - w.b);
+
+  [s,e].forEach(d => {
+    if(d.getDay() === 6) d.setDate(d.getDate() - 1);
+    if(d.getDay() === 0) d.setDate(d.getDate() - 2);
+  });
+
+  return {start:s, end:e};
+}
+
+function modeledWindowLabel(row, kind){
+  const raw = kind === 'entry' ? row.entry : row.exit;
+  const range = winDates(row.pdufa, row.date_type, raw);
+  return range ? `${fmtDateShort(range.start)} → ${fmtDateShort(range.end)}` : cleanText(raw);
+}
+
+function sortRows(arr, mode){
+  const [key,dir] = mode.split(':');
+  const mult = dir === 'desc' ? -1 : 1;
+
+  return [...arr].sort((a,b) => {
+    let va, vb;
+    if(key === 'score'){
+      va = a.score || 0;
+      vb = b.score || 0;
+    } else {
+      va = parsePdufa(a.pdufa, a.date_type)?.getTime() || 0;
+      vb = parsePdufa(b.pdufa, b.date_type)?.getTime() || 0;
+    }
+    return va < vb ? -mult : va > vb ? mult : 0;
+  });
+}
+
+function ensureCamurusRow(rows){
+  return rows.some(r => r.tkr === 'CAMX') ? rows : [...rows, CAMURUS_ROW];
+}
+
 function chooseHeroes(rows){
   const exact = rows.filter(r => !String(r.date_type).toLowerCase().includes('quarter'));
   const byTicker = new Map(exact.map(r => [r.tkr, r]));
   const pinned = PINNED_HEROES.map(t => byTicker.get(t)).filter(Boolean);
-  const ranked = [...exact].filter(r => !PINNED_HEROES.includes(r.tkr)).sort((a,b) => {
-    if((b.score||0)!==(a.score||0)) return (b.score||0)-(a.score||0);
-    const ad = parsePdufa(a.pdufa,a.date_type)?.getTime() || 0;
-    const bd = parsePdufa(b.pdufa,b.date_type)?.getTime() || 0;
-    return ad - bd;
-  });
+
+  const ranked = [...exact]
+    .filter(r => !PINNED_HEROES.includes(r.tkr))
+    .sort((a,b) => {
+      if((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+      const ad = parsePdufa(a.pdufa,a.date_type)?.getTime() || 0;
+      const bd = parsePdufa(b.pdufa,b.date_type)?.getTime() || 0;
+      return ad - bd;
+    });
+
   return [...pinned, ...ranked].slice(0,4);
 }
-function tvSymbolFor(tkr){ return TV_SYMBOLS[tkr] || `NASDAQ:${tkr}`; }
+
+function tvSymbolFor(tkr){
+  return TV_SYMBOLS[tkr] || `NASDAQ:${tkr}`;
+}
+
 function tradingViewUrlFor(tkr){
   if(tkr === 'CAMX') return 'https://www.tradingview.com/symbols/OMXSTO-CAMX/';
   return `https://www.tradingview.com/symbols/NASDAQ:${tkr}/`;
 }
 
 function profitBanner(tkr, returnPct, exitDateLabel){
-  return `<div class="profit-banner"><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="profit-inner"><div class="profit-left"><div class="profit-icon">&#x2714;</div><div><div class="profit-label">Exit Window Closed · Trade Complete</div><div class="profit-status">VWAP position realized — final day ${esc(exitDateLabel)}</div></div></div><div class="profit-right"><div class="profit-pct">${esc(returnPct)}</div><div class="profit-sub">VWAP Return</div><div class="profit-tag">&#9733; Locked In</div></div></div></div>`;
+  return `
+    <div class="profit-banner">
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="profit-inner">
+        <div class="profit-left">
+          <div class="profit-icon">&#x2714;</div>
+          <div>
+            <div class="profit-label">Exit Window Closed · Trade Complete</div>
+            <div class="profit-status">VWAP position realized — final day ${esc(exitDateLabel)}</div>
+          </div>
+        </div>
+        <div class="profit-right">
+          <div class="profit-pct">${esc(returnPct)}</div>
+          <div class="profit-sub">VWAP Return</div>
+          <div class="profit-tag">&#9733; Locked In</div>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function fdaResultSection(tkr){
-  const fda = FDA_DECISIONS[tkr]; if(!fda) return '';
+  const fda = FDA_DECISIONS[tkr];
+  if(!fda) return '';
+
   const ocls = fda.outcome === 'approved' ? 'approved' : 'crl';
   const icon = fda.outcome === 'approved' ? '✔' : '✘';
   const label = fda.outcome === 'approved' ? 'FDA APPROVED' : 'CRL ISSUED';
-  const extraPills = (fda.extras || []).map(e => `<div class="fda-extra-pill ${esc(e.cls)}">${esc(e.label)}</div>`).join('');
-  return `<div class="fda-result"><div class="fda-result-banner ${ocls}"><div class="fda-result-top"><div class="fda-result-badge ${ocls}"><span class="badge-icon">${icon}</span>${label}</div><div class="fda-result-date">${esc(fda.decisionDate)}</div></div><div class="fda-result-body"><div class="fda-result-details"><div class="fda-detail-row"><span class="fda-detail-label">Brand</span><span class="fda-detail-value brand-name">${esc(fda.brandName)}</span></div><div class="fda-detail-row"><span class="fda-detail-label">Generic</span><span class="fda-detail-value">${esc(fda.genericName)}</span></div><div class="fda-detail-row"><span class="fda-detail-label">Type</span><span class="fda-detail-value">${esc(fda.approvalType)}</span></div><div class="fda-detail-row"><span class="fda-detail-label">For</span><span class="fda-detail-value">${esc(fda.indication)}</span></div><div class="fda-detail-row"><span class="fda-detail-label">MOA</span><span class="fda-detail-value">${esc(fda.mechanism)}</span></div></div><div class="fda-extras">${extraPills}</div></div></div></div>`;
+
+  const extraPills = (fda.extras || [])
+    .map(e => `<div class="fda-extra-pill ${esc(e.cls)}">${esc(e.label)}</div>`)
+    .join('');
+
+  return `
+    <div class="fda-result">
+      <div class="fda-result-banner ${ocls}">
+        <div class="fda-result-top">
+          <div class="fda-result-badge ${ocls}">
+            <span class="badge-icon">${icon}</span>${label}
+          </div>
+          <div class="fda-result-date">${esc(fda.decisionDate)}</div>
+        </div>
+
+        <div class="fda-result-body">
+          <div class="fda-result-details">
+            <div class="fda-detail-row"><span class="fda-detail-label">Brand</span><span class="fda-detail-value brand-name">${esc(fda.brandName)}</span></div>
+            <div class="fda-detail-row"><span class="fda-detail-label">Generic</span><span class="fda-detail-value">${esc(fda.genericName)}</span></div>
+            <div class="fda-detail-row"><span class="fda-detail-label">Type</span><span class="fda-detail-value">${esc(fda.approvalType)}</span></div>
+            <div class="fda-detail-row"><span class="fda-detail-label">For</span><span class="fda-detail-value">${esc(fda.indication)}</span></div>
+            <div class="fda-detail-row"><span class="fda-detail-label">MOA</span><span class="fda-detail-value">${esc(fda.mechanism)}</span></div>
+          </div>
+          <div class="fda-extras">${extraPills}</div>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function heroBullets(row){
-  const bullets = [cleanText(row.notes), `${cleanText(row.mantis_class)} · ${cleanText(row.therapy)}`, `${row.orph ? 'Orphan / rare-disease sensitive' : 'Non-orphan / broader market'} · ${cleanText(row.date_type)} timing`, `Modeled windows: Entry ${cleanText(row.entry)} · Exit ${cleanText(row.exit)}`];
-  return bullets.slice(0,4).map(b => `<div class="tpt"><div class="td2"></div>${esc(b)}</div>`).join('');
+  const bullets = [
+    cleanText(row.notes),
+    `${cleanText(row.mantis_class)} · ${cleanText(row.therapy)}`,
+    `${row.orph ? 'Orphan / rare-disease sensitive' : 'Non-orphan / broader market'} · ${cleanText(row.date_type)} timing`,
+    `Modeled windows: Entry ${modeledWindowLabel(row, 'entry')} · Exit ${modeledWindowLabel(row, 'exit')}`
+  ];
+
+  return bullets
+    .slice(0,4)
+    .map(b => `<div class="tpt"><div class="td2"></div>${esc(b)}</div>`)
+    .join('');
 }
 
 function heroCard(row){
-  const theme = heroTheme(row.tkr); const date = parsePdufa(row.pdufa, row.date_type);
-  const fda = FDA_DECISIONS[row.tkr]; const isDone = !!fda;
+  const theme = heroTheme(row.tkr);
+  const date = parsePdufa(row.pdufa, row.date_type);
+  const fda = FDA_DECISIONS[row.tkr];
+  const isDone = !!fda;
+
   const progressStart = winDates(row.pdufa,row.date_type,row.entry)?.start || TODAY;
   const total = Math.max(1, date ? date.getTime() - progressStart.getTime() : 1);
   const passed = Math.max(0, Math.min(total, Date.now() - progressStart.getTime()));
   const pct = isDone ? 100 : Math.max(0, Math.min(100, (passed / total) * 100));
+
   let middleSection;
-  if(isDone){ middleSection = fdaResultSection(row.tkr); }
-  else { middleSection = `<div class="cdb"><div class="cdlbl">PDUFA<br>Countdown</div><div class="cdd" data-countdown="${esc(row.tkr)}">${countdownBlocks(row)}</div><div class="cdt">${esc(displayPdufa(row))}</div></div>`; }
-  const pbLabels = isDone ? '<span>Entry</span><span>PDUFA</span><span>Complete ✔</span>' : '<span>Entry opens</span><span>Today</span><span>PDUFA</span>';
-  return `<div class="hero ${theme}"><div class="hero-hd"><div><div class="hticker">${esc(row.tkr)}</div><div class="hname">${esc(cleanText(row.co))}</div></div><div class="brow">${row.orph ? '<span class="bd">Orphan</span>' : '<span class="bd">Non-orphan</span>'}<span class="bd">${esc(cleanText(row.therapy).split(' ').slice(0,2).join(' '))}</span><span class="bd ${scoreClass(row.score)}">Score ${esc(row.score)}</span></div></div>${isDone ? profitBanner(row.tkr, fda.pct, fda.exitDate) : ''}<div class="hkpis"><div class="kpi"><div class="k">Drug</div><div class="v">${esc(isDone ? fda.brandName : cleanText(row.drug))}</div><div class="s">${esc(cleanText(row.therapy))}</div></div><div class="kpi"><div class="k">Disease</div><div class="v">${esc(cleanText(row.ind))}</div><div class="s">${esc(cleanText(row.mantis_class))}</div></div><div class="kpi"><div class="k">${isDone ? 'Decision' : 'Timing'}</div><div class="v">${isDone ? esc(fda.approvalType) : esc(cleanText(row.date_type))}</div><div class="s">${isDone ? esc(fda.decisionDate) : esc(displayPdufa(row))}</div></div></div>${middleSection}<div class="pbb ${isDone ? 'pbb-complete' : ''}"><div class="pbl">${isDone ? 'MANTIS Cycle Complete' : 'MANTIS Timeline Progress'}</div><div class="pbr"><div class="pbf" style="width:${pct.toFixed(1)}%"></div><div class="pbm" style="left:${pct.toFixed(1)}%"></div></div><div class="pbls">${pbLabels}</div></div><div class="thesis"><div class="tttl">Thesis</div><div class="tpts">${heroBullets(row)}</div></div></div>`;
+  if(isDone){
+    middleSection = fdaResultSection(row.tkr);
+  } else {
+    middleSection = `
+      <div class="cdb">
+        <div class="cdlbl">PDUFA<br>Countdown</div>
+        <div class="cdd" data-countdown="${esc(row.tkr)}">${countdownBlocks(row)}</div>
+        <div class="cdt">${esc(displayPdufa(row))}</div>
+      </div>
+    `;
+  }
+
+  const pbLabels = isDone
+    ? '<span>Entry</span><span>PDUFA</span><span>Complete ✔</span>'
+    : '<span>Entry opens</span><span>Today</span><span>PDUFA</span>';
+
+  return `
+    <div class="hero ${theme}">
+      <div class="hero-hd">
+        <div>
+          <div class="hticker">${esc(row.tkr)}</div>
+          <div class="hname">${esc(cleanText(row.co))}</div>
+        </div>
+        <div class="brow">
+          ${row.orph ? '<span class="bd">Orphan</span>' : '<span class="bd">Non-orphan</span>'}
+          <span class="bd">${esc(cleanText(row.therapy).split(' ').slice(0,2).join(' '))}</span>
+          <span class="bd ${scoreClass(row.score)}">Score ${esc(row.score)}</span>
+        </div>
+      </div>
+
+      ${isDone ? profitBanner(row.tkr, fda.pct, fda.exitDate) : ''}
+
+      <div class="hkpis">
+        <div class="kpi">
+          <div class="k">Drug</div>
+          <div class="v">${esc(isDone ? fda.brandName : cleanText(row.drug))}</div>
+          <div class="s">${esc(cleanText(row.therapy))}</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Disease</div>
+          <div class="v">${esc(cleanText(row.ind))}</div>
+          <div class="s">${esc(cleanText(row.mantis_class))}</div>
+        </div>
+        <div class="kpi">
+          <div class="k">${isDone ? 'Decision' : 'Timing'}</div>
+          <div class="v">${isDone ? esc(fda.approvalType) : esc(cleanText(row.date_type))}</div>
+          <div class="s">${isDone ? esc(fda.decisionDate) : esc(displayPdufa(row))}</div>
+        </div>
+      </div>
+
+      ${middleSection}
+
+      <div class="pbb ${isDone ? 'pbb-complete' : ''}">
+        <div class="pbl">${isDone ? 'MANTIS Cycle Complete' : 'MANTIS Timeline Progress'}</div>
+        <div class="pbr">
+          <div class="pbf" style="width:${pct.toFixed(1)}%"></div>
+          <div class="pbm" style="left:${pct.toFixed(1)}%"></div>
+        </div>
+        <div class="pbls">${pbLabels}</div>
+      </div>
+
+      <div class="thesis">
+        <div class="tttl">Thesis</div>
+        <div class="tpts">${heroBullets(row)}</div>
+      </div>
+    </div>
+  `;
 }
 
 function countdownBlocks(row){
-  if(FDA_DECISIONS[row.tkr]) return '<div class="cdu" style="min-width:auto;padding:6px 14px"><div class="cdn" style="font-size:12px;color:#4ade80">✔</div><div class="cdl">DECIDED</div></div>';
-  const p = parsePdufa(row.pdufa, row.date_type); if(!p) return '<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
+  if(FDA_DECISIONS[row.tkr]){
+    return '<div class="cdu" style="min-width:auto;padding:6px 14px"><div class="cdn" style="font-size:12px;color:#4ade80">✔</div><div class="cdl">DECIDED</div></div>';
+  }
+
+  const p = parsePdufa(row.pdufa, row.date_type);
+  if(!p){
+    return '<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
+  }
+
   const diff = Math.max(0, p.getTime() - Date.now());
-  const D=Math.floor(diff/864e5), H=Math.floor((diff%864e5)/36e5), M=Math.floor((diff%36e5)/6e4), S=Math.floor((diff%6e4)/1e3);
-  return [{n:D,l:'DAYS'},{n:H,l:'HRS'},{n:M,l:'MIN'},{n:S,l:'SEC'}].map(x=>`<div class="cdu"><div class="cdn">${String(x.n).padStart(2,'0')}</div><div class="cdl">${x.l}</div></div>`).join('');
+  const D = Math.floor(diff/864e5);
+  const H = Math.floor((diff%864e5)/36e5);
+  const M = Math.floor((diff%36e5)/6e4);
+  const S = Math.floor((diff%6e4)/1e3);
+
+  return [
+    {n:D,l:'DAYS'},
+    {n:H,l:'HRS'},
+    {n:M,l:'MIN'},
+    {n:S,l:'SEC'}
+  ].map(x => `
+    <div class="cdu">
+      <div class="cdn">${String(x.n).padStart(2,'0')}</div>
+      <div class="cdl">${x.l}</div>
+    </div>
+  `).join('');
 }
 
-function renderHeroes(){ document.getElementById('heroes').innerHTML = STATE.HEROES.map(heroCard).join(''); }
+function renderHeroes(){
+  document.getElementById('heroes').innerHTML = STATE.HEROES.map(heroCard).join('');
+}
 
 function renderWindows(){
   const el = document.getElementById('windowsRow');
-  const completedWindows = { 'RCKT': { entryLabel: 'Oct 29 → Dec 26', exitLabel: 'Mar 06 → Mar 18' }, 'DNLI': { entryLabel: 'Oct 03 → Nov 30', exitLabel: 'Mar 07 → Mar 25' } };
+
+  const completedWindows = {
+    'RCKT': { entryLabel: 'Oct 29 → Dec 26', exitLabel: 'Mar 06 → Mar 18' },
+    'DNLI': { entryLabel: 'Oct 03 → Nov 30', exitLabel: 'Mar 07 → Mar 25' }
+  };
+
   el.innerHTML = STATE.HEROES.map((r) => {
-    const en = winDates(r.pdufa, r.date_type, r.entry); const ex = winDates(r.pdufa, r.date_type, r.exit);
-    const p = parsePdufa(r.pdufa, r.date_type); const fda = FDA_DECISIONS[r.tkr]; const done = completedWindows[r.tkr];
+    const en = winDates(r.pdufa, r.date_type, r.entry);
+    const ex = winDates(r.pdufa, r.date_type, r.exit);
+    const p = parsePdufa(r.pdufa, r.date_type);
+    const fda = FDA_DECISIONS[r.tkr];
+    const done = completedWindows[r.tkr];
     const daysTo = p ? Math.max(0, Math.round((startOfDay(p) - TODAY) / 864e5)) : '—';
+
     const rowHtml = (label, range, kind) => {
-      if(!range && !done) return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">Modeling pending</div><span class="wp nd">TBD</span></div>`;
-      if(done){ const lbl = label === 'Entry' ? done.entryLabel : done.exitLabel;
-        const extraRow = label === 'Exit' && fda ? `<div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&L</div><div class="wrd" style="color:#4ade80;font-weight:700">${fda.pct}</div><span class="wp profit-pill">&#9733; Locked</span></div>` : '';
-        return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${lbl}</div><span class="wp closed">COMPLETED</span></div>${extraRow}`; }
+      if(!range && !done){
+        return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">Modeling pending</div><span class="wp nd">TBD</span></div>`;
+      }
+
+      if(done){
+        const lbl = label === 'Entry' ? done.entryLabel : done.exitLabel;
+        const extraRow = label === 'Exit' && fda
+          ? `<div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&L</div><div class="wrd" style="color:#4ade80;font-weight:700">${fda.pct}</div><span class="wp profit-pill">&#9733; Locked</span></div>`
+          : '';
+
+        return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${lbl}</div><span class="wp closed">COMPLETED</span></div>${extraRow}`;
+      }
+
       const isAct = TODAY >= startOfDay(range.start) && TODAY <= startOfDay(range.end);
       const isCom = TODAY < startOfDay(range.start) && range.start <= new Date(TODAY.getTime()+45*864e5);
-      const pill = isAct ? `<span class="wp ${kind} act">ACTIVE</span>` : (isCom ? `<span class="wp ${kind}">UPCOMING</span>` : '');
-      return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div>${pill}</div>`; };
-    const pdfuaStatus = fda ? `<span class="wp closed">${fda.outcome === 'approved' ? 'APPROVED' : 'CRL'}</span>` : `<span class="wp nd">${daysTo}d away</span>`;
-    return `<div class="win-card"><div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">${esc(r.tkr)}</div></div><div class="winrows">${rowHtml('Entry', en, 'en')}${rowHtml('Exit', ex, 'ex')}<div class="winrow" style="margin-top:6px"><div class="wrl">PDUFA</div><div class="wrd">${esc(displayPdufa(r))}</div>${pdfuaStatus}</div></div></div>`;
+      const pill = isAct
+        ? `<span class="wp ${kind} act">ACTIVE</span>`
+        : (isCom ? `<span class="wp ${kind}">UPCOMING</span>` : '');
+
+      return `<div class="winrow"><div class="wrl">${label}</div><div class="wrd">${fmtDateShort(range.start)} &rarr; ${fmtDateShort(range.end)}</div>${pill}</div>`;
+    };
+
+    const pdfuaStatus = fda
+      ? `<span class="wp closed">${fda.outcome === 'approved' ? 'APPROVED' : 'CRL'}</span>`
+      : `<span class="wp nd">${daysTo}d away</span>`;
+
+    return `
+      <div class="win-card">
+        <div class="winhd">
+          <div class="winttl">Trading Windows</div>
+          <div class="wintkr">${esc(r.tkr)}</div>
+        </div>
+        <div class="winrows">
+          ${rowHtml('Entry', en, 'en')}
+          ${rowHtml('Exit', ex, 'ex')}
+          <div class="winrow" style="margin-top:6px">
+            <div class="wrl">PDUFA</div>
+            <div class="wrd">${esc(displayPdufa(r))}</div>
+            ${pdfuaStatus}
+          </div>
+        </div>
+      </div>
+    `;
   }).join('');
-}
-
-function buildAdvisory(){
-  const veraRow = STATE.HEROES.find(r => r.tkr === 'VERA') || STATE.FUTURE_ROWS.find(r => r.tkr === 'VERA');
-  if(!veraRow) return;
-  const advEl = document.getElementById('mantisAdvisory');
-  if(!advEl) return;
-  const pdufa = parsePdufa(veraRow.pdufa, veraRow.date_type);
-  const daysTo = pdufa ? Math.max(0, Math.round((startOfDay(pdufa) - TODAY) / 864e5)) : '—';
-  const pdufaStr = pdufa ? fmtDate(pdufa) : '—';
-
-  advEl.innerHTML = `<div class="mantis-advisory">
-    <div class="adv-header">
-      <div class="adv-header-left">
-        <div class="adv-icon">⚠</div>
-        <div><div class="adv-title">MANTIS Macro Risk Advisory</div><div class="adv-subtitle">Automated risk overlay · Model confidence adjusted</div></div>
-      </div>
-      <div class="adv-ticker">VERA · ${pdufaStr} · ${daysTo}d</div>
-    </div>
-    <div class="adv-body">
-      <div class="adv-intro">
-        <span class="adv-mantis-voice">MANTIS //</span> The pre-PDUFA run-up model for <strong>VERA</strong> (atacicept, IgAN) targets a ${pdufaStr} catalyst. However, MANTIS has detected <strong>three concurrent macro risk vectors</strong> that may suppress or distort the typical biotech run-up pattern during the entry window. The model’s confidence interval has been widened and a <strong>human review</strong> is recommended before executing.
-      </div>
-      <div class="adv-risks">
-        <div class="adv-risk amber">
-          <div class="adv-risk-hd"><div class="adv-risk-label">US Inflation</div><span class="adv-risk-severity sev-elevated">Elevated</span></div>
-          <div class="adv-risk-stat">PCE 2.7%</div>
-          <div class="adv-risk-detail">Fed revised Core PCE forecast to 2.7% for 2026, up from 2.5% in December. Inflation remains above the 2% target for the third consecutive year, keeping monetary policy restrictive.</div>
-          <div class="adv-risk-impact"><strong>VERA impact:</strong> Sticky inflation reduces probability of rate cuts before July PDUFA. Risk-on biotech sentiment historically weakens when real yields stay elevated.</div>
-        </div>
-        <div class="adv-risk orange">
-          <div class="adv-risk-hd"><div class="adv-risk-label">Fed Policy / Warsh Transition</div><span class="adv-risk-severity sev-watch">Watch</span></div>
-          <div class="adv-risk-stat">3.50– 3.75%</div>
-          <div class="adv-risk-detail">Fed held rates steady (2nd consecutive). Powell’s term ends May 15. Warsh nominated as successor — seen as a dovish shift, favoring easing in 2026 on productivity grounds. However, Sen. Tillis is blocking confirmation until DOJ probe of Powell resolves. Senate hearing targeted for week of Apr 13. Earliest Warsh could chair FOMC: June 16–17. If stalled, VP Jefferson acts as interim chair.</div>
-          <div class="adv-risk-impact"><strong>VERA impact — conditional positive:</strong> If Warsh is confirmed and signals easing at June FOMC, biotech sentiment could rally into July PDUFA — a potential tailwind. If confirmation stalls, an acting chair means status quo (no cut). Apr 13 hearing is the gate: a smooth hearing clears macro fog right as VERA’s entry window opens.</div>
-        </div>
-        <div class="adv-risk red">
-          <div class="adv-risk-hd"><div class="adv-risk-label">Private Credit Stress</div><span class="adv-risk-severity sev-high">High</span></div>
-          <div class="adv-risk-stat">9.2% default</div>
-          <div class="adv-risk-detail">US private credit defaults hit 9.2% (Fitch), a record. Major funds (Blackstone, Apollo, Ares) have gated redemptions. Blue Owl down ~40% YTD. Contagion risk to broader risk appetite.</div>
-          <div class="adv-risk-impact"><strong>VERA impact:</strong> When credit markets tighten, institutional risk appetite contracts across the board. Small/mid-cap biotech is first to see outflows as allocators de-risk portfolios.</div>
-        </div>
-      </div>
-    </div>
-    <div class="adv-footer">
-      <div class="adv-footer-icon">👁</div>
-      <div class="adv-footer-text">
-        <div class="adv-action"><em>MANTIS RECOMMENDATION //</em> The model has not invalidated the VERA setup — the drug-level thesis remains intact. Macro headwinds from inflation and private credit introduce tail risk, but the Warsh nomination adds a <strong>conditional positive</strong>: if confirmed, his dovish lean could catalyze biotech sentiment into July. MANTIS suggests a <strong>human eye</strong> monitors the Warsh hearing, CPI, FOMC language, and private credit headlines before sizing the position.</div>
-        <div class="adv-topics">
-          <span class="adv-topic">Warsh Hearing ~Apr 13</span>
-          <span class="adv-topic">CPI Release Apr 10</span>
-          <span class="adv-topic">FOMC Apr 28–29</span>
-          <span class="adv-topic">Warsh June FOMC?</span>
-          <span class="adv-topic">PCE Core 2.7%</span>
-          <span class="adv-topic">Private Credit 9.2% Default</span>
-        </div>
-        <div class="adv-timestamp">⏱ Last scanned: ${new Date().toLocaleString(undefined,{month:'short',day:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})} · Auto-refresh: 24h</div>
-      </div>
-    </div>
-  </div>`;
 }
 
 function buildChartPanels(){
   const byTicker = new Map(STATE.FUTURE_ROWS.map(r => [r.tkr, r]));
   const selected = PINNED_CHARTS.map(t => byTicker.get(t)).filter(Boolean).slice(0,4);
-  const slots = selected.map(r => `<div class="panel"><div class="phd"><div class="ptitle">${esc(r.tkr)}</div><div class="pnote">${esc(displayPdufa(r))}</div></div><div class="chart-ct" id="tv_${esc(r.tkr.toLowerCase())}"></div></div>`);
+
+  const slots = selected.map(r => `
+    <div class="panel">
+      <div class="phd">
+        <div class="ptitle">${esc(r.tkr)}</div>
+        <div class="pnote">${esc(displayPdufa(r))}</div>
+      </div>
+      <div class="chart-ct" id="tv_${esc(r.tkr.toLowerCase())}"></div>
+    </div>
+  `);
+
   document.getElementById('chartsTop').innerHTML = slots.slice(0,2).join('');
   document.getElementById('chartsBottom').innerHTML = slots.slice(2,4).join('');
-  if(typeof TradingView === 'undefined'){ setTimeout(buildChartPanels, 700); return; }
-  setTimeout(() => { selected.forEach(r => { const id = `tv_${r.tkr.toLowerCase()}`; const el = document.getElementById(id); if(el && !el.dataset.bound){ el.dataset.bound = '1'; new TradingView.widget({ container_id:id, symbol:tvSymbolFor(r.tkr), interval:'D', timezone:'Etc/UTC', theme:'dark', style:'1', locale:'en', autosize:true, toolbar_bg:'#080c18', withdateranges:true, allow_symbol_change:true }); } }); }, 100);
+
+  if(typeof TradingView === 'undefined'){
+    setTimeout(buildChartPanels, 700);
+    return;
+  }
+
+  setTimeout(() => {
+    selected.forEach(r => {
+      const id = `tv_${r.tkr.toLowerCase()}`;
+      const el = document.getElementById(id);
+
+      if(el && !el.dataset.bound){
+        el.dataset.bound = '1';
+        new TradingView.widget({
+          container_id:id,
+          symbol:tvSymbolFor(r.tkr),
+          interval:'D',
+          timezone:'Etc/UTC',
+          theme:'dark',
+          style:'1',
+          locale:'en',
+          autosize:true,
+          toolbar_bg:'#080c18',
+          withdateranges:true,
+          allow_symbol_change:true
+        });
+      }
+    });
+  }, 100);
 }
 
-function tAgo(d){ const s = Math.max(0, Math.floor((Date.now()-d)/1000)); if(s < 60) return 'just now'; if(s < 3600) return `${Math.floor(s/60)}m ago`; if(s < 86400) return `${Math.floor(s/3600)}h ago`; return `${Math.floor(s/86400)}d ago`; }
-async function fetchNewsItem(row){
-  const key = row.tkr.toLowerCase(); const stEl = document.getElementById(`${key}-st`); const bdEl = document.getElementById(`${key}-news`);
-  if(!stEl || !bdEl) return; stEl.textContent = 'Fetching…'; bdEl.innerHTML = '';
-  const query = `${row.co} ${row.tkr} ${row.drug} FDA ${row.ind} 2026`;
-  try{ const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`, {cache:'no-store'});
-    if(!res.ok) throw new Error(`HTTP ${res.status}`); const xml = await res.text();
-    const doc = new DOMParser().parseFromString(xml, 'text/xml');
-    const items = Array.from(doc.querySelectorAll('item')).slice(0,4).map(i => ({ title:(i.querySelector('title')?.textContent || '').trim(), link:(i.querySelector('link')?.textContent || '#').trim(), pub:new Date(i.querySelector('pubDate')?.textContent || '') }));
-    if(!items.length) throw new Error('empty');
-    stEl.textContent = `${tAgo(items[0].pub.getTime())} — latest`;
-    bdEl.innerHTML = items.map(it => `<div class="ni"><div class="ndot"></div><div class="ntxt"><a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.title)}</a><div class="nmeta">${isNaN(it.pub) ? '' : tAgo(it.pub.getTime())}</div></div></div>`).join('');
-  }catch{ stEl.textContent = 'Unavailable'; bdEl.innerHTML = `<div class="nempty">Feed unavailable — requires internet connection.</div>`; }
+function tAgo(d){
+  const s = Math.max(0, Math.floor((Date.now()-d)/1000));
+  if(s < 60) return 'just now';
+  if(s < 3600) return `${Math.floor(s/60)}m ago`;
+  if(s < 86400) return `${Math.floor(s/3600)}h ago`;
+  return `${Math.floor(s/86400)}d ago`;
 }
+
+async function fetchNewsItem(row){
+  const key = row.tkr.toLowerCase();
+  const stEl = document.getElementById(`${key}-st`);
+  const bdEl = document.getElementById(`${key}-news`);
+
+  if(!stEl || !bdEl) return;
+
+  stEl.textContent = 'Fetching…';
+  bdEl.innerHTML = '';
+
+  const query = `${row.co} ${row.tkr} ${row.drug} FDA ${row.ind} 2026`;
+
+  try{
+    const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`, {cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const xml = await res.text();
+    const doc = new DOMParser().parseFromString(xml, 'text/xml');
+
+    const items = Array.from(doc.querySelectorAll('item')).slice(0,4).map(i => ({
+      title:(i.querySelector('title')?.textContent || '').trim(),
+      link:(i.querySelector('link')?.textContent || '#').trim(),
+      pub:new Date(i.querySelector('pubDate')?.textContent || '')
+    }));
+
+    if(!items.length) throw new Error('empty');
+
+    stEl.textContent = `${tAgo(items[0].pub.getTime())} — latest`;
+
+    bdEl.innerHTML = items.map(it => `
+      <div class="ni">
+        <div class="ndot"></div>
+        <div class="ntxt">
+          <a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.title)}</a>
+          <div class="nmeta">${isNaN(it.pub) ? '' : tAgo(it.pub.getTime())}</div>
+        </div>
+      </div>
+    `).join('');
+  }catch{
+    stEl.textContent = 'Unavailable';
+    bdEl.innerHTML = `<div class="nempty">Feed unavailable — requires internet connection.</div>`;
+  }
+}
+
 function buildNewsGrid(){
   const grid = document.getElementById('newsGrid');
-  grid.innerHTML = STATE.HEROES.map(r => `<div class="panel"><div class="phd"><div style="display:flex;align-items:center;gap:10px"><div class="ptitle">${esc(r.tkr)}</div><div class="nst" id="${esc(r.tkr.toLowerCase())}-st">Loading…</div></div><button class="rbtn" onclick="manualRefresh('${esc(r.tkr.toLowerCase())}')">Refresh</button></div><div class="nbody" id="${esc(r.tkr.toLowerCase())}-news"></div></div>`).join('');
+
+  grid.innerHTML = STATE.HEROES.map(r => `
+    <div class="panel">
+      <div class="phd">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="ptitle">${esc(r.tkr)}</div>
+          <div class="nst" id="${esc(r.tkr.toLowerCase())}-st">Loading…</div>
+        </div>
+        <button class="rbtn" onclick="manualRefresh('${esc(r.tkr.toLowerCase())}')">Refresh</button>
+      </div>
+      <div class="nbody" id="${esc(r.tkr.toLowerCase())}-news"></div>
+    </div>
+  `).join('');
+
   STATE.HEROES.forEach(fetchNewsItem);
 }
-window.manualRefresh = function(key){ const row = STATE.HEROES.find(r => r.tkr.toLowerCase() === key); if(row) fetchNewsItem(row); };
+
+window.manualRefresh = function(key){
+  const row = STATE.HEROES.find(r => r.tkr.toLowerCase() === key);
+  if(row) fetchNewsItem(row);
+};
 
 function drawAnalogChart(){
-  const canvas = document.getElementById('analogChart'); if(!canvas) return;
-  const data = STATE.ANALOGS || []; if(!data.length) return;
-  const dpr = window.devicePixelRatio || 1; const W = canvas.parentElement.clientWidth || 500; const H = Math.round(W * 0.55);
-  canvas.width = W * dpr; canvas.height = H * dpr; canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
-  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr); ctx.clearRect(0,0,W,H);
-  const PAD={t:36,r:20,b:44,l:52}, cW=W-PAD.l-PAD.r, cH=H-PAD.t-PAD.b;
-  const maxVal = Math.max(...data.map(a => a.return_pct)); const maxAxis = Math.ceil(maxVal / 20) * 20 + 20;
-  for(let i=0;i<=5;i++){ const gVal = Math.round((maxAxis / 5) * i); const y = PAD.t + cH - (gVal / maxAxis) * cH; ctx.beginPath(); ctx.strokeStyle='rgba(255,255,255,.05)'; ctx.lineWidth=1; ctx.setLineDash([4,4]); ctx.moveTo(PAD.l,y); ctx.lineTo(PAD.l+cW,y); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle='rgba(148,163,184,.45)'; ctx.font="9px 'JetBrains Mono', monospace"; ctx.textAlign='right'; ctx.fillText(gVal + '%', PAD.l - 6, y + 3); }
-  ctx.beginPath(); ctx.strokeStyle='rgba(255,255,255,.1)'; ctx.moveTo(PAD.l,PAD.t+cH); ctx.lineTo(PAD.l+cW,PAD.t+cH); ctx.stroke();
-  const groupW = cW / data.length, barW = Math.min(36, groupW * 0.55);
-  data.forEach((a,i) => { const cx = PAD.l + groupW * i + groupW / 2; const h = Math.max(2, (a.return_pct / maxAxis) * cH); const x = cx - barW / 2, y = PAD.t + cH - h; const grad = ctx.createLinearGradient(x, y, x, PAD.t + cH); grad.addColorStop(0, a.color); grad.addColorStop(1, a.color + '22'); ctx.fillStyle = grad; ctx.shadowColor = a.color; ctx.shadowBlur = 12; ctx.beginPath(); ctx.roundRect(x, y, barW, h, [4,4,0,0]); ctx.fill(); ctx.shadowBlur = 0; ctx.fillStyle = a.color; ctx.font = "bold 11px 'JetBrains Mono', monospace"; ctx.textAlign='center'; ctx.fillText('+' + a.return_pct.toFixed(2) + '%', cx, y - 8); ctx.fillStyle='rgba(226,232,240,.9)'; ctx.fillText(a.name, cx, PAD.t + cH + 16); const oc = a.outcome === 'Approved' ? '#4ade80' : '#fcd34d'; ctx.beginPath(); ctx.arc(cx, PAD.t + cH + 28, 3, 0, Math.PI * 2); ctx.fillStyle = oc; ctx.fill(); });
+  const canvas = document.getElementById('analogChart');
+  if(!canvas) return;
+
+  const data = STATE.ANALOGS || [];
+  if(!data.length) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth || 500;
+  const H = Math.round(W * 0.55);
+
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0,0,W,H);
+
+  const PAD = {t:36,r:20,b:44,l:52};
+  const cW = W - PAD.l - PAD.r;
+  const cH = H - PAD.t - PAD.b;
+
+  const maxVal = Math.max(...data.map(a => a.return_pct));
+  const maxAxis = Math.ceil(maxVal / 20) * 20 + 20;
+
+  for(let i=0;i<=5;i++){
+    const gVal = Math.round((maxAxis / 5) * i);
+    const y = PAD.t + cH - (gVal / maxAxis) * cH;
+
+    ctx.beginPath();
+    ctx.strokeStyle='rgba(255,255,255,.05)';
+    ctx.lineWidth=1;
+    ctx.setLineDash([4,4]);
+    ctx.moveTo(PAD.l,y);
+    ctx.lineTo(PAD.l+cW,y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle='rgba(148,163,184,.45)';
+    ctx.font="9px 'JetBrains Mono', monospace";
+    ctx.textAlign='right';
+    ctx.fillText(gVal + '%', PAD.l - 6, y + 3);
+  }
+
+  ctx.beginPath();
+  ctx.strokeStyle='rgba(255,255,255,.1)';
+  ctx.moveTo(PAD.l,PAD.t+cH);
+  ctx.lineTo(PAD.l+cW,PAD.t+cH);
+  ctx.stroke();
+
+  const groupW = cW / data.length;
+  const barW = Math.min(36, groupW * 0.55);
+
+  data.forEach((a,i) => {
+    const cx = PAD.l + groupW * i + groupW / 2;
+    const h = Math.max(2, (a.return_pct / maxAxis) * cH);
+    const x = cx - barW / 2;
+    const y = PAD.t + cH - h;
+
+    const grad = ctx.createLinearGradient(x, y, x, PAD.t + cH);
+    grad.addColorStop(0, a.color);
+    grad.addColorStop(1, a.color + '22');
+
+    ctx.fillStyle = grad;
+    ctx.shadowColor = a.color;
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.roundRect(x, y, barW, h, [4,4,0,0]);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = a.color;
+    ctx.font = "bold 11px 'JetBrains Mono', monospace";
+    ctx.textAlign='center';
+    ctx.fillText('+' + a.return_pct.toFixed(2) + '%', cx, y - 8);
+
+    ctx.fillStyle='rgba(226,232,240,.9)';
+    ctx.fillText(a.name, cx, PAD.t + cH + 16);
+
+    const oc = a.outcome === 'Approved' ? '#4ade80' : '#fcd34d';
+    ctx.beginPath();
+    ctx.arc(cx, PAD.t + cH + 28, 3, 0, Math.PI * 2);
+    ctx.fillStyle = oc;
+    ctx.fill();
+  });
+
   const leg = document.getElementById('analogLegend');
-  leg.innerHTML = data.map(a => { const oc = a.outcome === 'Approved' ? '#4ade80' : '#fcd34d'; return `<div class="al-item"><div class="al-dot" style="background:${a.color};box-shadow:0 0 6px ${a.color}55"></div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap"><div class="al-name" style="color:${a.color}">${esc(a.name)}</div><span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${oc}44;background:${oc}18;color:${oc};font-family:var(--mono);flex-shrink:0">${esc(a.outcome)}</span></div><div class="al-det">${esc(a.label)} · ${esc(a.disease)}</div><div class="al-gains" style="margin-top:6px"><div><div class="al-gain" style="color:${a.color}">+${a.return_pct.toFixed(2)}%</div><div class="al-gain-sub">VWAP Return</div></div></div></div></div>`; }).join('');
+  leg.innerHTML = data.map(a => {
+    const oc = a.outcome === 'Approved' ? '#4ade80' : '#fcd34d';
+    return `
+      <div class="al-item">
+        <div class="al-dot" style="background:${a.color};box-shadow:0 0 6px ${a.color}55"></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+            <div class="al-name" style="color:${a.color}">${esc(a.name)}</div>
+            <span style="font-size:9px;padding:1px 6px;border-radius:999px;border:1px solid ${oc}44;background:${oc}18;color:${oc};font-family:var(--mono);flex-shrink:0">${esc(a.outcome)}</span>
+          </div>
+          <div class="al-det">${esc(a.label)} · ${esc(a.disease)}</div>
+          <div class="al-gains" style="margin-top:6px">
+            <div>
+              <div class="al-gain" style="color:${a.color}">+${a.return_pct.toFixed(2)}%</div>
+              <div class="al-gain-sub">VWAP Return</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
-function updateHeroCountdowns(){ document.querySelectorAll('[data-countdown]').forEach(el => { const tkr = el.getAttribute('data-countdown'); if(FDA_DECISIONS[tkr]) return; const row = STATE.HEROES.find(r => r.tkr === tkr); if(row) el.innerHTML = countdownBlocks(row); }); }
-function buildChips(){ const labels = STATE.HEROES.map(h => h.tkr); document.querySelectorAll('#chipRow .chip').forEach(ch => { const c = ch.dataset.c; if(c === 'hero0') ch.textContent = labels[0] ? `${labels[0]} Focus` : 'Hero 1'; if(c === 'hero1') ch.textContent = labels[1] ? `${labels[1]} Focus` : 'Hero 2'; if(c === 'hero2') ch.textContent = labels[2] ? `${labels[2]} Focus` : 'Hero 3'; if(c === 'hero3') ch.textContent = labels[3] ? `${labels[3]} Focus` : 'Hero 4'; }); }
+function updateHeroCountdowns(){
+  document.querySelectorAll('[data-countdown]').forEach(el => {
+    const tkr = el.getAttribute('data-countdown');
+    if(FDA_DECISIONS[tkr]) return;
+    const row = STATE.HEROES.find(r => r.tkr === tkr);
+    if(row) el.innerHTML = countdownBlocks(row);
+  });
+}
+
+function buildChips(){
+  const labels = STATE.HEROES.map(h => h.tkr);
+  document.querySelectorAll('#chipRow .chip').forEach(ch => {
+    const c = ch.dataset.c;
+    if(c === 'hero0') ch.textContent = labels[0] ? `${labels[0]} Focus` : 'Hero 1';
+    if(c === 'hero1') ch.textContent = labels[1] ? `${labels[1]} Focus` : 'Hero 2';
+    if(c === 'hero2') ch.textContent = labels[2] ? `${labels[2]} Focus` : 'Hero 3';
+    if(c === 'hero3') ch.textContent = labels[3] ? `${labels[3]} Focus` : 'Hero 4';
+  });
+}
+
 function renderTable(){
-  const tbody = document.getElementById('wl-tbody'), empty = document.getElementById('wl-empty');
-  const search = (document.getElementById('searchBox').value || '').toLowerCase(); const minSc = +document.getElementById('scoreFilter').value; const sortV = document.getElementById('sortSelect').value;
-  let rows = STATE.FUTURE_ROWS.filter(r => { const blob = [r.tkr,r.co,r.drug,r.ind,r.notes,r.therapy].join(' ').toLowerCase(); if(search && !blob.includes(search)) return false; if((r.score || 0) < minSc) return false; if(STATE.CHIPS.s5 && r.score !== 5) return false; if(STATE.CHIPS.s4 && (r.score || 0) < 4) return false; if(STATE.CHIPS.orph && !r.orph) return false; if(STATE.CHIPS.gene){ const th = String(r.therapy || '').toLowerCase(); if(!(th.includes('gene') || th.includes('cell'))) return false; } return true; });
-  rows = sortRows(rows, sortV); tbody.innerHTML = ''; empty.style.display = rows.length ? 'none' : 'block';
-  rows.forEach(r => { const en = winDates(r.pdufa, r.date_type, r.entry), ex = winDates(r.pdufa, r.date_type, r.exit); const eStr = en ? `${fmtDateShort(en.start)} → ${fmtDateShort(en.end)}` : '—'; const xStr = ex ? `${fmtDateShort(ex.start)} → ${fmtDateShort(ex.end)}` : '—'; const tagCls = therapyTagClass(r.therapy); const therapyTag = tagCls ? `<span class="mb ${tagCls}">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>` : `<span class="mb">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>`; const fda = FDA_DECISIONS[r.tkr]; const tr = document.createElement('tr'); tr.title = 'Click to open TradingView or source'; tr.addEventListener('click', () => { const tkr = String(r.tkr || ''); if(/^[A-Z]{1,5}$/.test(tkr)) window.open(tradingViewUrlFor(tkr), '_blank'); else if(r.source) window.open(r.source, '_blank'); }); const pdfuaDisplay = fda ? `<span style="color:#4ade80;font-weight:600">${esc(fda.decisionDate)}</span>` : esc(displayPdufa(r)); tr.innerHTML = `<td><div class="tdtk">${esc(r.tkr)}</div></td><td><div class="tdco">${esc(cleanText(r.co))}</div><div class="tddrug">${fda ? esc(fda.brandName) : esc(cleanText(r.drug))}</div></td><td class="tdind hide-m">${esc(cleanText(r.ind))}</td><td class="tddate">${pdfuaDisplay}</td><td class="tdsc"><span class="scb ${scoreClass(r.score)}">${esc(r.score)}</span></td><td class="tdclass hide-m">${esc(cleanText(r.mantis_class))}</td><td class="tdwin hide-m">${eStr}</td><td class="tdwin hide-m">${xStr}</td><td class="hide-m">${r.orph ? `<span class="mb orph">Orphan</span> ` : ''}${therapyTag}${fda ? ' <span class="mb" style="border-color:rgba(34,197,94,.4);color:#4ade80;background:rgba(34,197,94,.1)">✔ Approved</span>' : ''}</td>`; tbody.appendChild(tr); });
+  const tbody = document.getElementById('wl-tbody');
+  const empty = document.getElementById('wl-empty');
+  const search = (document.getElementById('searchBox').value || '').toLowerCase();
+  const minSc = +document.getElementById('scoreFilter').value;
+  const sortV = document.getElementById('sortSelect').value;
+
+  let rows = STATE.FUTURE_ROWS.filter(r => {
+    const blob = [r.tkr,r.co,r.drug,r.ind,r.notes,r.therapy].join(' ').toLowerCase();
+    if(search && !blob.includes(search)) return false;
+    if((r.score || 0) < minSc) return false;
+    if(STATE.CHIPS.s5 && r.score !== 5) return false;
+    if(STATE.CHIPS.s4 && (r.score || 0) < 4) return false;
+    if(STATE.CHIPS.orph && !r.orph) return false;
+    if(STATE.CHIPS.gene){
+      const th = String(r.therapy || '').toLowerCase();
+      if(!(th.includes('gene') || th.includes('cell'))) return false;
+    }
+    return true;
+  });
+
+  rows = sortRows(rows, sortV);
+  tbody.innerHTML = '';
+  empty.style.display = rows.length ? 'none' : 'block';
+
+  rows.forEach(r => {
+    const en = winDates(r.pdufa, r.date_type, r.entry);
+    const ex = winDates(r.pdufa, r.date_type, r.exit);
+    const eStr = en ? `${fmtDateShort(en.start)} → ${fmtDateShort(en.end)}` : '—';
+    const xStr = ex ? `${fmtDateShort(ex.start)} → ${fmtDateShort(ex.end)}` : '—';
+    const tagCls = therapyTagClass(r.therapy);
+
+    const therapyTag = tagCls
+      ? `<span class="mb ${tagCls}">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>`
+      : `<span class="mb">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>`;
+
+    const fda = FDA_DECISIONS[r.tkr];
+    const tr = document.createElement('tr');
+
+    tr.title = 'Click to open TradingView or source';
+    tr.addEventListener('click', () => {
+      const tkr = String(r.tkr || '');
+      if(/^[A-Z]{1,5}$/.test(tkr)) window.open(tradingViewUrlFor(tkr), '_blank');
+      else if(r.source) window.open(r.source, '_blank');
+    });
+
+    const pdfuaDisplay = fda
+      ? `<span style="color:#4ade80;font-weight:600">${esc(fda.decisionDate)}</span>`
+      : esc(displayPdufa(r));
+
+    tr.innerHTML = `
+      <td><div class="tdtk">${esc(r.tkr)}</div></td>
+      <td>
+        <div class="tdco">${esc(cleanText(r.co))}</div>
+        <div class="tddrug">${fda ? esc(fda.brandName) : esc(cleanText(r.drug))}</div>
+      </td>
+      <td class="tdind hide-m">${esc(cleanText(r.ind))}</td>
+      <td class="tddate">${pdfuaDisplay}</td>
+      <td class="tdsc"><span class="scb ${scoreClass(r.score)}">${esc(r.score)}</span></td>
+      <td class="tdclass hide-m">${esc(cleanText(r.mantis_class))}</td>
+      <td class="tdwin hide-m">${eStr}</td>
+      <td class="tdwin hide-m">${xStr}</td>
+      <td class="hide-m">
+        ${r.orph ? `<span class="mb orph">Orphan</span> ` : ''}
+        ${therapyTag}
+        ${fda ? ' <span class="mb" style="border-color:rgba(34,197,94,.4);color:#4ade80;background:rgba(34,197,94,.1)">✔ Approved</span>' : ''}
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
 }
+
 function setupChips(){
-  document.querySelectorAll('.chip').forEach(ch => { ch.addEventListener('click', () => { const c = ch.dataset.c;
-    if(c === 'rst'){ Object.keys(STATE.CHIPS).forEach(k => STATE.CHIPS[k] = false); document.querySelectorAll('.chip').forEach(x => x.classList.remove('on')); renderTable(); return; }
-    if(['hero0','hero1','hero2','hero3'].includes(c)){ const was = STATE.CHIPS[c]; ['hero0','hero1','hero2','hero3'].forEach(k => { STATE.CHIPS[k] = false; document.querySelector(`.chip[data-c="${k}"]`)?.classList.remove('on'); }); STATE.CHIPS[c] = !was; ch.classList.toggle('on', STATE.CHIPS[c]); }
-    else if(c === 's5'){ STATE.CHIPS.s5 = !STATE.CHIPS.s5; if(STATE.CHIPS.s5){ STATE.CHIPS.s4 = false; document.querySelector('.chip[data-c="s4"]')?.classList.remove('on'); } ch.classList.toggle('on', STATE.CHIPS.s5); }
-    else if(c === 's4'){ STATE.CHIPS.s4 = !STATE.CHIPS.s4; if(STATE.CHIPS.s4){ STATE.CHIPS.s5 = false; document.querySelector('.chip[data-c="s5"]')?.classList.remove('on'); } ch.classList.toggle('on', STATE.CHIPS.s4); }
-    else if(c === 'orph'){ STATE.CHIPS.orph = !STATE.CHIPS.orph; ch.classList.toggle('on', STATE.CHIPS.orph); }
-    else if(c === 'gene'){ STATE.CHIPS.gene = !STATE.CHIPS.gene; ch.classList.toggle('on', STATE.CHIPS.gene); }
-    renderTable(); }); });
+  document.querySelectorAll('.chip').forEach(ch => {
+    ch.addEventListener('click', () => {
+      const c = ch.dataset.c;
+
+      if(c === 'rst'){
+        Object.keys(STATE.CHIPS).forEach(k => STATE.CHIPS[k] = false);
+        document.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
+        renderTable();
+        return;
+      }
+
+      if(['hero0','hero1','hero2','hero3'].includes(c)){
+        const was = STATE.CHIPS[c];
+        ['hero0','hero1','hero2','hero3'].forEach(k => {
+          STATE.CHIPS[k] = false;
+          document.querySelector(`.chip[data-c="${k}"]`)?.classList.remove('on');
+        });
+        STATE.CHIPS[c] = !was;
+        ch.classList.toggle('on', STATE.CHIPS[c]);
+      }
+      else if(c === 's5'){
+        STATE.CHIPS.s5 = !STATE.CHIPS.s5;
+        if(STATE.CHIPS.s5){
+          STATE.CHIPS.s4 = false;
+          document.querySelector('.chip[data-c="s4"]')?.classList.remove('on');
+        }
+        ch.classList.toggle('on', STATE.CHIPS.s5);
+      }
+      else if(c === 's4'){
+        STATE.CHIPS.s4 = !STATE.CHIPS.s4;
+        if(STATE.CHIPS.s4){
+          STATE.CHIPS.s5 = false;
+          document.querySelector('.chip[data-c="s5"]')?.classList.remove('on');
+        }
+        ch.classList.toggle('on', STATE.CHIPS.s4);
+      }
+      else if(c === 'orph'){
+        STATE.CHIPS.orph = !STATE.CHIPS.orph;
+        ch.classList.toggle('on', STATE.CHIPS.orph);
+      }
+      else if(c === 'gene'){
+        STATE.CHIPS.gene = !STATE.CHIPS.gene;
+        ch.classList.toggle('on', STATE.CHIPS.gene);
+      }
+
+      renderTable();
+    });
+  });
 }
+
 async function loadData(){
-  const res = await fetch('./data.json', {cache:'no-store'}); if(!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
-  const data = await res.json(); STATE.DATA = data; STATE.ANALOGS = data.analogs || []; STATE.FUTURE_ROWS = ensureCamurusRow((data.rows || []).filter(isFutureRow)); STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
+  const res = await fetch('./data.json', {cache:'no-store'});
+  if(!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
+
+  const data = await res.json();
+  STATE.DATA = data;
+  STATE.ANALOGS = data.analogs || [];
+  STATE.FUTURE_ROWS = ensureCamurusRow((data.rows || []).filter(isFutureRow));
+  STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
+
   document.getElementById('generatedLabel') && (document.getElementById('generatedLabel').textContent = `Generated ${data.generated_at || '—'}`);
 }
+
 async function init(){
-  document.getElementById('todayLabel').textContent = new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});
-  try{ await loadData(); }catch(err){ document.querySelector('.wrap').innerHTML = `<div class="load-err"><strong>Unable to load data.json.</strong><br>${esc(err.message)}<br><br>On GitHub Pages this file should sit next to index.html.</div>`; return; }
+  document.getElementById('todayLabel').textContent = new Date().toLocaleDateString(undefined,{
+    weekday:'short',
+    month:'short',
+    day:'2-digit',
+    year:'numeric'
+  });
+
+  try{
+    await loadData();
+  }catch(err){
+    document.querySelector('.wrap').innerHTML = `
+      <div class="load-err">
+        <strong>Unable to load data.json.</strong><br>
+        ${esc(err.message)}<br><br>
+        On GitHub Pages this file should sit next to index.html.
+      </div>
+    `;
+    return;
+  }
+
   renderHeroes();
   renderWindows();
-  buildAdvisory();
   buildChips();
   setupChips();
   renderTable();
   buildChartPanels();
   buildNewsGrid();
   drawAnalogChart();
+
   window.addEventListener('resize', drawAnalogChart);
   setInterval(updateHeroCountdowns, 1000);
   setInterval(() => STATE.HEROES.forEach(fetchNewsItem), 15 * 60 * 1000);
+
   document.getElementById('searchBox').addEventListener('input', renderTable);
   document.getElementById('scoreFilter').addEventListener('change', renderTable);
   document.getElementById('sortSelect').addEventListener('change', renderTable);
 }
+
 window.addEventListener('load', init);
 </script>
 </body>
