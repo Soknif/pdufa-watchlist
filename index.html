@@ -1701,7 +1701,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">TOP CANDIDATES</div>
-      <div class="sec-sub">Pinned heroes: RCKT, DNLI, VERA, SVRA, CAPR and PRAX</div>
+      <div class="sec-sub">Pinned heroes: VERA, CAPR, PRAX, SVRA, INBX, CGEM and IBRX</div>
     </div>
     <span class="stag">Dynamic heroes</span>
   </div>
@@ -1718,6 +1718,19 @@
       <span class="stag">Event monitor</span>
     </div>
     <div class="deal-grid" id="dealGrid"></div>
+  </div>
+
+
+
+  <div class="outcome-section" id="fdaOutcomeSection">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-title">FDA OUTCOME HISTORY</div>
+        <div class="sec-sub">Approved / CRL decisions archived here — no TradingView widgets for completed outcomes</div>
+      </div>
+      <span class="stag">Decision archive</span>
+    </div>
+    <div class="outcome-grid" id="fdaOutcomeGrid"></div>
   </div>
 
   <div class="cluster-section">
@@ -1751,7 +1764,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">LIVE CHARTS</div>
-      <div class="sec-sub">Top heroes with active MANTIS catalyst coverage</div>
+      <div class="sec-sub">Active MANTIS catalyst coverage, including new 2027 candidates</div>
     </div>
     <span class="stag">Requires internet</span>
   </div>
@@ -1771,7 +1784,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">FULL WATCHLIST 2026</div>
-      <div class="sec-sub">Past dates auto-removed · click a row for TradingView or source</div>
+      <div class="sec-sub">Active/pending catalysts only · click a row for TradingView or source</div>
     </div>
   </div>
 
@@ -1836,6 +1849,7 @@ const STATE = {
   HEROES: [],
   ANALOGS: [],
   DEAL_EVENTS: [],
+  FDA_OUTCOMES: [],
   CHIPS: {hero0:false, hero1:false, hero2:false, hero3:false, s5:false, s4:false, orph:false, gene:false}
 };
 
@@ -1843,16 +1857,34 @@ function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate
 const TODAY = startOfDay(new Date());
 
 const TV_SYMBOLS = {
-  RCKT:'NASDAQ:RCKT',
-  DNLI:'NASDAQ:DNLI',
   VERA:'NASDAQ:VERA',
   SVRA:'NASDAQ:SVRA',
   CAPR:'NASDAQ:CAPR',
-  PRAX:'NASDAQ:PRAX'
+  PRAX:'NASDAQ:PRAX',
+  INBX:'NASDAQ:INBX',
+  CGEM:'NASDAQ:CGEM',
+  IBRX:'NASDAQ:IBRX',
+  BIIB:'NASDAQ:BIIB',
+  VRDN:'NASDAQ:VRDN',
+  CELC:'NASDAQ:CELC',
+  MNKD:'NASDAQ:MNKD',
+  LNTH:'NASDAQ:LNTH',
+  UNCY:'NASDAQ:UNCY',
+  IONS:'NASDAQ:IONS',
+  RARE:'NASDAQ:RARE',
+  VTRS:'NASDAQ:VTRS',
+  INO:'NASDAQ:INO',
+  SMMT:'NASDAQ:SMMT',
+  HNSA:'NASDAQ:HNSA',
+  MLYS:'NASDAQ:MLYS',
+  ACLX:'NASDAQ:ACLX',
+  COGT:'NASDAQ:COGT',
+  ROIV:'NASDAQ:ROIV',
+  PTGX:'NASDAQ:PTGX'
 };
 
-const HERO_ORDER = ['RCKT','DNLI','VERA','SVRA','CAPR','PRAX'];
-const PINNED_CHARTS = ['RCKT','DNLI','VERA','SVRA'];
+const HERO_ORDER = ['VERA','CAPR','PRAX','SVRA','INBX','CGEM','IBRX'];
+const PINNED_CHARTS = ['VERA','CAPR','PRAX','SVRA','INBX','CGEM','IBRX'];
 
 const NEWS_CONFIG = {
   proxyBase: '',
@@ -1862,40 +1894,7 @@ const NEWS_CONFIG = {
 };
 
 
-const FDA_DECISIONS = {
-  'RCKT': {
-    outcome:'approved',
-    decisionDate:'Mar 27, 2026',
-    brandName:'KRESLADI™',
-    genericName:'marnetegragene autotemcel',
-    approvalType:'Accelerated Approval',
-    indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',
-    mechanism:'Autologous hematopoietic stem cell-based gene therapy',
-    extras:[
-      {label:'PRV Granted',cls:'prv'},
-      {label:'Accelerated',cls:'accel'},
-      {label:'First Gene Therapy for LAD-I',cls:'first'}
-    ],
-    pct:'+46.32%',
-    exitDate:'Mar 18, 2026'
-  },
-  'DNLI': {
-    outcome:'approved',
-    decisionDate:'Mar 25, 2026',
-    brandName:'AVLAYAH™',
-    genericName:'tividenofusp alfa-eknm',
-    approvalType:'Accelerated Approval',
-    indication:'Neurologic manifestations of Hunter syndrome (MPS II)',
-    mechanism:'First FDA-approved biologic to cross the blood-brain barrier',
-    extras:[
-      {label:'PRV Granted',cls:'prv'},
-      {label:'Accelerated',cls:'accel'},
-      {label:'First BBB-Crossing Biologic',cls:'first'}
-    ],
-    pct:'+27.7%',
-    exitDate:'Mar 25, 2026'
-  }
-};
+const FDA_DECISIONS = {};
 
 function esc(s){
   return String(s ?? '').replace(/[&<>"']/g, m => ({
@@ -1968,8 +1967,9 @@ function heroTheme(tkr=''){
   if(t === 'RCKT') return 'rckt';
   if(t === 'DNLI' || t === 'VRDN') return 'dnli';
   if(t === 'VERA' || t === 'CELC') return 'vera';
-  if(t === 'RARE') return 'rare';
-  if(t === 'NUVL') return 'nuvl';
+  if(t === 'RARE' || t === 'INBX') return 'rare';
+  if(t === 'NUVL' || t === 'CGEM') return 'nuvl';
+  if(t === 'IBRX') return 'svra';
   if(t === 'SVRA') return 'svra';
   if(t === 'CAPR') return 'capr';
   if(t === 'PRAX') return 'prax';
@@ -2367,9 +2367,47 @@ function renderDealEvents(){
   }).join('');
 }
 
+
+function renderFdaOutcomes(){
+  const section = document.getElementById('fdaOutcomeSection');
+  const grid = document.getElementById('fdaOutcomeGrid');
+  const outcomes = STATE.FDA_OUTCOMES || [];
+
+  if(!section || !grid || !outcomes.length){
+    if(section) section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  grid.innerHTML = outcomes.map(o => {
+    const cls = String(o.outcome || '').toLowerCase().includes('crl') ? 'crl' :
+      (String(o.outcome || '').toLowerCase().includes('extend') ? 'extended' : 'approved');
+
+    return `
+      <div class="outcome-card ${cls}">
+        <div class="outcome-top">
+          <div>
+            <div class="outcome-tkr">${esc(o.tkr)}</div>
+            <div class="outcome-co">${esc(o.co)}</div>
+          </div>
+          <div class="outcome-pill ${cls}">${esc(o.outcome)}</div>
+        </div>
+        <div class="outcome-drug">${esc(o.drug)}</div>
+        <div class="outcome-ind">${esc(o.ind)}</div>
+        <div class="outcome-meta">
+          <span>${esc(o.decision_date)}</span>
+          <span>${esc(o.status_label)}</span>
+        </div>
+        <div class="outcome-takeaway">${esc(o.mantis_takeaway)}</div>
+        ${o.source ? `<a class="outcome-link" href="${esc(o.source)}" target="_blank" rel="noopener">Open decision source →</a>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
 function buildChartPanels(){
   const byTicker = new Map(STATE.FUTURE_ROWS.map(r => [r.tkr, r]));
-  const selected = PINNED_CHARTS.map(t => byTicker.get(t)).filter(Boolean).slice(0,4);
+  const selected = PINNED_CHARTS.map(t => byTicker.get(t)).filter(Boolean);
 
   const slots = selected.map(r => `
     <div class="panel">
@@ -2381,8 +2419,8 @@ function buildChartPanels(){
     </div>
   `);
 
-  document.getElementById('chartsTop').innerHTML = slots.slice(0,2).join('');
-  document.getElementById('chartsBottom').innerHTML = slots.slice(2,4).join('');
+  document.getElementById('chartsTop').innerHTML = slots.join('');
+  document.getElementById('chartsBottom').innerHTML = '';
 
   if(typeof TradingView === 'undefined'){
     setTimeout(buildChartPanels, 700);
@@ -2900,6 +2938,7 @@ async function loadData(){
   STATE.ANALOGS = data.analogs || [];
   STATE.FUTURE_ROWS = (data.rows || []).filter(isFutureRow);
   STATE.DEAL_EVENTS = data.deal_events || [];
+  STATE.FDA_OUTCOMES = data.fda_outcomes || [];
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
 }
 
@@ -2927,6 +2966,7 @@ async function init(){
   renderHeroes();
   renderWindows();
   renderDealEvents();
+  renderFdaOutcomes();
   buildChips();
   setupChips();
   renderTable();
