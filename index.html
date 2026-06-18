@@ -1701,7 +1701,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">TOP CANDIDATES</div>
-      <div class="sec-sub">Pinned heroes: VERA, CAPR, PRAX, SVRA, INBX, CGEM and IBRX</div>
+      <div class="sec-sub">Pinned heroes: RCKT and DNLI reference wins + active high-score candidates VERA, CAPR, PRAX, SVRA, INBX, CGEM and IBRX</div>
     </div>
     <span class="stag">Dynamic heroes</span>
   </div>
@@ -1726,7 +1726,7 @@
     <div class="sec-hdr">
       <div>
         <div class="sec-title">FDA OUTCOME HISTORY</div>
-        <div class="sec-sub">Approved / CRL decisions archived here — no TradingView widgets for completed outcomes</div>
+        <div class="sec-sub">Approved / CRL / extended decisions archived here. RCKT and DNLI also remain in heroes as run-up proof points.</div>
       </div>
       <span class="stag">Decision archive</span>
     </div>
@@ -1764,7 +1764,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">LIVE CHARTS</div>
-      <div class="sec-sub">Active MANTIS catalyst coverage, including new 2027 candidates</div>
+      <div class="sec-sub">Top heroes with active MANTIS catalyst coverage</div>
     </div>
     <span class="stag">Requires internet</span>
   </div>
@@ -1783,7 +1783,7 @@
 
   <div class="sec-hdr">
     <div>
-      <div class="sec-title">FULL WATCHLIST 2026</div>
+      <div class="sec-title">FULL WATCHLIST 2026–2027</div>
       <div class="sec-sub">Active/pending catalysts only · click a row for TradingView or source</div>
     </div>
   </div>
@@ -1801,9 +1801,9 @@
     </select>
 
     <select class="fsel" id="sortSelect">
+      <option value="score:desc">Score highest</option>
       <option value="pdufa:asc">Date earliest</option>
       <option value="pdufa:desc">Date latest</option>
-      <option value="score:desc">Score highest</option>
     </select>
   </div>
 
@@ -1857,6 +1857,8 @@ function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate
 const TODAY = startOfDay(new Date());
 
 const TV_SYMBOLS = {
+  RCKT:'NASDAQ:RCKT',
+  DNLI:'NASDAQ:DNLI',
   VERA:'NASDAQ:VERA',
   SVRA:'NASDAQ:SVRA',
   CAPR:'NASDAQ:CAPR',
@@ -1880,11 +1882,12 @@ const TV_SYMBOLS = {
   ACLX:'NASDAQ:ACLX',
   COGT:'NASDAQ:COGT',
   ROIV:'NASDAQ:ROIV',
-  PTGX:'NASDAQ:PTGX'
+  PTGX:'NASDAQ:PTGX',
+  ACHV:'NASDAQ:ACHV'
 };
 
-const HERO_ORDER = ['VERA','CAPR','PRAX','SVRA','INBX','CGEM','IBRX'];
-const PINNED_CHARTS = ['VERA','CAPR','PRAX','SVRA','INBX','CGEM','IBRX'];
+const HERO_ORDER = ['RCKT','DNLI','VERA','CAPR','PRAX','SVRA','INBX','CGEM','IBRX'];
+const PINNED_CHARTS = ['VERA','CAPR','PRAX','SVRA'];
 
 const NEWS_CONFIG = {
   proxyBase: '',
@@ -1894,7 +1897,40 @@ const NEWS_CONFIG = {
 };
 
 
-const FDA_DECISIONS = {};
+const FDA_DECISIONS = {
+  'RCKT': {
+    outcome:'approved',
+    decisionDate:'Mar 26, 2026',
+    brandName:'KRESLADI™',
+    genericName:'marnetegragene autotemcel',
+    approvalType:'Accelerated Approval',
+    indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',
+    mechanism:'Autologous hematopoietic stem cell-based gene therapy',
+    extras:[
+      {label:'PRV Granted',cls:'prv'},
+      {label:'Accelerated',cls:'accel'},
+      {label:'First Gene Therapy for LAD-I',cls:'first'}
+    ],
+    pct:'+46.32%',
+    exitDate:'Mar 18, 2026'
+  },
+  'DNLI': {
+    outcome:'approved',
+    decisionDate:'Mar 25, 2026',
+    brandName:'AVLAYAH™',
+    genericName:'tividenofusp alfa-eknm',
+    approvalType:'Accelerated Approval',
+    indication:'Neurologic manifestations of Hunter syndrome (MPS II)',
+    mechanism:'First FDA-approved biologic to cross the blood-brain barrier',
+    extras:[
+      {label:'PRV Granted',cls:'prv'},
+      {label:'Accelerated',cls:'accel'},
+      {label:'First BBB-Crossing Biologic',cls:'first'}
+    ],
+    pct:'+27.7%',
+    exitDate:'Mar 25, 2026'
+  }
+};
 
 function esc(s){
   return String(s ?? '').replace(/[&<>"']/g, m => ({
@@ -2025,8 +2061,10 @@ function sortRows(arr, mode){
 
 
 function chooseHeroes(rows){
-  const byTicker = new Map(rows.map(r => [r.tkr, r]));
-  return HERO_ORDER.map(t => byTicker.get(t)).filter(Boolean);
+  return HERO_ORDER.map(t => rows
+    .filter(r => r.tkr === t)
+    .sort((a,b) => (parsePdufa(a.pdufa, a.date_type)?.getTime() || 0) - (parsePdufa(b.pdufa, b.date_type)?.getTime() || 0))[0]
+  ).filter(Boolean);
 }
 
 function tvSymbolFor(tkr){
@@ -2406,8 +2444,9 @@ function renderFdaOutcomes(){
 }
 
 function buildChartPanels(){
-  const byTicker = new Map(STATE.FUTURE_ROWS.map(r => [r.tkr, r]));
-  const selected = PINNED_CHARTS.map(t => byTicker.get(t)).filter(Boolean);
+  const activeRows = STATE.FUTURE_ROWS.filter(r => !isCompletedOutcome(r));
+  const byTicker = new Map(activeRows.map(r => [r.tkr, r]));
+  const selected = PINNED_CHARTS.map(t => byTicker.get(t)).filter(Boolean).slice(0,4);
 
   const slots = selected.map(r => `
     <div class="panel">
@@ -2419,8 +2458,8 @@ function buildChartPanels(){
     </div>
   `);
 
-  document.getElementById('chartsTop').innerHTML = slots.join('');
-  document.getElementById('chartsBottom').innerHTML = '';
+  document.getElementById('chartsTop').innerHTML = slots.slice(0,2).join('');
+  document.getElementById('chartsBottom').innerHTML = slots.slice(2,4).join('');
 
   if(typeof TradingView === 'undefined'){
     setTimeout(buildChartPanels, 700);
@@ -2802,6 +2841,35 @@ function activeHeroFocusTicker(){
   return STATE.HEROES[idx]?.tkr || null;
 }
 
+
+function outcomeForRow(r){
+  const outcomes = STATE.FDA_OUTCOMES || [];
+  return outcomes.find(o => {
+    if(String(o.tkr || '') !== String(r.tkr || '')) return false;
+    if(o.pdufa && r.pdufa && String(o.pdufa) !== String(r.pdufa)) return false;
+    return true;
+  }) || null;
+}
+
+function isCompletedOutcome(row){
+  const o = outcomeForRow(row);
+  if(!o) return false;
+  const v = String(o.outcome || '').toLowerCase();
+  return v.includes('approved') || v.includes('crl') || v.includes('rejected');
+}
+
+function outcomeBadgeHtml(o){
+  if(!o) return '';
+  const v = String(o.outcome || '').toLowerCase();
+  const isCrl = v.includes('crl') || v.includes('rejected');
+  const isExt = v.includes('extend');
+  const label = isCrl ? '✘ CRL' : (isExt ? '↻ Extended' : '✔ Approved');
+  const style = isCrl
+    ? 'border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.10)'
+    : (isExt ? 'border-color:rgba(245,158,11,.45);color:#fcd34d;background:rgba(245,158,11,.10)' : 'border-color:rgba(34,197,94,.45);color:#4ade80;background:rgba(34,197,94,.10)');
+  return `<span class="mb" style="${style}">${label}</span>`;
+}
+
 function renderTable(){
   const tbody = document.getElementById('wl-tbody');
   const empty = document.getElementById('wl-empty');
@@ -2841,18 +2909,21 @@ function renderTable(){
       : `<span class="mb">${esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))}</span>`;
 
     const fda = FDA_DECISIONS[r.tkr];
+    const outcome = outcomeForRow(r);
+    const completed = isCompletedOutcome(r);
     const tr = document.createElement('tr');
 
-    tr.title = 'Click to open TradingView or source';
+    tr.title = completed ? 'Completed FDA outcome — click to open source' : 'Active/watch row — click to open TradingView';
     tr.addEventListener('click', () => {
       const tkr = String(r.tkr || '');
-      if(/^[A-Z]{1,5}$/.test(tkr)) window.open(tradingViewUrlFor(tkr), '_blank');
+      if(completed && (outcome?.source || r.source)) window.open(outcome?.source || r.source, '_blank');
+      else if(/^[A-Z]{1,5}$/.test(tkr)) window.open(tradingViewUrlFor(tkr), '_blank');
       else if(r.source) window.open(r.source, '_blank');
     });
 
     const pdfuaDisplay = fda
       ? `<span style="color:#4ade80;font-weight:600">${esc(fda.decisionDate)}</span>`
-      : esc(displayPdufa(r));
+      : (outcome ? `${esc(displayPdufa(r))}<br>${outcomeBadgeHtml(outcome)}` : esc(displayPdufa(r)));
 
     tr.innerHTML = `
       <td><div class="tdtk">${esc(r.tkr)}</div></td>
@@ -2871,6 +2942,8 @@ function renderTable(){
         ${therapyTag}
         <span class="mb">${esc(cleanText(r.catalyst_type || 'FDA'))}</span>
         ${fda ? ' <span class="mb" style="border-color:rgba(34,197,94,.4);color:#4ade80;background:rgba(34,197,94,.1)">✔ Approved</span>' : ''}
+        ${(!fda && outcome) ? ' ' + outcomeBadgeHtml(outcome) : ''}
+        ${r.is_new_candidate ? ' <span class="mb" style="border-color:rgba(167,139,250,.45);color:#c4b5fd;background:rgba(124,58,237,.12)">New MANTIS</span>' : ''}
       </td>
     `;
 
@@ -2936,9 +3009,11 @@ async function loadData(){
   const data = await res.json();
   STATE.DATA = data;
   STATE.ANALOGS = data.analogs || [];
-  STATE.FUTURE_ROWS = (data.rows || []).filter(isFutureRow);
   STATE.DEAL_EVENTS = data.deal_events || [];
   STATE.FDA_OUTCOMES = data.fda_outcomes || [];
+  // Keep all original watchlist rows visible, including completed decisions.
+  // Completed rows are badged and do not render TradingView widgets.
+  STATE.FUTURE_ROWS = data.rows || [];
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
 }
 
