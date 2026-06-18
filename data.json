@@ -2,6 +2,246 @@
   "generated_at": "2026-06-18T00:00:00Z",
   "rows": [
     {
+      "tkr": "FBIO",
+      "pdufa": "2026-01-14",
+      "date_type": "Exact",
+      "co": "Fortress Biotech",
+      "drug": "-",
+      "ind": "-",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "Biotech platform",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.sec.gov/Archives/edgar/data/1429260/000110465925120893/fbio-20251215x8k.htm"
+    },
+    {
+      "tkr": "RGNX",
+      "pdufa": "2026-02-08",
+      "date_type": "Exact",
+      "co": "REGENXBIO",
+      "drug": "RGX-121",
+      "ind": "-",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": true,
+      "therapy": "AAV gene therapy",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://regenxbio.gcs-web.com/news-releases/news-release-details/regenxbio-announces-fda-review-extension-bla-rgx-121-treat/"
+    },
+    {
+      "tkr": "ETON",
+      "pdufa": "2026-02-25",
+      "date_type": "Exact",
+      "co": "Eton Pharmaceuticals",
+      "drug": "ET-600",
+      "ind": "Desmopressin oral solution",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "Small-molecule / reformulation",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.globenewswire.com/news-release/2025/07/08/3111576/0/en/Eton-Pharmaceuticals-Announces-FDA-Acceptance-of-New-Drug-Application-for-ET-600-Desmopressin-Oral-Solution.html"
+    },
+    {
+      "tkr": "LNTH",
+      "pdufa": "2026-03-06",
+      "date_type": "Exact",
+      "co": "Lantheus",
+      "drug": "New formulation for PSMA PET imaging agent",
+      "ind": "PSMA PET imaging",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "Imaging diagnostic",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.globenewswire.com/news-release/2025/08/06/3128163/0/en/Lantheus-Announces-FDA-Acceptance-of-NDA-for-New-Formulation-for-Market-Leading-PSMA-PET-Imaging-Agent.html"
+    },
+    {
+      "tkr": "ALDX",
+      "pdufa": "2026-03-16",
+      "date_type": "Exact",
+      "co": "Aldeyra Therapeutics",
+      "drug": "reproxalap",
+      "ind": "Dry eye disease",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "Small-molecule",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.businesswire.com/news/home/20251215293677/en/Aldeyra-Therapeutics-Announces-PDUFA-Extension-of-the-New-Drug-Application-of-Reproxalap-for-the-Treatment-of-Dry-Eye-Disease"
+    },
+    {
+      "tkr": "RYTM",
+      "pdufa": "2026-03-20",
+      "date_type": "Exact",
+      "co": "Rhythm Pharmaceuticals",
+      "drug": "IMCIVREE (setmelanotide) sNDA",
+      "ind": "Acquired hypothalamic obesity",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": true,
+      "therapy": "Peptide agonist",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://ir.rhythmtx.com/news-releases/news-release-details/rhythm-pharmaceuticals-announces-fda-extension-review-period-0"
+    },
+    {
+      "tkr": "GSK",
+      "pdufa": "2026-03-24",
+      "date_type": "Exact",
+      "co": "GSK",
+      "drug": "linerixibat",
+      "ind": "Cholestatic pruritus in primary biliary cholangitis (PBC)",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": true,
+      "therapy": "IBAT inhibitor",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.gsk.com/en-gb/media/press-releases/linerixibat-new-drug-application-nda-accepted-for-review-by-the-us-fda/"
+    },
+    {
+      "tkr": "RCKT",
+      "pdufa": "2026-03-28",
+      "date_type": "Exact",
+      "co": "Rocket Pharmaceuticals",
+      "drug": "KRESLADI",
+      "ind": "LAD-I",
+      "score": 5,
+      "mantis_class": "M5 Prime",
+      "orph": true,
+      "therapy": "Ex vivo gene therapy",
+      "entry": "T-150 to T-90",
+      "exit": "T-20 to T-7",
+      "notes": "Reference archetype for small-cap gene-therapy run-ups; exit window closed Mar 18 2026 — VWAP return +46.32% locked in.",
+      "source": "https://www.businesswire.com/news/home/20251106225105/en/Rocket-Pharmaceuticals-Reports-Third-Quarter-2025-Financial-Results-and-Highlights-Recent-Progress"
+    },
+    {
+      "tkr": "DNLI",
+      "pdufa": "2026-04-05",
+      "date_type": "Exact",
+      "co": "Denali Therapeutics",
+      "drug": "tividenofusp alfa",
+      "ind": "MPS II (Hunter syndrome)",
+      "score": 5,
+      "mantis_class": "M5 Prime",
+      "orph": true,
+      "therapy": "Brain-penetrant ERT",
+      "entry": "T-150 to T-90",
+      "exit": "T-20 to T-7",
+      "notes": "Exit window closed Mar 25 2026 — VWAP return +27.7% locked in. Hunter syndrome orphan gene therapy, Priority Review.",
+      "source": "https://www.globenewswire.com/news-release/2025/10/13/3165786/0/en/Denali-Therapeutics-Announces-FDA-Review-Extension-of-BLA-for-Tividenofusp-Alfa-for-the-Treatment-of-MPS-II-Hunter-Syndrome.html"
+    },
+    {
+      "tkr": "MRK",
+      "pdufa": "2026-04-07",
+      "date_type": "Exact",
+      "co": "Merck",
+      "drug": "KEYTRUDA + KEYTRUDA QLEx + Padcev regimen",
+      "ind": "-",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "IO combo",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.merck.com/news/fda-grants-priority-review-for-keytruda-pembrolizumab-and-keytruda-qlex-pembrolizumab-and-berahyaluronidase-alfa-pmph-each-in-combination-with-padcev-enfortumab-vedotin-ejfv/"
+    },
+    {
+      "tkr": "BMY",
+      "pdufa": "2026-04-08",
+      "date_type": "Exact",
+      "co": "Bristol Myers Squibb",
+      "drug": "Opdivo plus chemotherapy",
+      "ind": "Classical Hodgkin lymphoma",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "IO combo",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://news.bms.com/news/corporate-financial/2025/U-S--Food-and-Drug-Administration-FDA-Grants-Priority-Review-to-Bristol-Myers-Squibbs-Application-for-Opdivo-nivolumab-Plus-Chemotherapy-Combination-for-Classical-Hodgkin-Lymphoma/default.aspx"
+    },
+    {
+      "tkr": "REPL",
+      "pdufa": "2026-04-10",
+      "date_type": "Exact",
+      "co": "Replimune",
+      "drug": "RP1 + nivolumab",
+      "ind": "Melanoma after anti-PD-1",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "Oncolytic immunotherapy",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://ir.replimune.com/news-releases/news-release-details/replimune-announces-fda-acceptance-bla-resubmission-rp1-0/"
+    },
+    {
+      "tkr": "TVTX",
+      "pdufa": "2026-04-13",
+      "date_type": "Exact",
+      "co": "Travere Therapeutics",
+      "drug": "FILSPARI (sNDA)",
+      "ind": "FSGS",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": true,
+      "therapy": "Small-molecule",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.businesswire.com/news/home/20260113451702/en/Travere-Therapeutics-Announces-FDA-Extends-Review-of-sNDA-for-FILSPARI-sparsentan-in-FSGS"
+    },
+    {
+      "tkr": "AXSM",
+      "pdufa": "2026-04-30",
+      "date_type": "Exact",
+      "co": "Axsome Therapeutics",
+      "drug": "AXS-05",
+      "ind": "Alzheimer’s disease agitation",
+      "score": 3,
+      "mantis_class": "M3 Tradable",
+      "orph": false,
+      "therapy": "CNS small-molecule",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Tradable but more speculative or timing-sensitive; useful as a watch candidate for Alzheimer’s disease agitation.",
+      "source": "https://www.globenewswire.com/news-release/2025/12/31/3211743/33090/en/Axsome-Therapeutics-Announces-FDA-Acceptance-and-Priority-Review-of-Supplemental-New-Drug-Application-for-AXS-05-for-the-Treatment-of-Alzheimer-s-Disease-Agitation.html"
+    },
+    {
+      "tkr": "ARGX",
+      "pdufa": "2026-05-10",
+      "date_type": "Exact",
+      "co": "argenx",
+      "drug": "-",
+      "ind": "-",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "Autoimmune biologic",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://www.us.argenx.com/news/2026/press-release-3217457"
+    },
+    {
       "tkr": "BIIB",
       "pdufa": "2026-08-24",
       "date_type": "Exact",
@@ -9,13 +249,63 @@
       "drug": "LEQEMBI IQLIK (lecanemab) subcutaneous starting dose sBLA",
       "ind": "Early Alzheimer’s disease",
       "score": 2,
-      "mantis_class": "M2 Low-conviction",
+      "mantis_class": "M2 Low-conviction · Extended review",
       "orph": false,
       "therapy": "Anti-amyloid biologic",
       "entry": "T-90 to T-45",
       "exit": "T-20 to T-10",
-      "notes": "Updated May 2026: FDA extended the LEQEMBI IQLIK subcutaneous starting-dose sBLA review by three months to Aug 24, 2026 after treating the submission as a major amendment. Large-cap / low-torque background catalyst rather than core MANTIS alpha.",
-      "source": "https://www.bioarctic.com/en/leqembi-iqlik-pdufa-date-updated-to-august-24-in-the-u-s/"
+      "notes": "FDA review extended from May 24 to Aug 24 2026 after an FDA-requested major amendment; no approvability concerns reported to date. Large-cap/background event rather than high-torque MANTIS setup.",
+      "source": "https://www.bioarctic.com/en/leqembi-iqlik-pdufa-date-updated-to-august-24-in-the-u-s/",
+      "catalyst_type": "sBLA review extension",
+      "priority_review": true
+    },
+    {
+      "tkr": "MNKD",
+      "pdufa": "2026-05-29",
+      "date_type": "Exact",
+      "co": "MannKind",
+      "drug": "-",
+      "ind": "-",
+      "score": 2,
+      "mantis_class": "M2 Low-conviction",
+      "orph": false,
+      "therapy": "Device + small-molecule",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
+      "source": "https://investors.mannkindcorp.com/news-releases/news-release-details/mannkind-announces-us-fda-accepts-review-its-supplemental"
+    },
+    {
+      "tkr": "CING",
+      "pdufa": "2026-05-31",
+      "date_type": "Exact",
+      "co": "Cingulate",
+      "drug": "CTx-1301",
+      "ind": "ADHD",
+      "score": 4,
+      "mantis_class": "M4 Strong",
+      "orph": false,
+      "therapy": "CNS stimulant formulation",
+      "entry": "T-120 to T-60",
+      "exit": "T-20 to T-7",
+      "notes": "Strong MANTIS candidate with a clear cns stimulant formulation catalyst in ADHD.",
+      "source": "https://www.globenewswire.com/news-release/2025/10/14/3166151/0/en/FDA-Accepts-Cingulate-s-New-Drug-Application-for-CTx-1301-in-Attention-Deficit-Hyperactivity-Disorder-ADHD-and-sets-a-May-31-2026-PDUFA-Date.html"
+    },
+    {
+      "tkr": "ARVN",
+      "pdufa": "2026-06-05",
+      "date_type": "Exact",
+      "co": "Arvinas",
+      "drug": "-",
+      "ind": "-",
+      "score": 3,
+      "mantis_class": "M3 Tradable",
+      "orph": false,
+      "therapy": "Targeted protein degrader",
+      "entry": "T-90 to T-45",
+      "exit": "T-20 to T-10",
+      "notes": "Tradable but more speculative or timing-sensitive; useful as a watch candidate for current labeled indication.",
+      "source": "https://ir.arvinas.com/news-releases/news-release-details/arvinas-announces-fda-acceptance-new-drug-application/"
     },
     {
       "tkr": "LNTH",
@@ -182,22 +472,22 @@
       "source": "https://www.globenewswire.com/news-release/2026/02/23/3242633/20739/en/Ultragenyx-Announces-U-S-FDA-Acceptance-and-Priority-Review-of-the-Biologics-License-Application-BLA-for-DTX401-AAV-Gene-Therapy-for-Glycogen-Storage-Disease-Type-Ia-GSDIa.html"
     },
     {
-      "tkr": "PRAX",
-      "pdufa": "2027-01-29",
+      "tkr": "NUVL",
+      "pdufa": "2026-09-18",
       "date_type": "Exact",
-      "co": "Praxis Precision Medicines",
-      "drug": "ulixacaltamide HCl",
-      "ind": "Essential tremor",
-      "score": 4,
-      "mantis_class": "M4 Strong · second PRAX FDA catalyst",
-      "orph": false,
-      "therapy": "CNS small-molecule / precision neurology",
-      "catalyst_type": "NDA",
-      "priority_review": false,
-      "entry": "T-150 to T-75",
-      "exit": "T-25 to T-7",
-      "notes": "Second PRAX catalyst: FDA accepted the ulixacaltamide NDA for essential tremor with Jan 29, 2027 target action date and no advisory committee currently planned. Strong, but listed below the 2026 relutrigine catalyst because it is further out and less rare-disease driven.",
-      "source": "https://www.globenewswire.com/news-release/2026/04/14/3273225/0/en/praxis-precision-medicines-announces-fda-acceptance-of-new-drug-application-for-ulixacaltamide-hcl-in-patients-with-essential-tremor.html"
+      "co": "Nuvalent",
+      "drug": "zidesamtinib / neladalkib",
+      "ind": "ROS1+ and ALK+ NSCLC",
+      "score": 3,
+      "mantis_class": "M&A Event · transaction-driven setup",
+      "orph": true,
+      "therapy": "Next-generation kinase inhibitors",
+      "entry": "Tender spread / event risk",
+      "exit": "Deal close expected Q3 2026",
+      "notes": "GSK agreed to acquire Nuvalent for $124/share in cash, valuing the company at about $10.6B. The setup has shifted from a pure MANTIS pre-PDUFA run-up to a transaction-driven outcome: upside is now anchored by the acquisition terms, while the long-term clinical upside transfers mainly to GSK after closing.",
+      "source": "https://www.gsk.com/en-gb/media/press-releases/gsk-enters-agreement-to-acquire-nuvalent-inc/",
+      "catalyst_type": "Acquisition + FDA reviews",
+      "priority_review": null
     },
     {
       "tkr": "PRAX",
@@ -380,22 +670,42 @@
       "source": "https://www.globenewswire.com/news-release/2026/03/16/3256200/0/en/cogent-biosciences-announces-fda-acceptance-of-new-drug-application-for-bezuclastinib-in-patients-with-nonadvanced-systemic-mastocytosis-nonadvsm.html"
     },
     {
-      "tkr": "INBX",
-      "pdufa": "2027-04-14",
+      "tkr": "IBRX",
+      "pdufa": "2027-01-06",
       "date_type": "Exact",
-      "co": "Inhibrx Biosciences",
-      "drug": "ozekibart (INBRX-109)",
-      "ind": "Unresectable or metastatic conventional chondrosarcoma",
-      "score": 5,
-      "mantis_class": "M5 Prime · rare oncology / 2027 runway",
+      "co": "ImmunityBio",
+      "drug": "ANKTIVA + BCG sBLA",
+      "ind": "BCG-unresponsive NMIBC with papillary disease without CIS",
+      "score": 4,
+      "mantis_class": "M4 Watch · high-volatility sBLA",
       "orph": false,
-      "therapy": "DR5 agonist antibody / rare oncology",
-      "catalyst_type": "BLA",
+      "therapy": "IL-15 immunotherapy / oncology biologic",
+      "catalyst_type": "sBLA",
       "priority_review": false,
-      "entry": "T-180 to T-90",
-      "exit": "T-30 to T-7",
-      "notes": "New MANTIS candidate: FDA accepted the ozekibart BLA and set an Apr 14, 2027 PDUFA. Rare oncology setup with a clean exact date and long runway; strong candidate for staged accumulation and monitoring as review progresses.",
-      "source": "https://www.prnewswire.com/news-releases/inhibrx-announces-us-fda-acceptance-of-bla-for-ozekibart-in-patients-with-conventional-chondrosarcoma-302800101.html"
+      "entry": "T-150 to T-90",
+      "exit": "T-25 to T-7",
+      "notes": "New MANTIS candidate: exact Jan 2027 FDA date and high retail/event sensitivity. Not a clean M5 because it is a supplemental expansion with prior regulatory noise, but it has meaningful volatility potential.",
+      "source": "https://immunitybio.com/immunitybio-announces-fda-acceptance-of-supplemental-bla-for-anktiva-plus-bcg-in-bcg-unresponsive-non-muscle-invasive-bladder-cancer-with-papillary-disease-pdufa-date-set-for-january-6-2027/",
+      "is_new_candidate": true
+    },
+    {
+      "tkr": "PRAX",
+      "pdufa": "2027-01-29",
+      "date_type": "Exact",
+      "co": "Praxis Precision Medicines",
+      "drug": "ulixacaltamide HCl",
+      "ind": "Essential tremor",
+      "score": 5,
+      "mantis_class": "M5 Prime · second PRAX catalyst",
+      "orph": false,
+      "therapy": "CNS small-molecule",
+      "catalyst_type": "NDA",
+      "priority_review": false,
+      "entry": "T-150 to T-70",
+      "exit": "T-25 to T-5",
+      "notes": "New high-score MANTIS candidate: FDA accepted the NDA with a Jan 29 2027 PDUFA and no advisory committee currently expected. This creates a second visible PRAX catalyst after relutrigine.",
+      "source": "https://ir.praxismedicines.com/news-releases/news-release-details/praxis-precision-medicines-announces-fda-acceptance-new-drug",
+      "is_new_candidate": true
     },
     {
       "tkr": "CGEM",
@@ -403,35 +713,37 @@
       "date_type": "Exact",
       "co": "Cullinan Therapeutics / Taiho Oncology",
       "drug": "zipalertinib",
-      "ind": "EGFR exon 20 insertion NSCLC after platinum-based chemotherapy ± amivantamab",
+      "ind": "EGFR exon 20 insertion NSCLC after prior therapy",
       "score": 4,
-      "mantis_class": "M4 Strong · targeted oncology FDA review",
+      "mantis_class": "M4 Strong · targeted oncology NDA",
       "orph": false,
       "therapy": "Kinase inhibitor / targeted oncology",
       "catalyst_type": "NDA",
       "priority_review": false,
-      "entry": "T-150 to T-75",
+      "entry": "T-150 to T-80",
       "exit": "T-25 to T-7",
-      "notes": "FDA accepted the zipalertinib NDA and set a Feb 27, 2027 PDUFA. MANTIS fit is strong because it combines a precise target-action date, oncology narrative, and a mid-cap biotech exposure through CGEM, though the EGFR exon 20 space is competitive.",
-      "source": "https://www.taihooncology.com/us/news/us-food-and-drug-administration-accepts-new-drug-application-for-zipalertinib-for-the-treatment-of-locally-advanced-or-metastatic-non-small-cell-lung-cancer-with-egfr-exon-20-insertion-mutations/"
+      "notes": "New MANTIS candidate: exact Feb 2027 PDUFA for a targeted oncology NDA. Strong enough for active tracking, but below M5 because the EGFR exon 20 space is competitive and partnered dynamics may reduce torque.",
+      "source": "https://www.taihooncology.com/us/news/us-food-and-drug-administration-accepts-new-drug-application-for-zipalertinib-for-the-treatment-of-locally-advanced-or-metastatic-non-small-cell-lung-cancer-with-egfr-exon-20-insertion-mutations/",
+      "is_new_candidate": true
     },
     {
-      "tkr": "IBRX",
-      "pdufa": "2027-01-06",
+      "tkr": "INBX",
+      "pdufa": "2027-04-14",
       "date_type": "Exact",
-      "co": "ImmunityBio",
-      "drug": "ANKTIVA + BCG sBLA",
-      "ind": "BCG-unresponsive NMIBC with papillary-only disease",
-      "score": 4,
-      "mantis_class": "M4 Watch · high-volatility supplemental BLA",
+      "co": "Inhibrx Biosciences",
+      "drug": "ozekibart",
+      "ind": "Unresectable or metastatic conventional chondrosarcoma",
+      "score": 5,
+      "mantis_class": "M5 Prime · rare-oncology BLA",
       "orph": false,
-      "therapy": "Immunotherapy / bladder cancer",
-      "catalyst_type": "sBLA",
+      "therapy": "DR5 agonist antibody / rare oncology",
+      "catalyst_type": "BLA",
       "priority_review": false,
-      "entry": "T-150 to T-75",
-      "exit": "T-25 to T-7",
-      "notes": "FDA accepted the ANKTIVA + BCG supplemental BLA and set Jan 6, 2027 PDUFA. Interesting high-volatility event, but kept as M4 Watch rather than M5 because it is a label expansion and carries additional regulatory/promotional-warning noise.",
-      "source": "https://www.sahmcapital.com/news/content/immunitybio-says-fda-accepts-anktiva-sbla-for-papillary-nmibc-pdufa-jan-6-2027-2026-05-20"
+      "entry": "T-180 to T-90",
+      "exit": "T-30 to T-7",
+      "notes": "New high-score MANTIS candidate: FDA accepted the BLA, assigned an Apr 14 2027 PDUFA, and reported no filing review issues. Rare oncology plus first-potential-therapy narrative makes this a strong full-cycle setup.",
+      "source": "https://www.prnewswire.com/news-releases/inhibrx-announces-us-fda-acceptance-of-bla-for-ozekibart-in-patients-with-conventional-chondrosarcoma-302800101.html",
+      "is_new_candidate": true
     }
   ],
   "fda_outcomes": [
@@ -444,7 +756,8 @@
       "decision_date": "Jan 13, 2026",
       "status_label": "Approved · first U.S. therapy",
       "mantis_takeaway": "Completed FDA event. Add to outcome history; do not chart as active run-up.",
-      "source": "https://www.globenewswire.com/news-release/2026/01/13/3217693/0/en/fortress-biotech-and-cyprium-therapeutics-announce-u-s-fda-approval-of-zycubo-copper-histidinate-the-first-and-only-approved-treatment-for-menkes-disease-in-the-united-states.html"
+      "source": "https://www.globenewswire.com/news-release/2026/01/13/3217693/0/en/fortress-biotech-and-cyprium-therapeutics-announce-u-s-fda-approval-of-zycubo-copper-histidinate-the-first-and-only-approved-treatment-for-menkes-disease-in-the-united-states.html",
+      "pdufa": "2026-01-14"
     },
     {
       "tkr": "RGNX",
@@ -455,7 +768,8 @@
       "decision_date": "Feb 9, 2026",
       "status_label": "Complete Response Letter",
       "mantis_takeaway": "Rejected for now; monitor only if a new resubmission/PDUFA is announced.",
-      "source": "https://ir.regenxbio.com/news-releases/news-release-details/regenxbio-announces-regulatory-update-rgx-121-bla-mps-ii"
+      "source": "https://ir.regenxbio.com/news-releases/news-release-details/regenxbio-announces-regulatory-update-rgx-121-bla-mps-ii",
+      "pdufa": "2026-02-08"
     },
     {
       "tkr": "ETON",
@@ -466,7 +780,8 @@
       "decision_date": "Feb 25, 2026",
       "status_label": "Approved",
       "mantis_takeaway": "Completed small-cap approval; keep as outcome-history item, not active run-up.",
-      "source": "https://ir.etonpharma.com/news-releases/news-release-details/eton-pharmaceuticals-announces-us-fda-approval-desmodatm"
+      "source": "https://ir.etonpharma.com/news-releases/news-release-details/eton-pharmaceuticals-announces-us-fda-approval-desmodatm",
+      "pdufa": "2026-02-25"
     },
     {
       "tkr": "LNTH",
@@ -477,7 +792,8 @@
       "decision_date": "Mar 6, 2026",
       "status_label": "Approved",
       "mantis_takeaway": "Completed large-cap diagnostic approval. Keep separate from future LNTH-2501/MK-6240 rows.",
-      "source": "https://investor.lantheus.com/news-releases/news-release-details/lantheus-announces-fda-approval-pylarify-truvutm-piflufolastat-f"
+      "source": "https://investor.lantheus.com/news-releases/news-release-details/lantheus-announces-fda-approval-pylarify-truvutm-piflufolastat-f",
+      "pdufa": "2026-03-06"
     },
     {
       "tkr": "ALDX",
@@ -488,7 +804,8 @@
       "decision_date": "Mar 17, 2026",
       "status_label": "Complete Response Letter",
       "mantis_takeaway": "Rejected; remove from active MANTIS list unless a fresh regulatory path appears.",
-      "source": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-declines-approve-aldeyras-drug-eye-disorder-2026-03-17/"
+      "source": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-declines-approve-aldeyras-drug-eye-disorder-2026-03-17/",
+      "pdufa": "2026-03-16"
     },
     {
       "tkr": "RYTM",
@@ -499,7 +816,8 @@
       "decision_date": "Mar 19, 2026",
       "status_label": "Approved · first/only aHO therapy",
       "mantis_takeaway": "Completed approval with strong rare-disease narrative; archive as outcome history.",
-      "source": "https://www.globenewswire.com/news-release/2026/03/19/3259502/0/en/rhythm-pharmaceuticals-announces-fda-approval-of-imcivree-setmelanotide-for-patients-with-acquired-hypothalamic-obesity.html"
+      "source": "https://www.globenewswire.com/news-release/2026/03/19/3259502/0/en/rhythm-pharmaceuticals-announces-fda-approval-of-imcivree-setmelanotide-for-patients-with-acquired-hypothalamic-obesity.html",
+      "pdufa": "2026-03-20"
     },
     {
       "tkr": "GSK",
@@ -510,7 +828,8 @@
       "decision_date": "Mar 19, 2026",
       "status_label": "Approved",
       "mantis_takeaway": "Large-cap/background FDA event; not a MANTIS torque candidate.",
-      "source": "https://www.gsk.com/en-gb/media/press-releases/lynavoy-linerixibat-approved-by-the-us-fda/"
+      "source": "https://www.gsk.com/en-gb/media/press-releases/lynavoy-linerixibat-approved-by-the-us-fda/",
+      "pdufa": "2026-03-24"
     },
     {
       "tkr": "BMY",
@@ -521,7 +840,8 @@
       "decision_date": "Mar 20, 2026",
       "status_label": "Approved",
       "mantis_takeaway": "Large-cap/background approval; no active MANTIS chart needed.",
-      "source": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-nivolumab-chemotherapy-previously-untreated-hodgkin-lymphoma"
+      "source": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-nivolumab-chemotherapy-previously-untreated-hodgkin-lymphoma",
+      "pdufa": "2026-04-08"
     },
     {
       "tkr": "DNLI",
@@ -532,7 +852,8 @@
       "decision_date": "Mar 25, 2026",
       "status_label": "Accelerated approval · PRV",
       "mantis_takeaway": "Completed MANTIS reference trade; remove from active TradingView panels.",
-      "source": "https://investors.denalitherapeutics.com/news-releases/news-release-details/denali-therapeutics-announces-us-fda-approval-avlayahtm"
+      "source": "https://investors.denalitherapeutics.com/news-releases/news-release-details/denali-therapeutics-announces-us-fda-approval-avlayahtm",
+      "pdufa": "2026-04-05"
     },
     {
       "tkr": "RCKT",
@@ -543,7 +864,8 @@
       "decision_date": "Mar 26, 2026",
       "status_label": "Accelerated approval · PRV",
       "mantis_takeaway": "Completed MANTIS reference trade; remove from active TradingView panels.",
-      "source": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-severe-leukocyte-adhesion-deficiency-type-i"
+      "source": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-severe-leukocyte-adhesion-deficiency-type-i",
+      "pdufa": "2026-03-28"
     },
     {
       "tkr": "REPL",
@@ -554,7 +876,8 @@
       "decision_date": "Apr 10, 2026",
       "status_label": "Complete Response Letter",
       "mantis_takeaway": "Rejected again; monitor only because a resubmission/re-review path may develop, but do not include as clean MANTIS until a new date is confirmed.",
-      "source": "https://www.reuters.com/legal/litigation/us-fda-declines-approve-replimunes-drug-advanced-skin-cancer-2026-04-10/"
+      "source": "https://www.reuters.com/legal/litigation/us-fda-declines-approve-replimunes-drug-advanced-skin-cancer-2026-04-10/",
+      "pdufa": "2026-04-10"
     },
     {
       "tkr": "TVTX",
@@ -565,7 +888,8 @@
       "decision_date": "Apr 13, 2026",
       "status_label": "Full approval",
       "mantis_takeaway": "Completed nephrology approval; archive as outcome history.",
-      "source": "https://ir.travere.com/press-releases/news-details/2026/Travere-Therapeutics-Announces-Full-FDA-Approval-of-FILSPARI-sparsentan-the-First-and-Only-Approved-Medicine-for-FSGS/default.aspx"
+      "source": "https://ir.travere.com/press-releases/news-details/2026/Travere-Therapeutics-Announces-Full-FDA-Approval-of-FILSPARI-sparsentan-the-First-and-Only-Approved-Medicine-for-FSGS/default.aspx",
+      "pdufa": "2026-04-13"
     },
     {
       "tkr": "AXSM",
@@ -576,7 +900,8 @@
       "decision_date": "Apr 30, 2026",
       "status_label": "Approved",
       "mantis_takeaway": "Completed approval; historically relevant because it had higher market impact than low-conviction score implied.",
-      "source": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-approves-axsomes-drug-alzheimers-related-agitation-2026-04-30/"
+      "source": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-approves-axsomes-drug-alzheimers-related-agitation-2026-04-30/",
+      "pdufa": "2026-04-30"
     },
     {
       "tkr": "ARVN",
@@ -587,7 +912,8 @@
       "decision_date": "May 1, 2026",
       "status_label": "Approved early",
       "mantis_takeaway": "Completed early approval before the June PDUFA; archive and remove from active rows.",
-      "source": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-vepdegestrant-er-positive-her2-negative-esr1-mutated-advanced-or-metastatic-breast"
+      "source": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-vepdegestrant-er-positive-her2-negative-esr1-mutated-advanced-or-metastatic-breast",
+      "pdufa": "2026-06-05"
     },
     {
       "tkr": "ARGX",
@@ -598,7 +924,8 @@
       "decision_date": "May 8, 2026",
       "status_label": "Label expansion approved",
       "mantis_takeaway": "Large-cap/background approval; archive only.",
-      "source": "https://www.globenewswire.com/news-release/2026/05/08/3291372/0/en/argenx-announces-u-s-fda-approval-expanding-vyvgart-and-vyvgart-hytrulo-for-use-in-all-adult-patients-living-with-gmg.html"
+      "source": "https://www.globenewswire.com/news-release/2026/05/08/3291372/0/en/argenx-announces-u-s-fda-approval-expanding-vyvgart-and-vyvgart-hytrulo-for-use-in-all-adult-patients-living-with-gmg.html",
+      "pdufa": "2026-05-10"
     },
     {
       "tkr": "MNKD",
@@ -609,7 +936,8 @@
       "decision_date": "May 29, 2026",
       "status_label": "Approved",
       "mantis_takeaway": "Completed pediatric label expansion; keep separate from the July 2026 MNKD row if still valid.",
-      "source": "https://www.globenewswire.com/news-release/2026/05/29/3303734/29517/en/mannkind-announces-fda-approval-of-afrezza-the-first-and-only-inhaled-mealtime-insulin-for-use-in-children-and-adolescents-aged-6-and-older-living-with-diabetes.html"
+      "source": "https://www.globenewswire.com/news-release/2026/05/29/3303734/29517/en/mannkind-announces-fda-approval-of-afrezza-the-first-and-only-inhaled-mealtime-insulin-for-use-in-children-and-adolescents-aged-6-and-older-living-with-diabetes.html",
+      "pdufa": "2026-05-29"
     },
     {
       "tkr": "CING",
@@ -620,7 +948,20 @@
       "decision_date": "Jun 2, 2026",
       "status_label": "Complete Response Letter · CMC-focused",
       "mantis_takeaway": "Rejected for now, but CMC-only framing makes it a possible resubmission watch. Not active until a fresh FDA timeline is announced.",
-      "source": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-declines-approve-cingulates-adhd-drug-2026-06-02/"
+      "source": "https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-declines-approve-cingulates-adhd-drug-2026-06-02/",
+      "pdufa": "2026-05-31"
+    },
+    {
+      "tkr": "BIIB",
+      "co": "Biogen / Eisai",
+      "drug": "LEQEMBI IQLIK subcutaneous starting dose sBLA",
+      "ind": "Early Alzheimer’s disease",
+      "outcome": "Extended",
+      "decision_date": "May 8, 2026",
+      "pdufa": "2026-08-24",
+      "status_label": "PDUFA extended to Aug 24, 2026",
+      "mantis_takeaway": "Not completed. Keep in the active watchlist as an extended large-cap/background FDA review; no approvability concerns reported to date.",
+      "source": "https://www.bioarctic.com/en/leqembi-iqlik-pdufa-date-updated-to-august-24-in-the-u-s/"
     }
   ],
   "analogs": [
