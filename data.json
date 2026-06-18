@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-15T00:00:00Z",
+  "generated_at": "2026-06-18T00:00:00Z",
   "rows": [
     {
       "tkr": "FBIO",
@@ -306,22 +306,6 @@
       "source": "https://ir.arvinas.com/news-releases/news-release-details/arvinas-announces-fda-acceptance-new-drug-application/"
     },
     {
-      "tkr": "CAMX",
-      "pdufa": "2026-06-10",
-      "date_type": "Exact",
-      "co": "Camurus AB",
-      "drug": "Oclaiz",
-      "ind": "Acromegaly",
-      "score": 3,
-      "mantis_class": "High Tier-2 · Quality catalyst / lower torque",
-      "orph": false,
-      "therapy": "Long-acting octreotide depot",
-      "entry": "T-70 to T-35",
-      "exit": "T-14 to T-3",
-      "notes": "Strong clinical and financial profile, but lower speculative rerating potential for core MANTIS run-up strategy. Modeled as a later-entry, lower-torque setup versus higher-beta MANTIS names.",
-      "source": "https://www.tradingview.com/symbols/OMXSTO-CAMX/"
-    },
-    {
       "tkr": "LNTH",
       "pdufa": "2026-06-29",
       "date_type": "Exact",
@@ -391,15 +375,17 @@
       "date_type": "Exact",
       "co": "Vera Therapeutics",
       "drug": "atacicept",
-      "ind": "IgA nephropathy",
+      "ind": "IgA nephropathy (IgAN)",
       "score": 5,
-      "mantis_class": "M5 Prime",
+      "mantis_class": "M5 Prime · immediate catalyst / full-approval bridge",
       "orph": false,
       "therapy": "Dual BAFF/APRIL biologic",
       "entry": "T-120 to T-60",
       "exit": "T-20 to T-7",
-      "notes": "Prime MANTIS setup: clean nephrology BLA, strong visibility, and enough runway left for accumulation.",
-      "source": "https://www.globenewswire.com/news-release/2026/01/07/3214426/0/en/Vera-Therapeutics-Announces-U-S-FDA-Granted-Priority-Review-to-Biologics-License-Application-for-Atacicept-for-Treatment-of-Adults-with-IgA-Nephropathy.html"
+      "notes": "Updated Jun 2026: FDA alignment pulled the ORIGIN 3 eGFR analysis into Q3 2026, creating a second catalyst after the Jul 7 PDUFA. Pending positive eGFR data, Vera plans a Q4 2026 sBLA for full approval, with potential full approval in 2027. Near-term M5 Prime setup, but decision risk is now very concentrated.",
+      "source": "https://www.globenewswire.com/news-release/2026/06/02/3304986/0/en/vera-therapeutics-announces-alignment-with-u-s-fda-on-earlier-origin-phase-3-analysis-to-support-potential-full-approval-for-atacicept-in-adults-with-iga-nephropathy.html",
+      "catalyst_type": "BLA / Priority Review",
+      "priority_review": true
     },
     {
       "tkr": "CELC",
@@ -488,16 +474,18 @@
       "pdufa": "2026-09-18",
       "date_type": "Exact",
       "co": "Nuvalent",
-      "drug": "zidesamtinib",
-      "ind": "ROS1+ NSCLC after prior TKI",
-      "score": 5,
-      "mantis_class": "M5 Prime",
+      "drug": "zidesamtinib / neladalkib",
+      "ind": "ROS1+ and ALK+ NSCLC",
+      "score": 3,
+      "mantis_class": "M&A Event · transaction-driven setup",
       "orph": true,
-      "therapy": "Kinase inhibitor",
-      "entry": "T-120 to T-60",
-      "exit": "T-20 to T-7",
-      "notes": "Strong MANTIS candidate with a clear kinase inhibitor catalyst in ROS1+ NSCLC after prior TKI.",
-      "source": "https://www.prnewswire.com/news-releases/nuvalent-announces-fda-acceptance-of-new-drug-application-for-zidesamtinib-for-the-treatment-of-tki-pre-treated-patients-with-advanced-ros1-positive-nsclc-302620883.html"
+      "therapy": "Next-generation kinase inhibitors",
+      "entry": "Tender spread / event risk",
+      "exit": "Deal close expected Q3 2026",
+      "notes": "GSK agreed to acquire Nuvalent for $124/share in cash, valuing the company at about $10.6B. The setup has shifted from a pure MANTIS pre-PDUFA run-up to a transaction-driven outcome: upside is now anchored by the acquisition terms, while the long-term clinical upside transfers mainly to GSK after closing.",
+      "source": "https://www.gsk.com/en-gb/media/press-releases/gsk-enters-agreement-to-acquire-nuvalent-inc/",
+      "catalyst_type": "Acquisition + FDA reviews",
+      "priority_review": null
     },
     {
       "tkr": "PRAX",
@@ -736,6 +724,25 @@
       "disease": "IgA Nephropathy",
       "outcome": "Approved",
       "color": "#fb923c"
+    }
+  ],
+  "deal_events": [
+    {
+      "tkr": "NUVL",
+      "co": "Nuvalent",
+      "headline": "GSK acquisition agreed",
+      "status": "Pending tender offer / expected Q3 2026 close",
+      "deal_value": "$10.6B equity value",
+      "price": "$124/share cash",
+      "premium": "40% premium to last close",
+      "asset_focus": "zidesamtinib (ROS1) + neladalkib (ALK) + NVL-330 (HER2)",
+      "why_it_matters": "Nuvalent is no longer a clean standalone FDA run-up story. It is now a transaction-driven event: the market will mostly price around the $124/share cash offer, while the strategic value of the lung-cancer pipeline moves to GSK after closing.",
+      "bullets": [
+        "Two late-stage NSCLC assets are under FDA review: zidesamtinib target action date Sep 18, 2026 and neladalkib target action date Nov 27, 2026.",
+        "Both lead assets have FDA Breakthrough Therapy and Orphan Drug designations.",
+        "Deal framing: treat NUVL as M&A / tender-spread monitoring, not as a normal MANTIS score-5 accumulation candidate."
+      ],
+      "source": "https://www.gsk.com/en-gb/media/press-releases/gsk-enters-agreement-to-acquire-nuvalent-inc/"
     }
   ]
 }
