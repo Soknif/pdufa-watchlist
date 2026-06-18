@@ -18,7 +18,6 @@
       --vera:#db2777; --vera2:#f9a8d4;
       --rare:#d97706; --rare2:#fcd34d;
       --nuvl:#0284c7; --nuvl2:#7dd3fc;
-      --camx:#16a34a; --camx2:#86efac;
       --svra:#0891b2; --svra2:#67e8f9;
       --capr:#f59e0b; --capr2:#fde68a;
       --prax:#8b5cf6; --prax2:#c4b5fd;
@@ -239,8 +238,6 @@
     .hero.rare::before{background:var(--rare)}
     .hero.nuvl{border-top:2px solid var(--nuvl)}
     .hero.nuvl::before{background:var(--nuvl)}
-    .hero.camx{border-top:2px solid var(--camx)}
-    .hero.camx::before{background:var(--camx)}
     .hero.svra{border-top:2px solid var(--svra)}
     .hero.svra::before{background:var(--svra)}
     .hero.capr{border-top:2px solid var(--capr)}
@@ -272,7 +269,6 @@
     .vera .hticker{color:var(--vera2)}
     .rare .hticker{color:var(--rare2)}
     .nuvl .hticker{color:var(--nuvl2)}
-    .camx .hticker{color:var(--camx2)}
     .svra .hticker{color:var(--svra2)}
     .capr .hticker{color:var(--capr2)}
     .prax .hticker{color:var(--prax2)}
@@ -956,9 +952,9 @@
     }
 
     .chip[data-c="hero3"].on{
-      border-color:rgba(134,239,172,.5);
-      background:rgba(22,163,74,.14);
-      color:var(--camx2)
+      border-color:rgba(103,232,249,.5);
+      background:rgba(8,145,178,.14);
+      color:var(--svra2)
     }
 
     .tbl-wrap{
@@ -1515,6 +1511,170 @@
 
     .pbb-complete .pbls span{color:#4ade80}
 
+
+    .deal-section{
+      margin:0 0 18px;
+      display:none
+    }
+
+    .deal-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:14px
+    }
+
+    .deal-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:var(--r2);
+      border:1px solid rgba(125,211,252,.22);
+      background:linear-gradient(135deg,rgba(2,132,199,.11),rgba(124,58,237,.07),rgba(255,255,255,.03));
+      backdrop-filter:blur(10px);
+      padding:16px 18px
+    }
+
+    .deal-card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 420px 180px at 100% 0%,rgba(125,211,252,.12),transparent 60%);
+      pointer-events:none
+    }
+
+    .deal-top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:12px
+    }
+
+    .deal-kicker{
+      font-size:9px;
+      color:#7dd3fc;
+      font-family:var(--mono);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:4px
+    }
+
+    .deal-title{
+      font-family:var(--mono);
+      font-size:20px;
+      font-weight:700;
+      line-height:1.1
+    }
+
+    .deal-sub{
+      color:var(--soft);
+      font-size:12px;
+      margin-top:3px
+    }
+
+    .deal-status{
+      font-size:9px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(125,211,252,.35);
+      background:rgba(125,211,252,.10);
+      color:#7dd3fc;
+      font-family:var(--mono);
+      letter-spacing:.1em;
+      text-transform:uppercase
+    }
+
+    .deal-metrics{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      background:rgba(255,255,255,.08);
+      border-radius:12px;
+      overflow:hidden;
+      margin-bottom:12px
+    }
+
+    @media(max-width:720px){
+      .deal-metrics{grid-template-columns:1fr 1fr}
+    }
+
+    .deal-metric{
+      background:rgba(5,8,16,.72);
+      padding:10px 12px
+    }
+
+    .deal-metric .k{
+      font-size:8px;
+      color:var(--muted);
+      font-family:var(--mono);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:4px
+    }
+
+    .deal-metric .v{
+      font-size:13px;
+      color:#e2e8f0;
+      font-family:var(--mono);
+      font-weight:700;
+      line-height:1.25
+    }
+
+    .deal-copy{
+      position:relative;
+      z-index:1;
+      color:var(--text);
+      font-size:12px;
+      line-height:1.55;
+      margin-bottom:12px
+    }
+
+    .deal-bullets{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+      margin-bottom:12px
+    }
+
+    .deal-bullet{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      color:var(--soft);
+      font-size:11px;
+      line-height:1.45
+    }
+
+    .deal-bullet-dot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      flex:0 0 auto;
+      margin-top:5px;
+      background:#7dd3fc;
+      box-shadow:0 0 6px rgba(125,211,252,.5)
+    }
+
+    .deal-link{
+      position:relative;
+      z-index:1;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      text-decoration:none;
+      color:#7dd3fc;
+      font-size:10px;
+      font-family:var(--mono);
+      letter-spacing:.08em;
+      text-transform:uppercase
+    }
+
     ::-webkit-scrollbar{width:5px}
     ::-webkit-scrollbar-track{background:var(--bg)}
     ::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
@@ -1541,13 +1701,24 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">TOP CANDIDATES</div>
-      <div class="sec-sub">Pinned heroes: RCKT, DNLI, VERA, CAMX, SVRA, CAPR and PRAX</div>
+      <div class="sec-sub">Pinned heroes: RCKT, DNLI, VERA, SVRA, CAPR and PRAX</div>
     </div>
     <span class="stag">Dynamic heroes</span>
   </div>
 
   <div class="heroes" id="heroes"></div>
   <div class="windows-row" id="windowsRow"></div>
+
+  <div class="deal-section" id="dealSection">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-title">STRATEGIC EVENTS</div>
+        <div class="sec-sub">M&A / tender-offer situations separated from normal pre-PDUFA run-ups</div>
+      </div>
+      <span class="stag">Event monitor</span>
+    </div>
+    <div class="deal-grid" id="dealGrid"></div>
+  </div>
 
   <div class="cluster-section">
     <div class="sec-hdr">
@@ -1580,7 +1751,7 @@
   <div class="sec-hdr">
     <div>
       <div class="sec-title">LIVE CHARTS</div>
-      <div class="sec-sub">Top heroes, including CAMURUS on Nasdaq Stockholm</div>
+      <div class="sec-sub">Top heroes with active MANTIS catalyst coverage</div>
     </div>
     <span class="stag">Requires internet</span>
   </div>
@@ -1664,6 +1835,7 @@ const STATE = {
   FUTURE_ROWS: [],
   HEROES: [],
   ANALOGS: [],
+  DEAL_EVENTS: [],
   CHIPS: {hero0:false, hero1:false, hero2:false, hero3:false, s5:false, s4:false, orph:false, gene:false}
 };
 
@@ -1671,7 +1843,6 @@ function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate
 const TODAY = startOfDay(new Date());
 
 const TV_SYMBOLS = {
-  CAMX:'OMXSTO:CAMX',
   RCKT:'NASDAQ:RCKT',
   DNLI:'NASDAQ:DNLI',
   VERA:'NASDAQ:VERA',
@@ -1680,8 +1851,8 @@ const TV_SYMBOLS = {
   PRAX:'NASDAQ:PRAX'
 };
 
-const HERO_ORDER = ['RCKT','DNLI','VERA','CAMX','SVRA','CAPR','PRAX'];
-const PINNED_CHARTS = ['RCKT','DNLI','VERA','CAMX'];
+const HERO_ORDER = ['RCKT','DNLI','VERA','SVRA','CAPR','PRAX'];
+const PINNED_CHARTS = ['RCKT','DNLI','VERA','SVRA'];
 
 const NEWS_CONFIG = {
   proxyBase: '',
@@ -1690,24 +1861,6 @@ const NEWS_CONFIG = {
   googleRssFallback: true
 };
 
-const CAMURUS_ROW = {
-  tkr:'CAMX',
-  co:'Camurus AB',
-  drug:'Oclaiz',
-  ind:'Acromegaly',
-  pdufa:'2026-06-10',
-  date_type:'Exact',
-  score:3,
-  mantis_class:'High Tier-2 · Quality catalyst / lower torque',
-  therapy:'Long-acting octreotide depot',
-  catalyst_type:'NDA',
-  priority_review:false,
-  orph:false,
-  entry:'T-70 to T-35',
-  exit:'T-14 to T-3',
-  notes:'Strong clinical and financial profile, but lower speculative rerating potential for core MANTIS run-up strategy. Modeled as a later-entry, lower-torque setup versus higher-beta MANTIS names.',
-  source:'https://www.tradingview.com/symbols/OMXSTO-CAMX/'
-};
 
 const FDA_DECISIONS = {
   'RCKT': {
@@ -1817,7 +1970,6 @@ function heroTheme(tkr=''){
   if(t === 'VERA' || t === 'CELC') return 'vera';
   if(t === 'RARE') return 'rare';
   if(t === 'NUVL') return 'nuvl';
-  if(t === 'CAMX') return 'camx';
   if(t === 'SVRA') return 'svra';
   if(t === 'CAPR') return 'capr';
   if(t === 'PRAX') return 'prax';
@@ -1871,9 +2023,6 @@ function sortRows(arr, mode){
   });
 }
 
-function ensureCamurusRow(rows){
-  return rows.some(r => r.tkr === 'CAMX') ? rows : [...rows, CAMURUS_ROW];
-}
 
 function chooseHeroes(rows){
   const byTicker = new Map(rows.map(r => [r.tkr, r]));
@@ -1885,7 +2034,6 @@ function tvSymbolFor(tkr){
 }
 
 function tradingViewUrlFor(tkr){
-  if(tkr === 'CAMX') return 'https://www.tradingview.com/symbols/OMXSTO-CAMX/';
   return `https://www.tradingview.com/symbols/NASDAQ:${tkr}/`;
 }
 
@@ -2159,6 +2307,61 @@ function renderWindows(){
             ${pdfuaStatus}
           </div>
         </div>
+      </div>
+    `;
+  }).join('');
+}
+
+
+function renderDealEvents(){
+  const section = document.getElementById('dealSection');
+  const grid = document.getElementById('dealGrid');
+  const events = STATE.DEAL_EVENTS || [];
+
+  if(!section || !grid || !events.length){
+    if(section) section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  grid.innerHTML = events.map(ev => {
+    const bullets = (ev.bullets || [])
+      .map(b => `<div class="deal-bullet"><span class="deal-bullet-dot"></span><span>${esc(b)}</span></div>`)
+      .join('');
+
+    return `
+      <div class="deal-card">
+        <div class="deal-top">
+          <div>
+            <div class="deal-kicker">M&A / Tender Event</div>
+            <div class="deal-title">${esc(ev.tkr)} · ${esc(ev.headline)}</div>
+            <div class="deal-sub">${esc(ev.co)} · ${esc(ev.status)}</div>
+          </div>
+          <div class="deal-status">Reclassified</div>
+        </div>
+
+        <div class="deal-metrics">
+          <div class="deal-metric">
+            <div class="k">Deal Value</div>
+            <div class="v">${esc(ev.deal_value)}</div>
+          </div>
+          <div class="deal-metric">
+            <div class="k">Offer</div>
+            <div class="v">${esc(ev.price)}</div>
+          </div>
+          <div class="deal-metric">
+            <div class="k">Premium</div>
+            <div class="v">${esc(ev.premium)}</div>
+          </div>
+          <div class="deal-metric">
+            <div class="k">Assets</div>
+            <div class="v">${esc(ev.asset_focus)}</div>
+          </div>
+        </div>
+
+        <div class="deal-copy">${esc(ev.why_it_matters)}</div>
+        <div class="deal-bullets">${bullets}</div>
+        ${ev.source ? `<a class="deal-link" href="${esc(ev.source)}" target="_blank" rel="noopener">Open source →</a>` : ''}
       </div>
     `;
   }).join('');
@@ -2695,7 +2898,8 @@ async function loadData(){
   const data = await res.json();
   STATE.DATA = data;
   STATE.ANALOGS = data.analogs || [];
-  STATE.FUTURE_ROWS = ensureCamurusRow((data.rows || []).filter(isFutureRow));
+  STATE.FUTURE_ROWS = (data.rows || []).filter(isFutureRow);
+  STATE.DEAL_EVENTS = data.deal_events || [];
   STATE.HEROES = chooseHeroes(STATE.FUTURE_ROWS);
 }
 
@@ -2722,6 +2926,7 @@ async function init(){
 
   renderHeroes();
   renderWindows();
+  renderDealEvents();
   buildChips();
   setupChips();
   renderTable();
