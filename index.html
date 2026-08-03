@@ -200,19 +200,37 @@
     .confetti:nth-child(4){left:62%;top:0;background:#d500f9;animation-delay:.3s;animation-duration:4.2s}
     .confetti:nth-child(5){left:78%;top:0;background:#d500f9;animation-delay:1.8s;animation-duration:3.5s}
     .confetti:nth-child(6){left:91%;top:0;background:#00e5ff;animation-delay:2.2s;animation-duration:3.1s}
+    /* ===== LOSS / STOP-OUT VARIANTS ===== */
+    .profit-banner.loss{background:linear-gradient(135deg,rgba(239,68,68,.10) 0%,rgba(255,0,85,.06) 50%,rgba(239,68,68,.10) 100%);border-bottom:1px solid rgba(239,68,68,.3)}
+    .profit-banner.loss::before{background:linear-gradient(90deg,transparent 0%,rgba(239,68,68,.06) 40%,rgba(255,255,255,.03) 50%,rgba(239,68,68,.06) 60%,transparent 100%);background-size:200% 100%}
+    .profit-banner.loss .profit-icon{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.28);color:#f87171}
+    .profit-banner.loss .profit-label{color:rgba(248,113,113,.7)}
+    .profit-pct.loss{background:linear-gradient(135deg,#f87171,#dc2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 10px rgba(239,68,68,.35)) drop-shadow(0 0 20px rgba(239,68,68,.12))}
+    .profit-tag.loss{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.35);color:#f87171}
+    .wp.closed-loss{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:#f87171;font-weight:700}
+    .wp.profit-pill.loss{background:linear-gradient(90deg,rgba(239,68,68,.18),rgba(255,0,85,.15));border:1px solid rgba(239,68,68,.4);color:#f87171}
+    .pbb-complete .pbf{background:linear-gradient(90deg,rgba(0,255,65,.2),rgba(0,255,65,.7))!important;width:100%!important}
+    .pbb-complete .pbm{left:100%!important;background:#00ff41!important;box-shadow:0 0 10px rgba(0,255,65,.4)!important}
+    .pbb-complete .pbls span{color:#00ff41}
+    .pbb-complete.loss .pbf{background:linear-gradient(90deg,rgba(239,68,68,.2),rgba(239,68,68,.7))!important}
+    .pbb-complete.loss .pbm{background:#f87171!important;box-shadow:0 0 10px rgba(239,68,68,.4)!important}
+    .pbb-complete.loss .pbls span{color:#f87171}
     .fda-result{padding:0;border-bottom:1px solid var(--bd);overflow:hidden}
     .fda-result-banner{position:relative;padding:12px 16px;overflow:hidden}
     .fda-result-banner.approved{background:linear-gradient(135deg,rgba(0,255,65,.06) 0%,rgba(0,255,65,.03) 40%,rgba(255,0,85,.04) 100%)}
     .fda-result-banner.crl{background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(239,68,68,.04) 100%)}
+    .fda-result-banner.adcom{background:linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(245,158,11,.04) 60%,rgba(239,68,68,.05) 100%)}
     .fda-result-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,255,65,.03),transparent);background-size:300% 100%;}
-    .fda-result-banner.crl::before{background:linear-gradient(90deg,transparent,rgba(239,68,68,.04),transparent);background-size:300% 100%}
+    .fda-result-banner.crl::before,.fda-result-banner.adcom::before{background:linear-gradient(90deg,transparent,rgba(239,68,68,.04),transparent);background-size:300% 100%}
     @keyframes fdaShimmer{0%{background-position:300% 0}100%{background-position:-300% 0}}
     .fda-result-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:relative;z-index:1;flex-wrap:wrap}
     .fda-result-badge{display:flex;align-items:center;gap:7px;padding:5px 14px;border-radius:3px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
     .fda-result-badge.approved{background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.4);color:#00ff41;box-shadow:0 0 12px rgba(0,255,65,.1);text-shadow:0 0 4px rgba(0,255,65,.3)}
     .fda-result-badge.crl{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:#f87171;box-shadow:0 0 16px rgba(239,68,68,.15)}
+    .fda-result-badge.adcom{background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.45);color:#f87171;box-shadow:0 0 16px rgba(239,68,68,.12)}
     .fda-result-badge .badge-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
     .fda-result-badge.approved .badge-icon{background:rgba(0,255,65,.2);border:1px solid rgba(0,255,65,.4)}
+    .fda-result-badge.adcom .badge-icon{background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4)}
     .fda-result-date{font-size:10px;color:var(--muted);font-family:var(--mono)}
     .fda-result-body{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px}
     .fda-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
@@ -227,9 +245,8 @@
     .fda-extra-pill.prv{background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.35);color:var(--rckt2)}
     .fda-extra-pill.accel{background:rgba(255,0,85,.08);border:1px solid rgba(255,0,85,.3);color:#ff0055}
     .fda-extra-pill.first{background:rgba(0,255,65,.08);border:1px solid rgba(0,255,65,.25);color:#00ff41}
-    .pbb-complete .pbf{background:linear-gradient(90deg,rgba(0,255,65,.2),rgba(0,255,65,.7))!important;width:100%!important}
-    .pbb-complete .pbm{left:100%!important;background:#00ff41!important;box-shadow:0 0 10px rgba(0,255,65,.4)!important}
-    .pbb-complete .pbls span{color:#00ff41}
+    .fda-extra-pill.warn{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.32);color:#f87171}
+    .fda-extra-pill.pend{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.32);color:#fcd34d}
     .deal-section{margin:0 0 18px;display:none}
     .deal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
     .deal-card{position:relative;overflow:hidden;border-radius:var(--r2);border:1px solid rgba(255,0,85,.15);background:linear-gradient(135deg,rgba(255,0,85,.06),rgba(0,0,0,.4),rgba(255,255,255,.02));padding:16px 18px;box-shadow:0 0 1px rgba(255,0,85,.08),inset 0 0 30px rgba(0,0,0,.3)}
@@ -249,12 +266,11 @@
     .deal-bullet{display:flex;gap:8px;align-items:flex-start;color:var(--soft);font-size:11px;line-height:1.45}
     .deal-bullet-dot{width:6px;height:6px;border-radius:50%;flex:0 0 auto;margin-top:5px;background:#00e5ff;box-shadow:0 0 4px rgba(0,229,255,.3)}
     .deal-link{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#00e5ff;font-size:10px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase}
-    /* ===== CAPR ADCOM PANEL ===== */
+    /* ===== ADCOM PANEL ===== */
     .adcom-panel{
       border-radius:var(--r);
       border:1px solid rgba(255,0,85,.2);
       background:linear-gradient(135deg,rgba(255,0,85,.03) 0%,rgba(0,0,0,.4) 50%,rgba(245,158,11,.02) 100%);
-      
       overflow:hidden;
       margin-bottom:20px;
       position:relative;
@@ -308,7 +324,7 @@
     .adcom-grid{
       display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;
     }
-    @media(max-width:700px){.adcom-grid{grid-template-columns:1fr}}
+    @media(max-width:700px){.adcom-grid{grid-template-columns:1fr!important}}
     .adcom-card{
       border-radius:12px;border:1px solid var(--bd);
       background:var(--sf2);padding:14px 16px;position:relative;
@@ -365,26 +381,20 @@
     .adcom-ep-name{font-size:11px;color:var(--text);font-family:var(--mono)}
     .adcom-ep-result{
       font-size:10px;font-family:var(--mono);font-weight:700;
-      padding:2px 8px;border-radius:3px;
+      padding:2px 8px;border-radius:3px;white-space:nowrap;
     }
     .adcom-ep-result.hit{
       color:#00e5ff;border:1px solid rgba(0,229,255,.3);
       background:rgba(0,229,255,.06);
       text-shadow:0 0 3px rgba(0,229,255,.15);
     }
+    .adcom-ep-result.miss{color:#f87171;border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
+    .adcom-ep-result.neutral{color:#fcd34d;border:1px solid rgba(252,211,77,.35);background:rgba(252,211,77,.08)}
     .adcom-footer{
       padding:14px 20px;border-top:1px solid rgba(0,229,255,.08);
       display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;
     }
-    .adcom-footer-icon{
-      width:28px;height:28px;border-radius:50%;
-      background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);
-      display:flex;align-items:center;justify-content:center;
-      font-size:13px;flex-shrink:0;margin-top:2px;
-    }
     .adcom-footer-text{flex:1;min-width:0}
-    .adcom-action{font-size:11px;color:var(--text);line-height:1.55;font-weight:500}
-    .adcom-action em{color:#ff0055;font-style:normal;font-family:var(--mono);font-size:10px}
     .adcom-topics{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
     .adcom-topic{
       font-size:8px;padding:3px 8px;border-radius:3px;
@@ -392,8 +402,6 @@
       border:1px solid rgba(0,229,255,.15);
       background:rgba(0,229,255,.03);color:rgba(0,229,255,.5);
     }
-    .adcom-timestamp{font-size:9px;color:var(--muted);font-family:var(--mono);margin-top:6px}
-    /* Toggle for endpoint details */
     .adcom-toggle{
       display:inline-flex;align-items:center;gap:6px;
       font-size:10px;color:rgba(0,229,255,.5);font-family:var(--mono);
@@ -408,8 +416,43 @@
       max-height:0;overflow:hidden;
       transition:max-height .35s ease;
     }
-    .adcom-expandable.open{max-height:600px}
-
+    .adcom-expandable.open{max-height:1600px}
+    /* ===== POST-MORTEM (RESOLVED) SKIN ===== */
+    .adcom-panel.resolved{border-color:rgba(239,68,68,.28);background:linear-gradient(135deg,rgba(239,68,68,.04) 0%,rgba(0,0,0,.45) 55%,rgba(255,0,85,.03) 100%)}
+    .adcom-panel.resolved::before{background:#ef4444;width:60px}
+    .adcom-panel.resolved .adcom-header{border-bottom-color:rgba(239,68,68,.12)}
+    .adcom-panel.resolved .adcom-title{color:#f87171;text-shadow:0 0 4px rgba(239,68,68,.2)}
+    .adcom-panel.resolved .adcom-icon{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.25);color:#f87171;text-shadow:none}
+    .adcom-panel.resolved .adcom-ticker{color:#f87171;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06)}
+    .adcom-panel.resolved .adcom-card::before{background:#ef4444}
+    .adcom-panel.resolved .adcom-card-label,
+    .adcom-panel.resolved .adcom-cd-label,
+    .adcom-panel.resolved .adcom-ep-title{color:rgba(248,113,113,.5)}
+    .adcom-panel.resolved .adcom-toggle{color:rgba(248,113,113,.6)}
+    .adcom-panel.resolved .adcom-toggle:hover{color:#f87171}
+    .adcom-panel.resolved .adcom-topic{border-color:rgba(239,68,68,.18);background:rgba(239,68,68,.04);color:rgba(248,113,113,.6)}
+    .adcom-panel.resolved .adcom-footer{border-top-color:rgba(239,68,68,.12)}
+    .adcom-panel.resolved .adcom-cd-unit{background:rgba(245,158,11,.04);border-color:rgba(245,158,11,.18)}
+    .adcom-panel.resolved .adcom-cd-num{color:#fcd34d;text-shadow:0 0 6px rgba(245,158,11,.15)}
+    .vote-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border-radius:10px;overflow:hidden;margin-bottom:16px}
+    .vote-cell{background:var(--bg1);padding:12px 14px;text-align:center}
+    .vote-num{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1}
+    .vote-num.against{color:#f87171;text-shadow:0 0 12px rgba(239,68,68,.3)}
+    .vote-num.for{color:#00ff41}
+    .vote-num.abst{color:var(--muted)}
+    .vote-lbl{font-size:8px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+    .adcom-note{font-size:11px;color:var(--soft);line-height:1.6;font-family:var(--sans);margin-top:10px}
+    .adcom-note b{color:var(--text);font-weight:600}
+    .lesson{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--bd)}
+    .lesson:last-child{border-bottom:none}
+    .lesson-n{font-family:var(--mono);font-size:9px;color:#f87171;flex:0 0 auto;margin-top:3px;min-width:18px}
+    .lesson-t{font-size:11px;color:var(--soft);line-height:1.6}
+    .lesson-t b{color:var(--text);font-weight:600}
+    .tl-row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd);align-items:flex-start}
+    .tl-row:last-child{border-bottom:none}
+    .tl-date{font-family:var(--mono);font-size:10px;color:rgba(248,113,113,.75);min-width:66px;flex:0 0 auto}
+    .tl-txt{font-size:11px;color:var(--soft);line-height:1.55}
+    .tl-txt b{color:var(--text);font-weight:600}
     /* ===== BINARY BLITZER AGENT ===== */
     .blitzer{border-radius:3px;border:1px solid rgba(0,229,255,.1);background:rgba(0,229,255,.02);margin-top:14px;overflow:hidden}
     .blitzer-hd{padding:10px 14px;border-bottom:1px solid rgba(0,229,255,.08);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
@@ -437,7 +480,6 @@
     .blitzer-target.active{border-color:rgba(0,229,255,.3);color:#00e5ff;animation:blitzerPulse .8s ease-in-out infinite alternate}
     .blitzer-target.done{border-color:rgba(0,255,65,.2);color:rgba(0,255,65,.5)}
     .blitzer-target.fail{border-color:rgba(255,82,82,.2);color:rgba(255,82,82,.4)}
-
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
@@ -446,9 +488,9 @@
   <div class="topbar">
     <div>
       <div class="brand-mark">MANTIS ALPHA FUND</div>
-      <div class="brand-sub">ws 2.4</div>
+      <div class="brand-sub">ws 2.5</div>
     </div>
-    <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">—</span></div>
+    <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">&#8212;</span></div>
   </div>
   <div class="legend-bar">
     <span class="leg-lbl">Run-Up Score</span>
@@ -460,10 +502,8 @@
   <div class="sec-hdr"><div><div class="sec-title">TOP CANDIDATES</div></div><span class="stag">pinned</span></div>
   <div class="heroes" id="heroes"></div>
   <div class="windows-row" id="windowsRow"></div>
-
-  <!-- CAPR ADCOM MONITOR -->
+  <!-- CAPR ADCOM POST-MORTEM -->
   <div id="caprAdcomPanel"></div>
-
   <div class="deal-section" id="dealSection">
     <div class="sec-hdr"><div><div class="sec-title">STRATEGIC EVENTS</div></div><span class="stag">events</span></div>
     <div class="deal-grid" id="dealGrid"></div>
@@ -477,7 +517,7 @@
     <div class="analog-card">
       <div class="analog-hd"><div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)">Historical Pre-PDUFA VWAP Returns</div><div class="analog-sub">Calibration set for current scoring model</div></div><div style="font-size:10px;color:var(--muted);font-family:var(--mono)">pre-catalyst comparables</div></div>
       <div class="analog-body">
-        <div class="chart-canvas-wrap"><div class="chart-title">VWAP-Based Return (%) — Historical Pre-PDUFA Trades</div><canvas id="analogChart" width="600" height="340"></canvas></div>
+        <div class="chart-canvas-wrap"><div class="chart-title">VWAP-Based Return (%) &#8212; Historical Pre-PDUFA Trades</div><canvas id="analogChart" width="600" height="340"></canvas></div>
         <div class="analog-legend" id="analogLegend"></div>
       </div>
     </div>
@@ -485,30 +525,34 @@
   <div class="sec-hdr"><div><div class="sec-title">LIVE CHARTS</div><div class="sec-sub">Top heroes with active MANTIS catalyst coverage</div></div><span class="stag">live</span></div>
   <div class="two-col" id="chartsTop"></div>
   <div class="two-col" style="margin-bottom:20px" id="chartsBottom"></div>
-
-  <div class="sec-hdr"><div><div class="sec-title">FULL WATCHLIST 2026–2027</div><div class="sec-sub">Active/pending catalysts only · click a row for TradingView or source</div></div></div>
+  <div class="sec-hdr"><div><div class="sec-title">FULL WATCHLIST 2026&#8211;2027</div><div class="sec-sub">Active/pending catalysts only &#183; click a row for TradingView or source</div></div></div>
   <div class="frow"><div class="sw"><span style="color:var(--muted);font-size:13px">&#9906;</span><input id="searchBox" type="text" placeholder="Search ticker, company, drug, indication…"/></div><select class="fsel" id="scoreFilter"><option value="0">Score: Any</option><option value="4">Score 4+</option><option value="5">Score 5</option></select><select class="fsel" id="sortSelect"><option value="score:desc">Score highest</option><option value="pdufa:asc">Date earliest</option><option value="pdufa:desc">Date latest</option></select></div>
   <div class="crow" id="chipRow"><div class="chip" data-c="hero0">Hero 1</div><div class="chip" data-c="hero1">Hero 2</div><div class="chip" data-c="hero2">Hero 3</div><div class="chip" data-c="hero3">Hero 4</div><div class="chip" data-c="s5">Score 5</div><div class="chip" data-c="s4">Score 4+</div><div class="chip" data-c="orph">Orphan Only</div><div class="chip" data-c="gene">Gene / Cell Therapy</div><div class="chip" data-c="rst">Reset</div></div>
-  <div class="tbl-wrap"><table><thead><tr><th>Ticker</th><th>Company / Drug</th><th class="hide-m">Indication</th><th>PDUFA</th><th>Score</th><th class="hide-m">Class</th><th class="hide-m">Entry Window</th><th class="hide-m">Exit Window</th><th class="hide-m">Tags</th></tr></thead><tbody id="wl-tbody"></tbody></table><div id="wl-empty" class="empty-st" style="display:none">No matches — try broadening your filters.</div></div>
+  <div class="tbl-wrap"><table><thead><tr><th>Ticker</th><th>Company / Drug</th><th class="hide-m">Indication</th><th>PDUFA</th><th>Score</th><th class="hide-m">Class</th><th class="hide-m">Entry Window</th><th class="hide-m">Exit Window</th><th class="hide-m">Tags</th></tr></thead><tbody id="wl-tbody"></tbody></table><div id="wl-empty" class="empty-st" style="display:none">No matches &#8212; try broadening your filters.</div></div>
   <div class="foot">G.V / S.N 2026</div>
 </div>
-
 <script>
 const STATE={DATA:null,FUTURE_ROWS:[],HEROES:[],ANALOGS:[],DEAL_EVENTS:[],FDA_OUTCOMES:[],CHIPS:{hero0:false,hero1:false,hero2:false,hero3:false,s5:false,s4:false,orph:false,gene:false}};
 function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
 const TODAY=startOfDay(new Date());
 const TV_SYMBOLS={RCKT:'NASDAQ:RCKT',DNLI:'NASDAQ:DNLI',VERA:'NASDAQ:VERA',SVRA:'NASDAQ:SVRA',CAPR:'NASDAQ:CAPR',PRAX:'NASDAQ:PRAX',INBX:'NASDAQ:INBX',CGEM:'NASDAQ:CGEM',IBRX:'NASDAQ:IBRX',BIIB:'NASDAQ:BIIB',VRDN:'NASDAQ:VRDN',CELC:'NASDAQ:CELC',MNKD:'NASDAQ:MNKD',LNTH:'NASDAQ:LNTH',UNCY:'NASDAQ:UNCY',IONS:'NASDAQ:IONS',RARE:'NASDAQ:RARE',VTRS:'NASDAQ:VTRS',INO:'NASDAQ:INO',SMMT:'NASDAQ:SMMT',HNSA:'NASDAQ:HNSA',MLYS:'NASDAQ:MLYS',ACLX:'NASDAQ:ACLX',COGT:'NASDAQ:COGT',ROIV:'NASDAQ:ROIV',PTGX:'NASDAQ:PTGX',ACHV:'NASDAQ:ACHV'};
 const HERO_ORDER=['RCKT','DNLI','VERA','CAPR','PRAX','SVRA','INBX','CGEM','IBRX'];
-const PINNED_CHARTS=['VERA','CAPR','PRAX','SVRA'];
-
+const PINNED_CHARTS=['CAPR','PRAX','SVRA','VERA'];
 const FDA_DECISIONS={
-  'RCKT':{outcome:'approved',decisionDate:'Mar 26, 2026',brandName:'KRESLADI\u2122',genericName:'marnetegragene autotemcel',approvalType:'Accelerated Approval',indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',mechanism:'Autologous hematopoietic stem cell-based gene therapy',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First Gene Therapy for LAD-I',cls:'first'}],pct:'+46.32%',exitDate:'Mar 18, 2026'},
-  'DNLI':{outcome:'approved',decisionDate:'Mar 25, 2026',brandName:'AVLAYAH\u2122',genericName:'tividenofusp alfa-eknm',approvalType:'Accelerated Approval',indication:'Neurologic manifestations of Hunter syndrome (MPS II)',mechanism:'First FDA-approved biologic to cross the blood-brain barrier',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First BBB-Crossing Biologic',cls:'first'}],pct:'+27.7%',exitDate:'Mar 25, 2026'},
-  'VERA':{outcome:'approved',decisionDate:'Jul 07, 2026',brandName:'TRUTAKNA\u2122',genericName:'atacicept-vymj',approvalType:'Accelerated Approval',indication:'Primary IgA nephropathy (IgAN) in adults at risk of progression',mechanism:'First dual BAFF/APRIL inhibitor addressing immunological drivers of IgAN',extras:[{label:'Breakthrough Therapy',cls:'first'},{label:'Priority Review',cls:'prv'},{label:'Accelerated',cls:'accel'}],pct:'+0.93%',exitDate:'Jun 30, 2026'}
+  'RCKT':{outcome:'approved',decisionDate:'Mar 26, 2026',brandName:'KRESLADI™',genericName:'marnetegragene autotemcel',approvalType:'Accelerated Approval',indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',mechanism:'Autologous hematopoietic stem cell-based gene therapy',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First Gene Therapy for LAD-I',cls:'first'}],pct:'+46.32%',exitDate:'Mar 18, 2026'},
+  'DNLI':{outcome:'approved',decisionDate:'Mar 25, 2026',brandName:'AVLAYAH™',genericName:'tividenofusp alfa-eknm',approvalType:'Accelerated Approval',indication:'Neurologic manifestations of Hunter syndrome (MPS II)',mechanism:'First FDA-approved biologic to cross the blood-brain barrier',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First BBB-Crossing Biologic',cls:'first'}],pct:'+27.7%',exitDate:'Mar 25, 2026'},
+  'VERA':{outcome:'approved',decisionDate:'Jul 07, 2026',brandName:'TRUTAKNA™',genericName:'atacicept-vymj',approvalType:'Accelerated Approval',indication:'Primary IgA nephropathy (IgAN) in adults at risk of progression',mechanism:'First dual BAFF/APRIL inhibitor addressing immunological drivers of IgAN',extras:[{label:'Breakthrough Therapy',cls:'first'},{label:'Priority Review',cls:'prv'},{label:'Accelerated',cls:'accel'}],pct:'+0.93%',exitDate:'Jun 30, 2026'},
+  'CAPR':{outcome:'adcom_negative',pending:true,decisionDate:'Jul 29, 2026',brandName:'Deramiocel',genericName:'deramiocel (CAP-1002)',approvalType:'AdCom 9-3 Against',indication:'Cardiomyopathy associated with Duchenne muscular dystrophy',mechanism:'Allogeneic cardiosphere-derived cell (CDC) therapy',extras:[{label:'Vote 9-3 Against',cls:'warn'},{label:'Non-binding',cls:'pend'},{label:'PDUFA Aug 22 Pending',cls:'prv'},{label:'SAP Dispute',cls:'warn'}],pct:'-67.0%',exitDate:'Jul 30, 2026',
+    bullets:[
+      'CTGTAC voted 9-3 that the evidence does not support effectiveness in DMD cardiomyopathy. The vote is non-binding.',
+      'Thesis broke on the FDA briefing document, not on the vote. Dispute over SAP v1.1 vs v3.0 governing HOPE-3.',
+      'Position stopped out Jul 30 at -67% VWAP. No residual exposure carried into the PDUFA.',
+      'PDUFA Aug 22, 2026 still stands. MANTIS is not re-entering ahead of the decision.'
+    ]}
 };
-
+function isLossDecision(fda){return !!fda&&String(fda.pct||'').trim().charAt(0)==='-'}
 function esc(s){return String(s!=null?s:'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function cleanText(v){if(v===null||v===undefined||v===''||v==='-')return'\u2014';return String(v)}
+function cleanText(v){if(v===null||v===undefined||v===''||v==='-')return'—';return String(v)}
 function parsePdufa(value,type){if(!value)return null;if((type||'').toLowerCase().includes('quarter')){const m=String(value).match(/Q([1-4])\s*(\d{4})/i);if(!m)return null;const q=+m[1],y=+m[2];const map={1:'02-15',2:'05-15',3:'08-15',4:'11-15'};return new Date(y+'-'+map[q]+'T00:00:00');}if(/^\d{4}-\d{2}-\d{2}$/.test(String(value)))return new Date(value+'T00:00:00');return null;}
 function isFutureRow(r){if(FDA_DECISIONS[r.tkr])return true;const d=parsePdufa(r.pdufa,r.date_type);return d?startOfDay(d)>=TODAY:false;}
 function fmtDate(d){return d.toLocaleDateString(undefined,{month:'short',day:'2-digit',year:'numeric'})}
@@ -519,33 +563,36 @@ function therapyTagClass(t=''){t=t.toLowerCase();if(t.includes('gene')||t.includ
 function heroTheme(t=''){t=t.toUpperCase();if(t==='RCKT')return'rckt';if(t==='DNLI'||t==='VRDN')return'dnli';if(t==='VERA'||t==='CELC')return'vera';if(t==='RARE'||t==='INBX')return'rare';if(t==='NUVL'||t==='CGEM')return'nuvl';if(t==='IBRX'||t==='SVRA')return'svra';if(t==='CAPR')return'capr';if(t==='PRAX')return'prax';return'std'}
 function parseWindow(str){const m=String(str||'').match(/T-(\d+)\s*to\s*T-(\d+)/i);return m?{a:+m[1],b:+m[2]}:null}
 function winDates(pdufa,dateType,str){const w=parseWindow(str);const p=parsePdufa(pdufa,dateType);if(!w||!p)return null;const s=new Date(p);s.setDate(s.getDate()-w.a);const e=new Date(p);e.setDate(e.getDate()-w.b);[s,e].forEach(d=>{if(d.getDay()===6)d.setDate(d.getDate()-1);if(d.getDay()===0)d.setDate(d.getDate()-2)});return{start:s,end:e}}
-function modeledWindowLabel(row,kind){const raw=kind==='entry'?row.entry:row.exit;const range=winDates(row.pdufa,row.date_type,raw);return range?fmtDateShort(range.start)+' \u2192 '+fmtDateShort(range.end):cleanText(raw)}
+function modeledWindowLabel(row,kind){const raw=kind==='entry'?row.entry:row.exit;const range=winDates(row.pdufa,row.date_type,raw);return range?fmtDateShort(range.start)+' → '+fmtDateShort(range.end):cleanText(raw)}
 function sortRows(arr,mode){const[key,dir]=mode.split(':');const mult=dir==='desc'?-1:1;return[...arr].sort((a,b)=>{let va,vb;if(key==='score'){va=a.score||0;vb=b.score||0}else{va=parsePdufa(a.pdufa,a.date_type)?.getTime()||0;vb=parsePdufa(b.pdufa,b.date_type)?.getTime()||0}return va<vb?-mult:va>vb?mult:0})}
 function chooseHeroes(rows){return HERO_ORDER.map(t=>rows.filter(r=>r.tkr===t).sort((a,b)=>(parsePdufa(a.pdufa,a.date_type)?.getTime()||0)-(parsePdufa(b.pdufa,b.date_type)?.getTime()||0))[0]).filter(Boolean)}
 function tvSymbolFor(tkr){return TV_SYMBOLS[tkr]||'NASDAQ:'+tkr}
 function tradingViewUrlFor(tkr){return'https://www.tradingview.com/symbols/NASDAQ:'+tkr+'/'}
-
-function profitBanner(tkr,returnPct,exitDateLabel){
-  return '<div class="profit-banner"><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="profit-inner"><div class="profit-left"><div class="profit-icon">\u2714</div><div><div class="profit-label">Position closed</div><div class="profit-status">Final exit '+esc(exitDateLabel)+'</div></div></div><div class="profit-right"><div class="profit-pct">'+esc(returnPct)+'</div><div class="profit-sub">VWAP Return</div><div class="profit-tag">REALIZED</div></div></div></div>';
+function profitBanner(tkr,returnPct,exitDateLabel,loss){
+  var lc=loss?' loss':'';
+  var icon=loss?'✘':'✔';
+  var label=loss?'Position stopped out':'Position closed';
+  var tag=loss?'REALIZED LOSS':'REALIZED';
+  return '<div class="profit-banner'+lc+'"><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="profit-inner"><div class="profit-left"><div class="profit-icon">'+icon+'</div><div><div class="profit-label">'+label+'</div><div class="profit-status">Final exit '+esc(exitDateLabel)+'</div></div></div><div class="profit-right"><div class="profit-pct'+lc+'">'+esc(returnPct)+'</div><div class="profit-sub">VWAP Return</div><div class="profit-tag'+lc+'">'+tag+'</div></div></div></div>';
 }
-
 function fdaResultSection(tkr){
   var fda=FDA_DECISIONS[tkr];if(!fda)return'';
-  var ocls=fda.outcome==='approved'?'approved':'crl';
-  var icon=fda.outcome==='approved'?'\u2714':'\u2718';
-  var label=fda.outcome==='approved'?'FDA APPROVED':'CRL ISSUED';
+  var ocls,icon,label;
+  if(fda.outcome==='approved'){ocls='approved';icon='✔';label='FDA APPROVED'}
+  else if(fda.outcome==='adcom_negative'){ocls='adcom';icon='✘';label='ADCOM 9-3 AGAINST'}
+  else{ocls='crl';icon='✘';label='CRL ISSUED'}
   var extraPills=(fda.extras||[]).map(function(e){return'<div class="fda-extra-pill '+esc(e.cls)+'">'+esc(e.label)+'</div>'}).join('');
-  return'<div class="fda-result"><div class="fda-result-banner '+ocls+'"><div class="fda-result-top"><div class="fda-result-badge '+ocls+'"><span class="badge-icon">'+icon+'</span>'+label+'</div><div class="fda-result-date">'+esc(fda.decisionDate)+'</div></div><div class="fda-result-body"><div class="fda-result-grid"><div class="fda-detail-row"><span class="fda-detail-label">Brand</span><span class="fda-detail-value brand-name">'+esc(fda.brandName)+'</span></div><div class="fda-detail-row"><span class="fda-detail-label">Type</span><span class="fda-detail-value">'+esc(fda.approvalType)+'</span></div><div class="fda-detail-row"><span class="fda-detail-label">Generic</span><span class="fda-detail-value clamp-2">'+esc(fda.genericName)+'</span></div><div class="fda-detail-row"><span class="fda-detail-label">For</span><span class="fda-detail-value clamp-2">'+esc(fda.indication)+'</span></div></div><div class="fda-extras">'+extraPills+'</div></div></div></div>';
+  return'<div class="fda-result"><div class="fda-result-banner '+ocls+'"><div class="fda-result-top"><div class="fda-result-badge '+ocls+'"><span class="badge-icon">'+icon+'</span>'+label+'</div><div class="fda-result-date">'+esc(fda.decisionDate)+'</div></div><div class="fda-result-body"><div class="fda-result-grid"><div class="fda-detail-row"><span class="fda-detail-label">'+(fda.outcome==='adcom_negative'?'Product':'Brand')+'</span><span class="fda-detail-value brand-name">'+esc(fda.brandName)+'</span></div><div class="fda-detail-row"><span class="fda-detail-label">'+(fda.outcome==='adcom_negative'?'Committee':'Type')+'</span><span class="fda-detail-value">'+esc(fda.approvalType)+'</span></div><div class="fda-detail-row"><span class="fda-detail-label">Generic</span><span class="fda-detail-value clamp-2">'+esc(fda.genericName)+'</span></div><div class="fda-detail-row"><span class="fda-detail-label">'+(fda.outcome==='adcom_negative'?'Question scope':'For')+'</span><span class="fda-detail-value clamp-2">'+esc(fda.indication)+'</span></div></div><div class="fda-extras">'+extraPills+'</div></div></div></div>';
 }
-
 function heroBullets(row){
-  var bullets=[cleanText(row.notes),cleanText(row.mantis_class)+' \u00b7 '+cleanText(row.therapy),cleanText(row.catalyst_type||'FDA catalyst')+' \u00b7 Priority review: '+(row.priority_review===true?'Yes':row.priority_review===false?'No':'Not stated'),'Modeled windows: Entry '+modeledWindowLabel(row,'entry')+' \u00b7 Exit '+modeledWindowLabel(row,'exit')];
+  var fda=FDA_DECISIONS[row.tkr];
+  if(fda&&fda.bullets)return fda.bullets.map(function(b){return'<div class="tpt"><div class="td2"></div>'+esc(b)+'</div>'}).join('');
+  var bullets=[cleanText(row.notes),cleanText(row.mantis_class)+' · '+cleanText(row.therapy),cleanText(row.catalyst_type||'FDA catalyst')+' · Priority review: '+(row.priority_review===true?'Yes':row.priority_review===false?'No':'Not stated'),'Modeled windows: Entry '+modeledWindowLabel(row,'entry')+' · Exit '+modeledWindowLabel(row,'exit')];
   return bullets.slice(0,4).map(function(b){return'<div class="tpt"><div class="td2"></div>'+esc(b)+'</div>'}).join('');
 }
-
 function heroCard(row){
   var theme=heroTheme(row.tkr),date=parsePdufa(row.pdufa,row.date_type);
-  var fda=FDA_DECISIONS[row.tkr],isDone=!!fda;
+  var fda=FDA_DECISIONS[row.tkr],isDone=!!fda,loss=isLossDecision(fda);
   var progressStart=winDates(row.pdufa,row.date_type,row.entry)?.start||TODAY;
   var total=Math.max(1,date?date.getTime()-progressStart.getTime():1);
   var passed=Math.max(0,Math.min(total,Date.now()-progressStart.getTime()));
@@ -553,203 +600,220 @@ function heroCard(row){
   var mid;
   if(isDone){mid=fdaResultSection(row.tkr)}
   else{mid='<div class="cdb"><div class="cdlbl">PDUFA<br>Countdown</div><div class="cdd" data-countdown="'+esc(row.tkr)+'">'+countdownBlocks(row)+'</div><div class="cdt">'+esc(displayPdufa(row))+'</div></div>'}
-  var pbL=isDone?'<span>Entry</span><span>PDUFA</span><span>Complete \u2714</span>':'<span>Entry opens</span><span>Today</span><span>PDUFA</span>';
-  return'<div class="hero '+theme+'"><div class="hero-hd"><div><div class="hticker">'+esc(row.tkr)+'</div><div class="hname">'+esc(cleanText(row.co))+'</div></div><div class="brow">'+(row.orph?'<span class="bd">Orphan</span>':'<span class="bd">Non-orphan</span>')+'<span class="bd">'+esc(cleanText(row.therapy).split(' ').slice(0,2).join(' '))+'</span><span class="bd">'+esc(cleanText(row.catalyst_type||'FDA'))+'</span><span class="bd '+scoreClass(row.score)+'">Score '+esc(row.score)+'</span></div></div>'+(isDone?profitBanner(row.tkr,fda.pct,fda.exitDate):'')+'<div class="hkpis"><div class="kpi"><div class="k">Drug</div><div class="v">'+esc(isDone?fda.brandName:cleanText(row.drug))+'</div><div class="s">'+esc(cleanText(row.therapy))+'</div></div><div class="kpi"><div class="k">Disease</div><div class="v">'+esc(cleanText(row.ind))+'</div><div class="s">'+esc(cleanText(row.mantis_class))+'</div></div><div class="kpi"><div class="k">'+(isDone?'Decision':'Timing')+'</div><div class="v">'+(isDone?esc(fda.approvalType):esc(cleanText(row.date_type)))+'</div><div class="s">'+(isDone?esc(fda.decisionDate):esc(displayPdufa(row)))+'</div></div></div>'+mid+'<div class="pbb '+(isDone?'pbb-complete':'')+'"><div class="pbl">'+(isDone?'MANTIS Cycle Complete':'MANTIS Timeline Progress')+'</div><div class="pbr"><div class="pbf" style="width:'+pct.toFixed(1)+'%"></div><div class="pbm" style="left:'+pct.toFixed(1)+'%"></div></div><div class="pbls">'+pbL+'</div></div><div class="thesis"><div class="tttl">Thesis</div><div class="tpts">'+heroBullets(row)+'</div></div></div>';
+  var pbTitle=isDone?(loss?'MANTIS Cycle Closed (Loss)':'MANTIS Cycle Complete'):'MANTIS Timeline Progress';
+  var pbL;
+  if(isDone&&loss)pbL='<span>Entry</span><span>AdCom</span><span>Stopped out ✘</span>';
+  else if(isDone)pbL='<span>Entry</span><span>PDUFA</span><span>Complete ✔</span>';
+  else pbL='<span>Entry opens</span><span>Today</span><span>PDUFA</span>';
+  return'<div class="hero '+theme+'"><div class="hero-hd"><div><div class="hticker">'+esc(row.tkr)+'</div><div class="hname">'+esc(cleanText(row.co))+'</div></div><div class="brow">'+(row.orph?'<span class="bd">Orphan</span>':'<span class="bd">Non-orphan</span>')+'<span class="bd">'+esc(cleanText(row.therapy).split(' ').slice(0,2).join(' '))+'</span><span class="bd">'+esc(cleanText(row.catalyst_type||'FDA'))+'</span><span class="bd '+scoreClass(row.score)+'">Score '+esc(row.score)+'</span></div></div>'+(isDone?profitBanner(row.tkr,fda.pct,fda.exitDate,loss):'')+'<div class="hkpis"><div class="kpi"><div class="k">Drug</div><div class="v">'+esc(isDone?fda.brandName:cleanText(row.drug))+'</div><div class="s">'+esc(cleanText(row.therapy))+'</div></div><div class="kpi"><div class="k">Disease</div><div class="v">'+esc(cleanText(row.ind))+'</div><div class="s">'+esc(cleanText(row.mantis_class))+'</div></div><div class="kpi"><div class="k">'+(isDone?(loss?'AdCom':'Decision'):'Timing')+'</div><div class="v">'+(isDone?esc(fda.approvalType):esc(cleanText(row.date_type)))+'</div><div class="s">'+(isDone?esc(fda.decisionDate):esc(displayPdufa(row)))+'</div></div></div>'+mid+'<div class="pbb '+(isDone?'pbb-complete':'')+(loss?' loss':'')+'"><div class="pbl">'+pbTitle+'</div><div class="pbr"><div class="pbf" style="width:'+pct.toFixed(1)+'%"></div><div class="pbm" style="left:'+pct.toFixed(1)+'%"></div></div><div class="pbls">'+pbL+'</div></div><div class="thesis"><div class="tttl">Thesis</div><div class="tpts">'+heroBullets(row)+'</div></div></div>';
 }
-
 function countdownBlocks(row){
-  if(FDA_DECISIONS[row.tkr])return'<div class="cdu" style="min-width:auto;padding:6px 14px"><div class="cdn" style="font-size:12px;color:#00ff41">\u2714</div><div class="cdl">DECIDED</div></div>';
+  var fda=FDA_DECISIONS[row.tkr];
+  if(fda){
+    var loss=isLossDecision(fda);
+    return'<div class="cdu" style="min-width:auto;padding:6px 14px"><div class="cdn" style="font-size:12px;color:'+(loss?'#f87171':'#00ff41')+'">'+(loss?'✘':'✔')+'</div><div class="cdl">'+(loss?'STOPPED':'DECIDED')+'</div></div>';
+  }
   var p=parsePdufa(row.pdufa,row.date_type);if(!p)return'<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
   var diff=Math.max(0,p.getTime()-Date.now());
   var D=Math.floor(diff/864e5),H=Math.floor((diff%864e5)/36e5),M=Math.floor((diff%36e5)/6e4),S=Math.floor((diff%6e4)/1e3);
   return[{n:D,l:'DAYS'},{n:H,l:'HRS'},{n:M,l:'MIN'},{n:S,l:'SEC'}].map(function(x){return'<div class="cdu"><div class="cdn">'+String(x.n).padStart(2,'0')+'</div><div class="cdl">'+x.l+'</div></div>'}).join('');
 }
-
 function renderHeroes(){document.getElementById('heroes').innerHTML=STATE.HEROES.map(heroCard).join('')}
-
 function renderWindows(){
   var el=document.getElementById('windowsRow');
   var completedWindows={
-    'RCKT':{entryLabel:'Oct 29 \u2192 Dec 26',exitLabel:'Mar 06 \u2192 Mar 18'},
-    'DNLI':{entryLabel:'Oct 03 \u2192 Nov 30',exitLabel:'Mar 07 \u2192 Mar 25'},
-    'VERA':{entryLabel:'Jan 17 \u2192 Mar 15',exitLabel:'May 28 \u2192 Jun 30'}
+    'RCKT':{entryLabel:'Oct 29 → Dec 26',exitLabel:'Mar 06 → Mar 18'},
+    'DNLI':{entryLabel:'Oct 03 → Nov 30',exitLabel:'Mar 07 → Mar 25'},
+    'VERA':{entryLabel:'Jan 17 → Mar 15',exitLabel:'May 28 → Jun 30'},
+    'CAPR':{exitLabel:'Jul 22 → Jul 30',loss:true}
   };
   el.innerHTML=STATE.HEROES.map(function(r){
     var en=winDates(r.pdufa,r.date_type,r.entry),ex=winDates(r.pdufa,r.date_type,r.exit);
     var p=parsePdufa(r.pdufa,r.date_type),fda=FDA_DECISIONS[r.tkr],done=completedWindows[r.tkr];
-    var daysTo=p?Math.max(0,Math.round((startOfDay(p)-TODAY)/864e5)):'\u2014';
+    var daysTo=p?Math.max(0,Math.round((startOfDay(p)-TODAY)/864e5)):'—';
     var rowHtml=function(label,range,kind){
       if(!range&&!done)return'<div class="winrow"><div class="wrl">'+label+'</div><div class="wrd">Modeling pending</div><span class="wp nd">TBD</span></div>';
-      if(done){var lbl=label==='Entry'?done.entryLabel:done.exitLabel;
-        var extraRow=label==='Exit'&&fda?'<div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&L</div><div class="wrd" style="color:#00ff41;font-weight:700">'+fda.pct+'</div><span class="wp profit-pill">\u2733 Locked</span></div>':'';
-        return'<div class="winrow"><div class="wrl">'+label+'</div><div class="wrd">'+lbl+'</div><span class="wp closed">COMPLETED</span></div>'+extraRow}
+      if(done){
+        var lbl=(label==='Entry'?done.entryLabel:done.exitLabel)||(range?fmtDateShort(range.start)+' → '+fmtDateShort(range.end):'—');
+        var pillCls=done.loss?'wp closed-loss':'wp closed';
+        var pillTxt=done.loss?(label==='Exit'?'STOPPED OUT':'COMPLETED'):'COMPLETED';
+        var extraRow=label==='Exit'&&fda?'<div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&amp;L</div><div class="wrd" style="color:'+(done.loss?'#f87171':'#00ff41')+';font-weight:700">'+fda.pct+'</div><span class="wp profit-pill'+(done.loss?' loss':'')+'">'+(done.loss?'✘ Realized':'✳ Locked')+'</span></div>':'';
+        return'<div class="winrow"><div class="wrl">'+label+'</div><div class="wrd">'+lbl+'</div><span class="'+pillCls+'">'+pillTxt+'</span></div>'+extraRow}
       var isAct=TODAY>=startOfDay(range.start)&&TODAY<=startOfDay(range.end);
       var isCom=TODAY<startOfDay(range.start)&&range.start<=new Date(TODAY.getTime()+45*864e5);
       var pill=isAct?'<span class="wp '+kind+' act">ACTIVE</span>':(isCom?'<span class="wp '+kind+'">UPCOMING</span>':'');
       return'<div class="winrow"><div class="wrl">'+label+'</div><div class="wrd">'+fmtDateShort(range.start)+' &rarr; '+fmtDateShort(range.end)+'</div>'+pill+'</div>'};
-    var pdfuaStatus=fda?'<span class="wp closed">'+(fda.outcome==='approved'?'APPROVED':'CRL')+'</span>':'<span class="wp nd">'+daysTo+'d away</span>';
+    var pdfuaStatus;
+    if(fda&&fda.pending)pdfuaStatus='<span class="wp ex act">'+daysTo+'d · NO POSITION</span>';
+    else if(fda)pdfuaStatus='<span class="wp closed">'+(fda.outcome==='approved'?'APPROVED':'CRL')+'</span>';
+    else pdfuaStatus='<span class="wp nd">'+daysTo+'d away</span>';
     return'<div class="win-card"><div class="winhd"><div class="winttl">Trading Windows</div><div class="wintkr">'+esc(r.tkr)+'</div></div><div class="winrows">'+rowHtml('Entry',en,'en')+rowHtml('Exit',ex,'ex')+'<div class="winrow" style="margin-top:6px"><div class="wrl">PDUFA</div><div class="wrd">'+esc(displayPdufa(r))+'</div>'+pdfuaStatus+'</div></div></div>'
   }).join('');
 }
-
-/* ── CAPR ADCOM INTERACTIVE PANEL ── */
+/* ── CAPR ADCOM POST-MORTEM PANEL ── */
 function buildAdcomPanel(){
-  var caprRow=STATE.HEROES.find(function(r){return r.tkr==='CAPR'})||STATE.FUTURE_ROWS.find(function(r){return r.tkr==='CAPR'});
-  if(!caprRow)return;
   var advEl=document.getElementById('caprAdcomPanel');
   if(!advEl)return;
-  var adcomDate=new Date('2026-07-29T00:00:00');
   var pdufaDate=new Date('2026-08-22T00:00:00');
-  var adcomDiff=Math.max(0,adcomDate.getTime()-Date.now());
-  var adcomDays=Math.floor(adcomDiff/864e5);
-  var adcomHrs=Math.floor((adcomDiff%864e5)/36e5);
   var pdufaDays=Math.max(0,Math.floor((pdufaDate.getTime()-Date.now())/864e5));
-  var briefingExpected=new Date('2026-07-22T00:00:00');
-  var briefingStatus=Date.now()>=briefingExpected.getTime()?'EXPECTED \u2014 CHECK FDA.GOV':'PENDING';
-
-  advEl.innerHTML='<div class="adcom-panel">'+
+  var pdufaHrs=Math.max(0,Math.floor(((pdufaDate.getTime()-Date.now())%864e5)/36e5));
+  advEl.innerHTML='<div class="adcom-panel resolved">'+
     '<div class="adcom-header">'+
       '<div class="adcom-header-left">'+
         '<div class="adcom-icon">AC</div>'+
-        '<div><div class="adcom-title">Advisory Committee Tracker</div><div class="adcom-subtitle">CTGTAC \u00b7 Cellular, Tissue, and Gene Therapies</div></div>'+
+        '<div><div class="adcom-title">Advisory Committee Post-Mortem</div><div class="adcom-subtitle">CTGTAC · Cellular, Tissue, and Gene Therapies · Jul 29, 2026</div></div>'+
       '</div>'+
-      '<div class="adcom-ticker">CAPR \u00b7 Jul 29 \u00b7 '+adcomDays+'d</div>'+
+      '<div class="adcom-ticker">CAPR · RESOLVED · -67%</div>'+
     '</div>'+
     '<div class="adcom-body">'+
       '<div class="adcom-intro">'+
-        'CTGTAC review of Capricor BLA for <strong>Deramiocel</strong> (allogeneic CDC therapy) in <strong>DMD</strong>. Meeting date <strong>Jul 29, 2026</strong>. PDUFA <strong>Aug 22, 2026</strong>.'+
+        'CTGTAC voted <strong>9 against, 3 for, 0 abstentions</strong> that the available evidence does not support the effectiveness of <strong>deramiocel</strong> for cardiomyopathy associated with Duchenne muscular dystrophy. The vote is <strong>non-binding</strong> and it addressed a narrowed cardiomyopathy question rather than the broader indication Capricor proposed. The committee did not vote on overall benefit-risk. PDUFA remains <strong>Aug 22, 2026</strong>. MANTIS exited the position on Jul 30 at <strong>-67% VWAP</strong> and carries no residual exposure into the decision.'+
       '</div>'+
-
+      '<div class="vote-strip">'+
+        '<div class="vote-cell"><div class="vote-num against">9</div><div class="vote-lbl">Against</div></div>'+
+        '<div class="vote-cell"><div class="vote-num for">3</div><div class="vote-lbl">For</div></div>'+
+        '<div class="vote-cell"><div class="vote-num abst">0</div><div class="vote-lbl">Abstain</div></div>'+
+      '</div>'+
       '<div class="adcom-countdown">'+
-        '<div class="adcom-cd-label">T minus</div>'+
-        '<div class="adcom-cd-unit"><div class="adcom-cd-num">'+String(adcomDays).padStart(2,'0')+'</div><div class="adcom-cd-lbl">Days</div></div>'+
-        '<div class="adcom-cd-unit"><div class="adcom-cd-num">'+String(adcomHrs).padStart(2,'0')+'</div><div class="adcom-cd-lbl">Hrs</div></div>'+
-        '<div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:6px">PDUFA T-'+pdufaDays+'</div>'+
+        '<div class="adcom-cd-label">PDUFA T minus</div>'+
+        '<div class="adcom-cd-unit"><div class="adcom-cd-num">'+String(pdufaDays).padStart(2,'0')+'</div><div class="adcom-cd-lbl">Days</div></div>'+
+        '<div class="adcom-cd-unit"><div class="adcom-cd-num">'+String(pdufaHrs).padStart(2,'0')+'</div><div class="adcom-cd-lbl">Hrs</div></div>'+
+        '<div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:6px">Aug 22, 2026 · watch only, no position</div>'+
       '</div>'+
-
       '<div class="adcom-grid" style="grid-template-columns:1fr 1fr 1fr 1fr">'+
         '<div class="adcom-card">'+
-          '<div class="adcom-card-label">FDA Briefing</div>'+
-          '<div class="adcom-card-value" style="font-size:12px;color:#00e5ff">'+briefingStatus+'</div>'+
-          '<div class="adcom-card-detail">Staff review and benefit-risk assessment. Posted ~7d before meeting.</div>'+
+          '<div class="adcom-card-label">Committee Vote</div>'+
+          '<div class="adcom-card-value" style="font-size:14px;color:#f87171">9-3 AGAINST</div>'+
+          '<div class="adcom-card-detail">Evidence does not support effectiveness. Non-binding recommendation.</div>'+
         '</div>'+
         '<div class="adcom-card">'+
-          '<div class="adcom-card-label">Sponsor Package</div>'+
-          '<div class="adcom-card-value" style="font-size:12px;color:#00e5ff">PENDING</div>'+
-          '<div class="adcom-card-detail">Capricor data package and proposed label. Published with FDA docs.</div>'+
+          '<div class="adcom-card-label">Question Scope</div>'+
+          '<div class="adcom-card-value" style="font-size:12px;color:#fcd34d">CARDIOMYOPATHY</div>'+
+          '<div class="adcom-card-detail">Narrower than the proposed indication. No vote on overall benefit-risk.</div>'+
         '</div>'+
         '<div class="adcom-card">'+
-          '<div class="adcom-card-label">Voting Questions</div>'+
-          '<div class="adcom-card-value" style="font-size:12px;color:#00e5ff">PENDING</div>'+
-          '<div class="adcom-card-detail">Scope of committee vote. Wording reveals FDA focus areas.</div>'+
+          '<div class="adcom-card-label">Root Cause</div>'+
+          '<div class="adcom-card-value" style="font-size:12px;color:#f87171">SAP DISPUTE</div>'+
+          '<div class="adcom-card-detail">FDA analysed under SAP v1.1. Capricor asserts v3.0 governs HOPE-3.</div>'+
         '</div>'+
         '<div class="adcom-card">'+
-          '<div class="adcom-card-label">Webcast</div>'+
-          '<div class="adcom-card-value" style="font-size:12px;color:var(--soft)">JUL 29 LIVE</div>'+
-          '<div class="adcom-card-detail">Public session on FDA.gov. Sponsor, staff review, open hearing, vote.</div>'+
+          '<div class="adcom-card-label">MANTIS Result</div>'+
+          '<div class="adcom-card-value" style="font-size:14px;color:#f87171">-67.0%</div>'+
+          '<div class="adcom-card-detail">Stopped out Jul 30, 2026. Fund-level first loss of the 2026 cycle.</div>'+
         '</div>'+
       '</div>'+
-
-      '<button class="adcom-toggle" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-data\').classList.toggle(\'open\')">'+
-        '<span class="arrow">\u25B6</span> HOPE-3 Phase 3 Data (n=106)'+
+      '<button class="adcom-toggle" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-rootcause\').classList.toggle(\'open\')">'+
+        '<span class="arrow">▶</span> Root Cause: What Actually Broke the Thesis'+
       '</button>'+
-      '<div class="adcom-expandable" id="adcom-data">'+
+      '<div class="adcom-expandable" id="adcom-rootcause">'+
         '<div class="adcom-endpoints">'+
-          '<div class="adcom-ep-title">Efficacy Results vs Placebo (12 months)</div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">PUL v2.0 total (primary)</span><span class="adcom-ep-result hit">54% slowing | p=0.029</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">PUL mid-level (elbow function)</span><span class="adcom-ep-result hit">+8.12% benefit | p=0.008</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">LVEF cardiac function</span><span class="adcom-ep-result hit">91% slowing decline | p=0.041</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">DVA disease progression</span><span class="adcom-ep-result hit">83% slowing | p=0.018</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">LGE myocardial fibrosis (MRI)</span><span class="adcom-ep-result hit">Reduced | p=0.022</span></div>'+
-        '</div>'+
-        '<div class="adcom-endpoints" style="margin-top:8px">'+
-          '<div class="adcom-ep-title">HOPE-2 OLE 5-Year Durability</div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">PUL 2.0 decline over 5 years</span><span class="adcom-ep-result hit">&lt;5 pts vs ~12 pts SOC</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">LVEF over 5 years</span><span class="adcom-ep-result hit">Stable vs 3.2%/yr decline</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">PUL year-over-year attenuation</span><span class="adcom-ep-result hit">~1 point/year</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Safety signals</span><span class="adcom-ep-result hit">None new</span></div>'+
+          '<div class="adcom-ep-title">Failure Chain</div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Statistical analysis plan version</span><span class="adcom-ep-result miss">v1.1 vs v3.0 unresolved</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">SAP v3.0 pre-agreed with FDA</span><span class="adcom-ep-result miss">No</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Post-randomisation SAP amendments</span><span class="adcom-ep-result miss">At least 2 further versions</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">FDA read of pre-specified endpoints</span><span class="adcom-ep-result miss">Not met at 12 months</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Voted question vs. strongest data</span><span class="adcom-ep-result miss">Mismatched</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Upper limb (PUL 2.0) discussion</span><span class="adcom-ep-result neutral">Directionally supportive, not voted</span></div>'+
+          '<div class="adcom-note">'+
+            '<b>The mechanics.</b> The FDA briefing document, not the meeting, was the tradeable event. FDA stated the study did not meet its pre-specified primary and secondary efficacy endpoints, with no statistically significant difference versus placebo at 12 months. Capricor responded publicly that the agency had relied on an obsolete, unsigned internal draft (SAP v1.1) rendered stale by the addition of cohort B, and that SAP v3.0, dated Nov 24, 2025 and finalised before unblinding, should govern. The problem for the trade was not who is right. It was that v3.0 was never submitted to or agreed with FDA before BLA submission, and the amendments touched endpoint definitions, analytical methods and imputation for intercurrent events. Once a sponsor and the agency are litigating which analysis is real, the catalyst stops being a coin flip on efficacy and becomes a coin flip on procedure, which the MANTIS model does not price.'+
+          '</div>'+
+          '<div class="adcom-note">'+
+            '<b>The scope trap.</b> The committee was asked about cardiomyopathy, which is where HOPE-3 carried the least statistical weight, rather than upper limb function, where the data reads best. Panel discussion on PUL 2.0 was directionally supportive, but that was not the question on the ballot. A narrowed voting question is itself a signal about FDA staff intent and should have been treated as a downgrade trigger the moment the agenda published.'+
+          '</div>'+
         '</div>'+
       '</div>'+
-
+      '<button class="adcom-toggle" style="margin-top:10px" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-timeline\').classList.toggle(\'open\')">'+
+        '<span class="arrow">▶</span> Event Timeline and Price Action'+
+      '</button>'+
+      '<div class="adcom-expandable" id="adcom-timeline">'+
+        '<div class="adcom-endpoints">'+
+          '<div class="adcom-ep-title">Jul 22 to Aug 03, 2026</div>'+
+          '<div class="tl-row"><div class="tl-date">Jul 22</div><div class="tl-txt"><b>FDA briefing document posted.</b> Agency disputes the Phase 3 efficacy claim outright. Capricor issues a same-window rebuttal calling the analysis obsolete. Stock breaks down. This was the real catalyst and the point at which the exit should have fired.</div></div>'+
+          '<div class="tl-row"><div class="tl-date">Jul 29</div><div class="tl-txt"><b>CTGTAC meeting.</b> Contentious session dominated by the statistical dispute. The Lancet publishes HOPE-3 the same day, reporting 54% slowing of upper limb decline, producing two irreconcilable narratives on one tape.</div></div>'+
+          '<div class="tl-row"><div class="tl-date">Jul 30</div><div class="tl-txt"><b>Vote confirmed 9-3 against.</b> Shares fall roughly 52 to 54% on the session, trading near $3.13. Worst week on record for the name. MANTIS exits into the move.</div></div>'+
+          '<div class="tl-row"><div class="tl-date">Jul 30</div><div class="tl-txt"><b>Sell-side capitulates.</b> Maxim to Hold from Buy, Oppenheimer to Perform from Outperform.</div></div>'+
+          '<div class="tl-row"><div class="tl-date">Aug 03</div><div class="tl-txt"><b>Stabilisation attempt.</b> Range roughly $3.80 to $4.66. Retail flow rebuilding an approval case off the non-binding nature of the vote.</div></div>'+
+          '<div class="tl-row"><div class="tl-date">Aug 22</div><div class="tl-txt"><b>PDUFA target action date.</b> FDA is not bound by the committee. Watch only. MANTIS does not re-enter ahead of a decision where the agency has already published a negative efficacy read.</div></div>'+
+        '</div>'+
+      '</div>'+
       '<button class="adcom-toggle" style="margin-top:10px" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-precedent\').classList.toggle(\'open\')">'+
-        '<span class="arrow">\u25B6</span> DMD AdCom Precedent (Sarepta / Elevidys, 2023)'+
+        '<span class="arrow">▶</span> Elevidys Precedent Revisited: Why It Did Not Transfer'+
       '</button>'+
       '<div class="adcom-expandable" id="adcom-precedent">'+
         '<div class="adcom-endpoints">'+
-          '<div class="adcom-ep-title">CTGTAC Precedent: SRP-9001 (Elevidys)</div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Committee vote</span><span class="adcom-ep-result" style="color:#fcd34d;border-color:rgba(252,211,77,.35);background:rgba(252,211,77,.08)">8-6 Narrow Yes</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">FDA briefing tone</span><span class="adcom-ep-result" style="color:#ff5252;border-color:rgba(255,82,82,.35);background:rgba(255,82,82,.08)">Skeptical</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">PDUFA outcome</span><span class="adcom-ep-result hit">Approved (accel.)</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">CBER director override</span><span class="adcom-ep-result" style="color:#fcd34d;border-color:rgba(252,211,77,.35);background:rgba(252,211,77,.08)">Peter Marks overruled staff</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Key learning</span><span style="font-size:10px;color:var(--soft);font-family:var(--mono)">Narrow vote + skeptical docs still led to approval</span></div>'+
+          '<div class="adcom-ep-title">SRP-9001 (Elevidys), CTGTAC 2023 vs CAPR 2026</div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Elevidys committee vote</span><span class="adcom-ep-result neutral">8-6 narrow yes</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Deramiocel committee vote</span><span class="adcom-ep-result miss">9-3 against</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Elevidys outcome</span><span class="adcom-ep-result hit">Approved, accelerated</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Mechanism of the 2023 override</span><span class="adcom-ep-result neutral">CBER leadership decision</span></div>'+
+          '<div class="adcom-ep-row"><span class="adcom-ep-name">Same override path available in 2026</span><span class="adcom-ep-result miss">Not assumable</span></div>'+
+          '<div class="adcom-note">'+
+            '<b>Where the analogy failed.</b> We carried Elevidys as the bull case for surviving a hostile panel: skeptical briefing documents, a narrow vote, and approval anyway through a CBER leadership override. Two things separate the cases. First, Elevidys won its vote, however narrowly. A majority, even a thin one, gives the agency cover to approve. A 9-3 rejection gives it cover to issue a CRL. Second, the 2023 override rested on a specific CBER leadership posture toward accelerated approval in DMD that cannot be assumed to persist into 2026. We treated a single favourable precedent as a base rate. One observation is not a base rate, it is an anecdote with a chart attached.'+
+          '</div>'+
         '</div>'+
       '</div>'+
-
-      '<button class="adcom-toggle" style="margin-top:10px" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-risks\').classList.toggle(\'open\')">'+
-        '<span class="arrow">\u25B6</span> Committee Risk Areas'+
+      '<button class="adcom-toggle" style="margin-top:10px" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-lessons\').classList.toggle(\'open\')">'+
+        '<span class="arrow">▶</span> MANTIS Lessons Learned'+
       '</button>'+
-      '<div class="adcom-expandable" id="adcom-risks">'+
+      '<div class="adcom-expandable" id="adcom-lessons">'+
         '<div class="adcom-endpoints">'+
-          '<div class="adcom-ep-title">Likely Discussion Points</div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Allogeneic manufacturing consistency</span><span style="font-size:9px;color:var(--muted);font-family:var(--mono)">Cell-based, not gene vector</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Long-term immunogenicity</span><span style="font-size:9px;color:var(--muted);font-family:var(--mono)">5yr OLE data addresses this</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Clinical meaningfulness of PUL v2.0</span><span style="font-size:9px;color:var(--muted);font-family:var(--mono)">54% slowing, ~4.55pt delta</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Cardiac benefit in DMD context</span><span style="font-size:9px;color:var(--muted);font-family:var(--mono)">Leading cause of mortality</span></div>'+
-          '<div class="adcom-ep-row"><span class="adcom-ep-name">Competitive landscape vs Elevidys</span><span style="font-size:9px;color:var(--muted);font-family:var(--mono)">Different MOA (CDC vs gene)</span></div>'+
+          '<div class="adcom-ep-title">Model corrections carried forward</div>'+
+          '<div class="lesson"><div class="lesson-n">01</div><div class="lesson-t"><b>An AdCom-gated catalyst is two binaries, not one.</b> The briefing document is the tradeable event. The vote is confirmation. Any name with an advisory committee between entry and PDUFA needs its exit window keyed to briefing-document release, roughly T-7 from the meeting, not to the PDUFA date.</div></div>'+
+          '<div class="lesson"><div class="lesson-n">02</div><div class="lesson-t"><b>A public sponsor rebuttal of FDA statistics is an exit signal, not a dip to buy.</b> When a company has to argue about which SAP is real, the efficacy debate has already been lost on procedure. Treat it as a hard stop regardless of the underlying data.</div></div>'+
+          '<div class="lesson"><div class="lesson-n">03</div><div class="lesson-t"><b>Peer review does not neutralise a regulatory dispute.</b> The Lancet publishing HOPE-3 on the day of the meeting changed nothing about the vote. Journals and regulators judge different things to different standards. Publication is not a catalyst hedge.</div></div>'+
+          '<div class="lesson"><div class="lesson-n">04</div><div class="lesson-t"><b>Read the voting question, not the data package.</b> A narrowed question aimed at the weakest endpoint is FDA staff telegraphing where they intend to land. That agenda is public before the meeting and should trigger an automatic score downgrade.</div></div>'+
+          '<div class="lesson"><div class="lesson-n">05</div><div class="lesson-t"><b>Score 5 requires a pre-agreed primary analysis.</b> New gate: if the primary endpoint analysis was not agreed with FDA prior to BLA submission, the name caps at Score 3 no matter how strong the headline effect size looks.</div></div>'+
+          '<div class="lesson"><div class="lesson-n">06</div><div class="lesson-t"><b>One precedent is not a base rate.</b> Elevidys was used as evidence that hostile panels can be survived. Precedent should be used to size risk, not to justify holding through a binary.</div></div>'+
+          '<div class="lesson"><div class="lesson-n">07</div><div class="lesson-t"><b>Position sizing on AdCom names must assume a 50 to 70% single-session drawdown.</b> Realised move was 52 to 54% in one session, 67% from the MANTIS VWAP entry. That is the planning number for this catalyst class going forward.</div></div>'+
         '</div>'+
       '</div>'+
-
     '</div>'+
-
     '<div class="blitzer" id="blitzerPanel">'+
       '<div class="blitzer-hd">'+
         '<div class="blitzer-id">'+
           '<div class="blitzer-pulse" id="blitzerPulse"></div>'+
-          '<div><div class="blitzer-name">Agent MANTIS Binary Blitzer</div><div class="blitzer-tag">briefing intel service</div></div>'+
+          '<div><div class="blitzer-name">Agent MANTIS Binary Blitzer</div><div class="blitzer-tag">PDUFA watch · Aug 22 decision</div></div>'+
         '</div>'+
         '<button class="blitzer-btn" id="blitzerBtn" onclick="runBlitzerScan()">Deploy</button>'+
       '</div>'+
       '<div class="blitzer-body">'+
         '<div class="blitzer-targets" id="blitzerTargets">'+
           '<span class="blitzer-target" data-t="fda">FDA.gov</span>'+
-          '<span class="blitzer-target" data-t="tv">TradingView</span>'+
-          '<span class="blitzer-target" data-t="ctgtac">CTGTAC docs</span>'+
-          '<span class="blitzer-target" data-t="news">News wires</span>'+
+          '<span class="blitzer-target" data-t="tv">Financial wires</span>'+
+          '<span class="blitzer-target" data-t="ctgtac">CBER / regulatory</span>'+
+          '<span class="blitzer-target" data-t="news">News sweep</span>'+
         '</div>'+
         '<div class="blitzer-log" id="blitzerLog">'+
-          '<div class="entry"><span class="ts">--:--</span><span class="msg">Agent standing by. Deploy to sweep for CTGTAC briefing intel.</span></div>'+
+          '<div class="entry"><span class="ts">--:--</span><span class="msg">Agent standing by. Position closed. Monitoring for Aug 22 PDUFA outcome only.</span></div>'+
         '</div>'+
       '</div>'+
     '</div>'+
-
     '<div class="adcom-footer">'+
       '<div class="adcom-footer-text" style="display:flex;gap:6px;flex-wrap:wrap">'+
-        '<span class="adcom-topic">CTGTAC Jul 29</span>'+
-        '<span class="adcom-topic">PDUFA Aug 22</span>'+
-        '<span class="adcom-topic">n=106 Phase 3</span>'+
-        '<span class="adcom-topic">PUL p=0.029</span>'+
-        '<span class="adcom-topic">LVEF p=0.041</span>'+
-        '<span class="adcom-topic">5yr durability</span>'+
-        '<span class="adcom-topic">Elevidys precedent 8-6</span>'+
-        '<span class="adcom-topic">FDA.gov briefing</span>'+
+        '<span class="adcom-topic">CTGTAC 9-3 against</span>'+
+        '<span class="adcom-topic">Non-binding</span>'+
+        '<span class="adcom-topic">Cardiomyopathy question</span>'+
+        '<span class="adcom-topic">SAP v1.1 vs v3.0</span>'+
+        '<span class="adcom-topic">Briefing doc was the catalyst</span>'+
+        '<span class="adcom-topic">Lancet same-day</span>'+
+        '<span class="adcom-topic">Elevidys did not transfer</span>'+
+        '<span class="adcom-topic">-67% VWAP realized</span>'+
+        '<span class="adcom-topic">PDUFA Aug 22 watch only</span>'+
       '</div>'+
     '</div>'+
   '</div>';
 }
-
-/* ── BINARY BLITZER — briefing document scanner ── */
+/* ── BINARY BLITZER — PDUFA outcome scanner ── */
 var BLITZER_RUNNING = false;
 var BLITZER_PROXIES = [
   function(u){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
   function(u){ return 'https://corsproxy.io/?' + encodeURIComponent(u); },
   function(u){ return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); }
 ];
-
 function bTime(){
   var d=new Date();
   return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');
 }
-
 function bLog(who, msg, cls){
   var log=document.getElementById('blitzerLog');
   if(!log)return;
@@ -760,12 +824,10 @@ function bLog(who, msg, cls){
   log.insertBefore(entry, log.firstChild);
   while(log.children.length > 25) log.removeChild(log.lastChild);
 }
-
 function bTarget(id, state){
   var el=document.querySelector('.blitzer-target[data-t="'+id+'"]');
   if(el) el.className='blitzer-target'+(state?' '+state:'');
 }
-
 async function bFetch(rssUrl){
   for(var i=0; i<BLITZER_PROXIES.length; i++){
     try {
@@ -779,7 +841,6 @@ async function bFetch(rssUrl){
   }
   return null;
 }
-
 function bParseRSS(xml){
   var doc = new DOMParser().parseFromString(xml, 'text/xml');
   return Array.from(doc.querySelectorAll('item')).slice(0, 8).map(function(item){
@@ -790,161 +851,144 @@ function bParseRSS(xml){
     };
   }).filter(function(x){ return x.title && x.link; });
 }
-
 function bClassify(items){
-  var briefing = [], related = [];
+  var decision = [], related = [];
   items.forEach(function(item){
     var t = item.title.toLowerCase();
-    if(t.includes('briefing') || t.includes('ctgtac') || t.includes('advisory committee') && (t.includes('capricor') || t.includes('deramiocel') || t.includes('capr'))){
-      briefing.push(item);
-    } else if(t.includes('capricor') || t.includes('deramiocel') || t.includes('capr') || t.includes('duchenne')){
+    var isCapr = t.includes('capricor') || t.includes('deramiocel') || t.includes('capr');
+    var isDecision = t.includes('approv') || t.includes('complete response') || t.includes('crl') || t.includes('rejects') || t.includes('pdufa') || t.includes('decision');
+    if(isCapr && isDecision){
+      decision.push(item);
+    } else if(isCapr || t.includes('duchenne')){
       related.push(item);
     }
   });
-  return {briefing: briefing, related: related};
+  return {decision: decision, related: related};
 }
-
 async function bScanSource(query, label, targetId){
   bTarget(targetId, 'active');
   bLog('agent', 'Sweeping ' + label + '...', '');
-
   var rss = 'https://news.google.com/rss/search?q=' + encodeURIComponent(query) + '&hl=en-US&gl=US&ceid=US:en';
   var xml = await bFetch(rss);
-
   if(!xml){
     bTarget(targetId, 'fail');
     bLog('agent', label + ' unreachable. Proxy timeout across all endpoints.', 'warn');
-    return {briefing:[], related:[]};
+    return {decision:[], related:[]};
   }
-
   var items = bParseRSS(xml);
   if(!items.length){
     bTarget(targetId, 'fail');
     bLog('agent', label + ' returned empty. No matching signals.', 'warn');
-    return {briefing:[], related:[]};
+    return {decision:[], related:[]};
   }
-
   var classified = bClassify(items);
   bTarget(targetId, 'done');
-
-  if(classified.briefing.length > 0){
-    classified.briefing.forEach(function(h){
-      bLog('agent', 'Briefing intel acquired: <a href="'+esc(h.link)+'" target="_blank" rel="noopener">'+esc(h.title.substring(0,90))+'</a>', 'hit');
+  if(classified.decision.length > 0){
+    classified.decision.forEach(function(h){
+      bLog('agent', 'Decision signal: <a href="'+esc(h.link)+'" target="_blank" rel="noopener">'+esc(h.title.substring(0,90))+'</a>', 'hit');
     });
   } else if(classified.related.length > 0){
-    bLog('agent', label + ': ' + classified.related.length + ' related items, no briefing docs detected.', '');
+    bLog('agent', label + ': ' + classified.related.length + ' related items, no PDUFA decision detected.', '');
   } else {
-    bLog('agent', label + ': ' + items.length + ' items parsed, none relevant to CTGTAC briefing.', '');
+    bLog('agent', label + ': ' + items.length + ' items parsed, none relevant.', '');
   }
-
   return classified;
 }
-
 async function runBlitzerScan(){
   if(BLITZER_RUNNING) return;
   BLITZER_RUNNING = true;
-
   var btn=document.getElementById('blitzerBtn');
   var pulse=document.getElementById('blitzerPulse');
   if(btn){btn.classList.add('active'); btn.textContent='Deployed...';}
   if(pulse) pulse.classList.add('scanning');
-
   ['fda','tv','ctgtac','news'].forEach(function(t){ bTarget(t,''); });
-
-  bLog('alpha', 'Binary Blitzer, you are cleared to scan. Report back on CTGTAC briefing documents for CAPR.', '');
-  bLog('agent', 'Copy, ALPHA. Deploying across 4 sources. Stand by.', 'ok');
-
-  var allBriefing = [], allRelated = [];
-
-  // Source 1
+  bLog('alpha', 'Blitzer, position is flat. Watch only. Report any Aug 22 PDUFA outcome for CAPR.', '');
+  bLog('agent', 'Copy, ALPHA. No exposure. Deploying across 4 sources for decision intel.', 'ok');
+  var allDecision = [], allRelated = [];
   var r1 = await bScanSource(
-    'Capricor deramiocel FDA briefing document 2026',
+    'Capricor deramiocel FDA decision PDUFA August 2026',
     'FDA.gov / regulatory filings',
     'fda'
   );
-  allBriefing = allBriefing.concat(r1.briefing);
+  allDecision = allDecision.concat(r1.decision);
   allRelated = allRelated.concat(r1.related);
   await new Promise(function(r){setTimeout(r,600);});
-
-  // Source 2
   var r2 = await bScanSource(
-    'CAPR Capricor stock advisory committee FDA panel',
-    'Financial wires / TradingView',
+    'CAPR Capricor stock FDA approval complete response letter',
+    'Financial wires',
     'tv'
   );
-  allBriefing = allBriefing.concat(r2.briefing);
+  allDecision = allDecision.concat(r2.decision);
   allRelated = allRelated.concat(r2.related);
   await new Promise(function(r){setTimeout(r,600);});
-
-  // Source 3
   var r3 = await bScanSource(
-    'CTGTAC cellular tissue gene therapy advisory committee deramiocel',
-    'CTGTAC committee docs',
+    'CBER deramiocel BLA 125842 Duchenne cell therapy action',
+    'CBER / regulatory',
     'ctgtac'
   );
-  allBriefing = allBriefing.concat(r3.briefing);
+  allDecision = allDecision.concat(r3.decision);
   allRelated = allRelated.concat(r3.related);
   await new Promise(function(r){setTimeout(r,600);});
-
-  // Source 4
   var r4 = await bScanSource(
-    'Capricor Therapeutics CAPR BLA advisory panel briefing July 2026',
+    'Capricor Therapeutics CAPR news August 2026',
     'Broad news sweep',
     'news'
   );
-  allBriefing = allBriefing.concat(r4.briefing);
+  allDecision = allDecision.concat(r4.decision);
   allRelated = allRelated.concat(r4.related);
-
-  // Final report
-  if(allBriefing.length > 0){
-    bLog('agent', 'ALPHA, we have positive contact. ' + allBriefing.length + ' briefing document(s) located. See above.', 'hit');
-    bLog('alpha', 'Received, Blitzer. Good work. Flagging for manual review.', 'ok');
+  if(allDecision.length > 0){
+    bLog('agent', 'ALPHA, contact. ' + allDecision.length + ' decision-grade item(s) located. See above.', 'hit');
+    bLog('alpha', 'Received, Blitzer. Flagging for manual review. Position stays flat.', 'ok');
   } else if(allRelated.length > 0){
-    bLog('agent', 'ALPHA, sweep complete. ' + allRelated.length + ' related signals but no confirmed briefing docs at this time.', '');
-    bLog('alpha', 'Copy. Maintain watch. Next sweep in 30 minutes.', '');
+    bLog('agent', 'ALPHA, sweep complete. ' + allRelated.length + ' related signals, no PDUFA action yet.', '');
+    bLog('alpha', 'Copy. Maintain watch through Aug 22. Next sweep in 30 minutes.', '');
   } else {
-    bLog('agent', 'ALPHA, negative across all sources. No briefing intelligence detected.', 'warn');
+    bLog('agent', 'ALPHA, negative across all sources. No decision intelligence detected.', 'warn');
     bLog('alpha', 'Understood. Stay on station, Blitzer. Auto-rescan in 30m.', '');
   }
-
   BLITZER_RUNNING = false;
   if(btn){btn.classList.remove('active'); btn.textContent='Deploy';}
   if(pulse) pulse.classList.remove('scanning');
 }
-
-// Auto-scan every 30 minutes
 setInterval(function(){
   if(document.getElementById('blitzerPanel')){
     runBlitzerScan();
   }
 }, 30 * 60 * 1000);
-
-function renderDealEvents(){var section=document.getElementById('dealSection'),grid=document.getElementById('dealGrid'),events=STATE.DEAL_EVENTS||[];if(!section||!grid||!events.length){if(section)section.style.display='none';return}section.style.display='block';grid.innerHTML=events.map(function(ev){var bullets=(ev.bullets||[]).map(function(b){return'<div class="deal-bullet"><span class="deal-bullet-dot"></span><span>'+esc(b)+'</span></div>'}).join('');return'<div class="deal-card"><div class="deal-top"><div><div class="deal-kicker">M&A / Tender Event</div><div class="deal-title">'+esc(ev.tkr)+' \u00b7 '+esc(ev.headline)+'</div><div class="deal-sub">'+esc(ev.co)+' \u00b7 '+esc(ev.status)+'</div></div><div class="deal-status">Reclassified</div></div><div class="deal-metrics"><div class="deal-metric"><div class="k">Deal Value</div><div class="v">'+esc(ev.deal_value)+'</div></div><div class="deal-metric"><div class="k">Offer</div><div class="v">'+esc(ev.price)+'</div></div><div class="deal-metric"><div class="k">Premium</div><div class="v">'+esc(ev.premium)+'</div></div><div class="deal-metric"><div class="k">Assets</div><div class="v">'+esc(ev.asset_focus)+'</div></div></div><div class="deal-copy">'+esc(ev.why_it_matters)+'</div><div class="deal-bullets">'+bullets+'</div>'+(ev.source?'<a class="deal-link" href="'+esc(ev.source)+'" target="_blank" rel="noopener">Open source \u2192</a>':'')+'</div>'}).join('')}
-
-function renderFdaOutcomes(){var section=document.getElementById('fdaOutcomeSection'),grid=document.getElementById('fdaOutcomeGrid'),outcomes=STATE.FDA_OUTCOMES||[];if(!section||!grid||!outcomes.length){if(section)section.style.display='none';return}section.style.display='block';grid.innerHTML=outcomes.map(function(o){var cls=String(o.outcome||'').toLowerCase().includes('crl')?'crl':(String(o.outcome||'').toLowerCase().includes('extend')?'extended':'approved');return'<div class="outcome-card '+cls+'"><div class="outcome-top"><div><div class="outcome-tkr">'+esc(o.tkr)+'</div><div class="outcome-co">'+esc(o.co)+'</div></div><div class="outcome-pill '+cls+'">'+esc(o.outcome)+'</div></div><div class="outcome-drug">'+esc(o.drug)+'</div><div class="outcome-ind">'+esc(o.ind)+'</div><div class="outcome-meta"><span>'+esc(o.decision_date)+'</span><span>'+esc(o.status_label)+'</span></div><div class="outcome-takeaway">'+esc(o.mantis_takeaway)+'</div>'+(o.source?'<a class="outcome-link" href="'+esc(o.source)+'" target="_blank" rel="noopener">Open decision source \u2192</a>':'')+'</div>'}).join('')}
-
+function renderDealEvents(){var section=document.getElementById('dealSection'),grid=document.getElementById('dealGrid'),events=STATE.DEAL_EVENTS||[];if(!section||!grid||!events.length){if(section)section.style.display='none';return}section.style.display='block';grid.innerHTML=events.map(function(ev){var bullets=(ev.bullets||[]).map(function(b){return'<div class="deal-bullet"><span class="deal-bullet-dot"></span><span>'+esc(b)+'</span></div>'}).join('');return'<div class="deal-card"><div class="deal-top"><div><div class="deal-kicker">M&A / Tender Event</div><div class="deal-title">'+esc(ev.tkr)+' · '+esc(ev.headline)+'</div><div class="deal-sub">'+esc(ev.co)+' · '+esc(ev.status)+'</div></div><div class="deal-status">Reclassified</div></div><div class="deal-metrics"><div class="deal-metric"><div class="k">Deal Value</div><div class="v">'+esc(ev.deal_value)+'</div></div><div class="deal-metric"><div class="k">Offer</div><div class="v">'+esc(ev.price)+'</div></div><div class="deal-metric"><div class="k">Premium</div><div class="v">'+esc(ev.premium)+'</div></div><div class="deal-metric"><div class="k">Assets</div><div class="v">'+esc(ev.asset_focus)+'</div></div></div><div class="deal-copy">'+esc(ev.why_it_matters)+'</div><div class="deal-bullets">'+bullets+'</div>'+(ev.source?'<a class="deal-link" href="'+esc(ev.source)+'" target="_blank" rel="noopener">Open source →</a>':'')+'</div>'}).join('')}
+function renderFdaOutcomes(){var section=document.getElementById('fdaOutcomeSection'),grid=document.getElementById('fdaOutcomeGrid'),outcomes=STATE.FDA_OUTCOMES||[];if(!section||!grid||!outcomes.length){if(section)section.style.display='none';return}section.style.display='block';grid.innerHTML=outcomes.map(function(o){var cls=String(o.outcome||'').toLowerCase().includes('crl')?'crl':(String(o.outcome||'').toLowerCase().includes('extend')?'extended':'approved');return'<div class="outcome-card '+cls+'"><div class="outcome-top"><div><div class="outcome-tkr">'+esc(o.tkr)+'</div><div class="outcome-co">'+esc(o.co)+'</div></div><div class="outcome-pill '+cls+'">'+esc(o.outcome)+'</div></div><div class="outcome-drug">'+esc(o.drug)+'</div><div class="outcome-ind">'+esc(o.ind)+'</div><div class="outcome-meta"><span>'+esc(o.decision_date)+'</span><span>'+esc(o.status_label)+'</span></div><div class="outcome-takeaway">'+esc(o.mantis_takeaway)+'</div>'+(o.source?'<a class="outcome-link" href="'+esc(o.source)+'" target="_blank" rel="noopener">Open decision source →</a>':'')+'</div>'}).join('')}
 function outcomeForRow(r){var outcomes=STATE.FDA_OUTCOMES||[];return outcomes.find(function(o){if(String(o.tkr||'')!==String(r.tkr||''))return false;if(o.pdufa&&r.pdufa&&String(o.pdufa)!==String(r.pdufa))return false;return true})||null}
 function isCompletedOutcome(row){var o=outcomeForRow(row);if(!o)return false;var v=String(o.outcome||'').toLowerCase();return v.includes('approved')||v.includes('crl')||v.includes('rejected')}
-function outcomeBadgeHtml(o){if(!o)return'';var v=String(o.outcome||'').toLowerCase();var isCrl=v.includes('crl')||v.includes('rejected');var isExt=v.includes('extend');var label=isCrl?'\u2718 CRL':(isExt?'\u21bb Extended':'\u2714 Approved');var style=isCrl?'border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.10)':(isExt?'border-color:rgba(245,158,11,.45);color:#fcd34d;background:rgba(245,158,11,.10)':'border-color:rgba(0,255,65,.45);color:#00ff41;background:rgba(0,255,65,.10)');return'<span class="mb" style="'+style+'">'+label+'</span>'}
-
-function buildChartPanels(){var activeRows=STATE.FUTURE_ROWS.filter(function(r){return!isCompletedOutcome(r)});var byTicker=new Map(activeRows.map(function(r){return[r.tkr,r]}));var selected=PINNED_CHARTS.map(function(t){return byTicker.get(t)}).filter(Boolean).slice(0,4);var slots=selected.map(function(r){return'<div class="panel"><div class="phd"><div class="ptitle">'+esc(r.tkr)+'</div><div class="pnote">'+esc(displayPdufa(r))+'</div></div><div class="chart-ct" id="tv_'+esc(r.tkr.toLowerCase())+'"></div></div>'});document.getElementById('chartsTop').innerHTML=slots.slice(0,2).join('');document.getElementById('chartsBottom').innerHTML=slots.slice(2,4).join('');if(typeof TradingView==='undefined'){setTimeout(buildChartPanels,700);return}setTimeout(function(){selected.forEach(function(r){var id='tv_'+r.tkr.toLowerCase();var el=document.getElementById(id);if(el&&!el.dataset.bound){el.dataset.bound='1';new TradingView.widget({container_id:id,symbol:tvSymbolFor(r.tkr),interval:'D',timezone:'Etc/UTC',theme:'dark',style:'1',locale:'en',autosize:true,toolbar_bg:'#080c18',withdateranges:true,allow_symbol_change:true})}})},100)}
-
+function outcomeBadgeHtml(o){if(!o)return'';var v=String(o.outcome||'').toLowerCase();var isCrl=v.includes('crl')||v.includes('rejected');var isExt=v.includes('extend');var label=isCrl?'✘ CRL':(isExt?'↻ Extended':'✔ Approved');var style=isCrl?'border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.10)':(isExt?'border-color:rgba(245,158,11,.45);color:#fcd34d;background:rgba(245,158,11,.10)':'border-color:rgba(0,255,65,.45);color:#00ff41;background:rgba(0,255,65,.10)');return'<span class="mb" style="'+style+'">'+label+'</span>'}
+function decisionBadgeHtml(fda){
+  if(!fda)return'';
+  if(fda.outcome==='adcom_negative')return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.1)">✘ AdCom 9-3</span> <span class="mb" style="border-color:rgba(245,158,11,.4);color:#fcd34d;background:rgba(245,158,11,.08)">✘ -67% closed</span>';
+  if(fda.outcome==='approved')return' <span class="mb" style="border-color:rgba(0,255,65,.4);color:#00ff41;background:rgba(0,255,65,.1)">✔ Approved</span>';
+  return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.1)">✘ CRL</span>';
+}
+function buildChartPanels(){var activeRows=STATE.FUTURE_ROWS.filter(function(r){return!isCompletedOutcome(r)});var byTicker=new Map(activeRows.map(function(r){return[r.tkr,r]}));var selected=PINNED_CHARTS.map(function(t){return byTicker.get(t)}).filter(Boolean).slice(0,4);var slots=selected.map(function(r){var fda=FDA_DECISIONS[r.tkr];var note=fda&&fda.pending?'PDUFA '+esc(displayPdufa(r))+' · no position':esc(displayPdufa(r));return'<div class="panel"><div class="phd"><div class="ptitle">'+esc(r.tkr)+'</div><div class="pnote">'+note+'</div></div><div class="chart-ct" id="tv_'+esc(r.tkr.toLowerCase())+'"></div></div>'});document.getElementById('chartsTop').innerHTML=slots.slice(0,2).join('');document.getElementById('chartsBottom').innerHTML=slots.slice(2,4).join('');if(typeof TradingView==='undefined'){setTimeout(buildChartPanels,700);return}setTimeout(function(){selected.forEach(function(r){var id='tv_'+r.tkr.toLowerCase();var el=document.getElementById(id);if(el&&!el.dataset.bound){el.dataset.bound='1';new TradingView.widget({container_id:id,symbol:tvSymbolFor(r.tkr),interval:'D',timezone:'Etc/UTC',theme:'dark',style:'1',locale:'en',autosize:true,toolbar_bg:'#080c18',withdateranges:true,allow_symbol_change:true})}})},100)}
 function tAgo(d){var s=Math.max(0,Math.floor((Date.now()-d)/1000));if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
-
-function drawAnalogChart(){var canvas=document.getElementById('analogChart');if(!canvas)return;var data=STATE.ANALOGS||[];if(!data.length)return;var dpr=window.devicePixelRatio||1;var W=canvas.parentElement.clientWidth||500;var H=Math.round(W*0.55);canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);var PAD={t:36,r:20,b:44,l:52},cW=W-PAD.l-PAD.r,cH=H-PAD.t-PAD.b;var maxVal=Math.max.apply(null,data.map(function(a){return a.return_pct}));var maxAxis=Math.ceil(maxVal/20)*20+20;for(var i=0;i<=5;i++){var gVal=Math.round((maxAxis/5)*i);var y=PAD.t+cH-(gVal/maxAxis)*cH;ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cW,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='rgba(255,0,85,.4)';ctx.font="9px 'JetBrains Mono',monospace";ctx.textAlign='right';ctx.fillText(gVal+'%',PAD.l-6,y+3)}ctx.beginPath();ctx.strokeStyle='rgba(255,0,85,.15)';ctx.moveTo(PAD.l,PAD.t+cH);ctx.lineTo(PAD.l+cW,PAD.t+cH);ctx.stroke();var groupW=cW/data.length,barW=Math.min(36,groupW*0.55);data.forEach(function(a,idx){var cx=PAD.l+groupW*idx+groupW/2;var h=Math.max(2,(a.return_pct/maxAxis)*cH);var x=cx-barW/2,yy=PAD.t+cH-h;var grad=ctx.createLinearGradient(x,yy,x,PAD.t+cH);grad.addColorStop(0,a.color);grad.addColorStop(1,a.color+'22');ctx.fillStyle=grad;ctx.shadowColor=a.color;ctx.shadowBlur=12;ctx.beginPath();ctx.roundRect(x,yy,barW,h,[4,4,0,0]);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=a.color;ctx.font="bold 11px 'JetBrains Mono',monospace";ctx.textAlign='center';ctx.fillText('+'+a.return_pct.toFixed(2)+'%',cx,yy-8);ctx.fillStyle='rgba(226,232,240,.9)';ctx.fillText(a.name,cx,PAD.t+cH+16);var oc=a.outcome==='Approved'?'#00ff41':'#fcd34d';ctx.beginPath();ctx.arc(cx,PAD.t+cH+28,3,0,Math.PI*2);ctx.fillStyle=oc;ctx.fill()});var leg=document.getElementById('analogLegend');leg.innerHTML=data.map(function(a){var oc=a.outcome==='Approved'?'#00ff41':'#fcd34d';return'<div class="al-item"><div class="al-dot" style="background:'+a.color+';box-shadow:0 0 6px '+a.color+'55"></div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap"><div class="al-name" style="color:'+a.color+'">'+esc(a.name)+'</div><span style="font-size:9px;padding:1px 6px;border-radius:3px;border:1px solid '+oc+'44;background:'+oc+'18;color:'+oc+';font-family:var(--mono);flex-shrink:0">'+esc(a.outcome)+'</span></div><div class="al-det">'+esc(a.label)+' \u00b7 '+esc(a.disease)+'</div><div class="al-gains" style="margin-top:6px"><div><div class="al-gain" style="color:'+a.color+'">+'+a.return_pct.toFixed(2)+'%</div><div class="al-gain-sub">VWAP Return</div></div></div></div></div>'}).join('')}
-
+function drawAnalogChart(){var canvas=document.getElementById('analogChart');if(!canvas)return;var data=STATE.ANALOGS||[];if(!data.length)return;var dpr=window.devicePixelRatio||1;var W=canvas.parentElement.clientWidth||500;var H=Math.round(W*0.55);canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);var PAD={t:36,r:20,b:44,l:52},cW=W-PAD.l-PAD.r,cH=H-PAD.t-PAD.b;var vals=data.map(function(a){return a.return_pct});var maxVal=Math.max.apply(null,vals);var minVal=Math.min.apply(null,vals.concat([0]));var maxAxis=Math.ceil(maxVal/20)*20+20;var minAxis=minVal<0?Math.floor(minVal/20)*20-10:0;var span=maxAxis-minAxis;var zeroY=PAD.t+cH-((0-minAxis)/span)*cH;for(var i=0;i<=5;i++){var gVal=Math.round(minAxis+(span/5)*i);var y=PAD.t+cH-((gVal-minAxis)/span)*cH;ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cW,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='rgba(255,0,85,.4)';ctx.font="9px 'JetBrains Mono',monospace";ctx.textAlign='right';ctx.fillText(gVal+'%',PAD.l-6,y+3)}ctx.beginPath();ctx.strokeStyle='rgba(255,0,85,.25)';ctx.moveTo(PAD.l,zeroY);ctx.lineTo(PAD.l+cW,zeroY);ctx.stroke();var groupW=cW/data.length,barW=Math.min(36,groupW*0.55);data.forEach(function(a,idx){var cx=PAD.l+groupW*idx+groupW/2;var v=a.return_pct;var h=Math.abs(v/span)*cH;var yy=v>=0?zeroY-h:zeroY;h=Math.max(2,h);var x=cx-barW/2;var grad=ctx.createLinearGradient(x,v>=0?yy:yy+h,x,v>=0?yy+h:yy);grad.addColorStop(0,a.color);grad.addColorStop(1,a.color+'22');ctx.fillStyle=grad;ctx.shadowColor=a.color;ctx.shadowBlur=12;ctx.beginPath();ctx.roundRect(x,yy,barW,h,v>=0?[4,4,0,0]:[0,0,4,4]);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=a.color;ctx.font="bold 11px 'JetBrains Mono',monospace";ctx.textAlign='center';ctx.fillText((v>=0?'+':'')+v.toFixed(2)+'%',cx,v>=0?yy-8:yy+h+14);ctx.fillStyle='rgba(226,232,240,.9)';ctx.fillText(a.name,cx,PAD.t+cH+16);var oc=a.outcome==='Approved'?'#00ff41':(String(a.outcome||'').toLowerCase().includes('against')||String(a.outcome||'').toLowerCase().includes('crl')?'#f87171':'#fcd34d');ctx.beginPath();ctx.arc(cx,PAD.t+cH+28,3,0,Math.PI*2);ctx.fillStyle=oc;ctx.fill()});var leg=document.getElementById('analogLegend');leg.innerHTML=data.map(function(a){var oc=a.outcome==='Approved'?'#00ff41':(String(a.outcome||'').toLowerCase().includes('against')||String(a.outcome||'').toLowerCase().includes('crl')?'#f87171':'#fcd34d');var v=a.return_pct;return'<div class="al-item"><div class="al-dot" style="background:'+a.color+';box-shadow:0 0 6px '+a.color+'55"></div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap"><div class="al-name" style="color:'+a.color+'">'+esc(a.name)+'</div><span style="font-size:9px;padding:1px 6px;border-radius:3px;border:1px solid '+oc+'44;background:'+oc+'18;color:'+oc+';font-family:var(--mono);flex-shrink:0">'+esc(a.outcome)+'</span></div><div class="al-det">'+esc(a.label)+' · '+esc(a.disease)+'</div><div class="al-gains" style="margin-top:6px"><div><div class="al-gain" style="color:'+(v<0?'#f87171':a.color)+'">'+(v>=0?'+':'')+v.toFixed(2)+'%</div><div class="al-gain-sub">VWAP Return</div></div></div></div></div>'}).join('')}
 function updateHeroCountdowns(){document.querySelectorAll('[data-countdown]').forEach(function(el){var tkr=el.getAttribute('data-countdown');if(FDA_DECISIONS[tkr])return;var row=STATE.HEROES.find(function(r){return r.tkr===tkr});if(row)el.innerHTML=countdownBlocks(row)})}
 function buildChips(){var labels=STATE.HEROES.map(function(h){return h.tkr});document.querySelectorAll('#chipRow .chip').forEach(function(ch){var c=ch.dataset.c;if(c==='hero0')ch.textContent=labels[0]?labels[0]+' Focus':'Hero 1';if(c==='hero1')ch.textContent=labels[1]?labels[1]+' Focus':'Hero 2';if(c==='hero2')ch.textContent=labels[2]?labels[2]+' Focus':'Hero 3';if(c==='hero3')ch.textContent=labels[3]?labels[3]+' Focus':'Hero 4'})}
 function activeHeroFocusTicker(){var focusKey=['hero0','hero1','hero2','hero3'].find(function(k){return STATE.CHIPS[k]});if(!focusKey)return null;var idx=Number(focusKey.replace('hero',''));return STATE.HEROES[idx]?.tkr||null}
-
-function renderTable(){var tbody=document.getElementById('wl-tbody'),empty=document.getElementById('wl-empty');var search=(document.getElementById('searchBox').value||'').toLowerCase();var minSc=+document.getElementById('scoreFilter').value;var sortV=document.getElementById('sortSelect').value;var focusTicker=activeHeroFocusTicker();var rows=STATE.FUTURE_ROWS.filter(function(r){var blob=[r.tkr,r.co,r.drug,r.ind,r.notes,r.therapy].join(' ').toLowerCase();if(search&&!blob.includes(search))return false;if((r.score||0)<minSc)return false;if(STATE.CHIPS.s5&&r.score!==5)return false;if(STATE.CHIPS.s4&&(r.score||0)<4)return false;if(STATE.CHIPS.orph&&!r.orph)return false;if(STATE.CHIPS.gene){var th=String(r.therapy||'').toLowerCase();if(!(th.includes('gene')||th.includes('cell')))return false}if(focusTicker&&r.tkr!==focusTicker)return false;return true});rows=sortRows(rows,sortV);tbody.innerHTML='';empty.style.display=rows.length?'none':'block';rows.forEach(function(r){var en=winDates(r.pdufa,r.date_type,r.entry),ex=winDates(r.pdufa,r.date_type,r.exit);var eStr=en?fmtDateShort(en.start)+' \u2192 '+fmtDateShort(en.end):'\u2014';var xStr=ex?fmtDateShort(ex.start)+' \u2192 '+fmtDateShort(ex.end):'\u2014';var tagCls=therapyTagClass(r.therapy);var therapyTag=tagCls?'<span class="mb '+tagCls+'">'+esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))+'</span>':'<span class="mb">'+esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))+'</span>';var fda=FDA_DECISIONS[r.tkr];var outcome=outcomeForRow(r);var completed=isCompletedOutcome(r);var tr=document.createElement('tr');tr.title=completed?'Completed FDA outcome':'Active/watch row \u2014 click to open TradingView';tr.addEventListener('click',function(){var tkr=String(r.tkr||'');if(completed&&(outcome?.source||r.source))window.open(outcome?.source||r.source,'_blank');else if(/^[A-Z]{1,5}$/.test(tkr))window.open(tradingViewUrlFor(tkr),'_blank');else if(r.source)window.open(r.source,'_blank')});var pdfuaDisplay=fda?'<span style="color:#00e5ff;font-weight:600">'+esc(fda.decisionDate)+'</span>':(outcome?esc(displayPdufa(r))+'<br>'+outcomeBadgeHtml(outcome):esc(displayPdufa(r)));tr.innerHTML='<td><div class="tdtk">'+esc(r.tkr)+'</div></td><td><div class="tdco">'+esc(cleanText(r.co))+'</div><div class="tddrug">'+(fda?esc(fda.brandName):esc(cleanText(r.drug)))+'</div></td><td class="tdind hide-m">'+esc(cleanText(r.ind))+'</td><td class="tddate">'+pdfuaDisplay+'</td><td class="tdsc"><span class="scb '+scoreClass(r.score)+'">'+esc(r.score)+'</span></td><td class="tdclass hide-m">'+esc(cleanText(r.mantis_class))+'</td><td class="tdwin hide-m">'+eStr+'</td><td class="tdwin hide-m">'+xStr+'</td><td class="hide-m">'+(r.orph?'<span class="mb orph">Orphan</span> ':'')+therapyTag+'<span class="mb">'+esc(cleanText(r.catalyst_type||'FDA'))+'</span>'+(fda?' <span class="mb" style="border-color:rgba(0,255,65,.4);color:#00ff41;background:rgba(0,255,65,.1)">\u2714 Approved</span>':'')+(!fda&&outcome?' '+outcomeBadgeHtml(outcome):'')+(r.is_new_candidate?' <span class="mb" style="border-color:rgba(255,0,85,.45);color:#ff0055;background:rgba(255,0,85,.08)">New MANTIS</span>':'')+'</td>';tbody.appendChild(tr)})}
-
+function renderTable(){var tbody=document.getElementById('wl-tbody'),empty=document.getElementById('wl-empty');var search=(document.getElementById('searchBox').value||'').toLowerCase();var minSc=+document.getElementById('scoreFilter').value;var sortV=document.getElementById('sortSelect').value;var focusTicker=activeHeroFocusTicker();var rows=STATE.FUTURE_ROWS.filter(function(r){var blob=[r.tkr,r.co,r.drug,r.ind,r.notes,r.therapy].join(' ').toLowerCase();if(search&&!blob.includes(search))return false;if((r.score||0)<minSc)return false;if(STATE.CHIPS.s5&&r.score!==5)return false;if(STATE.CHIPS.s4&&(r.score||0)<4)return false;if(STATE.CHIPS.orph&&!r.orph)return false;if(STATE.CHIPS.gene){var th=String(r.therapy||'').toLowerCase();if(!(th.includes('gene')||th.includes('cell')))return false}if(focusTicker&&r.tkr!==focusTicker)return false;return true});rows=sortRows(rows,sortV);tbody.innerHTML='';empty.style.display=rows.length?'none':'block';rows.forEach(function(r){var en=winDates(r.pdufa,r.date_type,r.entry),ex=winDates(r.pdufa,r.date_type,r.exit);var eStr=en?fmtDateShort(en.start)+' → '+fmtDateShort(en.end):'—';var xStr=ex?fmtDateShort(ex.start)+' → '+fmtDateShort(ex.end):'—';var tagCls=therapyTagClass(r.therapy);var therapyTag=tagCls?'<span class="mb '+tagCls+'">'+esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))+'</span>':'<span class="mb">'+esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))+'</span>';var fda=FDA_DECISIONS[r.tkr];var outcome=outcomeForRow(r);var completed=isCompletedOutcome(r);var tr=document.createElement('tr');tr.title=completed?'Completed FDA outcome':'Active/watch row: click to open TradingView';tr.addEventListener('click',function(){var tkr=String(r.tkr||'');if(completed&&(outcome?.source||r.source))window.open(outcome?.source||r.source,'_blank');else if(/^[A-Z]{1,5}$/.test(tkr))window.open(tradingViewUrlFor(tkr),'_blank');else if(r.source)window.open(r.source,'_blank')});
+    var pdfuaDisplay;
+    if(fda&&fda.pending)pdfuaDisplay=esc(displayPdufa(r))+'<br><span style="color:#f87171;font-size:9px">AdCom 9-3 against</span>';
+    else if(fda)pdfuaDisplay='<span style="color:#00e5ff;font-weight:600">'+esc(fda.decisionDate)+'</span>';
+    else if(outcome)pdfuaDisplay=esc(displayPdufa(r))+'<br>'+outcomeBadgeHtml(outcome);
+    else pdfuaDisplay=esc(displayPdufa(r));
+    var exitCellStr=(fda&&fda.outcome==='adcom_negative')?'Jul 22 → Jul 30':xStr;
+    tr.innerHTML='<td><div class="tdtk">'+esc(r.tkr)+'</div></td><td><div class="tdco">'+esc(cleanText(r.co))+'</div><div class="tddrug">'+(fda?esc(fda.brandName):esc(cleanText(r.drug)))+'</div></td><td class="tdind hide-m">'+esc(cleanText(r.ind))+'</td><td class="tddate">'+pdfuaDisplay+'</td><td class="tdsc"><span class="scb '+scoreClass(r.score)+'">'+esc(r.score)+'</span></td><td class="tdclass hide-m">'+esc(cleanText(r.mantis_class))+'</td><td class="tdwin hide-m">'+eStr+'</td><td class="tdwin hide-m">'+exitCellStr+'</td><td class="hide-m">'+(r.orph?'<span class="mb orph">Orphan</span> ':'')+therapyTag+'<span class="mb">'+esc(cleanText(r.catalyst_type||'FDA'))+'</span>'+decisionBadgeHtml(fda)+(!fda&&outcome?' '+outcomeBadgeHtml(outcome):'')+(r.is_new_candidate?' <span class="mb" style="border-color:rgba(255,0,85,.45);color:#ff0055;background:rgba(255,0,85,.08)">New MANTIS</span>':'')+'</td>';tbody.appendChild(tr)})}
 function setupChips(){document.querySelectorAll('.chip').forEach(function(ch){ch.addEventListener('click',function(){var c=ch.dataset.c;if(c==='rst'){Object.keys(STATE.CHIPS).forEach(function(k){STATE.CHIPS[k]=false});document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});renderTable();return}if(['hero0','hero1','hero2','hero3'].includes(c)){var was=STATE.CHIPS[c];['hero0','hero1','hero2','hero3'].forEach(function(k){STATE.CHIPS[k]=false;document.querySelector('.chip[data-c="'+k+'"]')?.classList.remove('on')});STATE.CHIPS[c]=!was;ch.classList.toggle('on',STATE.CHIPS[c])}else if(c==='s5'){STATE.CHIPS.s5=!STATE.CHIPS.s5;if(STATE.CHIPS.s5){STATE.CHIPS.s4=false;document.querySelector('.chip[data-c="s4"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s5)}else if(c==='s4'){STATE.CHIPS.s4=!STATE.CHIPS.s4;if(STATE.CHIPS.s4){STATE.CHIPS.s5=false;document.querySelector('.chip[data-c="s5"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s4)}else if(c==='orph'){STATE.CHIPS.orph=!STATE.CHIPS.orph;ch.classList.toggle('on',STATE.CHIPS.orph)}else if(c==='gene'){STATE.CHIPS.gene=!STATE.CHIPS.gene;ch.classList.toggle('on',STATE.CHIPS.gene)}renderTable()})})}
-
-async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS)}
-
+function ensureCaprAnalog(){
+  var list=STATE.ANALOGS||[];
+  if(list.some(function(a){return String(a.name||'').toUpperCase().indexOf('CAPR')>-1}))return list;
+  list.push({name:'CAPR',label:'Deramiocel · AdCom 9-3 against',disease:'DMD cardiomyopathy',return_pct:-67.0,color:'#f87171',outcome:'AdCom Against'});
+  return list;
+}
+async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCaprAnalog()}
 async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();buildAdcomPanel();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable);
-  // Blitzer initial scan after 3s
   setTimeout(function(){ if(document.getElementById('blitzerPanel')) runBlitzerScan(); }, 3000)}
 window.addEventListener('load',init);
 </script>
