@@ -453,33 +453,6 @@
     .tl-date{font-family:var(--mono);font-size:10px;color:rgba(248,113,113,.75);min-width:66px;flex:0 0 auto}
     .tl-txt{font-size:11px;color:var(--soft);line-height:1.55}
     .tl-txt b{color:var(--text);font-weight:600}
-    /* ===== BINARY BLITZER AGENT ===== */
-    .blitzer{border-radius:3px;border:1px solid rgba(0,229,255,.1);background:rgba(0,229,255,.02);margin-top:14px;overflow:hidden}
-    .blitzer-hd{padding:10px 14px;border-bottom:1px solid rgba(0,229,255,.08);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-    .blitzer-id{display:flex;align-items:center;gap:8px}
-    .blitzer-pulse{width:8px;height:8px;border-radius:50%;background:#00e5ff;flex-shrink:0;opacity:.6}
-    .blitzer-pulse.scanning{animation:blitzerPulse .6s ease-in-out infinite alternate}
-    @keyframes blitzerPulse{0%{opacity:.3;box-shadow:0 0 0 0 rgba(0,229,255,.4)}100%{opacity:1;box-shadow:0 0 8px 2px rgba(0,229,255,.3)}}
-    .blitzer-name{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#00e5ff}
-    .blitzer-tag{font-size:8px;color:rgba(0,229,255,.35);font-family:var(--mono)}
-    .blitzer-btn{padding:3px 10px;border-radius:2px;border:1px solid rgba(0,229,255,.2);background:rgba(0,229,255,.04);color:rgba(0,229,255,.6);font-size:8px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s}
-    .blitzer-btn:hover{border-color:rgba(0,229,255,.4);color:#00e5ff;background:rgba(0,229,255,.08)}
-    .blitzer-btn.active{pointer-events:none;opacity:.5}
-    .blitzer-body{padding:10px 14px}
-    .blitzer-log{font-family:var(--mono);font-size:9px;line-height:1.7;color:var(--muted);max-height:160px;overflow-y:auto}
-    .blitzer-log .entry{display:flex;gap:8px;align-items:flex-start}
-    .blitzer-log .ts{color:rgba(0,229,255,.3);flex-shrink:0;min-width:52px}
-    .blitzer-log .msg{color:var(--soft)}
-    .blitzer-log .msg.hit{color:#00e5ff}
-    .blitzer-log .msg.warn{color:#ff5252}
-    .blitzer-log .msg.ok{color:#00ff41}
-    .blitzer-log a{color:#00e5ff;text-decoration:none}
-    .blitzer-log a:hover{text-decoration:underline}
-    .blitzer-targets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-    .blitzer-target{font-size:8px;padding:2px 6px;border-radius:2px;font-family:var(--mono);border:1px solid rgba(0,229,255,.1);color:rgba(0,229,255,.35)}
-    .blitzer-target.active{border-color:rgba(0,229,255,.3);color:#00e5ff;animation:blitzerPulse .8s ease-in-out infinite alternate}
-    .blitzer-target.done{border-color:rgba(0,255,65,.2);color:rgba(0,255,65,.5)}
-    .blitzer-target.fail{border-color:rgba(255,82,82,.2);color:rgba(255,82,82,.4)}
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
@@ -768,26 +741,6 @@ function buildAdcomPanel(){
         '</div>'+
       '</div>'+
     '</div>'+
-    '<div class="blitzer" id="blitzerPanel">'+
-      '<div class="blitzer-hd">'+
-        '<div class="blitzer-id">'+
-          '<div class="blitzer-pulse" id="blitzerPulse"></div>'+
-          '<div><div class="blitzer-name">Agent MANTIS Binary Blitzer</div><div class="blitzer-tag">PDUFA watch · Aug 22 decision</div></div>'+
-        '</div>'+
-        '<button class="blitzer-btn" id="blitzerBtn" onclick="runBlitzerScan()">Deploy</button>'+
-      '</div>'+
-      '<div class="blitzer-body">'+
-        '<div class="blitzer-targets" id="blitzerTargets">'+
-          '<span class="blitzer-target" data-t="fda">FDA.gov</span>'+
-          '<span class="blitzer-target" data-t="tv">Financial wires</span>'+
-          '<span class="blitzer-target" data-t="ctgtac">CBER / regulatory</span>'+
-          '<span class="blitzer-target" data-t="news">News sweep</span>'+
-        '</div>'+
-        '<div class="blitzer-log" id="blitzerLog">'+
-          '<div class="entry"><span class="ts">--:--</span><span class="msg">Agent standing by. Position closed. Monitoring for Aug 22 PDUFA outcome only.</span></div>'+
-        '</div>'+
-      '</div>'+
-    '</div>'+
     '<div class="adcom-footer">'+
       '<div class="adcom-footer-text" style="display:flex;gap:6px;flex-wrap:wrap">'+
         '<span class="adcom-topic">CTGTAC 9-3 against</span>'+
@@ -803,158 +756,6 @@ function buildAdcomPanel(){
     '</div>'+
   '</div>';
 }
-/* ── BINARY BLITZER — PDUFA outcome scanner ── */
-var BLITZER_RUNNING = false;
-var BLITZER_PROXIES = [
-  function(u){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
-  function(u){ return 'https://corsproxy.io/?' + encodeURIComponent(u); },
-  function(u){ return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); }
-];
-function bTime(){
-  var d=new Date();
-  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');
-}
-function bLog(who, msg, cls){
-  var log=document.getElementById('blitzerLog');
-  if(!log)return;
-  var prefix = who === 'agent' ? '<span style="color:#00e5ff">BLITZER</span>' : '<span style="color:#ff0055">ALPHA</span>';
-  var entry=document.createElement('div');
-  entry.className='entry';
-  entry.innerHTML='<span class="ts">'+bTime()+'</span><span class="msg'+(cls?' '+cls:'')+'">'+prefix+' '+msg+'</span>';
-  log.insertBefore(entry, log.firstChild);
-  while(log.children.length > 25) log.removeChild(log.lastChild);
-}
-function bTarget(id, state){
-  var el=document.querySelector('.blitzer-target[data-t="'+id+'"]');
-  if(el) el.className='blitzer-target'+(state?' '+state:'');
-}
-async function bFetch(rssUrl){
-  for(var i=0; i<BLITZER_PROXIES.length; i++){
-    try {
-      var proxyUrl = BLITZER_PROXIES[i](rssUrl);
-      var res = await fetch(proxyUrl, {cache:'no-store', signal: AbortSignal.timeout(8000)});
-      if(!res.ok) continue;
-      var xml = await res.text();
-      if(xml.length < 100 || !xml.includes('<item>')) continue;
-      return xml;
-    } catch(e){ continue; }
-  }
-  return null;
-}
-function bParseRSS(xml){
-  var doc = new DOMParser().parseFromString(xml, 'text/xml');
-  return Array.from(doc.querySelectorAll('item')).slice(0, 8).map(function(item){
-    return {
-      title: (item.querySelector('title')?.textContent || '').trim(),
-      link: (item.querySelector('link')?.textContent || '').trim(),
-      pub: new Date(item.querySelector('pubDate')?.textContent || '').getTime()
-    };
-  }).filter(function(x){ return x.title && x.link; });
-}
-function bClassify(items){
-  var decision = [], related = [];
-  items.forEach(function(item){
-    var t = item.title.toLowerCase();
-    var isCapr = t.includes('capricor') || t.includes('deramiocel') || t.includes('capr');
-    var isDecision = t.includes('approv') || t.includes('complete response') || t.includes('crl') || t.includes('rejects') || t.includes('pdufa') || t.includes('decision');
-    if(isCapr && isDecision){
-      decision.push(item);
-    } else if(isCapr || t.includes('duchenne')){
-      related.push(item);
-    }
-  });
-  return {decision: decision, related: related};
-}
-async function bScanSource(query, label, targetId){
-  bTarget(targetId, 'active');
-  bLog('agent', 'Sweeping ' + label + '...', '');
-  var rss = 'https://news.google.com/rss/search?q=' + encodeURIComponent(query) + '&hl=en-US&gl=US&ceid=US:en';
-  var xml = await bFetch(rss);
-  if(!xml){
-    bTarget(targetId, 'fail');
-    bLog('agent', label + ' unreachable. Proxy timeout across all endpoints.', 'warn');
-    return {decision:[], related:[]};
-  }
-  var items = bParseRSS(xml);
-  if(!items.length){
-    bTarget(targetId, 'fail');
-    bLog('agent', label + ' returned empty. No matching signals.', 'warn');
-    return {decision:[], related:[]};
-  }
-  var classified = bClassify(items);
-  bTarget(targetId, 'done');
-  if(classified.decision.length > 0){
-    classified.decision.forEach(function(h){
-      bLog('agent', 'Decision signal: <a href="'+esc(h.link)+'" target="_blank" rel="noopener">'+esc(h.title.substring(0,90))+'</a>', 'hit');
-    });
-  } else if(classified.related.length > 0){
-    bLog('agent', label + ': ' + classified.related.length + ' related items, no PDUFA decision detected.', '');
-  } else {
-    bLog('agent', label + ': ' + items.length + ' items parsed, none relevant.', '');
-  }
-  return classified;
-}
-async function runBlitzerScan(){
-  if(BLITZER_RUNNING) return;
-  BLITZER_RUNNING = true;
-  var btn=document.getElementById('blitzerBtn');
-  var pulse=document.getElementById('blitzerPulse');
-  if(btn){btn.classList.add('active'); btn.textContent='Deployed...';}
-  if(pulse) pulse.classList.add('scanning');
-  ['fda','tv','ctgtac','news'].forEach(function(t){ bTarget(t,''); });
-  bLog('alpha', 'Blitzer, position is flat. Watch only. Report any Aug 22 PDUFA outcome for CAPR.', '');
-  bLog('agent', 'Copy, ALPHA. No exposure. Deploying across 4 sources for decision intel.', 'ok');
-  var allDecision = [], allRelated = [];
-  var r1 = await bScanSource(
-    'Capricor deramiocel FDA decision PDUFA August 2026',
-    'FDA.gov / regulatory filings',
-    'fda'
-  );
-  allDecision = allDecision.concat(r1.decision);
-  allRelated = allRelated.concat(r1.related);
-  await new Promise(function(r){setTimeout(r,600);});
-  var r2 = await bScanSource(
-    'CAPR Capricor stock FDA approval complete response letter',
-    'Financial wires',
-    'tv'
-  );
-  allDecision = allDecision.concat(r2.decision);
-  allRelated = allRelated.concat(r2.related);
-  await new Promise(function(r){setTimeout(r,600);});
-  var r3 = await bScanSource(
-    'CBER deramiocel BLA 125842 Duchenne cell therapy action',
-    'CBER / regulatory',
-    'ctgtac'
-  );
-  allDecision = allDecision.concat(r3.decision);
-  allRelated = allRelated.concat(r3.related);
-  await new Promise(function(r){setTimeout(r,600);});
-  var r4 = await bScanSource(
-    'Capricor Therapeutics CAPR news August 2026',
-    'Broad news sweep',
-    'news'
-  );
-  allDecision = allDecision.concat(r4.decision);
-  allRelated = allRelated.concat(r4.related);
-  if(allDecision.length > 0){
-    bLog('agent', 'ALPHA, contact. ' + allDecision.length + ' decision-grade item(s) located. See above.', 'hit');
-    bLog('alpha', 'Received, Blitzer. Flagging for manual review. Position stays flat.', 'ok');
-  } else if(allRelated.length > 0){
-    bLog('agent', 'ALPHA, sweep complete. ' + allRelated.length + ' related signals, no PDUFA action yet.', '');
-    bLog('alpha', 'Copy. Maintain watch through Aug 22. Next sweep in 30 minutes.', '');
-  } else {
-    bLog('agent', 'ALPHA, negative across all sources. No decision intelligence detected.', 'warn');
-    bLog('alpha', 'Understood. Stay on station, Blitzer. Auto-rescan in 30m.', '');
-  }
-  BLITZER_RUNNING = false;
-  if(btn){btn.classList.remove('active'); btn.textContent='Deploy';}
-  if(pulse) pulse.classList.remove('scanning');
-}
-setInterval(function(){
-  if(document.getElementById('blitzerPanel')){
-    runBlitzerScan();
-  }
-}, 30 * 60 * 1000);
 function renderDealEvents(){var section=document.getElementById('dealSection'),grid=document.getElementById('dealGrid'),events=STATE.DEAL_EVENTS||[];if(!section||!grid||!events.length){if(section)section.style.display='none';return}section.style.display='block';grid.innerHTML=events.map(function(ev){var bullets=(ev.bullets||[]).map(function(b){return'<div class="deal-bullet"><span class="deal-bullet-dot"></span><span>'+esc(b)+'</span></div>'}).join('');return'<div class="deal-card"><div class="deal-top"><div><div class="deal-kicker">M&A / Tender Event</div><div class="deal-title">'+esc(ev.tkr)+' · '+esc(ev.headline)+'</div><div class="deal-sub">'+esc(ev.co)+' · '+esc(ev.status)+'</div></div><div class="deal-status">Reclassified</div></div><div class="deal-metrics"><div class="deal-metric"><div class="k">Deal Value</div><div class="v">'+esc(ev.deal_value)+'</div></div><div class="deal-metric"><div class="k">Offer</div><div class="v">'+esc(ev.price)+'</div></div><div class="deal-metric"><div class="k">Premium</div><div class="v">'+esc(ev.premium)+'</div></div><div class="deal-metric"><div class="k">Assets</div><div class="v">'+esc(ev.asset_focus)+'</div></div></div><div class="deal-copy">'+esc(ev.why_it_matters)+'</div><div class="deal-bullets">'+bullets+'</div>'+(ev.source?'<a class="deal-link" href="'+esc(ev.source)+'" target="_blank" rel="noopener">Open source →</a>':'')+'</div>'}).join('')}
 function renderFdaOutcomes(){var section=document.getElementById('fdaOutcomeSection'),grid=document.getElementById('fdaOutcomeGrid'),outcomes=STATE.FDA_OUTCOMES||[];if(!section||!grid||!outcomes.length){if(section)section.style.display='none';return}section.style.display='block';grid.innerHTML=outcomes.map(function(o){var cls=String(o.outcome||'').toLowerCase().includes('crl')?'crl':(String(o.outcome||'').toLowerCase().includes('extend')?'extended':'approved');return'<div class="outcome-card '+cls+'"><div class="outcome-top"><div><div class="outcome-tkr">'+esc(o.tkr)+'</div><div class="outcome-co">'+esc(o.co)+'</div></div><div class="outcome-pill '+cls+'">'+esc(o.outcome)+'</div></div><div class="outcome-drug">'+esc(o.drug)+'</div><div class="outcome-ind">'+esc(o.ind)+'</div><div class="outcome-meta"><span>'+esc(o.decision_date)+'</span><span>'+esc(o.status_label)+'</span></div><div class="outcome-takeaway">'+esc(o.mantis_takeaway)+'</div>'+(o.source?'<a class="outcome-link" href="'+esc(o.source)+'" target="_blank" rel="noopener">Open decision source →</a>':'')+'</div>'}).join('')}
 function outcomeForRow(r){var outcomes=STATE.FDA_OUTCOMES||[];return outcomes.find(function(o){if(String(o.tkr||'')!==String(r.tkr||''))return false;if(o.pdufa&&r.pdufa&&String(o.pdufa)!==String(r.pdufa))return false;return true})||null}
@@ -988,8 +789,7 @@ function ensureCaprAnalog(){
   return list;
 }
 async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCaprAnalog()}
-async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();buildAdcomPanel();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable);
-  setTimeout(function(){ if(document.getElementById('blitzerPanel')) runBlitzerScan(); }, 3000)}
+async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();buildAdcomPanel();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable)}
 window.addEventListener('load',init);
 </script>
 </body>
