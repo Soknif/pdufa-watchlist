@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
   <script src="https://s3.tradingview.com/tv.js"></script>
   <style>
-    :root{--bg:#08000a;--bg1:#0a0016;--sf:rgba(255,255,255,.035);--sf2:rgba(255,255,255,.06);--bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.14);--rckt:#7c3aed;--rckt2:#a78bfa;--dnli:#0d9488;--dnli2:#5eead4;--vera:#db2777;--vera2:#f9a8d4;--rare:#d97706;--rare2:#fcd34d;--nuvl:#0284c7;--nuvl2:#7dd3fc;--svra:#0891b2;--svra2:#67e8f9;--capr:#f59e0b;--capr2:#fde68a;--prax:#8b5cf6;--prax2:#c4b5fd;--green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--text:#e2e8f0;--muted:#64748b;--soft:#94a3b8;--mono:'JetBrains Mono',monospace;--sans:'Space Grotesk',system-ui,sans-serif;--disp:'Bebas Neue',sans-serif;--r:3px;--r2:4px}
+    :root{--bg:#08000a;--bg1:#0a0016;--sf:rgba(255,255,255,.035);--sf2:rgba(255,255,255,.06);--bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.14);--rckt:#7c3aed;--rckt2:#a78bfa;--dnli:#0d9488;--dnli2:#5eead4;--vera:#db2777;--vera2:#f9a8d4;--rare:#d97706;--rare2:#fcd34d;--nuvl:#0284c7;--nuvl2:#7dd3fc;--svra:#0891b2;--svra2:#67e8f9;--capr:#f59e0b;--capr2:#fde68a;--prax:#8b5cf6;--prax2:#c4b5fd;--green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--text:#e2e8f0;--muted:#64748b;--soft:#94a3b8;--mono:'JetBrains Mono',monospace;--sans:'Space Grotesk',system-ui,sans-serif;--disp:'Bebas Neue',sans-serif;--r:3px;--r2:4px;--label:#9aa8bd;--label-dim:#8492a6;--accent:#ff3d75;--accent-soft:#ff90b0;--loss:#ffa8a8;--loss-num:#ff6b6b;--warn:#ffd48a}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -17,21 +17,21 @@
     body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,.04) 0px,rgba(0,0,0,.04) 1px,transparent 1px,transparent 3px);mix-blend-mode:multiply}
     .wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 14px 56px}
     .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0 8px;gap:10px;flex-wrap:wrap;border-bottom:1px solid rgba(255,0,85,.2);box-shadow:0 1px 6px rgba(255,0,85,.08)}
-    .brand-mark{font-family:var(--mono);font-size:20px;font-weight:700;letter-spacing:.14em;line-height:1;color:#ff0055;text-transform:uppercase;text-shadow:0 0 12px rgba(255,0,85,.5),0 0 30px rgba(255,0,85,.2)}
-    .brand-sub{font-size:9px;color:rgba(255,0,85,.3);margin-top:2px;font-family:var(--mono);letter-spacing:.08em}
-    .live-pill{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:2px;border:1px solid rgba(0,229,255,.2);background:rgba(0,229,255,.03);font-size:10px;color:rgba(0,229,255,.5);font-family:var(--mono)}
+    .brand-mark{font-family:var(--mono);font-size:20px;font-weight:700;letter-spacing:.14em;line-height:1;color:var(--accent);text-transform:uppercase;text-shadow:0 0 14px rgba(255,61,117,.45),0 0 34px rgba(255,61,117,.18)}
+    .brand-sub{font-size:9px;color:var(--label-dim);margin-top:2px;font-family:var(--mono);letter-spacing:.08em}
+    .live-pill{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:2px;border:1px solid rgba(0,229,255,.2);background:rgba(0,229,255,.03);font-size:10px;color:#5ad1e6;font-family:var(--mono)}
     .live-pill::after{content:'_';animation:termBlink 1s step-end infinite;color:#00e5ff;font-family:var(--mono);font-size:12px;margin-left:2px}
     @keyframes termBlink{0%,100%{opacity:1}50%{opacity:0}}
     .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
     .legend-bar{display:flex;gap:6px;flex-wrap:wrap;padding:6px 0 8px;border-bottom:1px solid var(--bd);margin-bottom:10px;align-items:center}
-    .leg-lbl{font-size:10px;color:rgba(255,0,85,.55);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
+    .leg-lbl{font-size:10px;color:var(--label);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
     .leg-i{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--soft);font-family:var(--mono)}
     .leg-d{width:8px;height:8px;border-radius:50%}
     .sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:8px 0 8px 12px;border-left:2px solid rgba(255,0,85,.6);gap:10px;flex-wrap:wrap;margin-bottom:12px}
-    .sec-title{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#ff0055;text-shadow:0 0 10px rgba(255,0,85,.4),0 0 20px rgba(255,0,85,.15)}
+    .sec-title{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-soft);text-shadow:0 0 12px rgba(255,61,117,.25)}
     .sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
-    .stag{font-size:8px;padding:2px 6px;border-radius:2px;border:1px solid rgba(255,0,85,.2);background:none;color:rgba(255,0,85,.4);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase}
+    .stag{font-size:8px;padding:2px 6px;border-radius:2px;border:1px solid rgba(255,0,85,.2);background:none;color:var(--label-dim);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase}
     .heroes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px;align-items:start}
     @media(max-width:1280px){.heroes{grid-template-columns:1fr 1fr}}
     @media(max-width:720px){.heroes{grid-template-columns:1fr}}
@@ -58,25 +58,25 @@
     .bd.sc3{background:rgba(125,211,252,.10);border-color:rgba(125,211,252,.3);color:#7dd3fc}
     .hkpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
     .kpi{background:var(--bg1);padding:8px 10px}
-    .kpi .k{font-size:9px;color:rgba(255,0,85,.55);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);margin-bottom:5px}
+    .kpi .k{font-size:9px;color:var(--label);letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);margin-bottom:5px}
     .kpi .v{font-size:14px;font-family:var(--mono);font-weight:700;line-height:1.2;color:#e2e8f0}
     .kpi .s{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3}
     .cdb{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .cdlbl{font-size:9px;color:rgba(255,0,85,.55);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono);flex:0 0 auto}
+    .cdlbl{font-size:9px;color:var(--label);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono);flex:0 0 auto}
     .cdd{display:flex;gap:5px;flex:1}
     .cdu{text-align:center;min-width:42px;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:6px 7px}
     .cdn{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1;color:#e2e8f0}
     .cdl{font-size:8px;color:var(--muted);margin-top:2px;letter-spacing:.1em;text-transform:uppercase}
     .cdt{font-size:11px;color:var(--soft);font-family:var(--mono);white-space:nowrap}
     .pbb{padding:12px 16px;border-bottom:1px solid var(--bd)}
-    .pbl{font-size:9px;color:rgba(255,0,85,.55);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:8px}
+    .pbl{font-size:9px;color:var(--label);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:8px}
     .pbr{position:relative;height:7px;background:var(--sf2);border-radius:4px}
     .pbf{height:100%;border-radius:4px;position:absolute;left:0;top:0;transition:width .6s;background:linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.85))}
     .pbm{position:absolute;top:-5px;width:17px;height:17px;border-radius:50%;border:2px solid var(--bg);transform:translateX(-50%);box-shadow:0 0 10px rgba(255,255,255,.5);background:#fff}
     .pbls{display:flex;justify-content:space-between;margin-top:7px}
     .pbls span{font-size:8px;color:var(--muted);font-family:var(--mono)}
     .thesis{padding:12px 16px 16px}
-    .tttl{font-size:9px;color:rgba(255,0,85,.55);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:9px}
+    .tttl{font-size:9px;color:var(--label);letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);margin-bottom:9px}
     .tpts{display:flex;flex-direction:column;gap:6px}
     .tpt{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:var(--text);line-height:1.45}
     .td2{width:6px;height:6px;border-radius:50%;flex:0 0 auto;margin-top:4px;background:#cbd5e1;box-shadow:0 0 5px rgba(255,255,255,.25)}
@@ -86,11 +86,11 @@
     .win-card{border-radius:var(--r);border:1px solid rgba(255,0,85,.12);background:var(--sf);padding:14px 16px;min-width:0;align-self:start;box-shadow:0 0 1px rgba(255,0,85,.08),inset 0 0 30px rgba(0,0,0,.3)}
     .win-card:hover{border-color:rgba(255,0,85,.25);box-shadow:0 0 12px rgba(255,0,85,.06),inset 0 0 30px rgba(0,0,0,.3)}
     .winhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;flex-wrap:wrap;gap:6px}
-    .winttl{font-size:9px;color:rgba(255,0,85,.55);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono)}
+    .winttl{font-size:9px;color:var(--label);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono)}
     .wintkr{font-family:var(--mono);font-weight:700;font-size:13px;color:#e2e8f0}
     .winrows{display:flex;flex-direction:column;gap:8px}
     .winrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-    .wrl{font-size:9px;color:rgba(255,0,85,.55);text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
+    .wrl{font-size:9px;color:var(--label);text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
     .wrd{font-size:11px;font-family:var(--mono);color:var(--text)}
     .wp{font-size:9px;padding:2px 8px;border-radius:3px;font-weight:600;font-family:var(--mono);white-space:nowrap}
     .wp.en{background:rgba(0,255,65,.12);border:1px solid rgba(0,255,65,.35);color:#00ff41}
@@ -107,7 +107,7 @@
     .analog-body{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
     @media(max-width:800px){.analog-body{grid-template-columns:1fr}}
     .chart-canvas-wrap canvas{display:block;width:100%;height:auto}
-    .chart-title{font-size:11px;color:rgba(255,0,85,.55);font-family:var(--mono);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase}
+    .chart-title{font-size:11px;color:var(--label);font-family:var(--mono);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase}
     .analog-legend{display:flex;flex-direction:column;gap:12px;justify-content:center}
     .al-item{border-radius:3px;border:1px solid var(--bd);background:var(--sf2);padding:10px 14px;display:flex;align-items:flex-start;gap:10px}
     .al-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;margin-top:4px}
@@ -148,13 +148,13 @@
     .crow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
     .chip{padding:4px 10px;border-radius:2px;border:1px solid var(--bd2);background:var(--sf2);color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;letter-spacing:.08em;transition:all .15s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
     .chip:hover,.chip:active{color:var(--text);border-color:rgba(255,0,85,.3)}
-    .chip.on{border-color:rgba(255,0,85,.4);background:rgba(255,0,85,.08);color:#ff5252}
+    .chip.on{border-color:rgba(255,0,85,.4);background:rgba(255,0,85,.08);color:var(--accent-soft)}
     .chip[data-c="hero1"].on{border-color:rgba(94,234,212,.5);background:rgba(13,148,136,.14);color:var(--dnli2)}
     .chip[data-c="hero2"].on{border-color:rgba(249,168,212,.5);background:rgba(219,39,119,.14);color:var(--vera2)}
     .chip[data-c="hero3"].on{border-color:rgba(103,232,249,.5);background:rgba(8,145,178,.14);color:var(--svra2)}
     .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
     table{width:100%;border-collapse:collapse}
-    th{text-align:left;padding:5px 10px;font-size:8px;color:rgba(255,0,85,.35);letter-spacing:.16em;text-transform:uppercase;font-family:var(--mono);border-bottom:1px solid rgba(255,0,85,.1);white-space:nowrap}
+    th{text-align:left;padding:5px 10px;font-size:8px;color:var(--label-dim);letter-spacing:.16em;text-transform:uppercase;font-family:var(--mono);border-bottom:1px solid rgba(255,0,85,.1);white-space:nowrap}
     td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
     tr:last-child td{border-bottom:none}
     tr{cursor:pointer;transition:background .12s}
@@ -175,7 +175,7 @@
     .empty-st{padding:32px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--bd);border-radius:var(--r);margin-top:10px}
     .hide-m{display:table-cell}
     @media(max-width:700px){.hide-m{display:none!important}td,th{padding:9px 7px}}
-    .foot{margin-top:20px;padding:10px 0;border-top:1px solid rgba(255,0,85,.1);text-align:right;font-size:9px;color:rgba(255,0,85,.25);font-family:var(--mono)}
+    .foot{margin-top:20px;padding:10px 0;border-top:1px solid rgba(255,0,85,.1);text-align:right;font-size:9px;color:var(--muted);font-family:var(--mono)}
     .foot::before{content:'> ';color:#ff0055;font-family:var(--mono)}
     .load-err{padding:24px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);border-radius:16px;color:#fecaca}
     .profit-banner{position:relative;overflow:hidden;padding:16px 18px;background:linear-gradient(135deg,rgba(0,255,65,.08) 0%,rgba(255,0,85,.06) 50%,rgba(0,255,65,.08) 100%);border-bottom:1px solid rgba(0,255,65,.25)}
@@ -203,18 +203,18 @@
     /* ===== LOSS / STOP-OUT VARIANTS ===== */
     .profit-banner.loss{background:linear-gradient(135deg,rgba(239,68,68,.10) 0%,rgba(255,0,85,.06) 50%,rgba(239,68,68,.10) 100%);border-bottom:1px solid rgba(239,68,68,.3)}
     .profit-banner.loss::before{background:linear-gradient(90deg,transparent 0%,rgba(239,68,68,.06) 40%,rgba(255,255,255,.03) 50%,rgba(239,68,68,.06) 60%,transparent 100%);background-size:200% 100%}
-    .profit-banner.loss .profit-icon{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.28);color:#f87171}
+    .profit-banner.loss .profit-icon{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.28);color:var(--loss)}
     .profit-banner.loss .profit-label{color:rgba(248,113,113,.7)}
-    .profit-pct.loss{background:linear-gradient(135deg,#f87171,#dc2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 10px rgba(239,68,68,.35)) drop-shadow(0 0 20px rgba(239,68,68,.12))}
-    .profit-tag.loss{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.35);color:#f87171}
-    .wp.closed-loss{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:#f87171;font-weight:700}
-    .wp.profit-pill.loss{background:linear-gradient(90deg,rgba(239,68,68,.18),rgba(255,0,85,.15));border:1px solid rgba(239,68,68,.4);color:#f87171}
+    .profit-pct.loss{background:linear-gradient(135deg,#ffc2c2,#ff5c5c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 10px rgba(239,68,68,.35)) drop-shadow(0 0 20px rgba(239,68,68,.12))}
+    .profit-tag.loss{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.35);color:var(--loss)}
+    .wp.closed-loss{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:var(--loss);font-weight:700}
+    .wp.profit-pill.loss{background:linear-gradient(90deg,rgba(239,68,68,.18),rgba(255,0,85,.15));border:1px solid rgba(239,68,68,.4);color:var(--loss)}
     .pbb-complete .pbf{background:linear-gradient(90deg,rgba(0,255,65,.2),rgba(0,255,65,.7))!important;width:100%!important}
     .pbb-complete .pbm{left:100%!important;background:#00ff41!important;box-shadow:0 0 10px rgba(0,255,65,.4)!important}
     .pbb-complete .pbls span{color:#00ff41}
     .pbb-complete.loss .pbf{background:linear-gradient(90deg,rgba(239,68,68,.2),rgba(239,68,68,.7))!important}
-    .pbb-complete.loss .pbm{background:#f87171!important;box-shadow:0 0 10px rgba(239,68,68,.4)!important}
-    .pbb-complete.loss .pbls span{color:#f87171}
+    .pbb-complete.loss .pbm{background:#ffa8a8!important;box-shadow:0 0 10px rgba(239,68,68,.4)!important}
+    .pbb-complete.loss .pbls span{color:var(--loss)}
     .fda-result{padding:0;border-bottom:1px solid var(--bd);overflow:hidden}
     .fda-result-banner{position:relative;padding:12px 16px;overflow:hidden}
     .fda-result-banner.approved{background:linear-gradient(135deg,rgba(0,255,65,.06) 0%,rgba(0,255,65,.03) 40%,rgba(255,0,85,.04) 100%)}
@@ -226,8 +226,8 @@
     .fda-result-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:relative;z-index:1;flex-wrap:wrap}
     .fda-result-badge{display:flex;align-items:center;gap:7px;padding:5px 14px;border-radius:3px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
     .fda-result-badge.approved{background:rgba(0,255,65,.1);border:1px solid rgba(0,255,65,.4);color:#00ff41;box-shadow:0 0 12px rgba(0,255,65,.1);text-shadow:0 0 4px rgba(0,255,65,.3)}
-    .fda-result-badge.crl{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:#f87171;box-shadow:0 0 16px rgba(239,68,68,.15)}
-    .fda-result-badge.adcom{background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.45);color:#f87171;box-shadow:0 0 16px rgba(239,68,68,.12)}
+    .fda-result-badge.crl{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.45);color:var(--loss);box-shadow:0 0 16px rgba(239,68,68,.15)}
+    .fda-result-badge.adcom{background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.45);color:var(--loss);box-shadow:0 0 16px rgba(239,68,68,.12)}
     .fda-result-badge .badge-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
     .fda-result-badge.approved .badge-icon{background:rgba(0,255,65,.2);border:1px solid rgba(0,255,65,.4)}
     .fda-result-badge.adcom .badge-icon{background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4)}
@@ -236,7 +236,7 @@
     .fda-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
     @media(max-width:520px){.fda-result-grid{grid-template-columns:1fr}}
     .fda-detail-row{display:flex;flex-direction:column;gap:3px;min-width:0}
-    .fda-detail-label{font-size:8px;color:rgba(255,0,85,.5);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
+    .fda-detail-label{font-size:8px;color:var(--label);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
     .fda-detail-value{color:var(--text);font-family:var(--mono);font-size:11px;line-height:1.35;word-break:break-word}
     .fda-detail-value.brand-name{font-weight:700;font-size:12px;letter-spacing:.03em}
     .fda-detail-value.clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -245,21 +245,21 @@
     .fda-extra-pill.prv{background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.35);color:var(--rckt2)}
     .fda-extra-pill.accel{background:rgba(255,0,85,.08);border:1px solid rgba(255,0,85,.3);color:#ff0055}
     .fda-extra-pill.first{background:rgba(0,255,65,.08);border:1px solid rgba(0,255,65,.25);color:#00ff41}
-    .fda-extra-pill.warn{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.32);color:#f87171}
+    .fda-extra-pill.warn{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.32);color:var(--loss)}
     .fda-extra-pill.pend{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.32);color:#fcd34d}
     .deal-section{margin:0 0 18px;display:none}
     .deal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
     .deal-card{position:relative;overflow:hidden;border-radius:var(--r2);border:1px solid rgba(255,0,85,.15);background:linear-gradient(135deg,rgba(255,0,85,.06),rgba(0,0,0,.4),rgba(255,255,255,.02));padding:16px 18px;box-shadow:0 0 1px rgba(255,0,85,.08),inset 0 0 30px rgba(0,0,0,.3)}
     .deal-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 420px 180px at 100% 0%,rgba(255,0,85,.08),transparent 60%);pointer-events:none}
     .deal-top{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-    .deal-kicker{font-size:9px;color:#ff5252;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+    .deal-kicker{font-size:9px;color:var(--accent-soft);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
     .deal-title{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1.1}
     .deal-sub{color:var(--soft);font-size:12px;margin-top:3px;font-family:var(--mono)}
     .deal-status{font-size:9px;padding:4px 10px;border-radius:3px;border:1px solid rgba(255,0,85,.3);background:rgba(255,0,85,.06);color:#ff0055;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
     .deal-metrics{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.08);border-radius:12px;overflow:hidden;margin-bottom:12px}
     @media(max-width:720px){.deal-metrics{grid-template-columns:1fr 1fr}}
     .deal-metric{background:rgba(5,8,16,.72);padding:10px 12px}
-    .deal-metric .k{font-size:8px;color:rgba(255,0,85,.5);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+    .deal-metric .k{font-size:8px;color:var(--label);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
     .deal-metric .v{font-size:13px;color:#e2e8f0;font-family:var(--mono);font-weight:700;line-height:1.25}
     .deal-copy{position:relative;z-index:1;color:var(--text);font-size:12px;line-height:1.55;margin-bottom:12px}
     .deal-bullets{position:relative;z-index:1;display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
@@ -335,7 +335,7 @@
       background:#00e5ff;
     }
     .adcom-card-label{
-      font-size:9px;color:rgba(0,229,255,.4);font-family:var(--mono);
+      font-size:9px;color:var(--label);font-family:var(--mono);
       letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;
     }
     .adcom-card-value{
@@ -347,7 +347,7 @@
       display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;
     }
     .adcom-cd-label{
-      font-size:9px;color:rgba(0,229,255,.4);font-family:var(--mono);
+      font-size:9px;color:var(--label);font-family:var(--mono);
       letter-spacing:.12em;text-transform:uppercase;
     }
     .adcom-cd-unit{
@@ -370,7 +370,7 @@
       background:var(--sf2);padding:14px 16px;margin-bottom:16px;
     }
     .adcom-ep-title{
-      font-size:9px;color:rgba(0,229,255,.35);font-family:var(--mono);
+      font-size:9px;color:var(--label);font-family:var(--mono);
       letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;
     }
     .adcom-ep-row{
@@ -388,7 +388,7 @@
       background:rgba(0,229,255,.06);
       text-shadow:0 0 3px rgba(0,229,255,.15);
     }
-    .adcom-ep-result.miss{color:#f87171;border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
+    .adcom-ep-result.miss{color:var(--loss);border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
     .adcom-ep-result.neutral{color:#fcd34d;border:1px solid rgba(252,211,77,.35);background:rgba(252,211,77,.08)}
     .adcom-footer{
       padding:14px 20px;border-top:1px solid rgba(0,229,255,.08);
@@ -400,11 +400,11 @@
       font-size:8px;padding:3px 8px;border-radius:3px;
       font-family:var(--mono);letter-spacing:.08em;
       border:1px solid rgba(0,229,255,.15);
-      background:rgba(0,229,255,.03);color:rgba(0,229,255,.5);
+      background:rgba(0,229,255,.03);color:#5ad1e6;
     }
     .adcom-toggle{
       display:inline-flex;align-items:center;gap:6px;
-      font-size:10px;color:rgba(0,229,255,.5);font-family:var(--mono);
+      font-size:10px;color:#5ad1e6;font-family:var(--mono);
       cursor:pointer;padding:4px 0;letter-spacing:.06em;
       border:none;background:none;
       transition:color .15s;
@@ -421,23 +421,23 @@
     .adcom-panel.resolved{border-color:rgba(239,68,68,.28);background:linear-gradient(135deg,rgba(239,68,68,.04) 0%,rgba(0,0,0,.45) 55%,rgba(255,0,85,.03) 100%)}
     .adcom-panel.resolved::before{background:#ef4444;width:60px}
     .adcom-panel.resolved .adcom-header{border-bottom-color:rgba(239,68,68,.12)}
-    .adcom-panel.resolved .adcom-title{color:#f87171;text-shadow:0 0 4px rgba(239,68,68,.2)}
-    .adcom-panel.resolved .adcom-icon{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.25);color:#f87171;text-shadow:none}
-    .adcom-panel.resolved .adcom-ticker{color:#f87171;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06)}
+    .adcom-panel.resolved .adcom-title{color:var(--loss);text-shadow:0 0 4px rgba(239,68,68,.2)}
+    .adcom-panel.resolved .adcom-icon{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.25);color:var(--loss);text-shadow:none}
+    .adcom-panel.resolved .adcom-ticker{color:var(--loss);border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06)}
     .adcom-panel.resolved .adcom-card::before{background:#ef4444}
     .adcom-panel.resolved .adcom-card-label,
     .adcom-panel.resolved .adcom-cd-label,
-    .adcom-panel.resolved .adcom-ep-title{color:rgba(248,113,113,.5)}
-    .adcom-panel.resolved .adcom-toggle{color:rgba(248,113,113,.6)}
-    .adcom-panel.resolved .adcom-toggle:hover{color:#f87171}
-    .adcom-panel.resolved .adcom-topic{border-color:rgba(239,68,68,.18);background:rgba(239,68,68,.04);color:rgba(248,113,113,.6)}
+    .adcom-panel.resolved .adcom-ep-title{color:var(--label)}
+    .adcom-panel.resolved .adcom-toggle{color:var(--loss)}
+    .adcom-panel.resolved .adcom-toggle:hover{color:var(--loss)}
+    .adcom-panel.resolved .adcom-topic{border-color:rgba(239,68,68,.18);background:rgba(239,68,68,.04);color:var(--loss)}
     .adcom-panel.resolved .adcom-footer{border-top-color:rgba(239,68,68,.12)}
     .adcom-panel.resolved .adcom-cd-unit{background:rgba(245,158,11,.04);border-color:rgba(245,158,11,.18)}
     .adcom-panel.resolved .adcom-cd-num{color:#fcd34d;text-shadow:0 0 6px rgba(245,158,11,.15)}
     .vote-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border-radius:10px;overflow:hidden;margin-bottom:16px}
     .vote-cell{background:var(--bg1);padding:12px 14px;text-align:center}
     .vote-num{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1}
-    .vote-num.against{color:#f87171;text-shadow:0 0 12px rgba(239,68,68,.3)}
+    .vote-num.against{color:var(--loss-num);text-shadow:0 0 14px rgba(255,107,107,.28)}
     .vote-num.for{color:#00ff41}
     .vote-num.abst{color:var(--muted)}
     .vote-lbl{font-size:8px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
@@ -445,14 +445,33 @@
     .adcom-note b{color:var(--text);font-weight:600}
     .lesson{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--bd)}
     .lesson:last-child{border-bottom:none}
-    .lesson-n{font-family:var(--mono);font-size:9px;color:#f87171;flex:0 0 auto;margin-top:3px;min-width:18px}
+    .lesson-n{font-family:var(--mono);font-size:9px;color:var(--accent-soft);flex:0 0 auto;margin-top:3px;min-width:18px}
     .lesson-t{font-size:11px;color:var(--soft);line-height:1.6}
     .lesson-t b{color:var(--text);font-weight:600}
     .tl-row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd);align-items:flex-start}
     .tl-row:last-child{border-bottom:none}
-    .tl-date{font-family:var(--mono);font-size:10px;color:rgba(248,113,113,.75);min-width:66px;flex:0 0 auto}
+    .tl-date{font-family:var(--mono);font-size:10px;color:var(--loss);min-width:66px;flex:0 0 auto}
     .tl-txt{font-size:11px;color:var(--soft);line-height:1.55}
     .tl-txt b{color:var(--text);font-weight:600}
+    .audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;margin-bottom:20px}
+    .aud-card{border-radius:var(--r);border:1px solid var(--bd);background:var(--sf);padding:12px 14px;box-shadow:inset 0 0 30px rgba(0,0,0,.3);min-width:0}
+    .aud-card.corrected{border-color:rgba(255,212,138,.28)}
+    .aud-card.crl,.aud-card.review{border-color:rgba(255,168,168,.24)}
+    .aud-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+    .aud-tkr{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);letter-spacing:.1em}
+    .aud-asset{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:3px;line-height:1.4}
+    .aud-pill{font-size:8px;padding:3px 9px;border-radius:3px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;border:1px solid var(--bd2);background:var(--sf2);color:var(--soft);flex:0 0 auto}
+    .aud-pill.corrected,.aud-pill.review{border-color:rgba(255,212,138,.4);background:rgba(255,212,138,.08);color:var(--warn)}
+    .aud-pill.confirmed,.aud-pill.approved{border-color:rgba(94,224,138,.35);background:rgba(94,224,138,.07);color:#7fe3a5}
+    .aud-pill.crl{border-color:rgba(255,168,168,.4);background:rgba(255,168,168,.08);color:var(--loss)}
+    .aud-pill.delisted{border-color:var(--bd2);color:var(--muted)}
+    .aud-dates{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;margin-bottom:8px;flex-wrap:wrap}
+    .aud-old{color:var(--muted);text-decoration:line-through}
+    .aud-arrow{color:var(--warn)}
+    .aud-new{color:var(--text);font-weight:700}
+    .aud-note{font-size:11px;color:var(--soft);line-height:1.55}
+    .aud-src{display:inline-block;margin-top:8px;font-size:9px;font-family:var(--mono);color:#5ad1e6;text-decoration:none;letter-spacing:.06em}
+    .aud-src:hover{text-decoration:underline}
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
@@ -477,6 +496,10 @@
   <div class="windows-row" id="windowsRow"></div>
   <!-- CAPR ADCOM POST-MORTEM -->
   <div id="caprAdcomPanel"></div>
+  <div class="audit-section" id="auditSection">
+    <div class="sec-hdr"><div><div class="sec-title">PDUFA DATE AUDIT</div><div class="sec-sub">Reconciled against company filings and FDA sources &#183; verified 2026-08-03</div></div><span class="stag">verified</span></div>
+    <div class="audit-grid" id="auditGrid"></div>
+  </div>
   <div class="deal-section" id="dealSection">
     <div class="sec-hdr"><div><div class="sec-title">STRATEGIC EVENTS</div></div><span class="stag">events</span></div>
     <div class="deal-grid" id="dealGrid"></div>
@@ -523,6 +546,74 @@ const FDA_DECISIONS={
       'PDUFA Aug 22, 2026 still stands. MANTIS is not re-entering ahead of the decision.'
     ]}
 };
+
+/* PDUFA date audit. Verified against primary sources on 2026-08-03.
+   apply:true overwrites the date carried in data.json. apply:false means the
+   ticker has more than one live filing or the sponsor has only disclosed a
+   month/quarter, so the row is flagged for manual reconciliation instead. */
+const AUDIT_DATE='2026-08-03';
+const DATE_AUDIT={
+ 'PRAX':{apply:true,pdufa:'2026-12-27',was:'2026-09-27',status:'corrected',asset:'Relutrigine · SCN2A/SCN8A DEE',note:'Extended three months. FDA classified the additional sensitivity analyses as a major amendment. No new clinical studies requested, no safety or manufacturing concerns cited.',src:'https://investors.praxismedicines.com/news-releases/news-release-details/praxis-precision-medicines-announces-extension-period'},
+ 'SVRA':{apply:true,pdufa:'2026-11-22',was:'2026-08-22',status:'corrected',asset:'Molbreevi (molgramostim) · aPAP',note:'Extended three months. Responses to FDA information requests deemed a major amendment. No advisory committee planned. Follows a May 2025 refuse-to-file on CMC.',src:'https://www.stocktitan.net/news/SVRA/savara-announces-the-u-s-food-drug-administration-fda-has-extended-x7v5whz88c2u.html'},
+ 'ACHV':{apply:true,pdufa:'2026-06-20',status:'crl',asset:'Cytisinicline · smoking cessation',note:'CRL issued Jun 22, 2026. cGMP deficiencies at a third-party facility plus incomplete labeling. No efficacy or clinical safety deficiencies. Resubmission guided for Q4 2026, approval possible H1 2027.',src:'https://www.globenewswire.com/news-release/2026/06/22/3315277/0/en/Achieve-Life-Sciences-Receives-Complete-Response-Letter-from-FDA-for-Cytisinicline-NDA.html'},
+ 'UNCY':{apply:false,status:'crl',asset:'Oxylanthanum carbonate · hyperphosphatemia',note:'Second CRL Jun 30, 2026, same third-party CMC deficiencies as the first. No clinical issues raised. No new PDUFA date announced, so the row cannot be dated.',src:'https://www.globenewswire.com/news-release/2026/06/30/3319541/0/en/unicycive-therapeutics-receives-complete-response-letter-from-fda-regarding-resubmitted-oxylanthanum-carbonate-olc-new-drug-application-nda.html'},
+ 'CAPR':{apply:true,pdufa:'2026-08-22',status:'confirmed',asset:'Deramiocel · DMD cardiomyopathy',note:'PDUFA unchanged after the Jul 29 advisory committee. Date itself was already reset once: original Aug 31, 2025 PDUFA drew a CRL in Jul 2025, review resumed Mar 10, 2026.',src:'https://www.capricor.com/investors/news-events/press-releases/detail/338/capricor-therapeutics-announces-establishment-of-new-pdufa'},
+ 'LNTH':{apply:true,pdufa:'2026-08-13',status:'confirmed',asset:'MK-6240 · tau PET imaging',note:'Nearest catalyst on the book. No extension reported. Note that one syndicated headline miscaptions the Oct 2025 NDA acceptance as an approval.',src:'https://www.globenewswire.com/news-release/2025/10/28/3175415/0/en/Lantheus-Announces-FDA-Acceptance-of-New-Drug-Application-for-MK-6240-a-PET-Imaging-Agent-Targeting-Tau-in-Alzheimer-s-Disease.html'},
+ 'INO':{apply:true,pdufa:'2026-10-30',status:'confirmed',asset:'INO-3107 · recurrent respiratory papillomatosis',note:'Standard review, no advisory committee planned. FDA flagged a potential review issue: preliminary view that accelerated-approval eligibility is not adequately justified.',src:'https://www.prnewswire.com/news-releases/fda-accepts-for-review-inovios-bla-for-ino-3107-for-the-treatment-of-adults-with-recurrent-respiratory-papillomatosis-rrp-302649910.html'},
+ 'SMMT':{apply:true,pdufa:'2026-11-14',status:'confirmed',asset:'Ivonescimab · EGFRm NSCLC post-TKI',note:'First US BLA acceptance for a PD-1/VEGF bispecific. Full review with mid-cycle and wrap-up meetings. No ODAC scheduled.',src:'https://www.biospace.com/press-releases/summit-therapeutics-announces-u-s-fda-acceptance-of-biologics-license-application-bla-seeking-approval-for-ivonescimab-in-combination-with-chemotherapy-in-treatment-of-patients-with-egfrm-nsclc-post-tki-therapy'},
+ 'HNSA':{apply:true,pdufa:'2026-12-19',status:'corrected',was:'Q3 2026 (guided)',asset:'Imlifidase · kidney transplant desensitization',note:'Priority review was requested but a standard 12-month cycle was assigned, pushing the date roughly a quarter beyond the company guidance the model was carrying.',src:'https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/'},
+ 'MLYS':{apply:true,pdufa:'2026-12-22',status:'confirmed',asset:'Lorundrostat · hypertension',note:'Standard review, reaffirmed at Q1 2026 results. No advisory committee announced.',src:'https://www.globenewswire.com/news-release/2026/03/09/3252329/0/en/mineralys-therapeutics-announces-fda-acceptance-of-nda-for-lorundrostat-for-treatment-of-adults-with-hypertension-and-topline-explore-osa-trial-results.html'},
+ 'IBRX':{apply:true,pdufa:'2027-01-06',status:'confirmed',asset:'Anktiva sBLA · papillary NMIBC without CIS',note:'Label expansion, not a first approval. FDA review focuses on whether the CIS-to-papillary extrapolation is justified. A public workshop was held May 18, not an advisory committee.',src:'https://ir.immunitybio.com/news-releases/news-release-details/immunitybio-announces-fda-acceptance-supplemental-bla-anktivar'},
+ 'CGEM':{apply:true,pdufa:'2027-02-27',status:'confirmed',asset:'Zipalertinib · EGFR exon 20 NSCLC',note:'Taiho is the applicant, not Cullinan. Breakthrough designation. Based on Phase 2b REZILIENT1.',src:'https://www.businesswire.com/news/home/20260427550531/en/'},
+ 'INBX':{apply:true,pdufa:'2027-04-14',status:'confirmed',asset:'Ozekibart · conventional chondrosarcoma',note:'BLA accepted Jun 15, 2026 with no filing review issues. Would be the first systemic therapy approved in this indication. INBRX-101 is no longer an Inhibrx asset.',src:'https://www.prnewswire.com/news-releases/inhibrx-announces-us-fda-acceptance-of-bla-for-ozekibart-in-patients-with-conventional-chondrosarcoma-302800101.html'},
+ 'RARE':{apply:false,status:'review',asset:'DTX401 (GSDIa) and UX111 (MPS IIIA)',note:'Two live filings with different dates: DTX401 on Aug 23, 2026 and UX111 on Sep 19, 2026. UX111 was reset from Aug 18, 2025 after a CMC CRL. Confirm which program this row tracks before dating it.',src:'https://ir.ultragenyx.com/news-releases/news-release-details/ultragenyx-announces-us-fda-acceptance-bla-resubmission-ux111'},
+ 'COGT':{apply:false,status:'review',asset:'Bezuclastinib · three filings',note:'GIST on Nov 30, 2026 and NonAdvSM on Dec 30, 2026 are both assigned. The AdvSM NDA was submitted Jun 30, 2026 and has no date yet. Split the row by indication.',src:'https://investors.cogentbio.com/news-releases/news-release-details/cogent-biosciences-announces-fda-acceptance-new-drug-0'},
+ 'PTGX':{apply:false,status:'review',asset:'Rusfertide · polycythemia vera',note:'Company discloses August 2026 as a month only, with no exact day. The Sep 30, 2026 figure circulating on aggregator calendars is an end-of-quarter placeholder, not company-reported. Do not date this to the day.',src:'https://www.takeda.com/newsroom/newsreleases/2026/nda-rusfertide/'},
+ 'ROIV':{apply:false,status:'review',asset:'Brepocitinib · dermatomyositis',note:'Priority review granted but the action date is disclosed only as Q3 2026. Launch is guided to end of September. Fiscal Q1 results on Aug 6 may narrow it.',src:'https://investor.roivant.com/news-releases/news-release-details/priovant-announces-fda-acceptance-and-priority-review-new-drug'},
+ 'ACLX':{apply:false,status:'delisted',asset:'Anito-cel · r/r multiple myeloma',note:'Gilead closed the acquisition Apr 28, 2026 and the ticker no longer trades. The Dec 23, 2026 PDUFA still stands but the exposure is now GILD. Remove from the tradable watchlist.',src:'https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Completes-Acquisition-of-Arcellx-Ahead-of-Potential-Commercial-Launch-of-Anito-cel/default.aspx'},
+ 'VRDN':{apply:false,status:'approved',asset:'Lumvoa (veligrotug) · thyroid eye disease',note:'Approved Jun 25, 2026, ahead of the Jun 30 PDUFA. The follow-on subcutaneous VRDN-003 BLA is guided for year end and has no date yet.',src:'https://www.businesswire.com/news/home/20260625016249/en/Viridian-Therapeutics-Announces-U.S.-FDA-Approval-and-Launch-of-Lumvoa-veligrotug-vvze-for-the-Treatment-of-Thyroid-Eye-Disease'},
+ 'CELC':{apply:false,status:'approved',asset:'Revtorpyk (gedatolisib) · HR+/HER2- breast cancer',note:'Approved Jul 14, 2026, ahead of the Jul 17 PDUFA. Added to NCCN guidelines Jul 30. Catalyst is spent.',src:'https://www.globenewswire.com/news-release/2026/07/14/3327323/0/en/celcuity-announces-fda-approval-of-revtorpyk-gedatolisib-for-the-treatment-of-hr-her2-pik3ca-wild-type-locally-advanced-or-metastatic-breast-cancer.html'},
+ 'MNKD':{apply:false,status:'approved',asset:'Afrezza pediatric and Furoscix ReadyFlow',note:'Both 2026 actions cleared: Afrezza pediatric on May 29 and Furoscix ReadyFlow on Jul 24. No further dated catalyst. MNKD-101 is still Phase 3.',src:'https://www.globenewswire.com/news-release/2026/07/24/3332748/0/en/MannKind-Announces-FDA-Approval-of-Furoscix-ReadyFlow-the-First-and-Only-Autoinjector-Delivering-IV-Equivalent-Diuretic-Therapy-for-the-Treatment-of-Edema-in-Adults-with-Heart-Fail.html'},
+ 'IONS':{apply:false,status:'review',asset:'Zilganersen and bepirovirsen',note:'Zilganersen for Alexander disease is on Sep 22, 2026. Bepirovirsen for chronic hepatitis B is GSK-led and reported at Oct 26, 2026 with lower confidence. Olezarsen sHTG already approved Jun 24. Confirm which asset this row tracks.',src:'https://ir.ionis.com/news-releases/news-release-details/ionis-announces-zilganersen-new-drug-application-alexander'}
+};
+function applyDateAudit(rows){
+  var changed=[];
+  rows.forEach(function(r){
+    var a=DATE_AUDIT[r.tkr];
+    if(!a)return;
+    r._audit=a;
+    if(a.apply&&a.pdufa&&String(r.pdufa)!==a.pdufa){
+      r._wasPdufa=r.pdufa;
+      r.pdufa=a.pdufa;
+      r.date_type='Exact date';
+      changed.push(r.tkr);
+    }
+  });
+  return changed;
+}
+function auditBadgeHtml(r){
+  var a=r._audit;if(!a)return'';
+  if(r._wasPdufa)return' <span class="mb" style="border-color:rgba(255,212,138,.45);color:var(--warn);background:rgba(255,212,138,.08)">Date corrected</span>';
+  if(a.status==='review')return' <span class="mb" style="border-color:rgba(255,212,138,.45);color:var(--warn);background:rgba(255,212,138,.08)">Verify</span>';
+  if(a.status==='crl')return' <span class="mb" style="border-color:rgba(255,168,168,.45);color:var(--loss);background:rgba(255,168,168,.08)">CRL</span>';
+  if(a.status==='delisted')return' <span class="mb">Delisted</span>';
+  return'';
+}
+function renderDateAudit(){
+  var grid=document.getElementById('auditGrid'),sec=document.getElementById('auditSection');
+  if(!grid||!sec)return;
+  var order={corrected:0,crl:1,review:2,delisted:3,approved:4,confirmed:5};
+  var present=STATE.FUTURE_ROWS.reduce(function(m,r){m[r.tkr]=true;return m},{});
+  var keys=Object.keys(DATE_AUDIT).filter(function(k){return present[k]||DATE_AUDIT[k].status!=='confirmed'});
+  if(!keys.length){sec.style.display='none';return}
+  keys.sort(function(a,b){var d=order[DATE_AUDIT[a].status]-order[DATE_AUDIT[b].status];return d!==0?d:a.localeCompare(b)});
+  grid.innerHTML=keys.map(function(k){
+    var a=DATE_AUDIT[k];
+    var dates=a.pdufa?(a.was?'<span class="aud-old">'+esc(a.was)+'</span><span class="aud-arrow">&rarr;</span><span class="aud-new">'+esc(a.pdufa)+'</span>':'<span class="aud-new">'+esc(a.pdufa)+'</span>'):'<span class="aud-old" style="text-decoration:none">No dated action</span>';
+    var label={corrected:'Corrected',confirmed:'Confirmed',crl:'CRL',approved:'Resolved',review:'Needs check',delisted:'Delisted'}[a.status]||a.status;
+    return'<div class="aud-card '+esc(a.status)+'"><div class="aud-top"><div><div class="aud-tkr">'+esc(k)+'</div><div class="aud-asset">'+esc(a.asset)+'</div></div><span class="aud-pill '+esc(a.status)+'">'+label+'</span></div><div class="aud-dates">'+dates+'</div><div class="aud-note">'+esc(a.note)+'</div>'+(a.src?'<a class="aud-src" href="'+esc(a.src)+'" target="_blank" rel="noopener">Source &rarr;</a>':'')+'</div>';
+  }).join('');
+}
 function isLossDecision(fda){return !!fda&&String(fda.pct||'').trim().charAt(0)==='-'}
 function esc(s){return String(s!=null?s:'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function cleanText(v){if(v===null||v===undefined||v===''||v==='-')return'—';return String(v)}
@@ -584,7 +675,7 @@ function countdownBlocks(row){
   var fda=FDA_DECISIONS[row.tkr];
   if(fda){
     var loss=isLossDecision(fda);
-    return'<div class="cdu" style="min-width:auto;padding:6px 14px"><div class="cdn" style="font-size:12px;color:'+(loss?'#f87171':'#00ff41')+'">'+(loss?'✘':'✔')+'</div><div class="cdl">'+(loss?'STOPPED':'DECIDED')+'</div></div>';
+    return'<div class="cdu" style="min-width:auto;padding:6px 14px"><div class="cdn" style="font-size:12px;color:'+(loss?'#ffa8a8':'#00ff41')+'">'+(loss?'✘':'✔')+'</div><div class="cdl">'+(loss?'STOPPED':'DECIDED')+'</div></div>';
   }
   var p=parsePdufa(row.pdufa,row.date_type);if(!p)return'<div class="cdu"><div class="cdn">--</div><div class="cdl">N/A</div></div>';
   var diff=Math.max(0,p.getTime()-Date.now());
@@ -610,7 +701,7 @@ function renderWindows(){
         var lbl=(label==='Entry'?done.entryLabel:done.exitLabel)||(range?fmtDateShort(range.start)+' → '+fmtDateShort(range.end):'—');
         var pillCls=done.loss?'wp closed-loss':'wp closed';
         var pillTxt=done.loss?(label==='Exit'?'STOPPED OUT':'COMPLETED'):'COMPLETED';
-        var extraRow=label==='Exit'&&fda?'<div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&amp;L</div><div class="wrd" style="color:'+(done.loss?'#f87171':'#00ff41')+';font-weight:700">'+fda.pct+'</div><span class="wp profit-pill'+(done.loss?' loss':'')+'">'+(done.loss?'✘ Realized':'✳ Locked')+'</span></div>':'';
+        var extraRow=label==='Exit'&&fda?'<div class="winrow" style="margin-top:4px"><div class="wrl">VWAP P&amp;L</div><div class="wrd" style="color:'+(done.loss?'#ffa8a8':'#00ff41')+';font-weight:700">'+fda.pct+'</div><span class="wp profit-pill'+(done.loss?' loss':'')+'">'+(done.loss?'✘ Realized':'✳ Locked')+'</span></div>':'';
         return'<div class="winrow"><div class="wrl">'+label+'</div><div class="wrd">'+lbl+'</div><span class="'+pillCls+'">'+pillTxt+'</span></div>'+extraRow}
       var isAct=TODAY>=startOfDay(range.start)&&TODAY<=startOfDay(range.end);
       var isCom=TODAY<startOfDay(range.start)&&range.start<=new Date(TODAY.getTime()+45*864e5);
@@ -656,7 +747,7 @@ function buildAdcomPanel(){
       '<div class="adcom-grid" style="grid-template-columns:1fr 1fr 1fr 1fr">'+
         '<div class="adcom-card">'+
           '<div class="adcom-card-label">Committee Vote</div>'+
-          '<div class="adcom-card-value" style="font-size:14px;color:#f87171">9-3 AGAINST</div>'+
+          '<div class="adcom-card-value" style="font-size:14px;color:var(--loss)">9-3 AGAINST</div>'+
           '<div class="adcom-card-detail">Evidence does not support effectiveness. Non-binding recommendation.</div>'+
         '</div>'+
         '<div class="adcom-card">'+
@@ -666,12 +757,12 @@ function buildAdcomPanel(){
         '</div>'+
         '<div class="adcom-card">'+
           '<div class="adcom-card-label">Root Cause</div>'+
-          '<div class="adcom-card-value" style="font-size:12px;color:#f87171">SAP DISPUTE</div>'+
+          '<div class="adcom-card-value" style="font-size:12px;color:var(--loss)">SAP DISPUTE</div>'+
           '<div class="adcom-card-detail">FDA analysed under SAP v1.1. Capricor asserts v3.0 governs HOPE-3.</div>'+
         '</div>'+
         '<div class="adcom-card">'+
           '<div class="adcom-card-label">MANTIS Result</div>'+
-          '<div class="adcom-card-value" style="font-size:14px;color:#f87171">-67.0%</div>'+
+          '<div class="adcom-card-value" style="font-size:14px;color:var(--loss)">-67.0%</div>'+
           '<div class="adcom-card-detail">Stopped out Jul 30, 2026. Fund-level first loss of the 2026 cycle.</div>'+
         '</div>'+
       '</div>'+
@@ -760,36 +851,36 @@ function renderDealEvents(){var section=document.getElementById('dealSection'),g
 function renderFdaOutcomes(){var section=document.getElementById('fdaOutcomeSection'),grid=document.getElementById('fdaOutcomeGrid'),outcomes=STATE.FDA_OUTCOMES||[];if(!section||!grid||!outcomes.length){if(section)section.style.display='none';return}section.style.display='block';grid.innerHTML=outcomes.map(function(o){var cls=String(o.outcome||'').toLowerCase().includes('crl')?'crl':(String(o.outcome||'').toLowerCase().includes('extend')?'extended':'approved');return'<div class="outcome-card '+cls+'"><div class="outcome-top"><div><div class="outcome-tkr">'+esc(o.tkr)+'</div><div class="outcome-co">'+esc(o.co)+'</div></div><div class="outcome-pill '+cls+'">'+esc(o.outcome)+'</div></div><div class="outcome-drug">'+esc(o.drug)+'</div><div class="outcome-ind">'+esc(o.ind)+'</div><div class="outcome-meta"><span>'+esc(o.decision_date)+'</span><span>'+esc(o.status_label)+'</span></div><div class="outcome-takeaway">'+esc(o.mantis_takeaway)+'</div>'+(o.source?'<a class="outcome-link" href="'+esc(o.source)+'" target="_blank" rel="noopener">Open decision source →</a>':'')+'</div>'}).join('')}
 function outcomeForRow(r){var outcomes=STATE.FDA_OUTCOMES||[];return outcomes.find(function(o){if(String(o.tkr||'')!==String(r.tkr||''))return false;if(o.pdufa&&r.pdufa&&String(o.pdufa)!==String(r.pdufa))return false;return true})||null}
 function isCompletedOutcome(row){var o=outcomeForRow(row);if(!o)return false;var v=String(o.outcome||'').toLowerCase();return v.includes('approved')||v.includes('crl')||v.includes('rejected')}
-function outcomeBadgeHtml(o){if(!o)return'';var v=String(o.outcome||'').toLowerCase();var isCrl=v.includes('crl')||v.includes('rejected');var isExt=v.includes('extend');var label=isCrl?'✘ CRL':(isExt?'↻ Extended':'✔ Approved');var style=isCrl?'border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.10)':(isExt?'border-color:rgba(245,158,11,.45);color:#fcd34d;background:rgba(245,158,11,.10)':'border-color:rgba(0,255,65,.45);color:#00ff41;background:rgba(0,255,65,.10)');return'<span class="mb" style="'+style+'">'+label+'</span>'}
+function outcomeBadgeHtml(o){if(!o)return'';var v=String(o.outcome||'').toLowerCase();var isCrl=v.includes('crl')||v.includes('rejected');var isExt=v.includes('extend');var label=isCrl?'✘ CRL':(isExt?'↻ Extended':'✔ Approved');var style=isCrl?'border-color:rgba(239,68,68,.45);color:var(--loss);background:rgba(239,68,68,.10)':(isExt?'border-color:rgba(245,158,11,.45);color:#fcd34d;background:rgba(245,158,11,.10)':'border-color:rgba(0,255,65,.45);color:#00ff41;background:rgba(0,255,65,.10)');return'<span class="mb" style="'+style+'">'+label+'</span>'}
 function decisionBadgeHtml(fda){
   if(!fda)return'';
-  if(fda.outcome==='adcom_negative')return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.1)">✘ AdCom 9-3</span> <span class="mb" style="border-color:rgba(245,158,11,.4);color:#fcd34d;background:rgba(245,158,11,.08)">✘ -67% closed</span>';
+  if(fda.outcome==='adcom_negative')return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:var(--loss);background:rgba(239,68,68,.1)">✘ AdCom 9-3</span> <span class="mb" style="border-color:rgba(245,158,11,.4);color:#fcd34d;background:rgba(245,158,11,.08)">✘ -67% closed</span>';
   if(fda.outcome==='approved')return' <span class="mb" style="border-color:rgba(0,255,65,.4);color:#00ff41;background:rgba(0,255,65,.1)">✔ Approved</span>';
-  return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:#f87171;background:rgba(239,68,68,.1)">✘ CRL</span>';
+  return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:var(--loss);background:rgba(239,68,68,.1)">✘ CRL</span>';
 }
 function buildChartPanels(){var activeRows=STATE.FUTURE_ROWS.filter(function(r){return!isCompletedOutcome(r)});var byTicker=new Map(activeRows.map(function(r){return[r.tkr,r]}));var selected=PINNED_CHARTS.map(function(t){return byTicker.get(t)}).filter(Boolean).slice(0,4);var slots=selected.map(function(r){var fda=FDA_DECISIONS[r.tkr];var note=fda&&fda.pending?'PDUFA '+esc(displayPdufa(r))+' · no position':esc(displayPdufa(r));return'<div class="panel"><div class="phd"><div class="ptitle">'+esc(r.tkr)+'</div><div class="pnote">'+note+'</div></div><div class="chart-ct" id="tv_'+esc(r.tkr.toLowerCase())+'"></div></div>'});document.getElementById('chartsTop').innerHTML=slots.slice(0,2).join('');document.getElementById('chartsBottom').innerHTML=slots.slice(2,4).join('');if(typeof TradingView==='undefined'){setTimeout(buildChartPanels,700);return}setTimeout(function(){selected.forEach(function(r){var id='tv_'+r.tkr.toLowerCase();var el=document.getElementById(id);if(el&&!el.dataset.bound){el.dataset.bound='1';new TradingView.widget({container_id:id,symbol:tvSymbolFor(r.tkr),interval:'D',timezone:'Etc/UTC',theme:'dark',style:'1',locale:'en',autosize:true,toolbar_bg:'#080c18',withdateranges:true,allow_symbol_change:true})}})},100)}
 function tAgo(d){var s=Math.max(0,Math.floor((Date.now()-d)/1000));if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
-function drawAnalogChart(){var canvas=document.getElementById('analogChart');if(!canvas)return;var data=STATE.ANALOGS||[];if(!data.length)return;var dpr=window.devicePixelRatio||1;var W=canvas.parentElement.clientWidth||500;var H=Math.round(W*0.55);canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);var PAD={t:36,r:20,b:44,l:52},cW=W-PAD.l-PAD.r,cH=H-PAD.t-PAD.b;var vals=data.map(function(a){return a.return_pct});var maxVal=Math.max.apply(null,vals);var minVal=Math.min.apply(null,vals.concat([0]));var maxAxis=Math.ceil(maxVal/20)*20+20;var minAxis=minVal<0?Math.floor(minVal/20)*20-10:0;var span=maxAxis-minAxis;var zeroY=PAD.t+cH-((0-minAxis)/span)*cH;for(var i=0;i<=5;i++){var gVal=Math.round(minAxis+(span/5)*i);var y=PAD.t+cH-((gVal-minAxis)/span)*cH;ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cW,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='rgba(255,0,85,.4)';ctx.font="9px 'JetBrains Mono',monospace";ctx.textAlign='right';ctx.fillText(gVal+'%',PAD.l-6,y+3)}ctx.beginPath();ctx.strokeStyle='rgba(255,0,85,.25)';ctx.moveTo(PAD.l,zeroY);ctx.lineTo(PAD.l+cW,zeroY);ctx.stroke();var groupW=cW/data.length,barW=Math.min(36,groupW*0.55);data.forEach(function(a,idx){var cx=PAD.l+groupW*idx+groupW/2;var v=a.return_pct;var h=Math.abs(v/span)*cH;var yy=v>=0?zeroY-h:zeroY;h=Math.max(2,h);var x=cx-barW/2;var grad=ctx.createLinearGradient(x,v>=0?yy:yy+h,x,v>=0?yy+h:yy);grad.addColorStop(0,a.color);grad.addColorStop(1,a.color+'22');ctx.fillStyle=grad;ctx.shadowColor=a.color;ctx.shadowBlur=12;ctx.beginPath();ctx.roundRect(x,yy,barW,h,v>=0?[4,4,0,0]:[0,0,4,4]);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=a.color;ctx.font="bold 11px 'JetBrains Mono',monospace";ctx.textAlign='center';ctx.fillText((v>=0?'+':'')+v.toFixed(2)+'%',cx,v>=0?yy-8:yy+h+14);ctx.fillStyle='rgba(226,232,240,.9)';ctx.fillText(a.name,cx,PAD.t+cH+16);var oc=a.outcome==='Approved'?'#00ff41':(String(a.outcome||'').toLowerCase().includes('against')||String(a.outcome||'').toLowerCase().includes('crl')?'#f87171':'#fcd34d');ctx.beginPath();ctx.arc(cx,PAD.t+cH+28,3,0,Math.PI*2);ctx.fillStyle=oc;ctx.fill()});var leg=document.getElementById('analogLegend');leg.innerHTML=data.map(function(a){var oc=a.outcome==='Approved'?'#00ff41':(String(a.outcome||'').toLowerCase().includes('against')||String(a.outcome||'').toLowerCase().includes('crl')?'#f87171':'#fcd34d');var v=a.return_pct;return'<div class="al-item"><div class="al-dot" style="background:'+a.color+';box-shadow:0 0 6px '+a.color+'55"></div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap"><div class="al-name" style="color:'+a.color+'">'+esc(a.name)+'</div><span style="font-size:9px;padding:1px 6px;border-radius:3px;border:1px solid '+oc+'44;background:'+oc+'18;color:'+oc+';font-family:var(--mono);flex-shrink:0">'+esc(a.outcome)+'</span></div><div class="al-det">'+esc(a.label)+' · '+esc(a.disease)+'</div><div class="al-gains" style="margin-top:6px"><div><div class="al-gain" style="color:'+(v<0?'#f87171':a.color)+'">'+(v>=0?'+':'')+v.toFixed(2)+'%</div><div class="al-gain-sub">VWAP Return</div></div></div></div></div>'}).join('')}
+function drawAnalogChart(){var canvas=document.getElementById('analogChart');if(!canvas)return;var data=STATE.ANALOGS||[];if(!data.length)return;var dpr=window.devicePixelRatio||1;var W=canvas.parentElement.clientWidth||500;var H=Math.round(W*0.55);canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);var PAD={t:36,r:20,b:44,l:52},cW=W-PAD.l-PAD.r,cH=H-PAD.t-PAD.b;var vals=data.map(function(a){return a.return_pct});var maxVal=Math.max.apply(null,vals);var minVal=Math.min.apply(null,vals.concat([0]));var maxAxis=Math.ceil(maxVal/20)*20+20;var minAxis=minVal<0?Math.floor(minVal/20)*20-10:0;var span=maxAxis-minAxis;var zeroY=PAD.t+cH-((0-minAxis)/span)*cH;for(var i=0;i<=5;i++){var gVal=Math.round(minAxis+(span/5)*i);var y=PAD.t+cH-((gVal-minAxis)/span)*cH;ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.moveTo(PAD.l,y);ctx.lineTo(PAD.l+cW,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#9aa8bd';ctx.font="9px 'JetBrains Mono',monospace";ctx.textAlign='right';ctx.fillText(gVal+'%',PAD.l-6,y+3)}ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,.20)';ctx.moveTo(PAD.l,zeroY);ctx.lineTo(PAD.l+cW,zeroY);ctx.stroke();var groupW=cW/data.length,barW=Math.min(36,groupW*0.55);data.forEach(function(a,idx){var cx=PAD.l+groupW*idx+groupW/2;var v=a.return_pct;var h=Math.abs(v/span)*cH;var yy=v>=0?zeroY-h:zeroY;h=Math.max(2,h);var x=cx-barW/2;var grad=ctx.createLinearGradient(x,v>=0?yy:yy+h,x,v>=0?yy+h:yy);grad.addColorStop(0,a.color);grad.addColorStop(1,a.color+'22');ctx.fillStyle=grad;ctx.shadowColor=a.color;ctx.shadowBlur=12;ctx.beginPath();ctx.roundRect(x,yy,barW,h,v>=0?[4,4,0,0]:[0,0,4,4]);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=a.color;ctx.font="bold 11px 'JetBrains Mono',monospace";ctx.textAlign='center';ctx.fillText((v>=0?'+':'')+v.toFixed(2)+'%',cx,v>=0?yy-8:yy+h+14);ctx.fillStyle='rgba(226,232,240,.9)';ctx.fillText(a.name,cx,PAD.t+cH+16);var oc=a.outcome==='Approved'?'#00ff41':(String(a.outcome||'').toLowerCase().includes('against')||String(a.outcome||'').toLowerCase().includes('crl')?'#ffa8a8':'#fcd34d');ctx.beginPath();ctx.arc(cx,PAD.t+cH+28,3,0,Math.PI*2);ctx.fillStyle=oc;ctx.fill()});var leg=document.getElementById('analogLegend');leg.innerHTML=data.map(function(a){var oc=a.outcome==='Approved'?'#00ff41':(String(a.outcome||'').toLowerCase().includes('against')||String(a.outcome||'').toLowerCase().includes('crl')?'#ffa8a8':'#fcd34d');var v=a.return_pct;return'<div class="al-item"><div class="al-dot" style="background:'+a.color+';box-shadow:0 0 6px '+a.color+'55"></div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap"><div class="al-name" style="color:'+a.color+'">'+esc(a.name)+'</div><span style="font-size:9px;padding:1px 6px;border-radius:3px;border:1px solid '+oc+'44;background:'+oc+'18;color:'+oc+';font-family:var(--mono);flex-shrink:0">'+esc(a.outcome)+'</span></div><div class="al-det">'+esc(a.label)+' · '+esc(a.disease)+'</div><div class="al-gains" style="margin-top:6px"><div><div class="al-gain" style="color:'+(v<0?'#ffa8a8':a.color)+'">'+(v>=0?'+':'')+v.toFixed(2)+'%</div><div class="al-gain-sub">VWAP Return</div></div></div></div></div>'}).join('')}
 function updateHeroCountdowns(){document.querySelectorAll('[data-countdown]').forEach(function(el){var tkr=el.getAttribute('data-countdown');if(FDA_DECISIONS[tkr])return;var row=STATE.HEROES.find(function(r){return r.tkr===tkr});if(row)el.innerHTML=countdownBlocks(row)})}
 function buildChips(){var labels=STATE.HEROES.map(function(h){return h.tkr});document.querySelectorAll('#chipRow .chip').forEach(function(ch){var c=ch.dataset.c;if(c==='hero0')ch.textContent=labels[0]?labels[0]+' Focus':'Hero 1';if(c==='hero1')ch.textContent=labels[1]?labels[1]+' Focus':'Hero 2';if(c==='hero2')ch.textContent=labels[2]?labels[2]+' Focus':'Hero 3';if(c==='hero3')ch.textContent=labels[3]?labels[3]+' Focus':'Hero 4'})}
 function activeHeroFocusTicker(){var focusKey=['hero0','hero1','hero2','hero3'].find(function(k){return STATE.CHIPS[k]});if(!focusKey)return null;var idx=Number(focusKey.replace('hero',''));return STATE.HEROES[idx]?.tkr||null}
 function renderTable(){var tbody=document.getElementById('wl-tbody'),empty=document.getElementById('wl-empty');var search=(document.getElementById('searchBox').value||'').toLowerCase();var minSc=+document.getElementById('scoreFilter').value;var sortV=document.getElementById('sortSelect').value;var focusTicker=activeHeroFocusTicker();var rows=STATE.FUTURE_ROWS.filter(function(r){var blob=[r.tkr,r.co,r.drug,r.ind,r.notes,r.therapy].join(' ').toLowerCase();if(search&&!blob.includes(search))return false;if((r.score||0)<minSc)return false;if(STATE.CHIPS.s5&&r.score!==5)return false;if(STATE.CHIPS.s4&&(r.score||0)<4)return false;if(STATE.CHIPS.orph&&!r.orph)return false;if(STATE.CHIPS.gene){var th=String(r.therapy||'').toLowerCase();if(!(th.includes('gene')||th.includes('cell')))return false}if(focusTicker&&r.tkr!==focusTicker)return false;return true});rows=sortRows(rows,sortV);tbody.innerHTML='';empty.style.display=rows.length?'none':'block';rows.forEach(function(r){var en=winDates(r.pdufa,r.date_type,r.entry),ex=winDates(r.pdufa,r.date_type,r.exit);var eStr=en?fmtDateShort(en.start)+' → '+fmtDateShort(en.end):'—';var xStr=ex?fmtDateShort(ex.start)+' → '+fmtDateShort(ex.end):'—';var tagCls=therapyTagClass(r.therapy);var therapyTag=tagCls?'<span class="mb '+tagCls+'">'+esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))+'</span>':'<span class="mb">'+esc(cleanText(r.therapy).split(' ').slice(0,2).join(' '))+'</span>';var fda=FDA_DECISIONS[r.tkr];var outcome=outcomeForRow(r);var completed=isCompletedOutcome(r);var tr=document.createElement('tr');tr.title=completed?'Completed FDA outcome':'Active/watch row: click to open TradingView';tr.addEventListener('click',function(){var tkr=String(r.tkr||'');if(completed&&(outcome?.source||r.source))window.open(outcome?.source||r.source,'_blank');else if(/^[A-Z]{1,5}$/.test(tkr))window.open(tradingViewUrlFor(tkr),'_blank');else if(r.source)window.open(r.source,'_blank')});
     var pdfuaDisplay;
-    if(fda&&fda.pending)pdfuaDisplay=esc(displayPdufa(r))+'<br><span style="color:#f87171;font-size:9px">AdCom 9-3 against</span>';
+    if(fda&&fda.pending)pdfuaDisplay=esc(displayPdufa(r))+'<br><span style="color:var(--loss);font-size:9px">AdCom 9-3 against</span>';
     else if(fda)pdfuaDisplay='<span style="color:#00e5ff;font-weight:600">'+esc(fda.decisionDate)+'</span>';
     else if(outcome)pdfuaDisplay=esc(displayPdufa(r))+'<br>'+outcomeBadgeHtml(outcome);
     else pdfuaDisplay=esc(displayPdufa(r));
     var exitCellStr=(fda&&fda.outcome==='adcom_negative')?'Jul 22 → Jul 30':xStr;
-    tr.innerHTML='<td><div class="tdtk">'+esc(r.tkr)+'</div></td><td><div class="tdco">'+esc(cleanText(r.co))+'</div><div class="tddrug">'+(fda?esc(fda.brandName):esc(cleanText(r.drug)))+'</div></td><td class="tdind hide-m">'+esc(cleanText(r.ind))+'</td><td class="tddate">'+pdfuaDisplay+'</td><td class="tdsc"><span class="scb '+scoreClass(r.score)+'">'+esc(r.score)+'</span></td><td class="tdclass hide-m">'+esc(cleanText(r.mantis_class))+'</td><td class="tdwin hide-m">'+eStr+'</td><td class="tdwin hide-m">'+exitCellStr+'</td><td class="hide-m">'+(r.orph?'<span class="mb orph">Orphan</span> ':'')+therapyTag+'<span class="mb">'+esc(cleanText(r.catalyst_type||'FDA'))+'</span>'+decisionBadgeHtml(fda)+(!fda&&outcome?' '+outcomeBadgeHtml(outcome):'')+(r.is_new_candidate?' <span class="mb" style="border-color:rgba(255,0,85,.45);color:#ff0055;background:rgba(255,0,85,.08)">New MANTIS</span>':'')+'</td>';tbody.appendChild(tr)})}
+    tr.innerHTML='<td><div class="tdtk">'+esc(r.tkr)+'</div></td><td><div class="tdco">'+esc(cleanText(r.co))+'</div><div class="tddrug">'+(fda?esc(fda.brandName):esc(cleanText(r.drug)))+'</div></td><td class="tdind hide-m">'+esc(cleanText(r.ind))+'</td><td class="tddate">'+pdfuaDisplay+'</td><td class="tdsc"><span class="scb '+scoreClass(r.score)+'">'+esc(r.score)+'</span></td><td class="tdclass hide-m">'+esc(cleanText(r.mantis_class))+'</td><td class="tdwin hide-m">'+eStr+'</td><td class="tdwin hide-m">'+exitCellStr+'</td><td class="hide-m">'+(r.orph?'<span class="mb orph">Orphan</span> ':'')+therapyTag+'<span class="mb">'+esc(cleanText(r.catalyst_type||'FDA'))+'</span>'+decisionBadgeHtml(fda)+auditBadgeHtml(r)+(!fda&&outcome?' '+outcomeBadgeHtml(outcome):'')+(r.is_new_candidate?' <span class="mb" style="border-color:rgba(255,0,85,.45);color:#ff0055;background:rgba(255,0,85,.08)">New MANTIS</span>':'')+'</td>';tbody.appendChild(tr)})}
 function setupChips(){document.querySelectorAll('.chip').forEach(function(ch){ch.addEventListener('click',function(){var c=ch.dataset.c;if(c==='rst'){Object.keys(STATE.CHIPS).forEach(function(k){STATE.CHIPS[k]=false});document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});renderTable();return}if(['hero0','hero1','hero2','hero3'].includes(c)){var was=STATE.CHIPS[c];['hero0','hero1','hero2','hero3'].forEach(function(k){STATE.CHIPS[k]=false;document.querySelector('.chip[data-c="'+k+'"]')?.classList.remove('on')});STATE.CHIPS[c]=!was;ch.classList.toggle('on',STATE.CHIPS[c])}else if(c==='s5'){STATE.CHIPS.s5=!STATE.CHIPS.s5;if(STATE.CHIPS.s5){STATE.CHIPS.s4=false;document.querySelector('.chip[data-c="s4"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s5)}else if(c==='s4'){STATE.CHIPS.s4=!STATE.CHIPS.s4;if(STATE.CHIPS.s4){STATE.CHIPS.s5=false;document.querySelector('.chip[data-c="s5"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s4)}else if(c==='orph'){STATE.CHIPS.orph=!STATE.CHIPS.orph;ch.classList.toggle('on',STATE.CHIPS.orph)}else if(c==='gene'){STATE.CHIPS.gene=!STATE.CHIPS.gene;ch.classList.toggle('on',STATE.CHIPS.gene)}renderTable()})})}
 function ensureCaprAnalog(){
   var list=STATE.ANALOGS||[];
   if(list.some(function(a){return String(a.name||'').toUpperCase().indexOf('CAPR')>-1}))return list;
-  list.push({name:'CAPR',label:'Deramiocel · AdCom 9-3 against',disease:'DMD cardiomyopathy',return_pct:-67.0,color:'#f87171',outcome:'AdCom Against'});
+  list.push({name:'CAPR',label:'Deramiocel · AdCom 9-3 against',disease:'DMD cardiomyopathy',return_pct:-67.0,color:'#ffa8a8',outcome:'AdCom Against'});
   return list;
 }
-async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCaprAnalog()}
-async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();buildAdcomPanel();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable)}
+async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];applyDateAudit(STATE.FUTURE_ROWS);STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCaprAnalog()}
+async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();buildAdcomPanel();renderDateAudit();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable)}
 window.addEventListener('load',init);
 </script>
 </body>
