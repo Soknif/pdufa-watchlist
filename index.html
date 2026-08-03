@@ -480,20 +480,24 @@
   <div class="topbar">
     <div>
       <div class="brand-mark">MANTIS ALPHA FUND</div>
-      <div class="brand-sub">ws 2.5</div>
+      <div class="brand-sub">ws 2.6 · shadow-score update 2026-08-03</div>
     </div>
     <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">&#8212;</span></div>
   </div>
   <div class="legend-bar">
     <span class="leg-lbl">Run-Up Score</span>
-    <div class="leg-i"><div class="leg-d" style="background:#00e5ff"></div>5 = Top binary catalyst</div>
-    <div class="leg-i"><div class="leg-d" style="background:#fcd34d"></div>4 = Strong event</div>
-    <div class="leg-i"><div class="leg-d" style="background:#7dd3fc"></div>3 = Speculative / watch</div>
-    <div class="leg-i"><div class="leg-d" style="background:#94a3b8"></div>2 = Background / large-cap</div>
+    <div class="leg-i"><div class="leg-d" style="background:#00e5ff"></div>5 = Reserved / exceptional clean setup</div>
+    <div class="leg-i"><div class="leg-d" style="background:#fcd34d"></div>4 = Full diligence / strong setup</div>
+    <div class="leg-i"><div class="leg-d" style="background:#7dd3fc"></div>3 = Managed / conditional watch</div>
+    <div class="leg-i"><div class="leg-d" style="background:#94a3b8"></div>2 = Background / excluded</div>
   </div>
   <div class="sec-hdr"><div><div class="sec-title">TOP CANDIDATES</div></div><span class="stag">pinned</span></div>
   <div class="heroes" id="heroes"></div>
   <div class="windows-row" id="windowsRow"></div>
+  <div class="score-section" id="scoreUpdateSection">
+    <div class="sec-hdr"><div><div class="sec-title">MANTIS 2.0 SCORE UPDATE</div><div class="sec-sub">Run-up attractiveness, not approval probability · shadow model dated 2026-08-03</div></div><span class="stag">shadow scores</span></div>
+    <div class="audit-grid" id="scorePlanGrid"></div>
+  </div>
   <!-- CAPR ADCOM POST-MORTEM -->
   <div id="caprAdcomPanel"></div>
   <div class="audit-section" id="auditSection">
@@ -531,21 +535,96 @@
 const STATE={DATA:null,FUTURE_ROWS:[],HEROES:[],ANALOGS:[],DEAL_EVENTS:[],FDA_OUTCOMES:[],CHIPS:{hero0:false,hero1:false,hero2:false,hero3:false,s5:false,s4:false,orph:false,gene:false}};
 function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
 const TODAY=startOfDay(new Date());
-const TV_SYMBOLS={RCKT:'NASDAQ:RCKT',DNLI:'NASDAQ:DNLI',VERA:'NASDAQ:VERA',SVRA:'NASDAQ:SVRA',CAPR:'NASDAQ:CAPR',PRAX:'NASDAQ:PRAX',INBX:'NASDAQ:INBX',CGEM:'NASDAQ:CGEM',IBRX:'NASDAQ:IBRX',BIIB:'NASDAQ:BIIB',VRDN:'NASDAQ:VRDN',CELC:'NASDAQ:CELC',MNKD:'NASDAQ:MNKD',LNTH:'NASDAQ:LNTH',UNCY:'NASDAQ:UNCY',IONS:'NASDAQ:IONS',RARE:'NASDAQ:RARE',VTRS:'NASDAQ:VTRS',INO:'NASDAQ:INO',SMMT:'NASDAQ:SMMT',HNSA:'NASDAQ:HNSA',MLYS:'NASDAQ:MLYS',ACLX:'NASDAQ:ACLX',COGT:'NASDAQ:COGT',ROIV:'NASDAQ:ROIV',PTGX:'NASDAQ:PTGX',ACHV:'NASDAQ:ACHV'};
-const HERO_ORDER=['RCKT','DNLI','VERA','CAPR','PRAX','SVRA','INBX','CGEM','IBRX'];
-const PINNED_CHARTS=['CAPR','PRAX','SVRA','VERA'];
+const TV_SYMBOLS={RCKT:'NASDAQ:RCKT',DNLI:'NASDAQ:DNLI',VERA:'NASDAQ:VERA',SVRA:'NASDAQ:SVRA',CAPR:'NASDAQ:CAPR',PRAX:'NASDAQ:PRAX',INBX:'NASDAQ:INBX',CGEM:'NASDAQ:CGEM',IBRX:'NASDAQ:IBRX',BIIB:'NASDAQ:BIIB',VRDN:'NASDAQ:VRDN',CELC:'NASDAQ:CELC',MNKD:'NASDAQ:MNKD',LNTH:'NASDAQ:LNTH',UNCY:'NASDAQ:UNCY',IONS:'NASDAQ:IONS',RARE:'NASDAQ:RARE',VTRS:'NASDAQ:VTRS',INO:'NASDAQ:INO',SMMT:'NASDAQ:SMMT',HNSA:'NASDAQ:HNSA',MLYS:'NASDAQ:MLYS',ACLX:'NASDAQ:ACLX',COGT:'NASDAQ:COGT',ROIV:'NASDAQ:ROIV',PTGX:'NASDAQ:PTGX',ACHV:'NASDAQ:ACHV',DYN:'NASDAQ:DYN',PHVS:'NASDAQ:PHVS',IMNM:'NASDAQ:IMNM',ORGO:'NASDAQ:ORGO',PYPD:'NASDAQ:PYPD',BTAI:'NASDAQ:BTAI',BBIO:'NASDAQ:BBIO',AXSM:'NASDAQ:AXSM'};
+const HERO_ORDER=['RCKT','DNLI','PHVS','DYN','INBX','PRAX','SVRA','COGT','MLYS','IMNM','ORGO','VERA','CAPR'];
+const PINNED_CHARTS=['PHVS','DYN','INBX','SVRA'];
 const FDA_DECISIONS={
   'RCKT':{outcome:'approved',decisionDate:'Mar 26, 2026',brandName:'KRESLADI™',genericName:'marnetegragene autotemcel',approvalType:'Accelerated Approval',indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',mechanism:'Autologous hematopoietic stem cell-based gene therapy',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First Gene Therapy for LAD-I',cls:'first'}],pct:'+46.32%',exitDate:'Mar 18, 2026'},
   'DNLI':{outcome:'approved',decisionDate:'Mar 25, 2026',brandName:'AVLAYAH™',genericName:'tividenofusp alfa-eknm',approvalType:'Accelerated Approval',indication:'Neurologic manifestations of Hunter syndrome (MPS II)',mechanism:'First FDA-approved biologic to cross the blood-brain barrier',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First BBB-Crossing Biologic',cls:'first'}],pct:'+27.7%',exitDate:'Mar 25, 2026'},
   'VERA':{outcome:'approved',decisionDate:'Jul 07, 2026',brandName:'TRUTAKNA™',genericName:'atacicept-vymj',approvalType:'Accelerated Approval',indication:'Primary IgA nephropathy (IgAN) in adults at risk of progression',mechanism:'First dual BAFF/APRIL inhibitor addressing immunological drivers of IgAN',extras:[{label:'Breakthrough Therapy',cls:'first'},{label:'Priority Review',cls:'prv'},{label:'Accelerated',cls:'accel'}],pct:'+0.93%',exitDate:'Jun 30, 2026'},
-  'CAPR':{outcome:'adcom_negative',pending:true,decisionDate:'Jul 29, 2026',brandName:'Deramiocel',genericName:'deramiocel (CAP-1002)',approvalType:'AdCom 9-3 Against',indication:'Cardiomyopathy associated with Duchenne muscular dystrophy',mechanism:'Allogeneic cardiosphere-derived cell (CDC) therapy',extras:[{label:'Vote 9-3 Against',cls:'warn'},{label:'Non-binding',cls:'pend'},{label:'PDUFA Aug 22 Pending',cls:'prv'},{label:'SAP Dispute',cls:'warn'}],pct:'-67.0%',exitDate:'Jul 30, 2026',
+  'CAPR':{outcome:'adcom_negative',pending:true,decisionDate:'Jul 29, 2026',brandName:'Deramiocel',genericName:'deramiocel (CAP-1002)',approvalType:'AdCom 9-3 Against',indication:'Cardiomyopathy associated with Duchenne muscular dystrophy',mechanism:'Allogeneic cardiosphere-derived cell (CDC) therapy',extras:[{label:'Vote 9-3 Against',cls:'warn'},{label:'Non-binding',cls:'pend'},{label:'PDUFA Aug 22 Pending',cls:'prv'},{label:'SAP Dispute',cls:'warn'}],pct:'-67% approx.',exitDate:'Jul 30, 2026*',
     bullets:[
       'CTGTAC voted 9-3 that the evidence does not support effectiveness in DMD cardiomyopathy. The vote is non-binding.',
       'Thesis broke on the FDA briefing document, not on the vote. Dispute over SAP v1.1 vs v3.0 governing HOPE-3.',
-      'Position stopped out Jul 30 at -67% VWAP. No residual exposure carried into the PDUFA.',
+      'Position exited after the briefing-document shock. The approximately -67% figure is provisional until broker fills and VWAP are reconciled; no residual exposure is carried into the PDUFA.',
       'PDUFA Aug 22, 2026 still stands. MANTIS is not re-entering ahead of the decision.'
     ]}
-};
+ };
+
+/* MANTIS 2.0 shadow scores.
+   These revise run-up attractiveness only. They do not revise approval probability,
+   and they do not rewrite the scores that were live for already-resolved trades. */
+const SCORE_OVERRIDES=[
+  {tkr:'SVRA',pdufa:'2026-11-22',score:3,mantis_class:'Tier 2 · managed position',reason:'CMC history, a larger current valuation and a well-known positive regulatory narrative reduce the remaining attention premium.'},
+  {tkr:'MLYS',pdufa:'2026-12-22',score:3,mantis_class:'Tier 2 · watch/managed',reason:'Baxdrostat is already approved and high consensus expectations leave less uncertainty premium to harvest.'},
+  {tkr:'PRAX',pdufa:'2026-12-27',score:4,mantis_class:'Tier 1 watch · reduced size',reason:'Rare paediatric priority-review catalyst and extension reset remain attractive, but the issuer is now large and already substantially re-rated.'},
+  {tkr:'PRAX',pdufa:'2027-01-29',score:3,mantis_class:'Tier 2 · correlated issuer risk',reason:'Separate asset but the same issuer, balance sheet and management; score and size must reflect aggregate Praxis exposure.'},
+  {tkr:'COGT',pdufa:'2026-11-30',score:3,mantis_class:'Tier 2 · correlated asset risk',reason:'Strong catalyst but a large current valuation and two applications for the same molecule reduce independent torque.'},
+  {tkr:'COGT',pdufa:'2026-12-30',score:3,mantis_class:'Tier 2 · correlated asset risk',reason:'Second decision for the same molecule and issuer; it cannot be treated as a second full-strength position.'},
+  {tkr:'INO',pdufa:'2026-10-30',score:2,mantis_class:'Background · structural risk',reason:'Micro-cap financing and listing risk plus an unresolved FDA accelerated-approval issue dominate the catalyst.'},
+  {tkr:'SMMT',pdufa:'2026-11-14',score:2,mantis_class:'Background · large-cap',reason:'The issuer is already valued above the classic MANTIS torque range and much of the ivonescimab narrative is priced.'},
+  {tkr:'RARE',pdufa:'2026-08-23',score:3,mantis_class:'Watch only · window mature',reason:'Rare-disease fit is good, but the accumulation window is effectively over and execution now belongs to exit management.'},
+  {tkr:'RARE',pdufa:'2026-09-19',score:3,mantis_class:'Tier 2 · CMC discount',reason:'Company-defining rare-disease catalyst, offset by the prior CMC complete-response history and issuer-level correlation.'},
+  {tkr:'IONS',pdufa:'2026-09-22',score:2,mantis_class:'Background · diversified issuer',reason:'Strong programme, but a large diversified issuer provides limited binary-equity torque.'},
+  {tkr:'ROIV',score:2,mantis_class:'Background · large-cap',reason:'Priority review does not overcome a very large issuer valuation and diversified economic exposure.'},
+  {tkr:'PTGX',score:2,mantis_class:'Background · large-cap',reason:'Large current valuation and partner economics weaken the pre-event re-rating mechanism.'},
+  {tkr:'IBRX',pdufa:'2027-01-06',score:2,mantis_class:'Background · label expansion',reason:'This is a supplemental filing at a multi-billion-dollar issuer rather than a company-defining first approval.'},
+  {tkr:'CGEM',pdufa:'2027-02-27',score:3,mantis_class:'Tier 2 · partner-adjusted',reason:'Small enough for torque, but Taiho is the applicant and partnership economics dilute the direct binary exposure.'},
+  {tkr:'INBX',pdufa:'2027-04-14',score:4,mantis_class:'Tier 1 watch · full diligence',reason:'First potential systemic therapy in a rare cancer, clean filing acceptance and company-defining economics create a strong forward setup.'},
+  {tkr:'HNSA',pdufa:'2026-12-19',score:2,mantis_class:'Excluded · non-US template',reason:'Stockholm listing and different liquidity/disclosure mechanics require the separate international framework.'}
+];
+
+const NEW_CANDIDATES=[
+  {tkr:'DYN',co:'Dyne Therapeutics',drug:'z-rostudirsen',ind:'Duchenne muscular dystrophy amenable to exon 51 skipping',pdufa:'2027-01-21',date_type:'Exact date',score:4,orph:true,therapy:'Oligonucleotide conjugate',catalyst_type:'BLA / Priority Review',priority_review:true,mantis_class:'Tier 1 watch · full diligence',entry:'T-150 to T-90',exit:'T-14 to T-7',notes:'Company-defining rare paediatric catalyst with Priority Review. Accelerated approval relies on dystrophin as a surrogate, and the current valuation reduces classic small-float torque.',source:'https://investors.dyne-tx.com/news-releases/news-release-details/dyne-therapeutics-announces-us-fda-acceptance-biologics-license/',is_new_candidate:true},
+  {tkr:'PHVS',co:'Pharvaris',drug:'deucrictibant IR',ind:'On-demand treatment of hereditary angioedema attacks',pdufa:'2027-04-23',date_type:'Exact date',score:4,orph:true,therapy:'Oral B2 antagonist',catalyst_type:'NDA / PDUFA',priority_review:false,mantis_class:'Tier 1 watch · full diligence',entry:'T-150 to T-90',exit:'T-14 to T-7',notes:'Strong Phase 3 programme, oral convenience and first-in-class formulation support attention. The HAE market is competitive and the valuation is no longer micro-cap.',source:'https://ir.pharvaris.com/news-releases/news-release-details/pharvaris-announces-fda-acceptance-new-drug-application/',is_new_candidate:true},
+  {tkr:'IMNM',co:'Immunome',drug:'varegacestat',ind:'Adults with progressing desmoid tumors',pdufa:'2027-04-28',date_type:'Exact date',score:3,orph:true,therapy:'Gamma secretase inhibitor',catalyst_type:'NDA / PDUFA',priority_review:false,mantis_class:'Tier 2 · competitive indication',entry:'T-150 to T-90',exit:'T-14 to T-7',notes:'Exceptional Phase 3 efficacy supports the filing, but Ogsiveo is already approved and the competitive benchmark limits novelty premium.',source:'https://investors.immunome.com/immunome-announces-u-s-fda-acceptance-of-new-drug-application-for-varegacestat-for-the-treatment-of-adults-with-desmoid-tumors/',is_new_candidate:true},
+  {tkr:'ORGO',co:'Organogenesis',drug:'ReNu',ind:'Pain associated with symptomatic knee osteoarthritis',pdufa:'2027-04-24',date_type:'Exact date',score:3,orph:false,therapy:'Amniotic suspension allograft',catalyst_type:'BLA / PDUFA',priority_review:false,mantis_class:'Tier 2 · special situation',entry:'T-150 to T-90',exit:'T-14 to T-7',notes:'Small-cap torque and three large randomized trials are attractive. Non-orphan knee OA, biologic classification, manufacturing and commercial complexity require a full special-situation review.',source:'https://investors.organogenesis.com/news-releases/news-release-details/organogenesis-announces-fda-acceptance-biologics-license',is_new_candidate:true},
+  {tkr:'PYPD',co:'PolyPid',drug:'D-PLEX100',ind:'Prevention of surgical-site infections after abdominal colorectal surgery',pdufa:'2026-11-28',date_type:'Exact date',score:2,orph:false,therapy:'Local extended-release antibiotic',catalyst_type:'NDA / Priority Review',priority_review:true,mantis_class:'Excluded · liquidity/financing',entry:'T-150 to T-90',exit:'T-14 to T-7',notes:'The regulatory package is strong and FDA identified no filing issues, but current market depth and financing dependence fail the MANTIS tradability gate. Track as a control, not a live position.',source:'https://www.sec.gov/Archives/edgar/data/1611842/000121390026082564/ea029964201ex99-1.htm',is_new_candidate:true},
+  {tkr:'BTAI',co:'BioXcel Therapeutics',drug:'IGALMI at-home label expansion',ind:'At-home acute agitation in bipolar disorder or schizophrenia',pdufa:'2026-11-14',date_type:'Exact date',score:2,orph:false,therapy:'Sublingual alpha-2 agonist',catalyst_type:'sNDA / PDUFA',priority_review:false,mantis_class:'Excluded · financial survivability',entry:'T-150 to T-90',exit:'T-14 to T-7',notes:'Potentially meaningful label expansion, but low cash, strategic-alternatives language and financing risk dominate the catalyst. Not suitable for the live book.',source:'https://ir.bioxceltherapeutics.com/news-releases/news-release-details/bioxcel-therapeutics-announces-food-drug-administration',is_new_candidate:true},
+  {tkr:'BBIO',co:'BridgeBio Pharma',drug:'encaleret',ind:'Autosomal dominant hypocalcemia type 1',pdufa:'2027-05-08',date_type:'Exact date',score:2,orph:true,therapy:'CaSR antagonist',catalyst_type:'NDA / PDUFA',priority_review:false,mantis_class:'Background · large-cap',entry:'T-150 to T-90',exit:'T-14 to T-7',notes:'The drug and regulatory setup are unusually clean, with no AdCom planned, but a large commercial-stage issuer offers little classic binary torque.',source:'https://investor.bridgebio.com/news/news-details/2026/BridgeBio-Announces-FDA-Acceptance-of-NDA-for-Encaleret-for-ADH1/default.aspx',is_new_candidate:true}
+];
+
+const SCORE_PLAN=[
+  {tkr:'PHVS',score:4,status:'Full diligence',asset:'Deucrictibant · HAE · Apr 23, 2027',note:'Best new forward fit: rare disease, differentiated oral product, strong Phase 3 and adequate time to collect prospective entry data.'},
+  {tkr:'DYN',score:4,status:'Full diligence',asset:'Z-rostudirsen · DMD · Jan 21, 2027',note:'High-attention rare paediatric catalyst. Apply an accelerated-approval/surrogate-risk discount and do not use CAPR as a justification to hold through any FDA information event.'},
+  {tkr:'INBX',score:4,status:'Full diligence',asset:'Ozekibart · chondrosarcoma · Apr 14, 2027',note:'Company-defining first-product setup with no approved systemic comparator. Complete manufacturing, float and financing work before sizing.'},
+  {tkr:'PRAX',score:4,status:'Reduced-size watch',asset:'Relutrigine · DEEs · Dec 27, 2026',note:'Extension reset is attractive, but current valuation and the second Praxis catalyst cap aggregate issuer exposure.'},
+  {tkr:'SVRA',score:3,status:'Manage, do not chase',asset:'MOLBREEVI · aPAP · Nov 22, 2026',note:'Approval probability may remain reasonable, but CMC history and reduced equity torque make a Rocket/Denali-style run-up an aggressive assumption.'},
+  {tkr:'CGEM',score:3,status:'Secondary watch',asset:'Zipalertinib · NSCLC · Feb 27, 2027',note:'Tradable size, but Taiho is the applicant and partner economics reduce direct catalyst sensitivity.'},
+  {tkr:'IMNM',score:3,status:'Secondary watch',asset:'Varegacestat · desmoid tumors · Apr 28, 2027',note:'Excellent efficacy, but an approved class competitor limits novelty and attention premium.'},
+  {tkr:'ORGO',score:3,status:'Special-situation review',asset:'ReNu · knee OA · Apr 24, 2027',note:'Torque is present, but manufacturing, biologic classification and mass-market commercial assumptions need bespoke diligence.'},
+  {tkr:'PYPD',score:2,status:'Exclude / control',asset:'D-PLEX100 · SSI · Nov 28, 2026',note:'Strong filing; unacceptable market depth and financing dependence under the current execution rules.'},
+  {tkr:'BTAI',score:2,status:'Exclude / control',asset:'IGALMI at-home · Nov 14, 2026',note:'Financial-survivability veto overrides the regulatory catalyst.'}
+];
+
+function mergeNewCandidates(rows){
+  NEW_CANDIDATES.forEach(function(n){
+    var exists=rows.some(function(r){return r.tkr===n.tkr&&String(r.pdufa||'')===String(n.pdufa||'')});
+    if(!exists)rows.push(Object.assign({},n));
+  });
+}
+function applyScoreOverrides(rows){
+  rows.forEach(function(r){
+    var o=SCORE_OVERRIDES.find(function(x){return x.tkr===r.tkr&&(!x.pdufa||String(x.pdufa)===String(r.pdufa))});
+    if(!o)return;
+    var old=r.score;
+    r._scoreOverride={from:old,to:o.score,reason:o.reason};
+    r.score=o.score;
+    if(o.mantis_class)r.mantis_class=o.mantis_class;
+  });
+}
+function scoreOverrideBadgeHtml(r){
+  var o=r._scoreOverride;if(!o)return'';
+  return' <span class="mb" style="border-color:rgba(255,212,138,.45);color:var(--warn);background:rgba(255,212,138,.08)">Shadow '+esc(o.from)+'→'+esc(o.to)+'</span>';
+}
+function renderScorePlan(){
+  var grid=document.getElementById('scorePlanGrid'),sec=document.getElementById('scoreUpdateSection');
+  if(!grid||!sec)return;
+  grid.innerHTML=SCORE_PLAN.map(function(x){
+    var cls=x.score>=4?'confirmed':(x.score===3?'corrected':'crl');
+    return'<div class="aud-card '+cls+'"><div class="aud-top"><div><div class="aud-tkr">'+esc(x.tkr)+'</div><div class="aud-asset">'+esc(x.asset)+'</div></div><span class="aud-pill '+cls+'">Score '+esc(x.score)+' · '+esc(x.status)+'</span></div><div class="aud-note">'+esc(x.note)+'</div></div>';
+  }).join('');
+}
 
 /* PDUFA date audit. Verified against primary sources on 2026-08-03.
    apply:true overwrites the date carried in data.json. apply:false means the
@@ -553,8 +632,16 @@ const FDA_DECISIONS={
    month/quarter, so the row is flagged for manual reconciliation instead. */
 const AUDIT_DATE='2026-08-03';
 const DATE_AUDIT={
+ 'DYN':{apply:true,pdufa:'2027-01-21',status:'confirmed',asset:'Z-rostudirsen · DMD exon 51',note:'Priority Review. Accelerated-approval filing based on dystrophin as a surrogate endpoint.',src:'https://investors.dyne-tx.com/news-releases/news-release-details/dyne-therapeutics-announces-us-fda-acceptance-biologics-license/'},
+ 'PHVS':{apply:true,pdufa:'2027-04-23',status:'confirmed',asset:'Deucrictibant IR · hereditary angioedema',note:'NDA accepted. First oral bradykinin B2 antagonist for on-demand HAE treatment if approved.',src:'https://ir.pharvaris.com/news-releases/news-release-details/pharvaris-announces-fda-acceptance-new-drug-application/'},
+ 'INBX':{apply:true,pdufa:'2027-04-14',status:'confirmed',asset:'Ozekibart · conventional chondrosarcoma',note:'BLA accepted with no filing-review issues. Potential first systemic therapy in the indication.',src:'https://inhibrxbiosciences.investorroom.com/2026-06-15-Inhibrx-Announces-U-S-FDA-Acceptance-of-BLA-for-Ozekibart-in-Patients-with-Conventional-Chondrosarcoma'},
+ 'IMNM':{apply:true,pdufa:'2027-04-28',status:'confirmed',asset:'Varegacestat · desmoid tumors',note:'NDA accepted following positive Phase 3 RINGSIDE results.',src:'https://investors.immunome.com/immunome-announces-u-s-fda-acceptance-of-new-drug-application-for-varegacestat-for-the-treatment-of-adults-with-desmoid-tumors/'},
+ 'ORGO':{apply:true,pdufa:'2027-04-24',status:'confirmed',asset:'ReNu · symptomatic knee osteoarthritis',note:'BLA accepted for a cryopreserved amniotic suspension allograft; three large RCTs and RMAT designation support the filing.',src:'https://investors.organogenesis.com/news-releases/news-release-details/organogenesis-announces-fda-acceptance-biologics-license'},
+ 'PYPD':{apply:true,pdufa:'2026-11-28',status:'confirmed',asset:'D-PLEX100 · surgical-site infection prevention',note:'Priority Review, no filing-review issues, but MANTIS applies a liquidity and financing veto.',src:'https://www.sec.gov/Archives/edgar/data/1611842/000121390026082564/ea029964201ex99-1.htm'},
+ 'BTAI':{apply:true,pdufa:'2026-11-14',status:'confirmed',asset:'IGALMI at-home label expansion',note:'sNDA accepted. Financial-survivability concerns exclude the name from the live book.',src:'https://ir.bioxceltherapeutics.com/news-releases/news-release-details/bioxcel-therapeutics-announces-food-drug-administration'},
+ 'BBIO':{apply:true,pdufa:'2027-05-08',status:'confirmed',asset:'Encaleret · ADH1',note:'NDA accepted; no advisory committee currently planned. Large issuer valuation limits run-up torque.',src:'https://investor.bridgebio.com/news/news-details/2026/BridgeBio-Announces-FDA-Acceptance-of-NDA-for-Encaleret-for-ADH1/default.aspx'},
  'PRAX':{apply:true,pdufa:'2026-12-27',was:'2026-09-27',status:'corrected',asset:'Relutrigine · SCN2A/SCN8A DEE',note:'Extended three months. FDA classified the additional sensitivity analyses as a major amendment. No new clinical studies requested, no safety or manufacturing concerns cited.',src:'https://investors.praxismedicines.com/news-releases/news-release-details/praxis-precision-medicines-announces-extension-period'},
- 'SVRA':{apply:true,pdufa:'2026-11-22',was:'2026-08-22',status:'corrected',asset:'Molbreevi (molgramostim) · aPAP',note:'Extended three months. Responses to FDA information requests deemed a major amendment. No advisory committee planned. Follows a May 2025 refuse-to-file on CMC.',src:'https://www.stocktitan.net/news/SVRA/savara-announces-the-u-s-food-drug-administration-fda-has-extended-x7v5whz88c2u.html'},
+ 'SVRA':{apply:true,pdufa:'2026-11-22',was:'2026-08-22',status:'corrected',asset:'Molbreevi (molgramostim) · aPAP',note:'Extended three months. Responses to FDA information requests deemed a major amendment. No advisory committee planned. Follows a May 2025 refuse-to-file on CMC.',src:'https://investors.savarapharma.com/news/news-details/2026/Savara-Announces-the-U-S--Food--Drug-Administration-FDA-Has-Extended-the-Review-Period-for-the-Molgramostim-Inhalation-Solution-Molgramostim-Biologics-License-Application-BLA-in-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP/default.aspx'},
  'ACHV':{apply:true,pdufa:'2026-06-20',status:'crl',asset:'Cytisinicline · smoking cessation',note:'CRL issued Jun 22, 2026. cGMP deficiencies at a third-party facility plus incomplete labeling. No efficacy or clinical safety deficiencies. Resubmission guided for Q4 2026, approval possible H1 2027.',src:'https://www.globenewswire.com/news-release/2026/06/22/3315277/0/en/Achieve-Life-Sciences-Receives-Complete-Response-Letter-from-FDA-for-Cytisinicline-NDA.html'},
  'UNCY':{apply:false,status:'crl',asset:'Oxylanthanum carbonate · hyperphosphatemia',note:'Second CRL Jun 30, 2026, same third-party CMC deficiencies as the first. No clinical issues raised. No new PDUFA date announced, so the row cannot be dated.',src:'https://www.globenewswire.com/news-release/2026/06/30/3319541/0/en/unicycive-therapeutics-receives-complete-response-letter-from-fda-regarding-resubmitted-oxylanthanum-carbonate-olc-new-drug-application-nda.html'},
  'CAPR':{apply:true,pdufa:'2026-08-22',status:'confirmed',asset:'Deramiocel · DMD cardiomyopathy',note:'PDUFA unchanged after the Jul 29 advisory committee. Date itself was already reset once: original Aug 31, 2025 PDUFA drew a CRL in Jul 2025, review resumed Mar 10, 2026.',src:'https://www.capricor.com/investors/news-events/press-releases/detail/338/capricor-therapeutics-announces-establishment-of-new-pdufa'},
@@ -650,6 +737,7 @@ function fdaResultSection(tkr){
 }
 function heroBullets(row){
   var fda=FDA_DECISIONS[row.tkr];
+  if(row._scoreOverride){var so=row._scoreOverride;return ['MANTIS 2.0 shadow score '+so.from+' → '+so.to+': '+so.reason,cleanText(row.notes),cleanText(row.mantis_class)+' · '+cleanText(row.therapy),'Modeled windows: Entry '+modeledWindowLabel(row,'entry')+' · Exit '+modeledWindowLabel(row,'exit')].map(function(b){return'<div class="tpt"><div class="td2"></div>'+esc(b)+'</div>'}).join('')}
   if(fda&&fda.bullets)return fda.bullets.map(function(b){return'<div class="tpt"><div class="td2"></div>'+esc(b)+'</div>'}).join('');
   var bullets=[cleanText(row.notes),cleanText(row.mantis_class)+' · '+cleanText(row.therapy),cleanText(row.catalyst_type||'FDA catalyst')+' · Priority review: '+(row.priority_review===true?'Yes':row.priority_review===false?'No':'Not stated'),'Modeled windows: Entry '+modeledWindowLabel(row,'entry')+' · Exit '+modeledWindowLabel(row,'exit')];
   return bullets.slice(0,4).map(function(b){return'<div class="tpt"><div class="td2"></div>'+esc(b)+'</div>'}).join('');
@@ -689,7 +777,7 @@ function renderWindows(){
     'RCKT':{entryLabel:'Oct 29 → Dec 26',exitLabel:'Mar 06 → Mar 18'},
     'DNLI':{entryLabel:'Oct 03 → Nov 30',exitLabel:'Mar 07 → Mar 25'},
     'VERA':{entryLabel:'Jan 17 → Mar 15',exitLabel:'May 28 → Jun 30'},
-    'CAPR':{exitLabel:'Jul 22 → Jul 30',loss:true}
+    'CAPR':{exitLabel:'Jul 24 rule → Jul 30 actual*',loss:true}
   };
   el.innerHTML=STATE.HEROES.map(function(r){
     var en=winDates(r.pdufa,r.date_type,r.entry),ex=winDates(r.pdufa,r.date_type,r.exit);
@@ -727,11 +815,11 @@ function buildAdcomPanel(){
         '<div class="adcom-icon">AC</div>'+
         '<div><div class="adcom-title">Advisory Committee Post-Mortem</div><div class="adcom-subtitle">CTGTAC · Cellular, Tissue, and Gene Therapies · Jul 29, 2026</div></div>'+
       '</div>'+
-      '<div class="adcom-ticker">CAPR · RESOLVED · -67%</div>'+
+      '<div class="adcom-ticker">CAPR · CLOSED · LEDGER PENDING</div>'+
     '</div>'+
     '<div class="adcom-body">'+
       '<div class="adcom-intro">'+
-        'CTGTAC voted <strong>9 against, 3 for, 0 abstentions</strong> that the available evidence does not support the effectiveness of <strong>deramiocel</strong> for cardiomyopathy associated with Duchenne muscular dystrophy. The vote is <strong>non-binding</strong> and it addressed a narrowed cardiomyopathy question rather than the broader indication Capricor proposed. The committee did not vote on overall benefit-risk. PDUFA remains <strong>Aug 22, 2026</strong>. MANTIS exited the position on Jul 30 at <strong>-67% VWAP</strong> and carries no residual exposure into the decision.'+
+        'CTGTAC voted <strong>9 against, 3 for, 0 abstentions</strong> that the available evidence does not support the effectiveness of <strong>deramiocel</strong> for cardiomyopathy associated with Duchenne muscular dystrophy. The vote is <strong>non-binding</strong> and it addressed a narrowed cardiomyopathy question rather than the broader indication Capricor proposed. The committee did not vote on overall benefit-risk. PDUFA remains <strong>Aug 22, 2026</strong>. MANTIS exited the position after the briefing-document shock; the displayed <strong>approximately -67%</strong> remains provisional until the execution ledger is reconciled and carries no residual exposure into the decision.'+
       '</div>'+
       '<div class="vote-strip">'+
         '<div class="vote-cell"><div class="vote-num against">9</div><div class="vote-lbl">Against</div></div>'+
@@ -762,8 +850,8 @@ function buildAdcomPanel(){
         '</div>'+
         '<div class="adcom-card">'+
           '<div class="adcom-card-label">MANTIS Result</div>'+
-          '<div class="adcom-card-value" style="font-size:14px;color:var(--loss)">-67.0%</div>'+
-          '<div class="adcom-card-detail">Stopped out Jul 30, 2026. Fund-level first loss of the 2026 cycle.</div>'+
+          '<div class="adcom-card-value" style="font-size:14px;color:var(--loss)">~ -67%*</div>'+
+          '<div class="adcom-card-detail">Exited after the shock. Approximate gross loss shown; final VWAP and fees remain a ledger item.</div>'+
         '</div>'+
       '</div>'+
       '<button class="adcom-toggle" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-rootcause\').classList.toggle(\'open\')">'+
@@ -792,7 +880,7 @@ function buildAdcomPanel(){
       '<div class="adcom-expandable" id="adcom-timeline">'+
         '<div class="adcom-endpoints">'+
           '<div class="adcom-ep-title">Jul 22 to Aug 03, 2026</div>'+
-          '<div class="tl-row"><div class="tl-date">Jul 22</div><div class="tl-txt"><b>FDA briefing document posted.</b> Agency disputes the Phase 3 efficacy claim outright. Capricor issues a same-window rebuttal calling the analysis obsolete. Stock breaks down. This was the real catalyst and the point at which the exit should have fired.</div></div>'+
+          '<div class="tl-row"><div class="tl-date">Jul 27</div><div class="tl-txt"><b>FDA briefing document posted.</b> Agency disputes the Phase 3 efficacy claim outright. Capricor issues a same-window rebuttal calling the analysis obsolete. Stock breaks down. This was the real catalyst and the point at which the exit should have fired.</div></div>'+
           '<div class="tl-row"><div class="tl-date">Jul 29</div><div class="tl-txt"><b>CTGTAC meeting.</b> Contentious session dominated by the statistical dispute. The Lancet publishes HOPE-3 the same day, reporting 54% slowing of upper limb decline, producing two irreconcilable narratives on one tape.</div></div>'+
           '<div class="tl-row"><div class="tl-date">Jul 30</div><div class="tl-txt"><b>Vote confirmed 9-3 against.</b> Shares fall roughly 52 to 54% on the session, trading near $3.13. Worst week on record for the name. MANTIS exits into the move.</div></div>'+
           '<div class="tl-row"><div class="tl-date">Jul 30</div><div class="tl-txt"><b>Sell-side capitulates.</b> Maxim to Hold from Buy, Oppenheimer to Perform from Outperform.</div></div>'+
@@ -841,7 +929,7 @@ function buildAdcomPanel(){
         '<span class="adcom-topic">Briefing doc was the catalyst</span>'+
         '<span class="adcom-topic">Lancet same-day</span>'+
         '<span class="adcom-topic">Elevidys did not transfer</span>'+
-        '<span class="adcom-topic">-67% VWAP realized</span>'+
+        '<span class="adcom-topic">~ -67% provisional</span>'+
         '<span class="adcom-topic">PDUFA Aug 22 watch only</span>'+
       '</div>'+
     '</div>'+
@@ -870,8 +958,8 @@ function renderTable(){var tbody=document.getElementById('wl-tbody'),empty=docum
     else if(fda)pdfuaDisplay='<span style="color:#00e5ff;font-weight:600">'+esc(fda.decisionDate)+'</span>';
     else if(outcome)pdfuaDisplay=esc(displayPdufa(r))+'<br>'+outcomeBadgeHtml(outcome);
     else pdfuaDisplay=esc(displayPdufa(r));
-    var exitCellStr=(fda&&fda.outcome==='adcom_negative')?'Jul 22 → Jul 30':xStr;
-    tr.innerHTML='<td><div class="tdtk">'+esc(r.tkr)+'</div></td><td><div class="tdco">'+esc(cleanText(r.co))+'</div><div class="tddrug">'+(fda?esc(fda.brandName):esc(cleanText(r.drug)))+'</div></td><td class="tdind hide-m">'+esc(cleanText(r.ind))+'</td><td class="tddate">'+pdfuaDisplay+'</td><td class="tdsc"><span class="scb '+scoreClass(r.score)+'">'+esc(r.score)+'</span></td><td class="tdclass hide-m">'+esc(cleanText(r.mantis_class))+'</td><td class="tdwin hide-m">'+eStr+'</td><td class="tdwin hide-m">'+exitCellStr+'</td><td class="hide-m">'+(r.orph?'<span class="mb orph">Orphan</span> ':'')+therapyTag+'<span class="mb">'+esc(cleanText(r.catalyst_type||'FDA'))+'</span>'+decisionBadgeHtml(fda)+auditBadgeHtml(r)+(!fda&&outcome?' '+outcomeBadgeHtml(outcome):'')+(r.is_new_candidate?' <span class="mb" style="border-color:rgba(255,0,85,.45);color:#ff0055;background:rgba(255,0,85,.08)">New MANTIS</span>':'')+'</td>';tbody.appendChild(tr)})}
+    var exitCellStr=(fda&&fda.outcome==='adcom_negative')?'Jul 24 rule → Jul 30 actual*':xStr;
+    tr.innerHTML='<td><div class="tdtk">'+esc(r.tkr)+'</div></td><td><div class="tdco">'+esc(cleanText(r.co))+'</div><div class="tddrug">'+(fda?esc(fda.brandName):esc(cleanText(r.drug)))+'</div></td><td class="tdind hide-m">'+esc(cleanText(r.ind))+'</td><td class="tddate">'+pdfuaDisplay+'</td><td class="tdsc"><span class="scb '+scoreClass(r.score)+'">'+esc(r.score)+'</span></td><td class="tdclass hide-m">'+esc(cleanText(r.mantis_class))+'</td><td class="tdwin hide-m">'+eStr+'</td><td class="tdwin hide-m">'+exitCellStr+'</td><td class="hide-m">'+(r.orph?'<span class="mb orph">Orphan</span> ':'')+therapyTag+'<span class="mb">'+esc(cleanText(r.catalyst_type||'FDA'))+'</span>'+decisionBadgeHtml(fda)+auditBadgeHtml(r)+scoreOverrideBadgeHtml(r)+(!fda&&outcome?' '+outcomeBadgeHtml(outcome):'')+(r.is_new_candidate?' <span class="mb" style="border-color:rgba(255,0,85,.45);color:#ff0055;background:rgba(255,0,85,.08)">New MANTIS</span>':'')+'</td>';tbody.appendChild(tr)})}
 function setupChips(){document.querySelectorAll('.chip').forEach(function(ch){ch.addEventListener('click',function(){var c=ch.dataset.c;if(c==='rst'){Object.keys(STATE.CHIPS).forEach(function(k){STATE.CHIPS[k]=false});document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});renderTable();return}if(['hero0','hero1','hero2','hero3'].includes(c)){var was=STATE.CHIPS[c];['hero0','hero1','hero2','hero3'].forEach(function(k){STATE.CHIPS[k]=false;document.querySelector('.chip[data-c="'+k+'"]')?.classList.remove('on')});STATE.CHIPS[c]=!was;ch.classList.toggle('on',STATE.CHIPS[c])}else if(c==='s5'){STATE.CHIPS.s5=!STATE.CHIPS.s5;if(STATE.CHIPS.s5){STATE.CHIPS.s4=false;document.querySelector('.chip[data-c="s4"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s5)}else if(c==='s4'){STATE.CHIPS.s4=!STATE.CHIPS.s4;if(STATE.CHIPS.s4){STATE.CHIPS.s5=false;document.querySelector('.chip[data-c="s5"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s4)}else if(c==='orph'){STATE.CHIPS.orph=!STATE.CHIPS.orph;ch.classList.toggle('on',STATE.CHIPS.orph)}else if(c==='gene'){STATE.CHIPS.gene=!STATE.CHIPS.gene;ch.classList.toggle('on',STATE.CHIPS.gene)}renderTable()})})}
 function ensureCaprAnalog(){
   var list=STATE.ANALOGS||[];
@@ -879,8 +967,8 @@ function ensureCaprAnalog(){
   list.push({name:'CAPR',label:'Deramiocel · AdCom 9-3 against',disease:'DMD cardiomyopathy',return_pct:-67.0,color:'#ffa8a8',outcome:'AdCom Against'});
   return list;
 }
-async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];applyDateAudit(STATE.FUTURE_ROWS);STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCaprAnalog()}
-async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();buildAdcomPanel();renderDateAudit();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable)}
+async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];mergeNewCandidates(STATE.FUTURE_ROWS);applyDateAudit(STATE.FUTURE_ROWS);applyScoreOverrides(STATE.FUTURE_ROWS);STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCaprAnalog()}
+async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();renderScorePlan();buildAdcomPanel();renderDateAudit();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable)}
 window.addEventListener('load',init);
 </script>
 </body>
