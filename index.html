@@ -542,11 +542,11 @@ const FDA_DECISIONS={
   'RCKT':{outcome:'approved',decisionDate:'Mar 26, 2026',brandName:'KRESLADI™',genericName:'marnetegragene autotemcel',approvalType:'Accelerated Approval',indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',mechanism:'Autologous hematopoietic stem cell-based gene therapy',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First Gene Therapy for LAD-I',cls:'first'}],pct:'+46.32%',exitDate:'Mar 18, 2026'},
   'DNLI':{outcome:'approved',decisionDate:'Mar 25, 2026',brandName:'AVLAYAH™',genericName:'tividenofusp alfa-eknm',approvalType:'Accelerated Approval',indication:'Neurologic manifestations of Hunter syndrome (MPS II)',mechanism:'First FDA-approved biologic to cross the blood-brain barrier',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First BBB-Crossing Biologic',cls:'first'}],pct:'+27.7%',exitDate:'Mar 25, 2026'},
   'VERA':{outcome:'approved',decisionDate:'Jul 07, 2026',brandName:'TRUTAKNA™',genericName:'atacicept-vymj',approvalType:'Accelerated Approval',indication:'Primary IgA nephropathy (IgAN) in adults at risk of progression',mechanism:'First dual BAFF/APRIL inhibitor addressing immunological drivers of IgAN',extras:[{label:'Breakthrough Therapy',cls:'first'},{label:'Priority Review',cls:'prv'},{label:'Accelerated',cls:'accel'}],pct:'+0.93%',exitDate:'Jun 30, 2026'},
-  'CAPR':{outcome:'adcom_negative',pending:true,decisionDate:'Jul 29, 2026',brandName:'Deramiocel',genericName:'deramiocel (CAP-1002)',approvalType:'AdCom 9-3 Against',indication:'Cardiomyopathy associated with Duchenne muscular dystrophy',mechanism:'Allogeneic cardiosphere-derived cell (CDC) therapy',extras:[{label:'Vote 9-3 Against',cls:'warn'},{label:'Non-binding',cls:'pend'},{label:'PDUFA Aug 22 Pending',cls:'prv'},{label:'SAP Dispute',cls:'warn'}],pct:'-67% approx.',exitDate:'Jul 30, 2026*',
+  'CAPR':{outcome:'adcom_negative',pending:true,decisionDate:'Jul 29, 2026',brandName:'Deramiocel',genericName:'deramiocel (CAP-1002)',approvalType:'AdCom 9-3 Against',indication:'Cardiomyopathy associated with Duchenne muscular dystrophy',mechanism:'Allogeneic cardiosphere-derived cell (CDC) therapy',extras:[{label:'Vote 9-3 Against',cls:'warn'},{label:'Non-binding',cls:'pend'},{label:'PDUFA Aug 22 Pending',cls:'prv'},{label:'SAP Dispute',cls:'warn'}],pct:'-25.00%',exitDate:'Jul 23, 2026',
     bullets:[
       'CTGTAC voted 9-3 that the evidence does not support effectiveness in DMD cardiomyopathy. The vote is non-binding.',
       'Thesis broke on the FDA briefing document, not on the vote. Dispute over SAP v1.1 vs v3.0 governing HOPE-3.',
-      'Position exited after the briefing-document shock. The approximately -67% figure is provisional until broker fills and VWAP are reconciled; no residual exposure is carried into the PDUFA.',
+      'Use-case performance is measured from the Jun 26 AdCom-announcement close ($26.44) to the Jul 23 close ($19.83), two trading sessions before the Jul 27 briefing-document release: -25.00%. This is a model-window return, not the realised broker return.',
       'PDUFA Aug 22, 2026 still stands. MANTIS is not re-entering ahead of the decision.'
     ]}
  };
@@ -721,9 +721,10 @@ function tvSymbolFor(tkr){return TV_SYMBOLS[tkr]||'NASDAQ:'+tkr}
 function tradingViewUrlFor(tkr){return'https://www.tradingview.com/symbols/NASDAQ:'+tkr+'/'}
 function profitBanner(tkr,returnPct,exitDateLabel,loss){
   var lc=loss?' loss':'';
-  var icon=loss?'✘':'✔';
-  var label=loss?'Position stopped out':'Position closed';
-  var tag=loss?'REALIZED LOSS':'REALIZED';
+  var icon=(tkr==='CAPR')?'↘':(loss?'✘':'✔');
+  var isCaprUc=(tkr==='CAPR');
+  var label=isCaprUc?'Use-case exit':(loss?'Position stopped out':'Position closed');
+  var tag=isCaprUc?'UC MODEL RETURN':(loss?'REALIZED LOSS':'REALIZED');
   return '<div class="profit-banner'+lc+'"><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="profit-inner"><div class="profit-left"><div class="profit-icon">'+icon+'</div><div><div class="profit-label">'+label+'</div><div class="profit-status">Final exit '+esc(exitDateLabel)+'</div></div></div><div class="profit-right"><div class="profit-pct'+lc+'">'+esc(returnPct)+'</div><div class="profit-sub">VWAP Return</div><div class="profit-tag'+lc+'">'+tag+'</div></div></div></div>';
 }
 function fdaResultSection(tkr){
@@ -777,7 +778,7 @@ function renderWindows(){
     'RCKT':{entryLabel:'Oct 29 → Dec 26',exitLabel:'Mar 06 → Mar 18'},
     'DNLI':{entryLabel:'Oct 03 → Nov 30',exitLabel:'Mar 07 → Mar 25'},
     'VERA':{entryLabel:'Jan 17 → Mar 15',exitLabel:'May 28 → Jun 30'},
-    'CAPR':{exitLabel:'Jul 24 rule → Jul 30 actual*',loss:true}
+    'CAPR':{entryLabel:'Jun 26 announcement',exitLabel:'Jul 23 UC exit',loss:true}
   };
   el.innerHTML=STATE.HEROES.map(function(r){
     var en=winDates(r.pdufa,r.date_type,r.entry),ex=winDates(r.pdufa,r.date_type,r.exit);
@@ -819,7 +820,7 @@ function buildAdcomPanel(){
     '</div>'+
     '<div class="adcom-body">'+
       '<div class="adcom-intro">'+
-        'CTGTAC voted <strong>9 against, 3 for, 0 abstentions</strong> that the available evidence does not support the effectiveness of <strong>deramiocel</strong> for cardiomyopathy associated with Duchenne muscular dystrophy. The vote is <strong>non-binding</strong> and it addressed a narrowed cardiomyopathy question rather than the broader indication Capricor proposed. The committee did not vote on overall benefit-risk. PDUFA remains <strong>Aug 22, 2026</strong>. MANTIS exited the position after the briefing-document shock; the displayed <strong>approximately -67%</strong> remains provisional until the execution ledger is reconciled and carries no residual exposure into the decision.'+
+        'CTGTAC voted <strong>9 against, 3 for, 0 abstentions</strong> that the available evidence does not support the effectiveness of <strong>deramiocel</strong> for cardiomyopathy associated with Duchenne muscular dystrophy. The vote is <strong>non-binding</strong> and it addressed a narrowed cardiomyopathy question rather than the broader indication Capricor proposed. The committee did not vote on overall benefit-risk. PDUFA remains <strong>Aug 22, 2026</strong>. The MANTIS use case now measures the position from the <strong>Jun 26 AdCom-announcement close</strong> to the <strong>Jul 23 close</strong>, two trading sessions before the Jul 27 briefing-document release. The resulting model-window return is <strong>-25.00%</strong>. This is not the realised broker return.'+
       '</div>'+
       '<div class="vote-strip">'+
         '<div class="vote-cell"><div class="vote-num against">9</div><div class="vote-lbl">Against</div></div>'+
@@ -850,8 +851,8 @@ function buildAdcomPanel(){
         '</div>'+
         '<div class="adcom-card">'+
           '<div class="adcom-card-label">MANTIS Result</div>'+
-          '<div class="adcom-card-value" style="font-size:14px;color:var(--loss)">~ -67%*</div>'+
-          '<div class="adcom-card-detail">Exited after the shock. Approximate gross loss shown; final VWAP and fees remain a ledger item.</div>'+
+          '<div class="adcom-card-value" style="font-size:14px;color:var(--loss)">-25.00%</div>'+
+          '<div class="adcom-card-detail">Use-case exit on Jul 23. Return is measured from the Jun 26 AdCom-announcement close; it is not realised broker performance.</div>'+
         '</div>'+
       '</div>'+
       '<button class="adcom-toggle" onclick="this.classList.toggle(\'open\');document.getElementById(\'adcom-rootcause\').classList.toggle(\'open\')">'+
@@ -879,10 +880,10 @@ function buildAdcomPanel(){
       '</button>'+
       '<div class="adcom-expandable" id="adcom-timeline">'+
         '<div class="adcom-endpoints">'+
-          '<div class="adcom-ep-title">Jul 22 to Aug 03, 2026</div>'+
-          '<div class="tl-row"><div class="tl-date">Jul 27</div><div class="tl-txt"><b>FDA briefing document posted.</b> Agency disputes the Phase 3 efficacy claim outright. Capricor issues a same-window rebuttal calling the analysis obsolete. Stock breaks down. This was the real catalyst and the point at which the exit should have fired.</div></div>'+
+          '<div class="adcom-ep-title">Jun 26 to Aug 03, 2026</div>'+
+          '<div class="tl-row"><div class="tl-date">Jun 26</div><div class="tl-txt"><b>AdCom announced.</b> CAPR closed at $26.44. This is the start of the defined use-case measurement window.</div></div><div class="tl-row"><div class="tl-date">Jul 23</div><div class="tl-txt"><b>Use-case exit.</b> CAPR closed at $19.83, two trading sessions before the briefing documents. Return from the announcement close: -25.00%.</div></div><div class="tl-row"><div class="tl-date">Jul 27</div><div class="tl-txt"><b>FDA briefing document posted.</b> Agency disputes the Phase 3 efficacy claim outright. Capricor issues a same-window rebuttal calling the analysis obsolete. Stock breaks down. This was the real catalyst and the point at which the exit should have fired.</div></div>'+
           '<div class="tl-row"><div class="tl-date">Jul 29</div><div class="tl-txt"><b>CTGTAC meeting.</b> Contentious session dominated by the statistical dispute. The Lancet publishes HOPE-3 the same day, reporting 54% slowing of upper limb decline, producing two irreconcilable narratives on one tape.</div></div>'+
-          '<div class="tl-row"><div class="tl-date">Jul 30</div><div class="tl-txt"><b>Vote confirmed 9-3 against.</b> Shares fall roughly 52 to 54% on the session, trading near $3.13. Worst week on record for the name. MANTIS exits into the move.</div></div>'+
+          '<div class="tl-row"><div class="tl-date">Jul 30</div><div class="tl-txt"><b>Vote confirmed 9-3 against.</b> Shares remain deeply impaired after the briefing-document shock. This later move is excluded from the use-case performance calculation.</div></div>'+
           '<div class="tl-row"><div class="tl-date">Jul 30</div><div class="tl-txt"><b>Sell-side capitulates.</b> Maxim to Hold from Buy, Oppenheimer to Perform from Outperform.</div></div>'+
           '<div class="tl-row"><div class="tl-date">Aug 03</div><div class="tl-txt"><b>Stabilisation attempt.</b> Range roughly $3.80 to $4.66. Retail flow rebuilding an approval case off the non-binding nature of the vote.</div></div>'+
           '<div class="tl-row"><div class="tl-date">Aug 22</div><div class="tl-txt"><b>PDUFA target action date.</b> FDA is not bound by the committee. Watch only. MANTIS does not re-enter ahead of a decision where the agency has already published a negative efficacy read.</div></div>'+
@@ -916,7 +917,7 @@ function buildAdcomPanel(){
           '<div class="lesson"><div class="lesson-n">04</div><div class="lesson-t"><b>Read the voting question, not the data package.</b> A narrowed question aimed at the weakest endpoint is FDA staff telegraphing where they intend to land. That agenda is public before the meeting and should trigger an automatic score downgrade.</div></div>'+
           '<div class="lesson"><div class="lesson-n">05</div><div class="lesson-t"><b>Score 5 requires a pre-agreed primary analysis.</b> New gate: if the primary endpoint analysis was not agreed with FDA prior to BLA submission, the name caps at Score 3 no matter how strong the headline effect size looks.</div></div>'+
           '<div class="lesson"><div class="lesson-n">06</div><div class="lesson-t"><b>One precedent is not a base rate.</b> Elevidys was used as evidence that hostile panels can be survived. Precedent should be used to size risk, not to justify holding through a binary.</div></div>'+
-          '<div class="lesson"><div class="lesson-n">07</div><div class="lesson-t"><b>Position sizing on AdCom names must assume a 50 to 70% single-session drawdown.</b> Realised move was 52 to 54% in one session, 67% from the MANTIS VWAP entry. That is the planning number for this catalyst class going forward.</div></div>'+
+          '<div class="lesson"><div class="lesson-n">07</div><div class="lesson-t"><b>Position sizing on AdCom names must assume a 50 to 70% single-session drawdown.</b> The post-briefing market move still shows that AdCom names can suffer a 50 to 70% gap. That tail-risk observation is separate from the -25.00% use-case return recorded for model calibration.</div></div>'+
         '</div>'+
       '</div>'+
     '</div>'+
@@ -929,7 +930,7 @@ function buildAdcomPanel(){
         '<span class="adcom-topic">Briefing doc was the catalyst</span>'+
         '<span class="adcom-topic">Lancet same-day</span>'+
         '<span class="adcom-topic">Elevidys did not transfer</span>'+
-        '<span class="adcom-topic">~ -67% provisional</span>'+
+        '<span class="adcom-topic">-25.00% UC return</span>'+
         '<span class="adcom-topic">PDUFA Aug 22 watch only</span>'+
       '</div>'+
     '</div>'+
@@ -942,7 +943,7 @@ function isCompletedOutcome(row){var o=outcomeForRow(row);if(!o)return false;var
 function outcomeBadgeHtml(o){if(!o)return'';var v=String(o.outcome||'').toLowerCase();var isCrl=v.includes('crl')||v.includes('rejected');var isExt=v.includes('extend');var label=isCrl?'✘ CRL':(isExt?'↻ Extended':'✔ Approved');var style=isCrl?'border-color:rgba(239,68,68,.45);color:var(--loss);background:rgba(239,68,68,.10)':(isExt?'border-color:rgba(245,158,11,.45);color:#fcd34d;background:rgba(245,158,11,.10)':'border-color:rgba(0,255,65,.45);color:#00ff41;background:rgba(0,255,65,.10)');return'<span class="mb" style="'+style+'">'+label+'</span>'}
 function decisionBadgeHtml(fda){
   if(!fda)return'';
-  if(fda.outcome==='adcom_negative')return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:var(--loss);background:rgba(239,68,68,.1)">✘ AdCom 9-3</span> <span class="mb" style="border-color:rgba(245,158,11,.4);color:#fcd34d;background:rgba(245,158,11,.08)">✘ -67% closed</span>';
+  if(fda.outcome==='adcom_negative')return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:var(--loss);background:rgba(239,68,68,.1)">✘ AdCom 9-3</span> <span class="mb" style="border-color:rgba(245,158,11,.4);color:#fcd34d;background:rgba(245,158,11,.08)">UC -25.00%</span>';
   if(fda.outcome==='approved')return' <span class="mb" style="border-color:rgba(0,255,65,.4);color:#00ff41;background:rgba(0,255,65,.1)">✔ Approved</span>';
   return' <span class="mb" style="border-color:rgba(239,68,68,.45);color:var(--loss);background:rgba(239,68,68,.1)">✘ CRL</span>';
 }
@@ -958,13 +959,13 @@ function renderTable(){var tbody=document.getElementById('wl-tbody'),empty=docum
     else if(fda)pdfuaDisplay='<span style="color:#00e5ff;font-weight:600">'+esc(fda.decisionDate)+'</span>';
     else if(outcome)pdfuaDisplay=esc(displayPdufa(r))+'<br>'+outcomeBadgeHtml(outcome);
     else pdfuaDisplay=esc(displayPdufa(r));
-    var exitCellStr=(fda&&fda.outcome==='adcom_negative')?'Jul 24 rule → Jul 30 actual*':xStr;
+    var exitCellStr=(fda&&fda.outcome==='adcom_negative')?'Jun 26 → Jul 23 UC':xStr;
     tr.innerHTML='<td><div class="tdtk">'+esc(r.tkr)+'</div></td><td><div class="tdco">'+esc(cleanText(r.co))+'</div><div class="tddrug">'+(fda?esc(fda.brandName):esc(cleanText(r.drug)))+'</div></td><td class="tdind hide-m">'+esc(cleanText(r.ind))+'</td><td class="tddate">'+pdfuaDisplay+'</td><td class="tdsc"><span class="scb '+scoreClass(r.score)+'">'+esc(r.score)+'</span></td><td class="tdclass hide-m">'+esc(cleanText(r.mantis_class))+'</td><td class="tdwin hide-m">'+eStr+'</td><td class="tdwin hide-m">'+exitCellStr+'</td><td class="hide-m">'+(r.orph?'<span class="mb orph">Orphan</span> ':'')+therapyTag+'<span class="mb">'+esc(cleanText(r.catalyst_type||'FDA'))+'</span>'+decisionBadgeHtml(fda)+auditBadgeHtml(r)+scoreOverrideBadgeHtml(r)+(!fda&&outcome?' '+outcomeBadgeHtml(outcome):'')+(r.is_new_candidate?' <span class="mb" style="border-color:rgba(255,0,85,.45);color:#ff0055;background:rgba(255,0,85,.08)">New MANTIS</span>':'')+'</td>';tbody.appendChild(tr)})}
 function setupChips(){document.querySelectorAll('.chip').forEach(function(ch){ch.addEventListener('click',function(){var c=ch.dataset.c;if(c==='rst'){Object.keys(STATE.CHIPS).forEach(function(k){STATE.CHIPS[k]=false});document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});renderTable();return}if(['hero0','hero1','hero2','hero3'].includes(c)){var was=STATE.CHIPS[c];['hero0','hero1','hero2','hero3'].forEach(function(k){STATE.CHIPS[k]=false;document.querySelector('.chip[data-c="'+k+'"]')?.classList.remove('on')});STATE.CHIPS[c]=!was;ch.classList.toggle('on',STATE.CHIPS[c])}else if(c==='s5'){STATE.CHIPS.s5=!STATE.CHIPS.s5;if(STATE.CHIPS.s5){STATE.CHIPS.s4=false;document.querySelector('.chip[data-c="s4"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s5)}else if(c==='s4'){STATE.CHIPS.s4=!STATE.CHIPS.s4;if(STATE.CHIPS.s4){STATE.CHIPS.s5=false;document.querySelector('.chip[data-c="s5"]')?.classList.remove('on')}ch.classList.toggle('on',STATE.CHIPS.s4)}else if(c==='orph'){STATE.CHIPS.orph=!STATE.CHIPS.orph;ch.classList.toggle('on',STATE.CHIPS.orph)}else if(c==='gene'){STATE.CHIPS.gene=!STATE.CHIPS.gene;ch.classList.toggle('on',STATE.CHIPS.gene)}renderTable()})})}
 function ensureCaprAnalog(){
   var list=STATE.ANALOGS||[];
   if(list.some(function(a){return String(a.name||'').toUpperCase().indexOf('CAPR')>-1}))return list;
-  list.push({name:'CAPR',label:'Deramiocel · AdCom 9-3 against',disease:'DMD cardiomyopathy',return_pct:-67.0,color:'#ffa8a8',outcome:'AdCom Against'});
+  list.push({name:'CAPR',label:'Deramiocel · AdCom-window use case',disease:'DMD cardiomyopathy',return_pct:-25.0,color:'#ffa8a8',outcome:'UC Exit Before Briefing'});
   return list;
 }
 async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];mergeNewCandidates(STATE.FUTURE_ROWS);applyDateAudit(STATE.FUTURE_ROWS);applyScoreOverrides(STATE.FUTURE_ROWS);STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCaprAnalog()}
