@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-31T12:00:00Z",
-  "brand": "MANTIA ALPHA PHARMA",
+  "brand": "MANTIS ALPHA PHARMA",
   "model_version": "MANTIS 2.0 / workspace 2.7",
   "locked_rallies": [
     {
@@ -1329,7 +1329,7 @@
       "priority_review": true,
       "entry": "T-120 to T-75",
       "exit": "T-20 to T-7",
-      "notes": "FDA accepted the NDA with Priority Review and set Feb 12, 2027. First-potential-treatment status, rare-disease designations and positive Phase 3 DRAGON data are strong, but the company has already substantially re-rated and carries a multi-billion-dollar valuation, limiting classic MANTIA torque.",
+      "notes": "FDA accepted the NDA with Priority Review and set Feb 12, 2027. First-potential-treatment status, rare-disease designations and positive Phase 3 DRAGON data are strong, but the company has already substantially re-rated and carries a multi-billion-dollar valuation, limiting classic MANTIS torque.",
       "source": "https://www.globenewswire.com/news-release/2026/08/11/3343136/0/en/belite-bio-announces-u-s-food-and-drug-administration-acceptance-and-priority-review-of-new-drug-application-for-tinlarebant-for-the-treatment-of-stargardt-disease-type-1.html",
       "is_new_candidate": true,
       "score_status": "active_shadow",
