@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-08-31T12:00:00Z",
   "brand": "MANTIS ALPHA PHARMA",
-  "model_version": "MANTIS 2.0 / workspace 2.7",
+  "model_version": "MANTIS 2.0 / workspace 2.7.1",
   "locked_rallies": [
     {
       "tkr": "INBX",
@@ -660,28 +660,33 @@
       "drug": "Deramiocel",
       "ind": "Duchenne muscular dystrophy · refined proposed upper-limb function indication",
       "score": 5,
-      "mantis_class": "Historical Score 5 · closed control case",
+      "mantis_class": "Historical Score 5 · two-phase control case",
       "orph": true,
       "therapy": "Cell therapy / rare neuromuscular disease",
       "catalyst_type": "BLA resubmission",
       "priority_review": null,
       "entry": "T-130 to T-60",
       "exit": "T-25 to T-5",
-      "notes": "Closed process-control case. FDA extended the action date to Nov 22, 2026 after accepting 24-month HOPE-3 data and analyses supporting a refined proposed indication as a major amendment. The model window remains closed at -25.00%; the extension does not reopen the trade.",
+      "notes": "Two-phase control case. The original AdCom-window MANTIS cycle is closed at a -26.00% Bloomberg-ledger loss. A separate extension-pathway signal produced an approximately 90% intraday rally on Aug 14 after FDA indicated willingness to review a new upper-limb amendment. FDA formally accepted the major amendment on Aug 24 and extended PDUFA three months to Nov 22, 2026. The rebound is archived separately and is not netted against the loss.",
       "source": "https://www.capricor.com/investors/news-events/press-releases/detail/354/capricor-therapeutics-announces-extension-of-pdufa-target",
       "original_score": 5,
       "score_status": "closed_control",
       "score_version": "legacy_prospective",
       "active_candidate": false,
-      "score_change_reason": "Trade is closed. Retain the original prospective Score 5 for audit. For model calibration, use the -25.00% AdCom-window return from Jun 26 close to Jul 23 close; do not use the post-briefing realised loss as the strategy performance metric.",
-      "plan_status": "CLOSED · NO RE-ENTRY · WATCH NOV 22 OUTCOME",
-      "performance_return_pct": -25.0,
-      "performance_type": "AdCom announcement to pre-briefing use-case exit",
+      "score_change_reason": "Retain the original prospective Score 5 for audit. Use the -26.00% Bloomberg-ledger AdCom-window loss for model calibration. Record the later approximately 90% extension-pathway intraday rally as a separate event rather than offsetting the closed loss.",
+      "plan_status": "ORIGINAL CYCLE CLOSED · EXTENSION EVENT ARCHIVED · WATCH NOV 22",
+      "performance_return_pct": -26.0,
+      "performance_type": "Bloomberg-ledger AdCom announcement to pre-briefing use-case exit",
       "performance_start_date": "2026-06-26",
       "performance_start_price": 26.44,
       "performance_exit_date": "2026-07-23",
       "performance_exit_price": 19.83,
-      "performance_status": "counterfactual_use_case"
+      "performance_status": "counterfactual_use_case",
+      "performance_source": "Bloomberg portfolio ledger",
+      "public_close_proxy_return_pct": -25.0,
+      "extension_path_intraday_return_pct_approx": 90.0,
+      "extension_signal_date": "2026-08-14",
+      "formal_extension_date": "2026-08-24"
     },
     {
       "tkr": "RARE",
@@ -1688,13 +1693,24 @@
     },
     {
       "name": "CAPR",
-      "label": "Capricor Therapeutics · AdCom-window use case",
-      "return_pct": -25.0,
+      "label": "Capricor Therapeutics · Bloomberg AdCom-window use case",
+      "return_pct": -26.0,
       "disease": "DMD cardiomyopathy",
       "outcome": "UC Exit Before Briefing",
       "color": "#ffa8a8",
-      "window": "2026-06-26 close to 2026-07-23 close",
-      "method": "AdCom announcement to two trading sessions before briefing documents"
+      "window": "2026-06-26 to 2026-07-23",
+      "method": "Bloomberg ledger · AdCom announcement to two trading sessions before briefing documents",
+      "public_close_proxy_return_pct": -25.0
+    },
+    {
+      "name": "CAPR-X",
+      "label": "Capricor Therapeutics · FDA amendment/extension pathway",
+      "return_pct": 90.0,
+      "disease": "DMD upper-limb indication",
+      "outcome": "Intraday Extension Signal",
+      "color": "#00ff41",
+      "window": "2026-08-14 intraday",
+      "method": "Approximate intraday market reaction after FDA willingness to review the amendment was disclosed; separate from the formal Aug 24 extension"
     }
   ],
   "deal_events": [
@@ -1839,7 +1855,7 @@
       "pdufa_after": "2026-11-22",
       "score_before": 5,
       "score_after": 5,
-      "reason": "FDA accepted 24-month HOPE-3 data and analyses as a major amendment and extended the action date. Original Score 5 and the -25.00% closed model-window result remain frozen; no re-entry."
+      "reason": "FDA accepted 24-month HOPE-3 data and analyses as a major amendment and extended the action date three months. Original Score 5 and the -26.00% Bloomberg-ledger loss remain frozen; the later approximately 90% extension-pathway intraday rally is recorded separately."
     },
     {
       "tkr": "RARE",
@@ -1919,7 +1935,7 @@
       "QURE",
       "XENE"
     ],
-    "portfolio_note": "Lock the Aug 3 to Aug 27 INBX, PHVS and DYN model cycles; do not assume a repeat. Count COGT's two decisions as one asset exposure and PRAX's two decisions under one issuer-level cap. Archive RARE, BIIB and ROIV approvals."
+    "portfolio_note": "Lock the Aug 3 to Aug 27 INBX, PHVS and DYN model cycles; do not assume a repeat. CAPR is a two-phase control case: -26.00% Bloomberg-ledger use-case loss and a separate approximately 90% extension-pathway intraday rebound. Count COGT's two decisions as one asset exposure and PRAX's two decisions under one issuer-level cap. Archive RARE, BIIB and ROIV approvals."
   },
   "capr_use_case": {
     "definition": "Hold from the AdCom announcement-day close until the close two trading sessions before FDA briefing documents are released.",
@@ -1928,10 +1944,32 @@
     "briefing_document_release_date": "2026-07-27",
     "use_case_exit_date": "2026-07-23",
     "use_case_exit_close_usd": 19.83,
-    "return_pct": -25.0,
-    "calculation": "(19.83 / 26.44 - 1) * 100",
-    "classification": "counterfactual model-window return; not realised broker performance",
-    "price_source": "S&P Global Market Intelligence historical prices via StockAnalysis.com",
+    "return_pct": -26.0,
+    "calculation": "Bloomberg portfolio-ledger result; the public end-of-day close proxy (19.83 / 26.44 - 1) is -25.00%",
+    "classification": "counterfactual Bloomberg-ledger model-window loss; not realised broker performance",
+    "price_source": "Bloomberg portfolio ledger",
+    "public_close_proxy_return_pct": -25.0,
+    "public_close_proxy_source": "S&P Global Market Intelligence historical prices via StockAnalysis.com",
     "event_source": "Capricor Therapeutics AdCom announcement dated 2026-06-26"
+  },
+  "capr_extension_event": {
+    "classification": "separate regulatory-revival market event; not netted against the original MANTIS loss",
+    "signal_disclosure_date": "2026-08-13",
+    "reaction_date": "2026-08-14",
+    "reported_intraday_return_pct_approx": 90.0,
+    "public_close_to_close_return_pct": 57.96,
+    "prior_close_usd": 4.21,
+    "reaction_close_usd": 6.65,
+    "reaction_high_usd": 8.15,
+    "high_vs_prior_close_return_pct": 93.59,
+    "formal_extension_date": "2026-08-24",
+    "old_pdufa": "2026-08-22",
+    "new_pdufa": "2026-11-22",
+    "extension_months": 3,
+    "formal_extension_day_close_to_close_return_pct": 8.11,
+    "formal_extension_day_reuters_intraday_return_pct": 15.0,
+    "regulatory_source": "https://www.capricor.com/investors/news-events/press-releases/detail/354/capricor-therapeutics-announces-extension-of-pdufa-target",
+    "market_source": "https://stockanalysis.com/stocks/capr/history/",
+    "news_source": "https://www.reuters.com/business/healthcare-pharmaceuticals/capricor-shares-skyrocket-fda-agrees-review-new-duchenne-drug-data-2026-08-14/"
   }
 }
