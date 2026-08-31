@@ -1,5 +1,104 @@
 {
-  "generated_at": "2026-08-04T05:34:00Z",
+  "generated_at": "2026-08-31T12:00:00Z",
+  "brand": "MANTIA ALPHA PHARMA",
+  "model_version": "MANTIS 2.0 / workspace 2.7",
+  "locked_rallies": [
+    {
+      "tkr": "INBX",
+      "co": "Inhibrx Biosciences",
+      "asset": "Ozekibart · chondrosarcoma",
+      "score_at_signal": 4,
+      "baseline_date": "2026-08-03",
+      "baseline_price": 82.72,
+      "lock_date": "2026-08-27",
+      "lock_price": 123.93,
+      "return_pct": 49.82,
+      "currency": "USD",
+      "status": "Pre-pre-PDUFA cycle locked",
+      "method": "Aug 3 close to Aug 27 close",
+      "source": "https://stockanalysis.com/stocks/inbx/history/"
+    },
+    {
+      "tkr": "PHVS",
+      "co": "Pharvaris",
+      "asset": "Deucrictibant IR · HAE",
+      "score_at_signal": 4,
+      "baseline_date": "2026-08-03",
+      "baseline_price": 32.25,
+      "lock_date": "2026-08-27",
+      "lock_price": 37.0,
+      "return_pct": 14.73,
+      "currency": "USD",
+      "status": "Pre-pre-PDUFA cycle locked",
+      "method": "Aug 3 close to Aug 27 close",
+      "source": "https://stockanalysis.com/stocks/phvs/history/"
+    },
+    {
+      "tkr": "DYN",
+      "co": "Dyne Therapeutics",
+      "asset": "Z-rostudirsen · DMD exon 51",
+      "score_at_signal": 4,
+      "baseline_date": "2026-08-03",
+      "baseline_price": 25.24,
+      "lock_date": "2026-08-27",
+      "lock_price": 26.09,
+      "return_pct": 3.37,
+      "currency": "USD",
+      "status": "Pre-pre-PDUFA cycle locked",
+      "method": "Aug 3 close to Aug 27 close",
+      "source": "https://investors.dyne-tx.com/stock-information/historical-price-lookup"
+    }
+  ],
+  "research_queue": [
+    {
+      "tkr": "HNSA",
+      "score": 3,
+      "status": "International watch · pullback only",
+      "asset": "Imlifidase · kidney-transplant desensitization · Dec 19, 2026",
+      "note": "Promoted from the old blanket exclusion to the international watchlist. The first-in-class, exact-date catalyst is attractive, but HNSA is already near its 52-week high after a strong one-month move; do not chase. Apply Stockholm liquidity, SEK and disclosure rules.",
+      "source": "https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/"
+    },
+    {
+      "tkr": "BLTE",
+      "score": 3,
+      "status": "Full diligence · valuation capped",
+      "asset": "Tinlarebant · Stargardt disease type 1 · Feb 12, 2027",
+      "note": "Priority Review, orphan and rare-paediatric designations, first-potential-treatment status and positive Phase 3 data are strong. A multi-billion-dollar valuation and substantial prior re-rating limit residual run-up torque.",
+      "source": "https://www.globenewswire.com/news-release/2026/08/11/3343136/0/en/belite-bio-announces-u-s-food-and-drug-administration-acceptance-and-priority-review-of-new-drug-application-for-tinlarebant-for-the-treatment-of-stargardt-disease-type-1.html"
+    },
+    {
+      "tkr": "ALCOX",
+      "score": 2,
+      "status": "International / partnered control",
+      "asset": "NCX 470 · glaucoma · Apr 30, 2027",
+      "note": "Exact PDUFA and two positive Phase 3 studies merit tracking, but Nicox is Euronext-listed and Kowa owns the U.S. filing. Milestone and royalty economics dilute direct catalyst sensitivity.",
+      "source": "https://www.globenewswire.com/news-release/2026/08/27/3351772/0/en/nicox-announces-april-2027-pdufa-date-for-ncx-470-in-glaucoma.html"
+    },
+    {
+      "tkr": "LRMR",
+      "score": null,
+      "status": "Pending full BLA acceptance",
+      "asset": "Nomlabofusp · Friedreich ataxia · rolling BLA",
+      "note": "Rare-disease and Breakthrough Therapy fit is strong, but the filing relies on a novel surrogate and accelerated-approval pathway. Do not assign a live score until the complete BLA is accepted and an exact action date is issued.",
+      "source": "https://investors.larimartx.com/news-releases/news-release-details/larimar-therapeutics-announces-fda-breakthrough-therapy"
+    },
+    {
+      "tkr": "QURE",
+      "score": null,
+      "status": "Pending filing / regulatory watch",
+      "asset": "AMT-130 · Huntington disease · proposed accelerated BLA",
+      "note": "Potentially high-attention gene-therapy catalyst, but FDA position reversals and the historical-control debate create procedural risk. Track the filing; no live position before formal acceptance.",
+      "source": "https://www.uniqure.com/programs-pipeline/huntingtons-disease"
+    },
+    {
+      "tkr": "XENE",
+      "score": null,
+      "status": "Pre-filing watch",
+      "asset": "Azetukalner · focal-onset seizures · planned Q3 2026 NDA",
+      "note": "Strong Phase 3 efficacy and a differentiated mechanism qualify it for future scoring. Wait for NDA acceptance, an exact PDUFA date, filing classification and current valuation review.",
+      "source": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-positive-topline-data-phase-3-x-tole2-study"
+    }
+  ],
   "rows": [
     {
       "tkr": "FBIO",
@@ -555,11 +654,11 @@
     },
     {
       "tkr": "CAPR",
-      "pdufa": "2026-08-22",
+      "pdufa": "2026-11-22",
       "date_type": "Exact",
       "co": "Capricor Therapeutics",
       "drug": "Deramiocel",
-      "ind": "Duchenne muscular dystrophy (DMD) cardiomyopathy",
+      "ind": "Duchenne muscular dystrophy · refined proposed upper-limb function indication",
       "score": 5,
       "mantis_class": "Historical Score 5 · closed control case",
       "orph": true,
@@ -568,14 +667,14 @@
       "priority_review": null,
       "entry": "T-130 to T-60",
       "exit": "T-25 to T-5",
-      "notes": "Closed process-control case. Under the defined best-use-case scenario, performance is measured from the Jun 26 AdCom-announcement close ($26.44) to the Jul 23 close ($19.83), two trading sessions before the Jul 27 briefing documents: -25.00%. This is a counterfactual model-window return, not realised broker performance.",
-      "source": "https://www.capricor.com/investors/news-events/press-releases/detail/338/capricor-therapeutics-announces-establishment-of-new-pdufa",
+      "notes": "Closed process-control case. FDA extended the action date to Nov 22, 2026 after accepting 24-month HOPE-3 data and analyses supporting a refined proposed indication as a major amendment. The model window remains closed at -25.00%; the extension does not reopen the trade.",
+      "source": "https://www.capricor.com/investors/news-events/press-releases/detail/354/capricor-therapeutics-announces-extension-of-pdufa-target",
       "original_score": 5,
       "score_status": "closed_control",
       "score_version": "legacy_prospective",
       "active_candidate": false,
       "score_change_reason": "Trade is closed. Retain the original prospective Score 5 for audit. For model calibration, use the -25.00% AdCom-window return from Jun 26 close to Jul 23 close; do not use the post-briefing realised loss as the strategy performance metric.",
-      "plan_status": "CLOSED · WATCH OUTCOME ONLY",
+      "plan_status": "CLOSED · NO RE-ENTRY · WATCH NOV 22 OUTCOME",
       "performance_return_pct": -25.0,
       "performance_type": "AdCom announcement to pre-briefing use-case exit",
       "performance_start_date": "2026-06-26",
@@ -592,19 +691,19 @@
       "drug": "DTX401",
       "ind": "GSDIa",
       "score": 3,
-      "mantis_class": "M3 Manage-only · late-stage gene-therapy event",
+      "mantis_class": "Historical M3 · approved early",
       "orph": true,
       "therapy": "AAV gene therapy",
       "entry": "T-120 to T-60",
       "exit": "T-20 to T-7",
-      "notes": "MANTIS 2.0: no new entry. Priority Review and rare-disease positioning remain constructive, but the position is now inside the exit-management period and the issuer is not a pure single-asset torque setup.",
-      "source": "https://www.globenewswire.com/news-release/2026/02/23/3242633/20739/en/Ultragenyx-Announces-U-S-FDA-Acceptance-and-Priority-Review-of-the-Biologics-License-Application-BLA-for-DTX401-AAV-Gene-Therapy-for-Glycogen-Storage-Disease-Type-Ia-GSDIa.html",
+      "notes": "FDA approved DTX401 as GENGLYCOS on Aug 19, 2026, four days before the assigned action date. Archive as a completed approval outcome.",
+      "source": "https://ir.ultragenyx.com/news-releases/news-release-details/ultragenyx-announces-us-fda-approval-genglycostm-gene-therapy",
       "original_score": 4,
-      "score_status": "active_shadow",
-      "score_version": "MANTIS-2.0-shadow-2026-08-03",
-      "active_candidate": true,
-      "score_change_reason": "The catalyst is no longer an accumulation candidate at T-20; Ultragenyx is diversified and prior company-level CMC/facility history raises the manufacturing overlay.",
-      "plan_status": "EXIT / MANAGE ONLY · NO NEW ENTRY"
+      "score_status": "historical_frozen",
+      "score_version": "MANTIS-2.0-outcome-2026-08-31",
+      "active_candidate": false,
+      "score_change_reason": "FDA approval on Aug 19 completed the event; retain Score 3 only as the pre-decision audit score.",
+      "plan_status": "ARCHIVE / APPROVED"
     },
     {
       "tkr": "BIIB",
@@ -614,20 +713,20 @@
       "drug": "LEQEMBI IQLIK (lecanemab) subcutaneous starting dose sBLA",
       "ind": "Early Alzheimer’s disease",
       "score": 2,
-      "mantis_class": "M2 Low-conviction · Extended review",
+      "mantis_class": "Historical M2 · approved early",
       "orph": false,
       "therapy": "Anti-amyloid biologic",
       "entry": "T-90 to T-45",
       "exit": "T-20 to T-10",
-      "notes": "FDA review extended from May 24 to Aug 24 2026 after an FDA-requested major amendment; no approvability concerns reported to date. Large-cap/background event rather than high-torque MANTIS setup.",
-      "source": "https://www.bioarctic.com/en/leqembi-iqlik-pdufa-date-updated-to-august-24-in-the-u-s/",
-      "catalyst_type": "sBLA review extension",
+      "notes": "FDA approved LEQEMBI IQLIK for subcutaneous treatment initiation on Jul 13, 2026, ahead of the extended Aug 24 action date. Archive as a completed large-cap/background outcome.",
+      "source": "https://investors.biogen.com/news-releases/news-release-details/fda-approves-leqembi-iqlikr-lecanemab-irmb-subcutaneous",
+      "catalyst_type": "sBLA approval",
       "priority_review": true,
       "original_score": 2,
-      "score_status": "active_shadow",
-      "score_version": "MANTIS-2.0-shadow-2026-08-03",
-      "active_candidate": true,
-      "plan_status": "BACKGROUND / NO ACTIVE ACCUMULATION"
+      "score_status": "historical_frozen",
+      "score_version": "MANTIS-2.0-outcome-2026-08-31",
+      "active_candidate": false,
+      "plan_status": "ARCHIVE / APPROVED"
     },
     {
       "tkr": "NUVL",
@@ -682,18 +781,19 @@
       "drug": "brepocitinib",
       "ind": "Dermatomyositis",
       "score": 2,
-      "mantis_class": "M2 Low-conviction",
+      "mantis_class": "Historical M2 · approved",
       "orph": true,
       "therapy": "Immunology small-molecule",
       "entry": "T-90 to T-45",
       "exit": "T-20 to T-10",
-      "notes": "Lower-conviction setup for pure pre-PDUFA momentum; catalyst exists but elasticity is lower.",
-      "source": "https://www.globenewswire.com/news-release/2026/03/03/3248199/34323/en/Priovant-Announces-FDA-Acceptance-and-Priority-Review-of-New-Drug-Application-for-Brepocitinib-in-Dermatomyositis.html",
+      "notes": "FDA approved brepocitinib as LISRAYA on Aug 27, 2026. Archive as a completed approval outcome.",
+      "source": "https://investor.roivant.com/news-releases/news-release-details/roivant-announces-fda-approval-lisrayatm-brepocitinib-adults",
       "original_score": 2,
-      "score_status": "active_shadow",
-      "score_version": "MANTIS-2.0-shadow-2026-08-03",
-      "active_candidate": true,
-      "plan_status": "BACKGROUND / NO ACTIVE ACCUMULATION"
+      "score_status": "historical_frozen",
+      "score_version": "MANTIS-2.0-outcome-2026-08-31",
+      "active_candidate": false,
+      "score_change_reason": "FDA approval completed the event; retain Score 2 only as the pre-decision audit score.",
+      "plan_status": "ARCHIVE / APPROVED"
     },
     {
       "tkr": "VTRS",
@@ -864,21 +964,21 @@
       "date_type": "Exact",
       "co": "Hansa Biopharma",
       "drug": "imlifidase",
-      "ind": "-",
-      "score": 2,
-      "mantis_class": "Excluded · non-US template required",
+      "ind": "Desensitization of highly sensitized adult kidney-transplant candidates",
+      "score": 3,
+      "mantis_class": "M3 International watch · pullback only",
       "orph": true,
       "therapy": "Enzyme-cleaving biologic",
       "entry": "T-90 to T-45",
       "exit": "T-20 to T-10",
-      "notes": "Keep in the regulatory calendar, but exclude from the domestic MANTIS ranking until a separate European/UK liquidity and disclosure template is implemented.",
+      "notes": "Promoted to the international watchlist after applying a Stockholm-specific execution template. The first-in-class exact-date catalyst is attractive, but the shares are near their 52-week high after a sharp one-month re-rating; do not chase. Apply SEK, Stockholm liquidity and disclosure rules.",
       "source": "https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/",
       "original_score": 3,
-      "score_status": "excluded_non_us",
-      "score_version": "MANTIS-2.0-shadow-2026-08-03",
-      "active_candidate": false,
-      "score_change_reason": "Stockholm-listed security cannot be compared directly with the US liquidity, short-interest and execution template.",
-      "plan_status": "EXCLUDED FROM ACTIVE BOOK"
+      "score_status": "active_shadow",
+      "score_version": "MANTIS-2.0-review-2026-08-31",
+      "active_candidate": true,
+      "score_change_reason": "The prior blanket non-US exclusion is replaced by a dedicated international template. Score 3 reflects the differentiated catalyst, offset by recent re-rating and execution, FX and disclosure differences.",
+      "plan_status": "INTERNATIONAL WATCH · PULLBACK ONLY"
     },
     {
       "tkr": "MLYS",
@@ -1002,23 +1102,29 @@
       "co": "Dyne Therapeutics",
       "drug": "z-rostudirsen (formerly DYNE-251)",
       "ind": "Duchenne muscular dystrophy amenable to exon 51 skipping",
-      "score": 4,
-      "original_score": null,
-      "mantis_class": "M4 Strong · accelerated-approval surrogate risk",
+      "score": 3,
+      "original_score": 4,
+      "mantis_class": "M3 Re-entry watch · pre-pre-PDUFA cycle locked",
       "orph": true,
       "therapy": "Antibody-oligonucleotide conjugate",
       "catalyst_type": "BLA / Priority Review",
       "priority_review": true,
       "entry": "T-150 to T-90",
       "exit": "T-25 to T-7",
-      "notes": "Rare-paediatric, company-defining Priority Review catalyst with Jan 21, 2027 PDUFA. Accelerated approval relies on dystrophin as a surrogate endpoint, so procedural risk prevents Score 5.",
+      "notes": "The original Score 4 pre-pre-PDUFA cycle is locked at +3.37% from the Aug 3 close to the Aug 27 close. The Jan 21, 2027 Priority Review remains important, but the fresh-entry score is reduced to 3: cooldown and re-evaluation only, with no assumption that the first-cycle momentum repeats.",
       "source": "https://investors.dyne-tx.com/news-releases/news-release-details/dyne-therapeutics-announces-us-fda-acceptance-biologics-license/",
       "is_new_candidate": true,
-      "score_status": "active_shadow",
-      "score_version": "MANTIS-2.0-shadow-2026-08-03",
+      "score_status": "cycle_locked_reentry_watch",
+      "score_version": "MANTIS-2.0-review-2026-08-31",
       "active_candidate": true,
-      "score_change_reason": "Strong torque and rare-disease narrative, capped below 5 by surrogate-endpoint and accelerated-approval risk.",
-      "plan_status": "NEXT FULL DILIGENCE PRIORITY"
+      "score_change_reason": "The Score 4 cycle already produced a positive pre-pre-PDUFA move. Reduce fresh-entry conviction after the run-up while retaining the original score for outcome attribution.",
+      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE",
+      "cycle_a_return_pct": 3.37,
+      "cycle_a_score_at_signal": 4,
+      "cycle_a_baseline_date": "2026-08-03",
+      "cycle_a_baseline_price": 25.24,
+      "cycle_a_lock_date": "2026-08-27",
+      "cycle_a_lock_price": 26.09
     },
     {
       "tkr": "PRAX",
@@ -1077,23 +1183,29 @@
       "co": "Inhibrx Biosciences",
       "drug": "ozekibart",
       "ind": "Unresectable or metastatic conventional chondrosarcoma",
-      "score": 4,
-      "mantis_class": "M4 Strong · rare-oncology BLA",
+      "score": 3,
+      "mantis_class": "M3 Re-entry watch · pre-pre-PDUFA cycle locked",
       "orph": false,
       "therapy": "DR5 agonist antibody / rare oncology",
       "catalyst_type": "BLA",
       "priority_review": false,
       "entry": "T-180 to T-90",
       "exit": "T-30 to T-7",
-      "notes": "MANTIS 2.0: one of the strongest forward candidates. FDA reported no filing review issues and set Apr 14, 2027. Maintain at Score 4 pending full manufacturing, float and liquidity diligence.",
+      "notes": "The original Score 4 pre-pre-PDUFA cycle is locked at +49.82% from the Aug 3 close to the Aug 27 close. FDA reported no filing review issues and set Apr 14, 2027, but the fresh-entry score is reduced to 3 after the re-rating: cooldown and re-evaluation only; do not chase.",
       "source": "https://www.prnewswire.com/news-releases/inhibrx-announces-us-fda-acceptance-of-bla-for-ozekibart-in-patients-with-conventional-chondrosarcoma-302800101.html",
       "is_new_candidate": true,
       "original_score": 5,
-      "score_status": "active_shadow",
-      "score_version": "MANTIS-2.0-shadow-2026-08-03",
+      "score_status": "cycle_locked_reentry_watch",
+      "score_version": "MANTIS-2.0-review-2026-08-31",
       "active_candidate": true,
-      "score_change_reason": "Strong first-potential-therapy narrative and no filing review issues, but current valuation, non-priority review and remaining manufacturing/commercial work prevent Score 5.",
-      "plan_status": "BUILD DOSSIER · PRIMARY WINDOW LATER 2026"
+      "score_change_reason": "The Score 4 cycle already produced a major pre-pre-PDUFA move. Reduce fresh-entry conviction after the re-rating while retaining the original score for outcome attribution.",
+      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE",
+      "cycle_a_return_pct": 49.82,
+      "cycle_a_score_at_signal": 4,
+      "cycle_a_baseline_date": "2026-08-03",
+      "cycle_a_baseline_price": 82.72,
+      "cycle_a_lock_date": "2026-08-27",
+      "cycle_a_lock_price": 123.93
     },
     {
       "tkr": "PHVS",
@@ -1102,23 +1214,29 @@
       "co": "Pharvaris",
       "drug": "deucrictibant immediate-release capsule",
       "ind": "On-demand treatment of hereditary angioedema attacks",
-      "score": 4,
-      "original_score": null,
-      "mantis_class": "M4 Strong · differentiated rare-disease NDA",
+      "score": 3,
+      "original_score": 4,
+      "mantis_class": "M3 Re-entry watch · pre-pre-PDUFA cycle locked",
       "orph": true,
       "therapy": "Oral bradykinin B2 receptor antagonist",
       "catalyst_type": "NDA",
       "priority_review": false,
       "entry": "T-150 to T-90",
       "exit": "T-25 to T-7",
-      "notes": "FDA accepted the NDA and set Apr 23, 2027. Differentiated oral formulation and a positive Phase 3 package support a strong setup, but competition and current valuation prevent Score 5.",
+      "notes": "The original Score 4 pre-pre-PDUFA cycle is locked at +14.73% from the Aug 3 close to the Aug 27 close. The differentiated oral HAE thesis remains intact, but the fresh-entry score is reduced to 3 after the move: cooldown and re-evaluation only; do not chase.",
       "source": "https://ir.pharvaris.com/news-releases/news-release-details/pharvaris-announces-fda-acceptance-new-drug-application/",
       "is_new_candidate": true,
-      "score_status": "active_shadow",
-      "score_version": "MANTIS-2.0-shadow-2026-08-03",
+      "score_status": "cycle_locked_reentry_watch",
+      "score_version": "MANTIS-2.0-review-2026-08-31",
       "active_candidate": true,
-      "score_change_reason": "Best-in-group forward candidate, discounted for competitive HAE market and valuation.",
-      "plan_status": "BUILD DOSSIER · PRIMARY WINDOW LATER 2026"
+      "score_change_reason": "The Score 4 cycle already produced a double-digit pre-pre-PDUFA move. Reduce fresh-entry conviction after the re-rating while retaining the original score for outcome attribution.",
+      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE",
+      "cycle_a_return_pct": 14.73,
+      "cycle_a_score_at_signal": 4,
+      "cycle_a_baseline_date": "2026-08-03",
+      "cycle_a_baseline_price": 32.25,
+      "cycle_a_lock_date": "2026-08-27",
+      "cycle_a_lock_price": 37.0
     },
     {
       "tkr": "ORGO",
@@ -1194,6 +1312,31 @@
       "active_candidate": true,
       "score_change_reason": "Clean FDA setup but insufficient single-catalyst sensitivity for a higher MANTIS score.",
       "plan_status": "BACKGROUND / NO ACTIVE ACCUMULATION"
+    },
+    {
+      "tkr": "BLTE",
+      "pdufa": "2027-02-12",
+      "date_type": "Exact",
+      "co": "Belite Bio",
+      "drug": "tinlarebant",
+      "ind": "Stargardt disease type 1",
+      "score": 3,
+      "original_score": null,
+      "mantis_class": "M3 Full diligence · valuation capped",
+      "orph": true,
+      "therapy": "Oral RBP4 antagonist",
+      "catalyst_type": "NDA / Priority Review",
+      "priority_review": true,
+      "entry": "T-120 to T-75",
+      "exit": "T-20 to T-7",
+      "notes": "FDA accepted the NDA with Priority Review and set Feb 12, 2027. First-potential-treatment status, rare-disease designations and positive Phase 3 DRAGON data are strong, but the company has already substantially re-rated and carries a multi-billion-dollar valuation, limiting classic MANTIA torque.",
+      "source": "https://www.globenewswire.com/news-release/2026/08/11/3343136/0/en/belite-bio-announces-u-s-food-and-drug-administration-acceptance-and-priority-review-of-new-drug-application-for-tinlarebant-for-the-treatment-of-stargardt-disease-type-1.html",
+      "is_new_candidate": true,
+      "score_status": "active_shadow",
+      "score_version": "MANTIS-2.0-review-2026-08-31",
+      "active_candidate": true,
+      "score_change_reason": "Strong first-potential-treatment and Priority Review narrative, capped by valuation and prior re-rating.",
+      "plan_status": "FULL DILIGENCE · VALUATION CAPPED"
     }
   ],
   "fda_outcomes": [
@@ -1406,12 +1549,36 @@
       "co": "Biogen / Eisai",
       "drug": "LEQEMBI IQLIK subcutaneous starting dose sBLA",
       "ind": "Early Alzheimer’s disease",
-      "outcome": "Extended",
-      "decision_date": "May 8, 2026",
+      "outcome": "Approved",
+      "decision_date": "Jul 13, 2026",
       "pdufa": "2026-08-24",
-      "status_label": "PDUFA extended to Aug 24, 2026",
-      "mantis_takeaway": "Not completed. Keep in the active watchlist as an extended large-cap/background FDA review; no approvability concerns reported to date.",
-      "source": "https://www.bioarctic.com/en/leqembi-iqlik-pdufa-date-updated-to-august-24-in-the-u-s/"
+      "status_label": "Approved early",
+      "mantis_takeaway": "Completed large-cap/background approval ahead of the extended action date; archive and remove from active rows.",
+      "source": "https://investors.biogen.com/news-releases/news-release-details/fda-approves-leqembi-iqlikr-lecanemab-irmb-subcutaneous"
+    },
+    {
+      "tkr": "RARE",
+      "co": "Ultragenyx",
+      "drug": "GENGLYCOS (DTX401)",
+      "ind": "Glycogen storage disease type Ia",
+      "outcome": "Approved",
+      "decision_date": "Aug 19, 2026",
+      "pdufa": "2026-08-23",
+      "status_label": "Approved early · first underlying-cause therapy",
+      "mantis_takeaway": "Completed rare-disease gene-therapy approval; archive and remove from active rows.",
+      "source": "https://ir.ultragenyx.com/news-releases/news-release-details/ultragenyx-announces-us-fda-approval-genglycostm-gene-therapy"
+    },
+    {
+      "tkr": "ROIV",
+      "co": "Roivant / Priovant",
+      "drug": "LISRAYA (brepocitinib)",
+      "ind": "Dermatomyositis in adults",
+      "outcome": "Approved",
+      "decision_date": "Aug 27, 2026",
+      "pdufa": "Q3 2026",
+      "status_label": "Approved",
+      "mantis_takeaway": "Completed approval; archive and remove from active rows.",
+      "source": "https://investor.roivant.com/news-releases/news-release-details/roivant-announces-fda-approval-lisrayatm-brepocitinib-adults"
     },
     {
       "tkr": "VERA",
@@ -1549,7 +1716,7 @@
       "source": "https://www.gsk.com/en-gb/media/press-releases/gsk-enters-agreement-to-acquire-nuvalent-inc/"
     }
   ],
-  "methodology_version": "MANTIS-2.0-shadow-2026-08-03",
+  "methodology_version": "MANTIS-2.0-review-2026-08-31",
   "score_policy": {
     "active_score_5_count": 0,
     "statement": "No currently active candidate qualifies for Score 5 under the MANTIS 2.0 shadow model.",
@@ -1625,9 +1792,9 @@
       "drug": "ozekibart",
       "pdufa_before": "2027-04-14",
       "pdufa_after": "2027-04-14",
-      "score_before": 5,
-      "score_after": 4,
-      "reason": "Strong first-potential-therapy narrative and no filing review issues, but current valuation, non-priority review and remaining manufacturing/commercial work prevent Score 5."
+      "score_before": 4,
+      "score_after": 3,
+      "reason": "The original Score 4 pre-pre-PDUFA cycle is locked at +49.82%. Fresh-entry conviction is reset to cooldown / no chase after the re-rating."
     },
     {
       "tkr": "INO",
@@ -1643,9 +1810,9 @@
       "drug": "imlifidase",
       "pdufa_before": "2026-12-19",
       "pdufa_after": "2026-12-19",
-      "score_before": 3,
-      "score_after": 2,
-      "reason": "Stockholm-listed security cannot be compared directly with the US liquidity, short-interest and execution template."
+      "score_before": 2,
+      "score_after": 3,
+      "reason": "Promoted from blanket exclusion to an international pullback-only watch after adding Stockholm liquidity, SEK and disclosure rules; recent re-rating prevents a higher score."
     },
     {
       "tkr": "ACLX",
@@ -1669,10 +1836,10 @@
       "tkr": "CAPR",
       "drug": "Deramiocel",
       "pdufa_before": "2026-08-22",
-      "pdufa_after": "2026-08-22",
+      "pdufa_after": "2026-11-22",
       "score_before": 5,
       "score_after": 5,
-      "reason": "Original Score 5 remains frozen. CAPR model performance is now recorded as -25.00% from the Jun 26 AdCom-announcement close to the Jul 23 close, two trading sessions before briefing documents. This is a counterfactual use-case return, not realised execution."
+      "reason": "FDA accepted 24-month HOPE-3 data and analyses as a major amendment and extended the action date. Original Score 5 and the -25.00% closed model-window result remain frozen; no re-entry."
     },
     {
       "tkr": "RARE",
@@ -1681,22 +1848,57 @@
       "pdufa_after": "2026-08-23",
       "score_before": 4,
       "score_after": 3,
-      "reason": "The catalyst is no longer an accumulation candidate at T-20; Ultragenyx is diversified and prior company-level CMC/facility history raises the manufacturing overlay."
+      "reason": "FDA approved GENGLYCOS on Aug 19, 2026. Archive the completed event and retain Score 3 only as the audited pre-decision score."
+    },
+    {
+      "tkr": "DYN",
+      "drug": "z-rostudirsen",
+      "pdufa_before": "2027-01-21",
+      "pdufa_after": "2027-01-21",
+      "score_before": 4,
+      "score_after": 3,
+      "reason": "The original Score 4 pre-pre-PDUFA cycle is locked at +3.37%. Fresh-entry conviction is reset to cooldown / no chase."
+    },
+    {
+      "tkr": "PHVS",
+      "drug": "deucrictibant IR",
+      "pdufa_before": "2027-04-23",
+      "pdufa_after": "2027-04-23",
+      "score_before": 4,
+      "score_after": 3,
+      "reason": "The original Score 4 pre-pre-PDUFA cycle is locked at +14.73%. Fresh-entry conviction is reset to cooldown / no chase after the move."
+    },
+    {
+      "tkr": "BLTE",
+      "drug": "tinlarebant",
+      "pdufa_before": null,
+      "pdufa_after": "2027-02-12",
+      "score_before": null,
+      "score_after": 3,
+      "reason": "New Priority Review candidate with first-potential-treatment and positive Phase 3 attributes; valuation and prior re-rating cap the score."
     }
   ],
   "current_plan": {
-    "as_of": "2026-08-03",
+    "as_of": "2026-08-31",
     "score_5_active": [],
     "priority_full_diligence": [
-      "DYN",
       "PRAX:relutrigine",
-      "INBX",
-      "PHVS"
+      "BLTE"
     ],
     "manage_existing": [
       "SVRA",
       "MLYS",
-      "RARE"
+      "HNSA:international-pullback-only"
+    ],
+    "locked_cycles": [
+      "INBX:+49.82%",
+      "PHVS:+14.73%",
+      "DYN:+3.37%"
+    ],
+    "reentry_watch_no_chase": [
+      "INBX",
+      "PHVS",
+      "DYN"
     ],
     "secondary_diligence": [
       "COGT:GIST",
@@ -1708,11 +1910,16 @@
     "excluded_controls": [
       "PYPD",
       "BTAI",
-      "HNSA",
       "ACLX",
-      "NUVL"
+      "NUVL",
+      "ALCOX:international-partnered-control"
     ],
-    "portfolio_note": "Count COGT's two decisions as one asset exposure and PRAX's two decisions under one issuer-level cap."
+    "research_queue_unscored": [
+      "LRMR",
+      "QURE",
+      "XENE"
+    ],
+    "portfolio_note": "Lock the Aug 3 to Aug 27 INBX, PHVS and DYN model cycles; do not assume a repeat. Count COGT's two decisions as one asset exposure and PRAX's two decisions under one issuer-level cap. Archive RARE, BIIB and ROIV approvals."
   },
   "capr_use_case": {
     "definition": "Hold from the AdCom announcement-day close until the close two trading sessions before FDA briefing documents are released.",
