@@ -70,6 +70,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", type=int, default=int(os.environ.get("AV_BUDGET", "24")))
     ap.add_argument("--overview-age", type=int, default=7)
+    ap.add_argument("--daily-names", type=int, default=int(os.environ.get("AV_DAILY_NAMES", "5")), help="names that also get a daily series for the session monitor")
     args = ap.parse_args()
     key = os.environ.get("ALPHAVANTAGE_API_KEY")
     if not key:
@@ -111,8 +112,27 @@ def main():
             except Exception as e:
                 print(f"{t}: overview failed: {e}"); budget -= 1
         market[t] = m
+    # daily series for the session monitor: ATR14, 20 day volume, run-up high (free endpoint, one call per name)
+    dailies = 0
+    for t in order[: args.daily_names]:
+        if budget <= 0:
+            break
+        try:
+            ts = get({"function": "TIME_SERIES_DAILY", "symbol": t, "outputsize": "compact", "datatype": "json"}, key).get("Time Series (Daily)", {})
+            budget -= 1; dailies += 1; time.sleep(1.1)
+            bars = [dict(d=d, o=float(v["1. open"]), h=float(v["2. high"]), l=float(v["3. low"]), c=float(v["4. close"]), v=float(v["5. volume"])) for d, v in sorted(ts.items())]
+            if len(bars) >= 15:
+                tr = [max(b["h"] - b["l"], abs(b["h"] - p["c"]), abs(b["l"] - p["c"])) for p, b in zip(bars, bars[1:])]
+                last = bars[-1]
+                hi = max(bars[-60:], key=lambda b: b["h"])
+                market.setdefault(t, {})["daily"] = dict(asof=last["d"], close=last["c"], prev_close=bars[-2]["c"], atr14=sum(tr[-14:]) / 14,
+                    avgvol20=sum(b["v"] for b in bars[-20:]) / 20, hi_since=hi["h"], hi_date=hi["d"],
+                    ret20=(last["c"] / bars[-21]["c"] - 1) * 100 if len(bars) > 21 else None,
+                    sma50=sum(b["c"] for b in bars[-50:]) / 50 if len(bars) >= 50 else None, bars=bars[-30:], loaded=dt.datetime.utcnow().isoformat(timespec="seconds") + "Z")
+        except Exception as e:
+            print(f"{t}: daily failed: {e}"); budget -= 1
     meta.update(source="Alpha Vantage REST via scripts/refresh_market.py", refreshed=dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
-                calls={"quotes": quotes, "overviews": overviews})
+                calls={"quotes": quotes, "overviews": overviews, "dailies": dailies})
     market["_meta"] = meta
     json.dump(market, open(MARKET, "w"), indent=1, ensure_ascii=False)
     print(f"refreshed {quotes} quotes and {overviews} overviews; wrote {MARKET}")

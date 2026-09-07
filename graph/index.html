@@ -674,7 +674,7 @@ async function connectDb(){
 async function loadStaticFiles(){
   if(location.protocol!=='file:')document.getElementById('dashLink').hidden=false;
   if(location.protocol==='file:'){setFeed('embedded snapshot, 4 Sep close','off');return}
-  try{const r=await fetch('./data/market.json',{cache:'no-store'});if(r.ok){const j=await r.json();const meta=j._meta||{};delete j._meta;Object.keys(j).forEach(k=>{MARKET[k]=Object.assign({},MARKET[k]||{},j[k])});if(meta.macro){MACRO=meta.macro;applyMacro()}feedFreshness('repo data');if(selected)renderCard(selected)}else setFeed('embedded snapshot, 4 Sep close','off')}catch(e){setFeed('embedded snapshot, 4 Sep close','off')}
+  try{const r=await fetch('./data/market.json',{cache:'no-store'});if(r.ok){const j=await r.json();const meta=j._meta||{};delete j._meta;Object.keys(j).forEach(k=>{if(j[k]&&j[k].daily){if(typeof SESSION!=='undefined')SESSION.daily[k]=j[k].daily;delete j[k].daily}MARKET[k]=Object.assign({},MARKET[k]||{},j[k])});if(meta.macro){MACRO=meta.macro;applyMacro()}feedFreshness('repo data');if(selected)renderCard(selected)}else setFeed('embedded snapshot, 4 Sep close','off')}catch(e){setFeed('embedded snapshot, 4 Sep close','off')}
   try{const r=await fetch('./data/graph-data.json',{cache:'no-store'});if(r.ok){const g=await r.json();if(g&&g.catalysts){Object.assign(GRAPH,g);GRAPH.catalysts.forEach(c=>{c.d=derive(c);c.tier=c.score?c.score:0;c.group=LIFE_GROUP[c.lifecycle]||'book'});document.getElementById('verLabel').textContent=GRAPH.meta.version+' · repo';buildRail();build()}}}catch(e){}
 }
 
@@ -762,7 +762,7 @@ function dailyStats(t,bars){
   return {asof:last.d,close:last.c,prev_close:bars[n-2].c,atr14,avgvol20,hi_since:hiSince,hi_date:hiDate,ret20,sma50,bars:bars.slice(-30),loaded:new Date().toISOString()};
 }
 async function loadDaily(t,force){
-  if(!AV.ready)return AV.note('Alpha Vantage not available in this view.');
+  if(!AV.ready)return AV.note(SESSION.daily[t]?'Daily series for '+t+' comes from the nightly repo refresh ('+SESSION.daily[t].asof+').':'Alpha Vantage is only reachable inside the claude.ai graph; on GitHub Pages the nightly workflow supplies the daily series.');
   const have=SESSION.daily[t];if(!force&&have&&have.asof&&days(iso(have.asof),TODAY)<=1)return;
   AV.loadBudget();if(!force&&AV.budget.n>=22)return AV.note('Daily budget nearly spent; use Load to force.');
   try{
