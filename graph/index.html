@@ -1,0 +1,726 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><style>body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>MANTIS Catalyst Graph</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+  :root{
+    --bg:#07060c;--bg2:#0d0b14;--sf:#110e19;--sf2:#181424;--line:#251f33;--line2:#372e4a;
+    --text:#e6e3ee;--soft:#b3aec4;--label:#8d879f;--muted:#645e78;
+    --accent:#ff3d75;--accent-soft:#ff90b0;--accent-dim:rgba(255,61,117,.18);
+    --t5:#22e3ff;--t4:#fcd34d;--t3:#7dd3fc;--t2:#8a94a6;--tx:#5a5570;
+    --good:#3ddc84;--loss:#ff6b6b;--warn:#ffb757;--opp:#3ddc84;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+    color-scheme:dark;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased;overflow:hidden}
+  button,input,select,textarea{font:inherit;color:inherit}
+  a{color:var(--t3)}
+  .app{display:grid;grid-template-rows:52px 1fr;grid-template-columns:minmax(0,1fr);height:100vh}
+  /* top bar */
+  .top{display:flex;align-items:center;gap:18px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--bg2);min-width:0;overflow:hidden}
+  .brand{font-family:var(--mono);font-weight:700;letter-spacing:.14em;font-size:15px;color:var(--accent);text-shadow:0 0 14px rgba(255,61,117,.35);white-space:nowrap}
+  .brand small{display:block;font-size:9px;letter-spacing:.08em;color:var(--label);font-weight:400;margin-top:1px}
+  .top .stat{display:flex;flex-direction:column;font-family:var(--mono);line-height:1.15;min-width:0}
+  .top .stat .k{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
+  .top .stat .v{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+  .top .stat .v.dim{color:var(--soft);font-weight:400}
+  .spacer{flex:1}
+  .modes{display:flex;border:1px solid var(--line2);border-radius:3px;overflow:hidden}
+  .modes button{background:transparent;border:0;padding:6px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--label);cursor:pointer}
+  .modes button.on{background:var(--accent-dim);color:var(--accent-soft)}
+  .modes button:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .pill{font-family:var(--mono);font-size:10px;padding:4px 9px;border-radius:3px;border:1px solid var(--line2);color:var(--soft);white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+  .pill.live{border-color:rgba(61,220,132,.4);color:var(--good)}
+  .pill.stale{border-color:rgba(255,183,87,.4);color:var(--warn)}
+  .pill.off{border-color:var(--line2);color:var(--muted)}
+  a.pill{text-decoration:none;color:var(--accent-soft);border-color:rgba(255,61,117,.4)}
+  /* main */
+  .main{display:grid;grid-template-columns:232px 1fr 0px;min-height:0;transition:grid-template-columns .25s ease}
+  .main.card-open{grid-template-columns:232px 1fr 440px}
+  @media(max-width:1100px){.main{grid-template-columns:200px 1fr 0px}.main.card-open{grid-template-columns:0px 1fr 400px}}
+  @media(max-width:760px){.main{grid-template-columns:0px 1fr 0px}.main.card-open{grid-template-columns:0px 0px 1fr}}
+  /* rail */
+  .rail{border-right:1px solid var(--line);background:var(--bg2);overflow:auto;padding:14px 14px 20px;display:flex;flex-direction:column;gap:18px;min-width:0}
+  .main:not(.card-open) .rail,.main.card-open .rail{overflow-x:hidden}
+  .rail h3{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin-bottom:8px;font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:5px}
+  .chip{background:var(--sf);border:1px solid var(--line2);border-radius:2px;padding:4px 8px;font-family:var(--mono);font-size:10px;color:var(--soft);cursor:pointer;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--tx);flex:none}
+  .chip.on{border-color:var(--accent);color:var(--text);background:var(--accent-dim)}
+  .chip .n{color:var(--muted);font-size:9px}
+  .search{width:100%;background:var(--sf);border:1px solid var(--line2);border-radius:2px;padding:7px 9px;font-family:var(--mono);font-size:11px;color:var(--text)}
+  .search::placeholder{color:var(--muted)}
+  .legend{display:flex;flex-direction:column;gap:6px;font-family:var(--mono);font-size:10px;color:var(--soft)}
+  .legend .row{display:flex;align-items:center;gap:8px}
+  .legend svg{flex:none}
+  .exits{display:flex;flex-direction:column;gap:4px}
+  .exit{display:grid;grid-template-columns:44px 1fr auto;gap:6px;align-items:baseline;font-family:var(--mono);font-size:10px;padding:4px 6px;border-radius:2px;cursor:pointer;border:1px solid transparent}
+  .exit:hover{background:var(--sf);border-color:var(--line2)}
+  .exit .t{font-weight:700;color:var(--text)}
+  .exit .d{color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .exit .n{color:var(--label);font-variant-numeric:tabular-nums}
+  .exit.soon .n{color:var(--warn)}
+  .exit.now .n{color:var(--loss)}
+  /* stage */
+  .stage{position:relative;min-width:0;min-height:0;background:var(--bg);overflow:hidden}
+  .stage svg{width:100%;height:100%;display:block;cursor:grab}
+  .stage svg:active{cursor:grabbing}
+  .hint{position:absolute;left:12px;bottom:10px;font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:.06em;pointer-events:none}
+  .counts{position:absolute;left:12px;top:10px;display:flex;gap:14px;font-family:var(--mono);font-size:10px;color:var(--label);pointer-events:none}
+  .counts b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+  .tip{position:absolute;pointer-events:none;background:var(--sf2);border:1px solid var(--line2);border-radius:3px;padding:8px 10px;font-family:var(--mono);font-size:10px;color:var(--soft);max-width:280px;line-height:1.4;display:none;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  .tip b{color:var(--text);font-weight:600}
+  .tip .sub{color:var(--label);margin-top:2px}
+  /* svg */
+  .lnk{stroke:var(--line2);stroke-width:1;fill:none}
+  .lnk.files{stroke:#4a4160;stroke-width:1.4}
+  .lnk.risk{stroke:#6a3a50;stroke-dasharray:3 3;opacity:.45}
+  .lnk.opp{stroke:#2f7a50;stroke-dasharray:3 3;opacity:.5}
+  .lnk.record{stroke:#3a3450;stroke-dasharray:1 3;opacity:.5}
+  .lnk.ind{stroke:#3a4a7a;stroke-dasharray:2 4;opacity:.5}
+  .lnk.dim{opacity:.12}
+  .lnk.hot{opacity:1;stroke:var(--accent-soft)}
+  .node{cursor:pointer}
+  .node text{font-family:var(--mono);pointer-events:none;fill:var(--text)}
+  .node .lab{font-size:10px;font-weight:700;letter-spacing:.06em}
+  .node .sub{font-size:8px;fill:var(--label);letter-spacing:.02em}
+  .node.dim{opacity:.18}
+  .node.sel .ring{stroke:var(--accent);stroke-width:2}
+  .axis text{font-family:var(--mono);font-size:9px;fill:var(--label)}
+  .axis line,.axis path{stroke:var(--line2)}
+  .today line{stroke:var(--accent);stroke-width:1;stroke-dasharray:4 4;opacity:.8}
+  .today text{font-family:var(--mono);font-size:9px;fill:var(--accent-soft);letter-spacing:.1em}
+  .win rect{opacity:.9}
+  .win .tick{stroke:var(--text);stroke-width:1.5}
+  .band-lab{font-family:var(--mono);font-size:8px;fill:var(--muted);letter-spacing:.14em}
+  /* card */
+  .card{border-left:1px solid var(--line);background:var(--bg2);overflow:auto;min-width:0}
+  .card:not(.has){display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--mono);font-size:11px;text-align:center;padding:24px}
+  .cardin{padding:16px 18px 30px;display:flex;flex-direction:column;gap:14px;min-width:360px}
+  .chd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+  .chd .tk{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:.1em;line-height:1}
+  .chd .co{font-size:12px;color:var(--soft);margin-top:4px}
+  .chd .drug{font-family:var(--mono);font-size:11px;color:var(--text);margin-top:6px}
+  .chd .ind{font-size:11px;color:var(--label);margin-top:2px}
+  .close{background:transparent;border:1px solid var(--line2);border-radius:2px;color:var(--label);width:26px;height:26px;cursor:pointer;font-family:var(--mono);flex:none}
+  .close:hover{color:var(--text);border-color:var(--accent)}
+  .tierbox{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;border:1px solid var(--line2);border-radius:3px;padding:10px 12px;background:var(--sf)}
+  .tierbox .big{font-family:var(--mono);font-size:30px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+  .tierbox .lab{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
+  .tierbox .cls{font-size:12px;color:var(--text);margin-top:2px}
+  .tierbox .was{font-family:var(--mono);font-size:9px;color:var(--warn);margin-top:3px}
+  .kv{display:grid;grid-template-columns:118px 1fr;gap:5px 12px;font-family:var(--mono);font-size:11px}
+  .kv .k{color:var(--label);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+  .kv .v{color:var(--text);font-variant-numeric:tabular-nums;word-break:break-word}
+  .kv .v.hi{color:var(--accent-soft);font-weight:600}
+  .kv .v.good{color:var(--good)}.kv .v.warn{color:var(--warn)}.kv .v.loss{color:var(--loss)}
+  .sec{border-top:1px solid var(--line);padding-top:10px}
+  .sec h4{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin-bottom:8px;font-weight:600}
+  .status{display:inline-block;font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:2px;border:1px solid var(--line2);letter-spacing:.06em}
+  .status.entry{border-color:rgba(61,220,132,.5);color:var(--good)}
+  .status.manage{border-color:rgba(255,183,87,.5);color:var(--warn)}
+  .status.exit{border-color:rgba(255,107,107,.5);color:var(--loss)}
+  .status.closed{color:var(--muted)}
+  .status.pre{border-color:rgba(125,211,252,.5);color:var(--t3)}
+  .tl{position:relative;height:46px;margin:6px 0 2px}
+  .tl .bar{position:absolute;top:18px;height:6px;border-radius:2px}
+  .tl .mk{position:absolute;top:12px;width:1px;height:18px;background:var(--text)}
+  .tl .mk.today{background:var(--accent);height:26px;top:8px}
+  .tl .ml{position:absolute;top:32px;font-family:var(--mono);font-size:8px;color:var(--label);transform:translateX(-50%);white-space:nowrap;letter-spacing:.04em}
+  .tl .ml.top{top:0}
+  .facts{display:flex;flex-direction:column;gap:6px}
+  .fact{display:grid;grid-template-columns:8px 1fr;gap:8px;font-size:11px;color:var(--soft);line-height:1.4}
+  .fact i{width:8px;height:8px;border-radius:50%;margin-top:4px;background:var(--loss)}
+  .fact.opp i{background:var(--opp)}.fact.record i{background:var(--muted)}
+  .fact b{color:var(--text);font-weight:600;font-family:var(--mono);font-size:10px}
+  .prose{font-size:12px;color:var(--soft);line-height:1.55;max-width:62ch}
+  .mkt{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+  .mkt div{background:var(--sf);padding:8px 10px}
+  .mkt .k{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
+  .mkt .v{font-family:var(--mono);font-size:13px;font-weight:600;margin-top:3px;font-variant-numeric:tabular-nums}
+  .mkt .s{font-size:9px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+  .range{position:relative;height:4px;background:var(--line2);border-radius:2px;margin-top:8px}
+  .range i{position:absolute;top:-3px;width:10px;height:10px;border-radius:50%;background:var(--text);transform:translateX(-50%)}
+  .range .lo,.range .hi{position:absolute;top:8px;font-family:var(--mono);font-size:8px;color:var(--muted)}
+  .range .hi{right:0}
+  .ul{display:flex;flex-wrap:wrap;gap:4px}
+  .tag{font-family:var(--mono);font-size:9px;padding:2px 7px;border:1px solid var(--line2);border-radius:2px;color:var(--soft)}
+  .tag.ok{border-color:rgba(61,220,132,.4);color:var(--good)}
+  .tag.as{border-color:rgba(255,183,87,.4);color:var(--warn)}
+  .read{font-family:var(--mono);font-size:10.5px;line-height:1.6;color:var(--soft);white-space:pre-wrap;background:var(--sf);border:1px solid var(--line2);border-left:2px solid var(--accent);padding:10px 12px;border-radius:2px}
+  .btn{background:var(--sf);border:1px solid var(--line2);border-radius:2px;padding:6px 10px;font-family:var(--mono);font-size:10px;color:var(--soft);cursor:pointer;letter-spacing:.04em}
+  .btn:hover{border-color:var(--accent);color:var(--text)}
+  .btn.primary{border-color:var(--accent);color:var(--accent-soft)}
+  .btnrow{display:flex;gap:6px;flex-wrap:wrap}
+  .factor-card .big{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--accent-soft);letter-spacing:.04em}
+  .members{display:flex;flex-direction:column;gap:4px}
+  .member{display:grid;grid-template-columns:50px 1fr auto;gap:8px;font-family:var(--mono);font-size:10px;padding:5px 7px;border:1px solid var(--line);border-radius:2px;cursor:pointer;align-items:baseline}
+  .member:hover{border-color:var(--accent)}
+  .member .t{font-weight:700;color:var(--text)}.member .d{color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.member .s{color:var(--label)}
+  /* import drawer */
+  .drawer{position:absolute;right:12px;top:10px;z-index:6}
+  .drawer .panel{display:none;position:absolute;right:0;top:32px;width:380px;background:var(--sf2);border:1px solid var(--line2);border-radius:3px;padding:12px;box-shadow:0 12px 30px rgba(0,0,0,.6)}
+  .drawer.open .panel{display:block}
+  .drawer textarea{width:100%;height:150px;background:var(--bg);border:1px solid var(--line2);border-radius:2px;padding:8px;font-family:var(--mono);font-size:10px;color:var(--text);resize:vertical}
+  .drawer p{font-size:11px;color:var(--soft);margin:6px 0 8px;line-height:1.45}
+  .drawer .msg{font-family:var(--mono);font-size:10px;color:var(--label);margin-top:6px;min-height:14px}
+  @media (prefers-reduced-motion:reduce){.main{transition:none}}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">MANTIS CATALYST GRAPH<small id="verLabel">graph 0.1 on ws 2.7.1</small></div>
+    <div class="stat"><span class="k">As of</span><span class="v" id="todayLabel">—</span></div>
+    <div class="stat"><span class="k">Book</span><span class="v" id="bookStat">—</span></div>
+    <div class="stat"><span class="k">Macro regime</span><span class="v dim" id="macroStat">unset</span></div>
+    <div class="stat"><span class="k">Market data</span><span class="v dim" id="feedStat">embedded snapshot</span></div>
+    <div class="spacer"></div>
+    <div class="modes" role="tablist" aria-label="Layout">
+      <button class="on" data-mode="timeline" role="tab">Timeline</button>
+      <button data-mode="cluster" role="tab">Risk clusters</button>
+    </div>
+    <span class="pill off" id="feedPill">feed: snapshot</span>
+    <a class="pill" id="dashLink" href="../" hidden>Dashboard</a>
+  </header>
+
+  <div class="main" id="main">
+    <aside class="rail">
+      <div>
+        <h3>Find</h3>
+        <input class="search" id="q" type="search" placeholder="ticker, drug, indication" aria-label="Search">
+      </div>
+      <div>
+        <h3>Lifecycle</h3>
+        <div class="chips" id="lifeChips"></div>
+      </div>
+      <div>
+        <h3>Run-up score</h3>
+        <div class="chips" id="scoreChips"></div>
+      </div>
+      <div>
+        <h3>Risk factor focus</h3>
+        <div class="chips" id="factorChips"></div>
+      </div>
+      <div>
+        <h3>Effective exits ahead</h3>
+        <div class="exits" id="exitList"></div>
+      </div>
+      <div>
+        <h3>Reading the graph</h3>
+        <div class="legend" id="legend"></div>
+      </div>
+    </aside>
+
+    <section class="stage" id="stage">
+      <svg id="svg" role="img" aria-label="MANTIS catalyst graph"></svg>
+      <div class="counts" id="counts"></div>
+      <div class="drawer" id="drawer">
+        <button class="btn" id="drawerBtn">Update market data</button>
+        <div class="panel">
+          <p>Paste a JSON object keyed by ticker. Each entry can carry price, chg_pct, lo52, hi52, sma200, sma200_slope, short_pct, days_to_cover, mcap, vol, asof. Writes go to the shared data layer and every open view re-renders.</p>
+          <textarea id="importBox" placeholder='{"PRAX":{"price":351.81,"chg_pct":-0.94,"asof":"2026-09-04"}}'></textarea>
+          <div class="btnrow" style="margin-top:8px"><button class="btn primary" id="importBtn">Write to data layer</button><button class="btn" id="macroBtn">Set macro regime</button></div>
+          <div class="msg" id="importMsg"></div>
+        </div>
+      </div>
+      <div class="hint">drag to pan, wheel to zoom, click a node for the MANTIS read, double click the canvas to reset</div>
+      <div class="tip" id="tip"></div>
+    </section>
+
+    <aside class="card" id="card">Select a ticker, catalyst or risk factor to open its MANTIS read.</aside>
+  </div>
+</div>
+
+<script>
+const GRAPH = {"meta": {"version": "graph 0.1 on ws 2.7.1", "source_dashboard": "MANTIS ALPHA PHARMA ws 2.7.1, CAPR two-phase event correction, 2026-08-31", "built": "2026-09-07", "note": "Rows reconstructed from the inline dashboard script (audit, overrides, new candidates, decisions). Base rows from data.json were not available; fields marked provisional come from the reconstruction and should be confirmed against data.json.", "defaults": {"entry": "T-150 to T-90", "entry_fallback": "T-60", "exit": "T-14 to T-7", "exit_anchor_days": 7, "risk_date_buffer_days": 3}}, "tickers": [{"tkr": "PRAX", "co": "Praxis Precision Medicines", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:PRAX"}, {"tkr": "SVRA", "co": "Savara", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:SVRA"}, {"tkr": "COGT", "co": "Cogent Biosciences", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:COGT"}, {"tkr": "MLYS", "co": "Mineralys Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:MLYS"}, {"tkr": "HNSA", "co": "Hansa Biopharma", "listing": "OMXSTO", "ccy": "SEK", "tv": "OMXSTO:HNSA"}, {"tkr": "IMNM", "co": "Immunome", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:IMNM"}, {"tkr": "ORGO", "co": "Organogenesis", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:ORGO"}, {"tkr": "CAPR", "co": "Capricor Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:CAPR"}, {"tkr": "DYN", "co": "Dyne Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:DYN"}, {"tkr": "PHVS", "co": "Pharvaris", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:PHVS"}, {"tkr": "INBX", "co": "Inhibrx Biosciences", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:INBX"}, {"tkr": "BLTE", "co": "Belite Bio", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:BLTE"}, {"tkr": "CGEM", "co": "Cullinan Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:CGEM"}, {"tkr": "INO", "co": "Inovio Pharmaceuticals", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:INO"}, {"tkr": "SMMT", "co": "Summit Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:SMMT"}, {"tkr": "RARE", "co": "Ultragenyx Pharmaceutical", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:RARE"}, {"tkr": "IONS", "co": "Ionis Pharmaceuticals", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:IONS"}, {"tkr": "IBRX", "co": "ImmunityBio", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:IBRX"}, {"tkr": "BBIO", "co": "BridgeBio Pharma", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:BBIO"}, {"tkr": "PYPD", "co": "PolyPid", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:PYPD"}, {"tkr": "BTAI", "co": "BioXcel Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:BTAI"}, {"tkr": "LNTH", "co": "Lantheus", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:LNTH"}, {"tkr": "PTGX", "co": "Protagonist Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:PTGX"}, {"tkr": "ALCOX", "co": "Nicox", "listing": "Euronext", "ccy": "EUR", "tv": "EURONEXT:ALCOX"}, {"tkr": "LRMR", "co": "Larimar Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:LRMR"}, {"tkr": "QURE", "co": "uniQure", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:QURE"}, {"tkr": "XENE", "co": "Xenon Pharmaceuticals", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:XENE"}, {"tkr": "RCKT", "co": "Rocket Pharmaceuticals", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:RCKT"}, {"tkr": "DNLI", "co": "Denali Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:DNLI"}, {"tkr": "VERA", "co": "Vera Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:VERA"}, {"tkr": "NUVL", "co": "Nuvalent", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:NUVL"}, {"tkr": "ROIV", "co": "Roivant Sciences", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:ROIV"}, {"tkr": "ACLX", "co": "Arcellx (acquired by Gilead)", "listing": "delisted", "ccy": "USD", "tv": "NASDAQ:GILD"}, {"tkr": "VRDN", "co": "Viridian Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:VRDN"}, {"tkr": "CELC", "co": "Celcuity", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:CELC"}, {"tkr": "MNKD", "co": "MannKind", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:MNKD"}, {"tkr": "ACHV", "co": "Achieve Life Sciences", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:ACHV"}, {"tkr": "UNCY", "co": "Unicycive Therapeutics", "listing": "NASDAQ", "ccy": "USD", "tv": "NASDAQ:UNCY"}, {"tkr": "CAMX", "co": "Camurus", "listing": "OMXSTO", "ccy": "SEK", "tv": "OMXSTO:CAMX"}, {"tkr": "XSPRAY", "co": "Xspray Pharma", "listing": "OMXSTO", "ccy": "SEK", "tv": "OMXSTO:XSPRAY"}], "factors": [{"id": "cmc", "label": "Contract manufacturing and CMC", "kind": "risk", "desc": "Third party facility or CMC exposure. The dominant failure vector for otherwise approvable drugs (Camurus, Savara, Achieve, Unicycive). Playbook open item: raise the maximum deduction."}, {"id": "prior_letter", "label": "Prior regulatory letter", "kind": "risk", "desc": "A discount rather than a veto. Weighted more heavily when the letter went to efficacy than to a facility, because efficacy questions do not fully retire."}, {"id": "efficacy_dispute", "label": "Efficacy or SAP dispute with FDA", "kind": "risk", "desc": "Sponsor publicly contesting the agency's analysis. Treated as a hard stop: the catalyst becomes a coin flip on procedure, which the model does not price."}, {"id": "adcom", "label": "Advisory committee scheduled", "kind": "risk", "desc": "Two binaries, not one. The briefing document (about two business days before the meeting) is the tradeable event. Effective exit resets to that date less three business days."}, {"id": "competition", "label": "Crowded field or approved competitor", "kind": "risk", "desc": "Flattens run-ups even when the catalyst is clean. Mineralys and Vera are the reference cases."}, {"id": "largecap", "label": "Large capitalisation or already priced", "kind": "risk", "desc": "Dilutes the catalyst until the event stops being the company. Consensus has already paid for a clean package."}, {"id": "post_rally", "label": "Move already made", "kind": "risk", "desc": "A stock that has already re-rated has spent the move the trade was meant to capture. Reframe from accumulation to exit management; no chase."}, {"id": "financing", "label": "Financing, liquidity or listing risk", "kind": "risk", "desc": "Cash runway under four quarters past the action date is a live dilution risk. A raise inside the window ends the run-up. Thin books fail the tradability gate."}, {"id": "partner", "label": "Partner is the applicant", "kind": "risk", "desc": "Milestone and royalty economics dilute direct catalyst sensitivity."}, {"id": "intl", "label": "International listing", "kind": "risk", "desc": "Needs the international template: Stockholm or Euronext liquidity, FX exposure and disclosure rules before sharing the domestic rubric."}, {"id": "surrogate", "label": "Surrogate endpoint or accelerated pathway", "kind": "risk", "desc": "Procedural risk around accelerated approval eligibility, novel surrogates and historical controls."}, {"id": "issuer_corr", "label": "Same issuer, second catalyst", "kind": "risk", "desc": "Separate asset, same balance sheet and management. Score and size must reflect aggregate issuer exposure; it is not a second full strength position."}, {"id": "extension", "label": "Extension reset", "kind": "opportunity", "desc": "A three month move on a major amendment unwinds positioned holders mechanically and opens a fresh accumulation window on the reset calendar. Praxis is the reference case."}, {"id": "structural_filter", "label": "Structural fit filter (mechanical exclusion)", "kind": "record", "desc": "Removed on listing and liquidity grounds, not by clinical scoring. The model cannot claim credit for these outcomes."}], "indications": [{"id": "dmd", "label": "Duchenne muscular dystrophy"}, {"id": "nsclc_egfr", "label": "EGFR mutant NSCLC"}, {"id": "hae", "label": "Hereditary angioedema"}, {"id": "systemic_mastocytosis", "label": "Systemic mastocytosis and GIST"}, {"id": "kidney", "label": "Kidney transplant and nephrology"}], "catalysts": [{"id": "PRAX:2026-12-27", "tkr": "PRAX", "drug": "relutrigine", "ind": "SCN2A and SCN8A developmental and epileptic encephalopathies", "pdufa": "2026-12-27", "was_pdufa": "2026-09-27", "date_type": "Exact date", "catalyst_type": "NDA, Priority Review", "priority_review": true, "orph": true, "therapy": "Sodium channel blocker (small molecule)", "score": 4, "orig_score": 4, "mantis_class": "Tier 1 watch, reduced size", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "extended", "notes": "Extended three months on 29 June. FDA classified additional sensitivity analyses as a major amendment; no new studies requested, no safety or manufacturing concerns cited. Extension reset is the defined entry trigger, but the issuer is now large and already substantially re-rated, and the second Praxis catalyst caps aggregate issuer exposure.", "source": "https://investors.praxismedicines.com/news-releases/news-release-details/praxis-precision-medicines-announces-extension-period", "verified": ["action date", "extension classification"], "assumed": ["competitive intensity", "float and short interest"], "factors": [{"id": "extension", "note": "27 Sep to 27 Dec on a 29 Jun filing"}, {"id": "largecap", "note": "issuer already re-rated"}, {"id": "issuer_corr", "note": "second Praxis filing 29 Jan 2027"}, {"id": "post_rally", "note": "substantial prior re-rating"}], "risk_dates": [], "indications": []}, {"id": "PRAX:2027-01-29", "tkr": "PRAX", "drug": "second Praxis asset (assumed ulixacaltamide)", "ind": "Essential tremor (assumed)", "pdufa": "2027-01-29", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": null, "orph": false, "therapy": "T-type calcium channel blocker (assumed)", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, correlated issuer risk", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "provisional": true, "notes": "Separate asset but the same issuer, balance sheet and management. Score and size must reflect aggregate Praxis exposure. Drug and indication reconstructed; confirm against data.json.", "source": null, "verified": ["action date (dashboard)"], "assumed": ["drug identity", "indication", "review type"], "factors": [{"id": "issuer_corr", "note": "same issuer as relutrigine"}, {"id": "largecap"}], "risk_dates": [], "indications": []}, {"id": "SVRA:2026-11-22", "tkr": "SVRA", "drug": "Molbreevi (molgramostim inhalation)", "ind": "Autoimmune pulmonary alveolar proteinosis", "pdufa": "2026-11-22", "was_pdufa": "2026-08-22", "date_type": "Exact date", "catalyst_type": "BLA", "priority_review": false, "orph": true, "therapy": "Inhaled GM-CSF biologic", "score": 3, "orig_score": 4, "mantis_class": "Tier 2, managed position", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "extended", "notes": "Extended three months; responses to FDA information requests deemed a major amendment. No advisory committee planned. Follows a May 2025 refuse to file on CMC, after which drug substance manufacture moved to Fujifilm. CMC history, a larger valuation and a well known positive narrative reduce the remaining attention premium. Manage, do not chase.", "source": "https://investors.savarapharma.com/news/news-details/2026/Savara-Announces-the-U-S--Food--Drug-Administration-FDA-Has-Extended-the-Review-Period-for-the-Molgramostim-Inhalation-Solution-Molgramostim-Biologics-License-Application-BLA-in-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP/default.aspx", "verified": ["action date", "extension", "no AdCom"], "assumed": ["short interest"], "factors": [{"id": "cmc", "note": "May 2025 refuse to file on CMC; Fujifilm transfer"}, {"id": "prior_letter", "grounds": "facility", "note": "refuse to file, CMC grounds"}, {"id": "extension", "note": "22 Aug to 22 Nov"}, {"id": "largecap", "note": "narrative well known"}], "risk_dates": [], "indications": []}, {"id": "COGT:2026-11-30", "tkr": "COGT", "drug": "bezuclastinib", "ind": "Gastrointestinal stromal tumour", "pdufa": "2026-11-30", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": null, "orph": true, "therapy": "KIT inhibitor (small molecule)", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, correlated asset risk", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Strong catalyst but a large current valuation and two applications for the same molecule reduce independent torque. A third filing (AdvSM, submitted 30 June) has no date yet.", "source": "https://investors.cogentbio.com/news-releases/news-release-details/cogent-biosciences-announces-fda-acceptance-new-drug-0", "verified": ["action date"], "assumed": ["review classification", "float"], "factors": [{"id": "largecap"}, {"id": "issuer_corr", "note": "NonAdvSM 30 Dec, AdvSM undated"}], "risk_dates": [], "indications": ["systemic_mastocytosis"]}, {"id": "COGT:2026-12-30", "tkr": "COGT", "drug": "bezuclastinib", "ind": "Non advanced systemic mastocytosis", "pdufa": "2026-12-30", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": null, "orph": true, "therapy": "KIT inhibitor (small molecule)", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, correlated asset risk", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Second decision for the same molecule and issuer; it cannot be treated as a second full strength position.", "source": "https://investors.cogentbio.com/news-releases/news-release-details/cogent-biosciences-announces-fda-acceptance-new-drug-0", "verified": ["action date"], "assumed": ["review classification"], "factors": [{"id": "largecap"}, {"id": "issuer_corr", "note": "GIST 30 Nov"}], "risk_dates": [], "indications": ["systemic_mastocytosis"]}, {"id": "MLYS:2026-12-22", "tkr": "MLYS", "drug": "lorundrostat", "ind": "Uncontrolled hypertension", "pdufa": "2026-12-22", "date_type": "Exact date", "catalyst_type": "NDA, standard review", "priority_review": false, "orph": false, "therapy": "Aldosterone synthase inhibitor", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, watch and managed", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Baxdrostat is already approved first in class and sell side consensus sits near ninety per cent, so there is very little uncertainty premium left to harvest even though the drug is probably fine. Reference case for an uncontested package.", "source": "https://www.globenewswire.com/news-release/2026/03/09/3252329/0/en/mineralys-therapeutics-announces-fda-acceptance-of-nda-for-lorundrostat-for-treatment-of-adults-with-hypertension-and-topline-explore-osa-trial-results.html", "verified": ["action date", "no AdCom"], "assumed": ["consensus figure"], "factors": [{"id": "competition", "note": "baxdrostat approved first"}, {"id": "largecap", "note": "consensus priced"}], "risk_dates": [], "indications": []}, {"id": "HNSA:2026-12-19", "tkr": "HNSA", "drug": "imlifidase", "ind": "Kidney transplant desensitisation in highly sensitised patients", "pdufa": "2026-12-19", "was_pdufa": "Q3 2026 (guided)", "date_type": "Exact date", "catalyst_type": "BLA, standard review", "priority_review": false, "orph": true, "therapy": "IgG cleaving enzyme", "score": 3, "orig_score": 2, "mantis_class": "Tier 2, international watch, pullback only", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Promoted from blanket exclusion into the international template. First in class, exact date catalyst, but the stock is near its 52 week high after a strong one month move. Do not chase. Apply Stockholm liquidity, SEK and disclosure rules. Priority review was requested but a standard 12 month cycle was assigned.", "source": "https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/", "verified": ["action date"], "assumed": ["liquidity in three tranches"], "factors": [{"id": "intl", "note": "OMXSTO listing, SEK"}, {"id": "post_rally", "note": "near 52 week high"}], "risk_dates": [], "indications": ["kidney"]}, {"id": "IMNM:2027-04-28", "tkr": "IMNM", "drug": "varegacestat", "ind": "Progressing desmoid tumours in adults", "pdufa": "2027-04-28", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": false, "orph": true, "therapy": "Gamma secretase inhibitor", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, competitive indication", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Exceptional Phase 3 RINGSIDE efficacy supports the filing, but Ogsiveo is already approved and the competitive benchmark limits the novelty premium.", "source": "https://investors.immunome.com/immunome-announces-u-s-fda-acceptance-of-new-drug-application-for-varegacestat-for-the-treatment-of-adults-with-desmoid-tumors/", "verified": ["action date"], "assumed": ["float", "short interest"], "factors": [{"id": "competition", "note": "Ogsiveo approved in class"}], "risk_dates": [], "indications": []}, {"id": "ORGO:2027-04-24", "tkr": "ORGO", "drug": "ReNu", "ind": "Pain associated with symptomatic knee osteoarthritis", "pdufa": "2027-04-24", "date_type": "Exact date", "catalyst_type": "BLA, RMAT", "priority_review": false, "orph": false, "therapy": "Cryopreserved amniotic suspension allograft", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, special situation", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Small cap torque and three large randomised trials are attractive. Non orphan knee OA, biologic classification, manufacturing and mass market commercial assumptions need bespoke diligence.", "source": "https://investors.organogenesis.com/news-releases/news-release-details/organogenesis-announces-fda-acceptance-biologics-license", "verified": ["action date"], "assumed": ["manufacturing setup"], "factors": [{"id": "cmc", "note": "biologic manufacturing complexity"}], "risk_dates": [], "indications": []}, {"id": "CAPR:2026-11-22", "tkr": "CAPR", "drug": "deramiocel (CAP-1002)", "ind": "Duchenne muscular dystrophy, refined upper limb indication", "pdufa": "2026-11-22", "was_pdufa": "2026-08-22", "date_type": "Exact date", "catalyst_type": "BLA, major amendment accepted", "priority_review": null, "orph": true, "therapy": "Allogeneic cardiosphere derived cell therapy", "score": 2, "orig_score": 5, "mantis_class": "Special situation watch, no re-entry veto", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "extended", "notes": "Two phase control case. CTGTAC voted 9 to 3 against on 29 July on the cardiomyopathy question; the thesis broke on the 27 July briefing document, which is where the exit should have fired (effective exit 24 July, 22 days earlier than the calendar rule). Bloomberg ledger use case loss 26.00 per cent, closed 23 July. FDA accepted 24 month HOPE-3 data as a major amendment on 24 August and moved the date to 22 November. The SAP v1.1 versus v3.0 dispute remains a no re-entry veto; the approximately 90 per cent extension path rebound on 14 August is archived separately and not netted.", "source": "https://www.capricor.com/investors/news-events/press-releases/detail/354/capricor-therapeutics-announces-extension-of-pdufa-target", "verified": ["action date", "AdCom vote", "extension"], "assumed": [], "factors": [{"id": "efficacy_dispute", "note": "SAP v1.1 vs v3.0"}, {"id": "adcom", "note": "held 29 Jul 2026, 9 to 3 against"}, {"id": "prior_letter", "grounds": "efficacy", "note": "negative AdCom on efficacy"}, {"id": "extension", "note": "22 Aug to 22 Nov"}], "risk_dates": [{"kind": "briefing", "date": "2026-07-27", "derived": false, "label": "FDA briefing document"}, {"kind": "adcom", "date": "2026-07-29", "derived": false, "label": "CTGTAC meeting"}], "indications": ["dmd"], "record": {"window": "26 Jun to 23 Jul 2026", "measure": "Bloomberg ledger use case", "return_pct": -26.0, "close_proxy_pct": -25.0, "exit_date": "2026-07-23"}}, {"id": "DYN:2027-01-21", "tkr": "DYN", "drug": "z-rostudirsen", "ind": "Duchenne muscular dystrophy amenable to exon 51 skipping", "pdufa": "2027-01-21", "date_type": "Exact date", "catalyst_type": "BLA, Priority Review, accelerated approval", "priority_review": true, "orph": true, "therapy": "Oligonucleotide conjugate", "score": 3, "orig_score": 4, "mantis_class": "Tier 2, post rally cooldown", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Original Score 4 pre pre PDUFA cycle locked at 3.37 per cent (3 Aug to 27 Aug close). Accelerated approval filing on dystrophin as a surrogate. A fresh position faces a multi billion dollar valuation and surrogate endpoint risk; require a reset before re-entry.", "source": "https://investors.dyne-tx.com/news-releases/news-release-details/dyne-therapeutics-announces-us-fda-acceptance-biologics-license/", "verified": ["action date", "priority review"], "assumed": ["short interest"], "factors": [{"id": "post_rally", "note": "cycle A locked at 3.37 per cent"}, {"id": "surrogate", "note": "dystrophin surrogate, accelerated approval"}, {"id": "largecap"}], "risk_dates": [], "indications": ["dmd"], "record": {"window": "3 Aug to 27 Aug 2026", "measure": "close to close, model observation", "return_pct": 3.37, "baseline_price": 25.24, "lock_price": 26.09}}, {"id": "PHVS:2027-04-23", "tkr": "PHVS", "drug": "deucrictibant IR", "ind": "On demand treatment of hereditary angioedema attacks", "pdufa": "2027-04-23", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": false, "orph": true, "therapy": "Oral bradykinin B2 antagonist", "score": 3, "orig_score": 4, "mantis_class": "Tier 2, post rally cooldown", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Original Score 4 cycle locked at 14.73 per cent (3 Aug to 27 Aug close). The HAE thesis remains attractive, but competition and the August re-rating reduce fresh entry torque.", "source": "https://ir.pharvaris.com/news-releases/news-release-details/pharvaris-announces-fda-acceptance-new-drug-application/", "verified": ["action date"], "assumed": ["short interest"], "factors": [{"id": "post_rally", "note": "cycle A locked at 14.73 per cent"}, {"id": "competition", "note": "crowded HAE on demand market"}], "risk_dates": [], "indications": ["hae"], "record": {"window": "3 Aug to 27 Aug 2026", "measure": "close to close, model observation", "return_pct": 14.73, "baseline_price": 32.25, "lock_price": 37.0}}, {"id": "INBX:2027-04-14", "tkr": "INBX", "drug": "ozekibart", "ind": "Conventional chondrosarcoma", "pdufa": "2027-04-14", "date_type": "Exact date", "catalyst_type": "BLA", "priority_review": false, "orph": true, "therapy": "DR5 agonist antibody", "score": 3, "orig_score": 4, "mantis_class": "Tier 2, post rally cooldown", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Original Score 4 cycle locked at 49.82 per cent (3 Aug to 27 Aug close). BLA accepted 15 June with no filing review issues; would be the first systemic therapy in the indication. The August re-rating makes a fresh entry a no chase setup.", "source": "https://www.prnewswire.com/news-releases/inhibrx-announces-us-fda-acceptance-of-bla-for-ozekibart-in-patients-with-conventional-chondrosarcoma-302800101.html", "verified": ["action date"], "assumed": ["short interest"], "factors": [{"id": "post_rally", "note": "cycle A locked at 49.82 per cent"}], "risk_dates": [], "indications": [], "record": {"window": "3 Aug to 27 Aug 2026", "measure": "close to close, model observation", "return_pct": 49.82, "baseline_price": 82.72, "lock_price": 123.93}}, {"id": "BLTE:2027-02-12", "tkr": "BLTE", "drug": "tinlarebant", "ind": "Stargardt disease type 1", "pdufa": "2027-02-12", "date_type": "Exact date", "catalyst_type": "NDA, Priority Review", "priority_review": true, "orph": true, "therapy": "Oral RBP4 antagonist", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, clean catalyst, valuation capped", "entry": "T-120 to T-75", "exit": "T-20 to T-7", "lifecycle": "active", "notes": "First potential STGD1 treatment, Priority Review, multiple expedited designations and a positive Phase 3 DRAGON study (35.7 per cent reduction in lesion growth). The company has already substantially re-rated and carries a multi billion dollar valuation, limiting classic torque. Track rather than chase.", "source": "https://www.globenewswire.com/news-release/2026/08/11/3343136/0/en/belite-bio-announces-u-s-food-and-drug-administration-acceptance-and-priority-review-of-new-drug-application-for-tinlarebant-for-the-treatment-of-stargardt-disease-type-1.html", "verified": ["action date", "priority review"], "assumed": ["short interest"], "factors": [{"id": "largecap"}, {"id": "post_rally"}], "risk_dates": [], "indications": []}, {"id": "CGEM:2027-02-27", "tkr": "CGEM", "drug": "zipalertinib", "ind": "EGFR exon 20 insertion NSCLC", "pdufa": "2027-02-27", "date_type": "Exact date", "catalyst_type": "NDA, Breakthrough", "priority_review": null, "orph": false, "therapy": "EGFR exon 20 inhibitor", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, partner adjusted", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Small enough for torque, but Taiho is the applicant and partnership economics dilute the direct binary exposure. Based on Phase 2b REZILIENT1.", "source": "https://www.businesswire.com/news/home/20260427550531/en/", "verified": ["action date", "applicant"], "assumed": ["review classification"], "factors": [{"id": "partner", "note": "Taiho is the applicant"}], "risk_dates": [], "indications": ["nsclc_egfr"]}, {"id": "INO:2026-10-30", "tkr": "INO", "drug": "INO-3107", "ind": "Recurrent respiratory papillomatosis in adults", "pdufa": "2026-10-30", "date_type": "Exact date", "catalyst_type": "BLA, standard review", "priority_review": false, "orph": true, "therapy": "DNA immunotherapy", "score": 2, "orig_score": 2, "mantis_class": "Background, structural risk", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "No advisory committee planned. FDA flagged a potential review issue: a preliminary view that accelerated approval eligibility is not adequately justified. Micro cap financing and listing risk dominate the catalyst.", "source": "https://www.prnewswire.com/news-releases/fda-accepts-for-review-inovios-bla-for-ino-3107-for-the-treatment-of-adults-with-recurrent-respiratory-papillomatosis-rrp-302649910.html", "verified": ["action date", "review issue disclosure"], "assumed": [], "factors": [{"id": "financing", "note": "micro cap, listing risk"}, {"id": "surrogate", "note": "accelerated approval eligibility questioned"}], "risk_dates": [], "indications": []}, {"id": "SMMT:2026-11-14", "tkr": "SMMT", "drug": "ivonescimab", "ind": "EGFR mutant NSCLC after TKI, with chemotherapy", "pdufa": "2026-11-14", "date_type": "Exact date", "catalyst_type": "BLA, full review", "priority_review": null, "orph": false, "therapy": "PD-1 and VEGF bispecific antibody", "score": 2, "orig_score": 2, "mantis_class": "Background, large cap", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "First US BLA acceptance for a PD-1 and VEGF bispecific. Mid cycle and wrap up meetings, no ODAC scheduled. The issuer is valued above the classic torque range and much of the narrative is priced.", "source": "https://www.biospace.com/press-releases/summit-therapeutics-announces-u-s-fda-acceptance-of-biologics-license-application-bla-seeking-approval-for-ivonescimab-in-combination-with-chemotherapy-in-treatment-of-patients-with-egfrm-nsclc-post-tki-therapy", "verified": ["action date", "no ODAC"], "assumed": [], "factors": [{"id": "largecap"}], "risk_dates": [], "indications": ["nsclc_egfr"]}, {"id": "RARE:2026-09-19", "tkr": "RARE", "drug": "UX111", "ind": "Sanfilippo syndrome type A (MPS IIIA)", "pdufa": "2026-09-19", "date_type": "Exact date", "catalyst_type": "BLA resubmission", "priority_review": null, "orph": true, "therapy": "AAV gene therapy", "score": 3, "orig_score": 3, "mantis_class": "Tier 2, CMC discount", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Company defining rare disease catalyst, offset by the prior CMC complete response history and issuer level correlation. The separate DTX401 filing was approved 19 August (GENGLYCOS). Window is mature: at T-12 today, execution belongs to exit management, not accumulation.", "source": "https://ir.ultragenyx.com/news-releases/news-release-details/ultragenyx-announces-us-fda-approval-genglycostm-gene-therapy", "verified": ["action date (dashboard)"], "assumed": ["resubmission classification"], "factors": [{"id": "cmc", "note": "prior CRL on CMC"}, {"id": "prior_letter", "grounds": "facility", "note": "complete response on CMC"}, {"id": "issuer_corr", "note": "DTX401 approved 19 Aug"}, {"id": "largecap"}], "risk_dates": [], "indications": []}, {"id": "IONS:2026-09-22", "tkr": "IONS", "drug": "zilganersen", "ind": "Alexander disease", "pdufa": "2026-09-22", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": null, "orph": true, "therapy": "Antisense oligonucleotide", "score": 2, "orig_score": 2, "mantis_class": "Background, diversified issuer", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Strong programme, but a large diversified issuer provides limited binary equity torque. Bepirovirsen (chronic hepatitis B, GSK led) is reported at 26 Oct with lower confidence; olezarsen sHTG already approved 24 June.", "source": "https://ir.ionis.com/news-releases/news-release-details/ionis-announces-zilganersen-new-drug-application-alexander", "verified": ["action date"], "assumed": [], "factors": [{"id": "largecap", "note": "diversified issuer"}, {"id": "issuer_corr", "note": "bepirovirsen 26 Oct, GSK led"}], "risk_dates": [], "indications": []}, {"id": "IBRX:2027-01-06", "tkr": "IBRX", "drug": "Anktiva (sBLA)", "ind": "Papillary NMIBC without carcinoma in situ", "pdufa": "2027-01-06", "date_type": "Exact date", "catalyst_type": "sBLA, label expansion", "priority_review": null, "orph": false, "therapy": "IL-15 superagonist", "score": 2, "orig_score": 2, "mantis_class": "Background, label expansion", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Supplemental filing at a multi billion dollar issuer, not a company defining first approval. Review focuses on whether the CIS to papillary extrapolation is justified. A public workshop was held 18 May, not an advisory committee.", "source": "https://ir.immunitybio.com/news-releases/news-release-details/immunitybio-announces-fda-acceptance-supplemental-bla-anktivar", "verified": ["action date"], "assumed": [], "factors": [{"id": "largecap"}, {"id": "surrogate", "note": "extrapolation question"}], "risk_dates": [], "indications": []}, {"id": "BBIO:2027-05-08", "tkr": "BBIO", "drug": "encaleret", "ind": "Autosomal dominant hypocalcemia type 1", "pdufa": "2027-05-08", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": false, "orph": true, "therapy": "Calcium sensing receptor antagonist", "score": 2, "orig_score": 2, "mantis_class": "Background, large cap", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Unusually clean drug and regulatory setup with no AdCom planned, but a large commercial stage issuer offers little classic binary torque.", "source": "https://investor.bridgebio.com/news/news-details/2026/BridgeBio-Announces-FDA-Acceptance-of-NDA-for-Encaleret-for-ADH1/default.aspx", "verified": ["action date", "no AdCom"], "assumed": [], "factors": [{"id": "largecap"}], "risk_dates": [], "indications": []}, {"id": "PYPD:2026-11-28", "tkr": "PYPD", "drug": "D-PLEX100", "ind": "Prevention of surgical site infection after abdominal colorectal surgery", "pdufa": "2026-11-28", "date_type": "Exact date", "catalyst_type": "NDA, Priority Review", "priority_review": true, "orph": false, "therapy": "Local extended release antibiotic", "score": 2, "orig_score": 2, "mantis_class": "Excluded, liquidity and financing", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Strong package and no filing issues identified, but market depth and financing dependence fail the tradability gate. Track as a control, not a live position.", "source": "https://www.sec.gov/Archives/edgar/data/1611842/000121390026082564/ea029964201ex99-1.htm", "verified": ["action date", "priority review"], "assumed": [], "factors": [{"id": "financing", "note": "market depth, financing dependence"}], "risk_dates": [], "indications": []}, {"id": "BTAI:2026-11-14", "tkr": "BTAI", "drug": "IGALMI at home label expansion", "ind": "At home acute agitation in bipolar disorder or schizophrenia", "pdufa": "2026-11-14", "date_type": "Exact date", "catalyst_type": "sNDA", "priority_review": false, "orph": false, "therapy": "Sublingual alpha-2 agonist", "score": 2, "orig_score": 2, "mantis_class": "Excluded, financial survivability", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Potentially meaningful label expansion, but low cash, strategic alternatives language and financing risk dominate the catalyst. Financial survivability veto.", "source": "https://ir.bioxceltherapeutics.com/news-releases/news-release-details/bioxcel-therapeutics-announces-food-drug-administration", "verified": ["action date"], "assumed": [], "factors": [{"id": "financing", "note": "survivability veto"}], "risk_dates": [], "indications": []}, {"id": "LNTH:2026-08-13", "tkr": "LNTH", "drug": "MK-6240", "ind": "Tau PET imaging in Alzheimer disease", "pdufa": "2026-08-13", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": null, "orph": false, "therapy": "PET imaging agent", "score": 2, "orig_score": 2, "mantis_class": "Background, large cap", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "window closed", "provisional": true, "notes": "Action date has passed. Outcome not yet recorded in the dashboard; confirm approval or otherwise from a primary source before reclassifying.", "source": "https://www.globenewswire.com/news-release/2025/10/28/3175415/0/en/Lantheus-Announces-FDA-Acceptance-of-New-Drug-Application-for-MK-6240-a-PET-Imaging-Agent-Targeting-Tau-in-Alzheimer-s-Disease.html", "verified": ["action date"], "assumed": ["outcome"], "factors": [{"id": "largecap"}], "risk_dates": [], "indications": []}, {"id": "PTGX:2026-08", "tkr": "PTGX", "drug": "rusfertide", "ind": "Polycythemia vera", "pdufa": "2026-08-31", "date_type": "Month only", "catalyst_type": "NDA (Takeda)", "priority_review": null, "orph": true, "therapy": "Hepcidin mimetic peptide", "score": 2, "orig_score": 2, "mantis_class": "Background, large cap", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "window closed", "provisional": true, "notes": "Company disclosed August 2026 as a month only. The 30 Sep figure on aggregator calendars is an end of quarter placeholder. Month has passed; outcome to confirm.", "source": "https://www.takeda.com/newsroom/newsreleases/2026/nda-rusfertide/", "verified": ["month guidance"], "assumed": ["exact date", "outcome"], "factors": [{"id": "largecap"}, {"id": "partner", "note": "Takeda economics"}], "risk_dates": [], "indications": []}, {"id": "ALCOX:2027-04-30", "tkr": "ALCOX", "drug": "NCX 470", "ind": "Open angle glaucoma and ocular hypertension", "pdufa": "2027-04-30", "date_type": "Exact date", "catalyst_type": "NDA (Kowa)", "priority_review": false, "orph": false, "therapy": "Nitric oxide donating prostaglandin analogue", "score": 2, "orig_score": 2, "mantis_class": "International, partnered control", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "active", "notes": "Exact date and two positive Phase 3 studies merit tracking, but Nicox is Euronext listed and Kowa owns the US filing. Milestone and royalty economics dilute direct catalyst sensitivity.", "source": "https://www.globenewswire.com/news-release/2026/08/27/3351772/0/en/nicox-announces-april-2027-pdufa-date-for-ncx-470-in-glaucoma.html", "verified": ["action date"], "assumed": [], "factors": [{"id": "intl", "note": "Euronext"}, {"id": "partner", "note": "Kowa owns the US filing"}], "risk_dates": [], "indications": []}, {"id": "LRMR:pending", "tkr": "LRMR", "drug": "nomlabofusp", "ind": "Friedreich ataxia", "pdufa": null, "date_type": "Pending BLA acceptance", "catalyst_type": "Rolling BLA, Breakthrough", "priority_review": null, "orph": true, "therapy": "Frataxin replacement fusion protein", "score": null, "orig_score": null, "mantis_class": "Unscored, pending acceptance", "entry": null, "exit": null, "lifecycle": "watch", "notes": "Rare disease and Breakthrough fit is strong, but the filing relies on a novel surrogate and the accelerated pathway. No live score until the complete BLA is accepted and an exact action date is issued.", "source": "https://investors.larimartx.com/news-releases/news-release-details/larimar-therapeutics-announces-fda-breakthrough-therapy", "verified": [], "assumed": ["everything: no dated catalyst"], "factors": [{"id": "surrogate", "note": "novel surrogate, accelerated pathway"}], "risk_dates": [], "indications": []}, {"id": "QURE:pending", "tkr": "QURE", "drug": "AMT-130", "ind": "Huntington disease", "pdufa": null, "date_type": "Pending filing", "catalyst_type": "Proposed accelerated BLA", "priority_review": null, "orph": true, "therapy": "AAV gene therapy", "score": null, "orig_score": null, "mantis_class": "Unscored, regulatory watch", "entry": null, "exit": null, "lifecycle": "watch", "notes": "Potentially high attention gene therapy catalyst, but FDA position reversals and the historical control debate create procedural risk. Track the filing; no live position before formal acceptance.", "source": "https://www.uniqure.com/programs-pipeline/huntingtons-disease", "verified": [], "assumed": ["everything: no dated catalyst"], "factors": [{"id": "surrogate", "note": "historical control debate"}], "risk_dates": [], "indications": []}, {"id": "XENE:pending", "tkr": "XENE", "drug": "azetukalner", "ind": "Focal onset seizures", "pdufa": null, "date_type": "Pre filing", "catalyst_type": "Planned Q3 2026 NDA", "priority_review": null, "orph": false, "therapy": "Kv7 potassium channel opener", "score": null, "orig_score": null, "mantis_class": "Unscored, pre filing watch", "entry": null, "exit": null, "lifecycle": "watch", "notes": "Strong Phase 3 X-TOLE2 efficacy and a differentiated mechanism qualify it for future scoring. Wait for NDA acceptance, exact date, filing classification and a valuation review.", "source": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-positive-topline-data-phase-3-x-tole2-study", "verified": [], "assumed": ["everything: no dated catalyst"], "factors": [{"id": "largecap"}], "risk_dates": [], "indications": []}, {"id": "RCKT:2026-03-28", "tkr": "RCKT", "drug": "Kresladi (marnetegragene autotemcel)", "ind": "Severe leukocyte adhesion deficiency type I, paediatric", "pdufa": "2026-03-28", "date_type": "Exact date (reconstructed)", "catalyst_type": "BLA, accelerated approval, PRV", "priority_review": true, "orph": true, "therapy": "Autologous HSC gene therapy", "score": 5, "orig_score": 5, "mantis_class": "Reference case, clean setup that ran", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "approved", "provisional": true, "notes": "Approved 26 March 2026. Calibration anchor for a clean setup. Record integrity: the run-up has been logged at both 46.32 and 47.51 per cent; reconcile to one sourced figure with a stated window before external use.", "source": null, "verified": ["approval", "decision date"], "assumed": ["original action date"], "factors": [], "risk_dates": [], "indications": [], "record": {"window": "entry 29 Oct to 26 Dec 2025, exit 6 Mar to 18 Mar 2026", "measure": "model recorded VWAP window", "return_pct": 46.32, "alt_return_pct": 47.51, "exit_date": "2026-03-18", "decision": "approved 2026-03-26"}}, {"id": "DNLI:2026-03-27", "tkr": "DNLI", "drug": "Avlayah (tividenofusp alfa)", "ind": "Neurological manifestations of Hunter syndrome (MPS II)", "pdufa": "2026-03-27", "date_type": "Exact date (reconstructed)", "catalyst_type": "BLA, accelerated approval, PRV", "priority_review": true, "orph": true, "therapy": "Blood brain barrier crossing enzyme replacement", "score": 5, "orig_score": 5, "mantis_class": "Reference case, clean setup that ran", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "approved", "provisional": true, "notes": "Approved 25 March 2026. Calibration anchor. Record integrity: logged at both 27.7 and 15.86 per cent; reconcile before external use.", "source": null, "verified": ["approval", "decision date"], "assumed": ["original action date"], "factors": [], "risk_dates": [], "indications": [], "record": {"window": "entry 3 Oct to 30 Nov 2025, exit 7 Mar to 25 Mar 2026", "measure": "model recorded VWAP window", "return_pct": 27.7, "alt_return_pct": 15.86, "exit_date": "2026-03-25", "decision": "approved 2026-03-25"}}, {"id": "VERA:2026-07-08", "tkr": "VERA", "drug": "Trutakna (atacicept)", "ind": "Primary IgA nephropathy at risk of progression", "pdufa": "2026-07-08", "date_type": "Exact date (reconstructed)", "catalyst_type": "BLA, accelerated approval, Breakthrough, Priority Review", "priority_review": true, "orph": false, "therapy": "Dual BAFF and APRIL inhibitor", "score": 4, "orig_score": 4, "mantis_class": "Reference case, crowded field and hostile macro", "entry": "T-150 to T-90", "exit": "T-14 to T-7", "lifecycle": "approved", "provisional": true, "notes": "Approved 7 July 2026. The framework flagged three adverse signals in advance (declining 200 day average, crowded IgAN field, sector risk off) and had no mechanism to act on any of them. This case created the thesis deterioration exit rule.", "source": null, "verified": ["approval"], "assumed": ["original action date"], "factors": [{"id": "competition", "note": "crowded IgAN field"}], "risk_dates": [], "indications": ["kidney"], "record": {"window": "entry 17 Jan to 15 Mar 2026, exit 28 May to 30 Jun 2026", "measure": "model recorded VWAP window", "return_pct": 0.93, "exit_date": "2026-06-30", "decision": "approved 2026-07-07"}}, {"id": "NUVL:acq", "tkr": "NUVL", "drug": "zidesamtinib", "ind": "ROS1 positive NSCLC", "pdufa": null, "date_type": "Superseded by acquisition", "catalyst_type": "NDA", "priority_review": null, "orph": true, "therapy": "ROS1 selective inhibitor", "score": 4, "orig_score": 4, "mantis_class": "Reference case, acquisition", "entry": null, "exit": null, "lifecycle": "acquisition", "provisional": true, "notes": "Acquired by GSK at 124 dollars a share. Leaves the run-up pool and becomes a spread trade with different mechanics. Drug and indication reconstructed.", "source": null, "verified": ["acquisition"], "assumed": ["asset details"], "factors": [], "risk_dates": [], "indications": [], "record": {"measure": "acquisition overlay", "note": "GSK, 124 dollars a share"}}, {"id": "ROIV:2026-08-28", "tkr": "ROIV", "drug": "Lisraya (brepocitinib)", "ind": "Dermatomyositis in adults", "pdufa": "2026-08-28", "date_type": "Exact date (reconstructed)", "catalyst_type": "NDA, Priority Review", "priority_review": true, "orph": true, "therapy": "TYK2 and JAK1 inhibitor", "score": 2, "orig_score": 2, "mantis_class": "Background, large cap", "entry": null, "exit": null, "lifecycle": "approved", "provisional": true, "notes": "Approved 27 August 2026. Catalyst completed and archived. Priority review did not overcome a very large issuer valuation and diversified exposure.", "source": "https://investor.roivant.com/news-releases/news-release-details/roivant-announces-fda-approval-lisrayatm-brepocitinib-adults", "verified": ["approval"], "assumed": ["original action date"], "factors": [{"id": "largecap"}], "risk_dates": [], "indications": [], "record": {"decision": "approved 2026-08-27"}}, {"id": "RARE:2026-08-23", "tkr": "RARE", "drug": "Genglycos (DTX401)", "ind": "Glycogen storage disease type Ia", "pdufa": "2026-08-23", "date_type": "Exact date", "catalyst_type": "BLA", "priority_review": null, "orph": true, "therapy": "AAV gene therapy", "score": 3, "orig_score": 3, "mantis_class": "Watch only, window mature", "entry": null, "exit": null, "lifecycle": "approved", "notes": "Approved 19 August 2026, four days ahead of the action date.", "source": "https://ir.ultragenyx.com/news-releases/news-release-details/ultragenyx-announces-us-fda-approval-genglycostm-gene-therapy", "verified": ["approval"], "assumed": [], "factors": [{"id": "issuer_corr", "note": "UX111 19 Sep"}], "risk_dates": [], "indications": [], "record": {"decision": "approved 2026-08-19"}}, {"id": "ACLX:2026-12-23", "tkr": "ACLX", "drug": "anito-cel", "ind": "Relapsed or refractory multiple myeloma", "pdufa": "2026-12-23", "date_type": "Exact date", "catalyst_type": "BLA", "priority_review": null, "orph": true, "therapy": "BCMA CAR-T", "score": null, "orig_score": 3, "mantis_class": "Removed, acquisition closed", "entry": null, "exit": null, "lifecycle": "acquisition", "notes": "Gilead closed the acquisition 28 April 2026; the ticker no longer trades. The action date stands but the exposure is now GILD. Removed from the tradable watchlist.", "source": "https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Completes-Acquisition-of-Arcellx-Ahead-of-Potential-Commercial-Launch-of-Anito-cel/default.aspx", "verified": ["acquisition"], "assumed": [], "factors": [], "risk_dates": [], "indications": []}, {"id": "VRDN:2026-06-30", "tkr": "VRDN", "drug": "Lumvoa (veligrotug)", "ind": "Thyroid eye disease", "pdufa": "2026-06-30", "date_type": "Exact date", "catalyst_type": "BLA", "priority_review": null, "orph": false, "therapy": "IGF-1R antibody", "score": null, "orig_score": 3, "mantis_class": "Archived", "entry": null, "exit": null, "lifecycle": "approved", "notes": "Approved 25 June 2026 ahead of the 30 June date. The follow on subcutaneous VRDN-003 BLA is guided for year end and has no date yet.", "source": "https://www.businesswire.com/news/home/20260625016249/en/Viridian-Therapeutics-Announces-U.S.-FDA-Approval-and-Launch-of-Lumvoa-veligrotug-vvze-for-the-Treatment-of-Thyroid-Eye-Disease", "verified": ["approval"], "assumed": [], "factors": [{"id": "competition", "note": "Tepezza incumbent"}], "risk_dates": [], "indications": [], "record": {"decision": "approved 2026-06-25"}}, {"id": "CELC:2026-07-17", "tkr": "CELC", "drug": "Revtorpyk (gedatolisib)", "ind": "HR positive, HER2 negative, PIK3CA wild type advanced breast cancer", "pdufa": "2026-07-17", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": null, "orph": false, "therapy": "PI3K, AKT and mTOR inhibitor", "score": null, "orig_score": 3, "mantis_class": "Archived", "entry": null, "exit": null, "lifecycle": "approved", "notes": "Approved 14 July 2026 ahead of the 17 July date. Added to NCCN guidelines 30 July. Catalyst spent.", "source": "https://www.globenewswire.com/news-release/2026/07/14/3327323/0/en/celcuity-announces-fda-approval-of-revtorpyk-gedatolisib-for-the-treatment-of-hr-her2-pik3ca-wild-type-locally-advanced-or-metastatic-breast-cancer.html", "verified": ["approval"], "assumed": [], "factors": [], "risk_dates": [], "indications": [], "record": {"decision": "approved 2026-07-14"}}, {"id": "MNKD:2026-07-24", "tkr": "MNKD", "drug": "Furoscix ReadyFlow and Afrezza paediatric", "ind": "Oedema in heart failure; paediatric diabetes", "pdufa": "2026-07-24", "date_type": "Exact date", "catalyst_type": "sNDA", "priority_review": null, "orph": false, "therapy": "Autoinjector diuretic; inhaled insulin", "score": null, "orig_score": 2, "mantis_class": "Archived", "entry": null, "exit": null, "lifecycle": "approved", "notes": "Both 2026 actions cleared: Afrezza paediatric 29 May and Furoscix ReadyFlow 24 July. No further dated catalyst; MNKD-101 is still Phase 3.", "source": "https://www.globenewswire.com/news-release/2026/07/24/3332748/0/en/MannKind-Announces-FDA-Approval-of-Furoscix-ReadyFlow-the-First-and-Only-Autoinjector-Delivering-IV-Equivalent-Diuretic-Therapy-for-the-Treatment-of-Edema-in-Adults-with-Heart-Fail.html", "verified": ["approval"], "assumed": [], "factors": [{"id": "largecap"}], "risk_dates": [], "indications": [], "record": {"decision": "approved 2026-07-24"}}, {"id": "ACHV:2026-06-20", "tkr": "ACHV", "drug": "cytisinicline", "ind": "Smoking cessation", "pdufa": "2026-06-20", "date_type": "Exact date", "catalyst_type": "NDA", "priority_review": null, "orph": false, "therapy": "Nicotinic partial agonist", "score": null, "orig_score": 3, "mantis_class": "Complete response, resubmission watch", "entry": null, "exit": null, "lifecycle": "complete response", "notes": "CRL 22 June 2026: cGMP deficiencies at a third party facility plus incomplete labelling. No efficacy or clinical safety deficiencies. Resubmission guided for Q4 2026, approval possible H1 2027. Facility grounds: discount, not veto, on the next cycle.", "source": "https://www.globenewswire.com/news-release/2026/06/22/3315277/0/en/Achieve-Life-Sciences-Receives-Complete-Response-Letter-from-FDA-for-Cytisinicline-NDA.html", "verified": ["CRL", "grounds"], "assumed": [], "factors": [{"id": "cmc", "note": "third party facility cGMP"}, {"id": "prior_letter", "grounds": "facility"}], "risk_dates": [], "indications": [], "record": {"decision": "CRL 2026-06-22"}}, {"id": "UNCY:2026-06-30", "tkr": "UNCY", "drug": "oxylanthanum carbonate", "ind": "Hyperphosphataemia in dialysis", "pdufa": "2026-06-30", "date_type": "Exact date", "catalyst_type": "NDA resubmission", "priority_review": null, "orph": false, "therapy": "Phosphate binder", "score": null, "orig_score": 2, "mantis_class": "Complete response, undated", "entry": null, "exit": null, "lifecycle": "complete response", "notes": "Second CRL 30 June 2026, same third party CMC deficiencies as the first. No clinical issues raised. No new action date announced.", "source": "https://www.globenewswire.com/news-release/2026/06/30/3319541/0/en/unicycive-therapeutics-receives-complete-response-letter-from-fda-regarding-resubmitted-oxylanthanum-carbonate-olc-new-drug-application-nda.html", "verified": ["CRL", "grounds"], "assumed": [], "factors": [{"id": "cmc", "note": "two CRLs, same third party facility"}, {"id": "prior_letter", "grounds": "facility"}], "risk_dates": [], "indications": ["kidney"], "record": {"decision": "second CRL 2026-06-30"}}, {"id": "CAMX:ref", "tkr": "CAMX", "drug": "CAM2029 (octreotide subcutaneous depot)", "ind": "Acromegaly", "pdufa": null, "date_type": "Reference case", "catalyst_type": "NDA", "priority_review": null, "orph": true, "therapy": "Peptide depot", "score": null, "orig_score": null, "mantis_class": "Excluded by structural fit filter", "entry": null, "exit": null, "lifecycle": "complete response", "notes": "Two letters on the same third party inspection with a drug already approved in Europe. Removed by the structural fit filter on listing and liquidity grounds, not by clinical scoring. Also the reference case for a missed entry window.", "source": null, "verified": [], "assumed": ["asset details"], "factors": [{"id": "cmc", "note": "two letters, same inspection"}, {"id": "structural_filter"}, {"id": "intl"}], "risk_dates": [], "indications": []}, {"id": "XSPRAY:ref", "tkr": "XSPRAY", "drug": "Dasynoc (dasatinib)", "ind": "CML and ALL", "pdufa": null, "date_type": "Reference case", "catalyst_type": "NDA 505(b)(2)", "priority_review": null, "orph": false, "therapy": "Amorphous dasatinib", "score": null, "orig_score": null, "mantis_class": "Excluded by structural fit filter", "entry": null, "exit": null, "lifecycle": "complete response", "notes": "Failed on manufacturing after being removed mechanically by the structural fit filter. The model cannot claim credit for the outcome.", "source": null, "verified": [], "assumed": ["asset details"], "factors": [{"id": "cmc"}, {"id": "structural_filter"}, {"id": "intl"}], "risk_dates": [], "indications": []}], "macro": {"regime": "unset", "note": "Set from the sector benchmark trend against its moving averages and implied volatility. Scales exposure for the whole book; never folded into a score.", "asof": null}};
+const MARKET_SEED = {"_meta": {"source": "stockanalysis.com quote pages", "pulled": "2026-09-07T16:10:00Z", "note": "Close of 4 Sep 2026 unless stated. Short interest, days to cover and moving averages not available from this source; fields left null until a terminal or Alpha Vantage feed supplies them."}, "PRAX": {"price": 351.81, "chg_pct": -0.94, "lo52": 37.19, "hi52": 392.7, "mcap": "9.82B", "vol": 171833, "asof": "2026-09-04", "ccy": "USD"}, "SVRA": {"price": 5.37, "chg_pct": 0.0, "lo52": 3.34, "hi52": 7.01, "mcap": "1.36B", "vol": 625457, "asof": "2026-09-04", "ccy": "USD"}, "COGT": {"price": 34.76, "chg_pct": -0.54, "lo52": 11.6, "hi52": 43.73, "mcap": "6.03B", "vol": 784063, "asof": "2026-09-04", "ccy": "USD"}, "MLYS": {"price": 28.21, "chg_pct": -0.21, "lo52": 22.3, "hi52": 47.65, "mcap": "2.49B", "vol": 643515, "asof": "2026-09-04", "ccy": "USD"}, "IMNM": {"price": 26.76, "chg_pct": -1.47, "lo52": 8.67, "hi52": 30.06, "mcap": "3.04B", "vol": 562397, "asof": "2026-09-04", "ccy": "USD"}, "ORGO": {"price": 1.64, "chg_pct": -1.8, "lo52": 1.54, "hi52": 7.077, "mcap": "211M", "vol": 561473, "asof": "2026-09-03", "ccy": "USD"}, "CAPR": {"price": 9.4, "chg_pct": 1.29, "lo52": 2.96, "hi52": 40.37, "mcap": "547M", "vol": 2555651, "asof": "2026-09-04", "ccy": "USD"}, "DYN": {"price": 24.28, "chg_pct": -2.69, "lo52": 11.92, "hi52": 27.31, "mcap": "4.53B", "vol": 1588022, "asof": "2026-09-04", "ccy": "USD"}, "PHVS": {"price": 35.25, "chg_pct": -1.15, "lo52": 20.65, "hi52": 38.13, "mcap": "2.47B", "vol": 483513, "asof": "2026-09-04", "ccy": "USD"}, "INBX": {"price": 121.17, "chg_pct": -0.89, "lo52": 26.19, "hi52": 155.29, "mcap": "1.78B", "vol": 194759, "asof": "2026-09-04", "ccy": "USD"}, "BLTE": {"price": 193.61, "chg_pct": 13.16, "lo52": 64.0, "hi52": 200.0, "mcap": "7.80B", "vol": 735467, "asof": "2026-09-04", "ccy": "USD"}, "CGEM": {"price": 22.09, "chg_pct": -0.32, "lo52": 5.68, "hi52": 23.19, "mcap": "1.42B", "vol": 562485, "asof": "2026-09-04", "ccy": "USD"}, "INO": {"price": 1.43, "chg_pct": 5.15, "lo52": 0.563, "hi52": 2.979, "mcap": "148M", "vol": 2910140, "asof": "2026-09-04", "ccy": "USD"}, "SMMT": {"price": 17.61, "chg_pct": 2.77, "lo52": 12.07, "hi52": 29.23, "mcap": "14.04B", "vol": 6945815, "asof": "2026-09-04", "ccy": "USD"}, "RARE": {"price": 15.3, "chg_pct": 3.03, "lo52": 13.81, "hi52": 39.89, "mcap": "1.50B", "vol": 11494472, "asof": "2026-09-04", "ccy": "USD"}, "IONS": {"price": 58.09, "chg_pct": -0.07, "lo52": 50.01, "hi52": 86.74, "mcap": "9.65B", "vol": 2671092, "asof": "2026-09-04", "ccy": "USD"}, "IBRX": {"price": 8.08, "chg_pct": -1.34, "lo52": 1.95, "hi52": 12.43, "mcap": "8.56B", "vol": 4330066, "asof": "2026-09-04", "ccy": "USD"}, "BBIO": {"price": 74.84, "chg_pct": -0.76, "lo52": 48.78, "hi52": 93.42, "mcap": "14.63B", "vol": 1540362, "asof": "2026-09-04", "ccy": "USD"}, "PYPD": {"price": 5.39, "chg_pct": 2.28, "lo52": 3.06, "hi52": 5.73, "mcap": "109M", "vol": 73095, "asof": "2026-09-04", "ccy": "USD"}, "BTAI": {"price": 0.0739, "chg_pct": -37.11, "lo52": 0.069, "hi52": 4.29, "mcap": "2.3M", "vol": 47480718, "asof": "2026-09-04", "ccy": "USD"}, "LNTH": {"price": 100.97, "chg_pct": -0.01, "lo52": 49.67, "hi52": 111.86, "mcap": "6.59B", "vol": 828475, "asof": "2026-09-04", "ccy": "USD"}, "PTGX": {"price": 145.72, "chg_pct": -2.07, "lo52": 54.5, "hi52": 160.81, "mcap": "9.43B", "vol": 501296, "asof": "2026-09-04", "ccy": "USD"}, "LRMR": {"price": 3.83, "chg_pct": 0.0, "lo52": 2.715, "hi52": 6.42, "mcap": "400M", "vol": 391989, "asof": "2026-09-04", "ccy": "USD"}, "QURE": {"price": 44.5, "chg_pct": -0.8, "lo52": 8.73, "hi52": 71.5, "mcap": "3.09B", "vol": 991282, "asof": "2026-09-04", "ccy": "USD"}, "XENE": {"price": 59.75, "chg_pct": -1.08, "lo52": 35.6, "hi52": 72.66, "mcap": "5.79B", "vol": 459130, "asof": "2026-09-04", "ccy": "USD"}, "RCKT": {"price": 3.86, "chg_pct": 1.85, "lo52": 2.53, "hi52": 5.45, "mcap": "424M", "vol": 888538, "asof": "2026-09-04", "ccy": "USD"}, "DNLI": {"price": 22.28, "chg_pct": -2.28, "lo52": 12.58, "hi52": 27.3, "mcap": "3.56B", "vol": 799583, "asof": "2026-09-04", "ccy": "USD"}, "VERA": {"price": 35.89, "chg_pct": 2.57, "lo52": 21.71, "hi52": 56.05, "mcap": "2.59B", "vol": 1184640, "asof": "2026-09-04", "ccy": "USD"}, "ACHV": {"price": 8.49, "chg_pct": 2.17, "lo52": 2.62, "hi52": 8.64, "mcap": "874M", "vol": 883318, "asof": "2026-09-04", "ccy": "USD"}, "HNSA": {"price": 34.36, "chg_pct": 1.6, "lo52": 23.38, "hi52": 42.98, "mcap": "3.44B SEK", "vol": 99641, "asof": "2026-06-24", "ccy": "SEK", "stale": true}, "XBI": {"price": 163.81, "chg_pct": -0.35, "lo52": 92.49, "hi52": 169.89, "vol": 3811700, "asof": "2026-09-04", "ccy": "USD", "benchmark": true}};
+</script>
+<script>
+/* ---------- date utilities ---------- */
+const DAY = 864e5;
+const TODAY = (()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())})();
+const iso = s => s ? new Date(s+'T00:00:00') : null;
+const addDays = (d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const isWeekend = d=>d.getDay()===0||d.getDay()===6;
+const backToBiz = d=>{const x=new Date(d);while(isWeekend(x))x.setDate(x.getDate()-1);return x};
+const bizBefore = (d,n)=>{let x=new Date(d);let k=0;while(k<n){x.setDate(x.getDate()-1);if(!isWeekend(x))k++}return x};
+const fmtD = d=>d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'—';
+const fmtS = d=>d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'—';
+const days = (a,b)=>Math.round((b-a)/DAY);
+const esc = s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const parseWin = s=>{const m=String(s||'').match(/T-(\d+)\s*to\s*T-(\d+)/i);return m?{a:+m[1],b:+m[2]}:null};
+
+/* ---------- derived catalyst state ---------- */
+const TIER = {5:{label:'Reserved, exceptional clean setup',color:'var(--t5)',hex:'#22e3ff',size:'full unit'},4:{label:'Full diligence, strong setup',color:'var(--t4)',hex:'#fcd34d',size:'half unit'},3:{label:'Managed, conditional watch',color:'var(--t3)',hex:'#7dd3fc',size:'no new unit'},2:{label:'Background or excluded',color:'var(--t2)',hex:'#8a94a6',size:'none'},0:{label:'Unscored',color:'var(--tx)',hex:'#5a5570',size:'none'}};
+const LIFE = {active:'Active',extended:'Extended',watch:'Watch',approved:'Approved','complete response':'Complete response',acquisition:'Acquisition','window closed':'Window closed'};
+const LIFE_GROUP = {active:'book',extended:'book',watch:'watch',approved:'resolved','complete response':'resolved',acquisition:'resolved','window closed':'resolved'};
+const factorById = Object.fromEntries(GRAPH.factors.map(f=>[f.id,f]));
+const tickerById = Object.fromEntries(GRAPH.tickers.map(t=>[t.tkr,t]));
+const indById = Object.fromEntries(GRAPH.indications.map(i=>[i.id,i]));
+
+function derive(c){
+  const p = iso(c.pdufa);
+  const d = {pdufa:p, entry:null, exit:null, t7:null, riskExit:null, riskExitFrom:null, effExit:null, daysTo:null, status:'undated', statusLabel:'No dated catalyst'};
+  if(!p) return d;
+  d.daysTo = days(TODAY,p);
+  d.t7 = backToBiz(addDays(p,-GRAPH.meta.defaults.exit_anchor_days));
+  const ew = parseWin(c.entry||GRAPH.meta.defaults.entry);
+  if(ew) d.entry = {start:backToBiz(addDays(p,-ew.a)), end:backToBiz(addDays(p,-ew.b)), fallback:backToBiz(addDays(p,-60))};
+  const xw = parseWin(c.exit||GRAPH.meta.defaults.exit);
+  if(xw) d.exit = {start:backToBiz(addDays(p,-xw.a)), end:backToBiz(addDays(p,-xw.b))};
+  (c.risk_dates||[]).forEach(r=>{const rd=iso(r.date);if(!rd||rd<TODAY)return;const x=backToBiz(addDays(rd,-GRAPH.meta.defaults.risk_date_buffer_days));if(!d.riskExit||x<d.riskExit){d.riskExit=x;d.riskExitFrom=r}});
+  d.effExit = d.riskExit && d.riskExit<d.t7 ? d.riskExit : d.t7;
+  const resolved = LIFE_GROUP[c.lifecycle]==='resolved';
+  if(resolved){d.status='resolved';d.statusLabel=LIFE[c.lifecycle]}
+  else if(TODAY>d.effExit){d.status='closed';d.statusLabel='Past effective exit, no position'}
+  else if(d.exit && TODAY>=d.exit.start){d.status='exit';d.statusLabel='In exit window'}
+  else if(d.entry && TODAY<d.entry.start){d.status='pre';d.statusLabel='Entry opens in '+days(TODAY,d.entry.start)+' days'}
+  else if(d.entry && TODAY<=d.entry.end){d.status='entry';d.statusLabel='In entry band'}
+  else if(d.entry && TODAY<=d.entry.fallback){d.status='entry';d.statusLabel='Entry fallback band (to T-60)'}
+  else {d.status='manage';d.statusLabel='Window closed, manage not accumulate'}
+  if(!resolved&&c.score!=null&&c.score<=2&&(d.status==='entry'||d.status==='pre')){d.status='manage';d.statusLabel='Background tier, no accumulation'}
+  return d;
+}
+GRAPH.catalysts.forEach(c=>{c.d=derive(c);c.tier=c.score?c.score:0;c.group=LIFE_GROUP[c.lifecycle]||'book'});
+
+/* ---------- market layer ---------- */
+let MARKET = Object.assign({}, MARKET_SEED); delete MARKET._meta;
+let MACRO = Object.assign({}, GRAPH.macro);
+let feedMode = 'snapshot';
+function mkt(t){return MARKET[t]||null}
+function capBand(m){if(!m||!m.mcap)return null;const s=String(m.mcap).toUpperCase();const n=parseFloat(s);if(isNaN(n))return null;const v=s.includes('B')?n*1e9:s.includes('M')?n*1e6:n;return v<1e9?'small cap, inside the torque band':v<5e9?'mid cap, torque fading':'large cap, outside the torque band'}
+function rangePos(m){if(!m||m.lo52==null||m.hi52==null||m.hi52===m.lo52)return null;return (m.price-m.lo52)/(m.hi52-m.lo52)}
+function ageDays(m){if(!m||!m.asof)return null;return days(iso(m.asof),TODAY)}
+function marketSignals(t){
+  const m=mkt(t);if(!m)return[];const out=[];const rp=rangePos(m);
+  if(rp!=null&&rp>=0.9)out.push({k:'warn',t:'Within 10 per cent of the 52 week high: no chase, the move may already be made.'});
+  if(rp!=null&&rp<=0.15)out.push({k:'warn',t:'Within 15 per cent of the 52 week low: check for thesis deteriorating price action.'});
+  if(m.sma200!=null&&m.price<m.sma200&&((m.sma200_slope!=null&&m.sma200_slope<0)||(m.sma50!=null&&m.sma50<m.sma200)))out.push({k:'loss',t:'Below the 200 day average with the trend turning down (50 day under 200 day): one thesis deterioration signal.'});
+  else if(m.sma200!=null&&m.price<m.sma200)out.push({k:'warn',t:'Below the 200 day average; check whether the average itself is declining.'});
+  if(m.chg_pct!=null&&Math.abs(m.chg_pct)>=10)out.push({k:m.chg_pct>0?'good':'loss',t:'Moved '+(m.chg_pct>0?'+':'')+m.chg_pct.toFixed(1)+' per cent on the last session: same day read required.'});
+  const cb=capBand(m);if(cb)out.push({k:cb.startsWith('large')?'warn':'ok',t:cb.charAt(0).toUpperCase()+cb.slice(1)+'.'});
+  const a=ageDays(m);if(a!=null&&a>7)out.push({k:'warn',t:'Snapshot is '+a+' days old; refresh before acting.'});
+  return out;
+}
+
+/* ---------- filters ---------- */
+const F = {groups:new Set(['book','watch']), scores:new Set([5,4,3,2,0]), factor:null, q:''};
+function visibleCatalysts(){
+  const q=F.q.trim().toLowerCase();
+  return GRAPH.catalysts.filter(c=>F.groups.has(c.group)&&F.scores.has(c.tier)&&(!F.factor||c.factors.some(f=>f.id===F.factor))&&(!q||[c.tkr,c.drug,c.ind,c.notes,tickerById[c.tkr].co].join(' ').toLowerCase().includes(q)));
+}
+
+/* ---------- graph build ---------- */
+let sim, gRoot, gLinks, gNodes, gWins, gAxis, gToday, zoomB, mode='timeline', selected=null, W=800, H=600;
+let nodes=[], links=[];
+const keep = new Map();
+function build(){
+  const cats=visibleCatalysts();
+  const nn=[], ll=[];
+  const tk=new Set(cats.map(c=>c.tkr));
+  tk.forEach(t=>{const n=keep.get('t:'+t)||{id:'t:'+t,type:'ticker'};Object.assign(n,{tkr:t,ref:tickerById[t]});keep.set(n.id,n);nn.push(n)});
+  const fcount={}, icount={};
+  cats.forEach(c=>{const n=keep.get('c:'+c.id)||{id:'c:'+c.id,type:'catalyst'};n.ref=c;keep.set(n.id,n);nn.push(n);ll.push({source:'t:'+c.tkr,target:n.id,rel:'files'});
+    c.factors.forEach(f=>{fcount[f.id]=(fcount[f.id]||0)+1});c.indications.forEach(i=>{icount[i]=(icount[i]||0)+1})});
+  Object.keys(fcount).forEach(fid=>{const f=factorById[fid];const n=keep.get('f:'+fid)||{id:'f:'+fid,type:'factor'};Object.assign(n,{ref:f,count:fcount[fid]});keep.set(n.id,n);nn.push(n)});
+  Object.keys(icount).filter(i=>icount[i]>=2).forEach(iid=>{const n=keep.get('i:'+iid)||{id:'i:'+iid,type:'indication'};Object.assign(n,{ref:indById[iid],count:icount[iid]});keep.set(n.id,n);nn.push(n)});
+  cats.forEach(c=>{c.factors.forEach(f=>ll.push({source:'c:'+c.id,target:'f:'+f.id,rel:factorById[f.id].kind,note:f.note}));c.indications.forEach(i=>{if(icount[i]>=2)ll.push({source:'c:'+c.id,target:'i:'+i,rel:'ind'})})});
+  nodes=nn;links=ll;
+  render();
+}
+
+const xScale = d3.scaleTime();
+function dateDomain(){
+  const cs=nodes.filter(n=>n.type==='catalyst'&&n.ref.d.pdufa).map(n=>n.ref);
+  const starts=cs.map(c=>c.group==='resolved'?addDays(c.d.pdufa,-30):(c.d.entry?c.d.entry.start:c.d.pdufa));
+  const lo=starts.length?d3.min(starts):addDays(TODAY,-30), hi=cs.length?d3.max(cs,c=>c.d.pdufa):addDays(TODAY,240);
+  return [addDays(d3.min([lo,addDays(TODAY,-20)]),-12), addDays(d3.max([hi,addDays(TODAY,20)]),20)];
+}
+function layoutForces(){
+  const axisY=H-42;
+  if(mode==='timeline'){
+    xScale.domain(dateDomain()).range([70,W-150]);
+    const undatedX=W-80;
+    const fac=nodes.filter(n=>n.type==='factor').sort((a,b)=>b.count-a.count);const slot=(W-260)/Math.max(1,fac.length);fac.forEach((n,i)=>{n.slotX=70+(i+0.5)*slot});
+    sim.force('x',d3.forceX(n=>{
+      if(n.type==='catalyst')return n.ref.d.pdufa?xScale(n.ref.d.pdufa):undatedX;
+      if(n.type==='ticker'){const cs=nodes.filter(m=>m.type==='catalyst'&&m.ref.tkr===n.tkr&&m.ref.d.pdufa);return cs.length?d3.mean(cs,m=>xScale(m.ref.d.pdufa)):undatedX}
+      if(n.type==='factor')return n.slotX;
+      return W*0.5}).strength(n=>n.type==='catalyst'?1:n.type==='ticker'?0.35:n.type==='factor'?0.7:0.03));
+    sim.force('y',d3.forceY(n=>n.type==='factor'?100:n.type==='indication'?H-100:n.type==='ticker'?H*0.6:H*0.47).strength(n=>n.type==='factor'?0.9:n.type==='indication'?0.6:n.type==='catalyst'?0.12:0.08));
+    sim.force('charge',d3.forceManyBody().strength(n=>n.type==='factor'?-500:n.type==='catalyst'?-260:-160));
+    sim.force('link',d3.forceLink(links).id(d=>d.id).distance(l=>l.rel==='files'?46:l.rel==='ind'?90:150).strength(l=>l.rel==='files'?0.8:0.05));
+    sim.force('collide',d3.forceCollide(n=>n.type==='factor'?30:n.type==='catalyst'?30:22).strength(0.9));
+    sim.force('center',null);
+  } else {
+    sim.force('x',d3.forceX(W/2).strength(0.06));
+    sim.force('y',d3.forceY(H/2).strength(0.08));
+    sim.force('charge',d3.forceManyBody().strength(n=>n.type==='factor'?-420:n.type==='catalyst'?-140:-110).distanceMax(320));
+    sim.force('link',d3.forceLink(links).id(d=>d.id).distance(l=>l.rel==='files'?44:l.rel==='ind'?90:120).strength(l=>l.rel==='files'?0.9:0.35));
+    sim.force('collide',d3.forceCollide(n=>n.type==='factor'?44:n.type==='catalyst'?30:24).strength(0.9));
+    sim.force('center',d3.forceCenter(W/2,H/2).strength(0.05));
+  }
+}
+
+const svg=d3.select('#svg');
+function initSvg(){
+  const st=document.getElementById('stage');W=st.clientWidth;H=st.clientHeight;
+  svg.selectAll('*').remove();
+  gRoot=svg.append('g');
+  gAxis=gRoot.append('g').attr('class','axis');
+  gToday=gRoot.append('g').attr('class','today');
+  gWins=gRoot.append('g').attr('class','win');
+  gLinks=gRoot.append('g');
+  gNodes=gRoot.append('g');
+  zoomB=d3.zoom().scaleExtent([0.35,3]).on('zoom',e=>gRoot.attr('transform',e.transform));
+  svg.call(zoomB).on('dblclick.zoom',null);
+  svg.on('dblclick',()=>svg.transition().duration(400).call(zoomB.transform,d3.zoomIdentity));
+  svg.on('click',e=>{if(e.target===svg.node())select(null)});
+  sim=d3.forceSimulation().alphaDecay(0.035).on('tick',tick);
+}
+
+function nodeColor(n){
+  if(n.type==='catalyst')return TIER[n.ref.tier].hex;
+  if(n.type==='ticker'){const cs=GRAPH.catalysts.filter(c=>c.tkr===n.tkr);const best=d3.max(cs,c=>c.tier)||0;return TIER[best].hex}
+  if(n.type==='factor')return n.ref.kind==='opportunity'?'#3ddc84':n.ref.kind==='record'?'#8a94a6':'#ff3d75';
+  return '#7dd3fc';
+}
+function statusColor(s){return s==='entry'?'#3ddc84':s==='manage'?'#ffb757':s==='exit'?'#ff6b6b':s==='pre'?'#7dd3fc':'#5a5570'}
+
+function render(){
+  sim.nodes(nodes);
+  layoutForces();
+  const L=gLinks.selectAll('line').data(links,l=>(l.source.id||l.source)+'>'+(l.target.id||l.target));
+  L.exit().remove();
+  L.enter().append('line').merge(L).attr('class',l=>'lnk '+l.rel);
+  const N=gNodes.selectAll('g.node').data(nodes,n=>n.id);
+  N.exit().remove();
+  const ent=N.enter().append('g').attr('class',n=>'node '+n.type)
+    .call(d3.drag().on('start',(e,n)=>{if(!e.active)sim.alphaTarget(0.25).restart();n.fx=n.x;n.fy=n.y}).on('drag',(e,n)=>{n.fx=e.x;n.fy=e.y}).on('end',(e,n)=>{if(!e.active)sim.alphaTarget(0);if(mode==='timeline'&&n.type==='catalyst'){n.fx=null}n.fy=null;if(mode!=='timeline')n.fx=null}))
+    .on('click',(e,n)=>{e.stopPropagation();select(n)})
+    .on('mousemove',(e,n)=>tip(e,n)).on('mouseleave',hideTip);
+  ent.each(function(n){
+    const g=d3.select(this);
+    if(n.type==='catalyst'){
+      g.append('rect').attr('class','ring').attr('x',-13).attr('y',-13).attr('width',26).attr('height',26).attr('rx',4).attr('fill','#110e19').attr('stroke',nodeColor(n)).attr('stroke-width',1.6);
+      g.append('text').attr('class','lab').attr('text-anchor','middle').attr('y',4).attr('fill',nodeColor(n)).text(n.ref.tier||'·');
+      g.append('text').attr('class','sub').attr('text-anchor','middle').attr('y',24).text(n.ref.d.pdufa?fmtS(n.ref.d.pdufa):'undated');
+    } else if(n.type==='ticker'){
+      g.append('circle').attr('class','ring').attr('r',15).attr('fill','#181424').attr('stroke',nodeColor(n)).attr('stroke-width',1.2);
+      g.append('text').attr('class','lab').attr('text-anchor','middle').attr('y',3.5).attr('font-size',n.tkr.length>4?8:9.5).text(n.tkr);
+    } else if(n.type==='factor'){
+      const r=18+Math.min(12,n.count*1.6);
+      g.append('circle').attr('class','ring').attr('r',r).attr('fill','rgba(255,61,117,.06)').attr('stroke',nodeColor(n)).attr('stroke-width',1.2).attr('stroke-dasharray','4 3');
+      g.append('text').attr('class','lab').attr('text-anchor','middle').attr('y',3).attr('font-size',9).attr('fill',nodeColor(n)).text(shortFactor(n.ref));
+      g.append('text').attr('class','sub').attr('text-anchor','middle').attr('y',r+11).text(n.count+' names');
+    } else {
+      g.append('path').attr('class','ring').attr('d','M0,-11L11,0L0,11L-11,0Z').attr('fill','#181424').attr('stroke','#7dd3fc').attr('stroke-width',1);
+      g.append('text').attr('class','sub').attr('text-anchor','middle').attr('y',22).text(n.ref.label);
+    }
+  });
+  N.merge(ent).select('.ring').attr('stroke',n=>n.type==='indication'?'#7dd3fc':nodeColor(n));
+  N.merge(ent).select('text.lab').text(n=>n.type==='catalyst'?(n.ref.tier||'·'):n.type==='ticker'?n.tkr:shortFactor(n.ref)).attr('fill',n=>n.type==='ticker'?null:nodeColor(n));
+  N.merge(ent).filter(n=>n.type==='factor').select('.sub').text(n=>n.count+' names');
+  drawAxis();
+  sim.alpha(0.9).restart();
+  applyHighlight();
+  updateCounts();updateExits();
+}
+function shortFactor(f){return {cmc:'CMC',prior_letter:'PRIOR LTR',efficacy_dispute:'SAP',adcom:'ADCOM',competition:'CROWD',largecap:'LG CAP',post_rally:'RAN',financing:'CASH',partner:'PARTNER',intl:'INTL',surrogate:'SURROG',issuer_corr:'ISSUER',extension:'EXT',structural_filter:'FILTER'}[f.id]||f.id.toUpperCase()}
+
+function drawAxis(){
+  gAxis.selectAll('*').remove();gToday.selectAll('*').remove();gWins.selectAll('*').remove();
+  if(mode!=='timeline')return;
+  const y=H-42;
+  gAxis.attr('transform','translate(0,'+y+')').call(d3.axisBottom(xScale).ticks(d3.timeMonth.every(1)).tickFormat(d3.timeFormat('%b %y')).tickSize(6));
+  gAxis.append('text').attr('class','band-lab').attr('x',W-80).attr('y',22).attr('text-anchor','middle').text('UNDATED');
+  const tx=xScale(TODAY);
+  gToday.append('line').attr('x1',tx).attr('x2',tx).attr('y1',20).attr('y2',y);
+  gToday.append('text').attr('x',tx+5).attr('y',30).text('TODAY '+fmtS(TODAY).toUpperCase());
+  gAxis.append('text').attr('class','band-lab').attr('x',70).attr('y',-(y-52)).attr('text-anchor','start').text('SHARED RISK FACTORS');
+}
+
+function tick(){
+  nodes.forEach(n=>{n.x=Math.max(30,Math.min(W-30,n.x));n.y=Math.max(40,Math.min(H-(mode==='timeline'?60:30),n.y))});
+  gLinks.selectAll('line').attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);
+  gNodes.selectAll('g.node').attr('transform',n=>'translate('+n.x+','+n.y+')');
+  if(mode==='timeline')drawWindows();
+}
+function drawWindows(){
+  const data=nodes.filter(n=>n.type==='catalyst'&&n.ref.d.entry&&n.ref.group!=='resolved'&&isFinite(n.y));
+  const G=gWins.selectAll('g.wb').data(data,n=>n.id);
+  G.exit().remove();
+  const e=G.enter().append('g').attr('class','wb');
+  e.append('rect').attr('class','entry').attr('height',5).attr('rx',1);
+  e.append('rect').attr('class','hold').attr('height',2);
+  e.append('line').attr('class','tick');
+  const m=G.merge(e);
+  const [x0,x1]=xScale.range();const cx=v=>Math.max(x0,Math.min(x1,xScale(v)));
+  const hot=n=>selected&&(selected.id===n.id||(selected.type==='ticker'&&selected.tkr===n.ref.tkr));
+  m.attr('opacity',n=>selected?(hot(n)?1:0.12):(n.ref.d.status==='closed'?0.3:0.55));
+  m.select('rect.entry').attr('x',n=>cx(n.ref.d.entry.start)).attr('width',n=>Math.max(2,cx(n.ref.d.entry.end)-cx(n.ref.d.entry.start))).attr('y',n=>n.y-2).attr('height',n=>hot(n)?6:4).attr('fill',n=>statusColor(n.ref.d.status));
+  m.select('rect.hold').attr('x',n=>cx(n.ref.d.entry.end)).attr('width',n=>Math.max(0,cx(n.ref.d.effExit)-cx(n.ref.d.entry.end))).attr('y',n=>n.y-0.75).attr('height',1.5).attr('fill',n=>statusColor(n.ref.d.status));
+  m.select('line.tick').attr('x1',n=>cx(n.ref.d.effExit)).attr('x2',n=>cx(n.ref.d.effExit)).attr('y1',n=>n.y-7).attr('y2',n=>n.y+7).attr('stroke',n=>n.ref.d.riskExitFrom?'#ff6b6b':'#e6e3ee');
+}
+
+/* ---------- highlight, tooltip, selection ---------- */
+function neighbours(n){const s=new Set([n.id]);links.forEach(l=>{const a=l.source.id||l.source,b=l.target.id||l.target;if(a===n.id)s.add(b);if(b===n.id)s.add(a)});return s}
+function applyHighlight(){
+  if(!selected){gNodes.selectAll('g.node').classed('dim',false).classed('sel',false);gLinks.selectAll('line').classed('dim',false).classed('hot',false);return}
+  const nb=neighbours(selected);
+  if(selected.type==='ticker'){links.forEach(l=>{const a=l.source.id||l.source,b=l.target.id||l.target;if(nb.has(a)&&a.startsWith('c:'))nb.add(b)})}
+  gNodes.selectAll('g.node').classed('dim',n=>!nb.has(n.id)).classed('sel',n=>n.id===selected.id);
+  gLinks.selectAll('line').classed('dim',l=>!(nb.has(l.source.id)&&nb.has(l.target.id))).classed('hot',l=>l.source.id===selected.id||l.target.id===selected.id);
+}
+function tip(e,n){
+  const t=document.getElementById('tip');let h='';
+  if(n.type==='catalyst'){const c=n.ref;h='<b>'+esc(c.tkr)+' · '+esc(c.drug)+'</b><div class="sub">'+esc(c.ind)+'</div><div class="sub">Action '+fmtD(c.d.pdufa)+' · score '+(c.score||'unscored')+' · '+esc(c.d.statusLabel)+'</div>'+(c.d.effExit?'<div class="sub">Effective exit '+fmtD(c.d.effExit)+'</div>':'')}
+  else if(n.type==='ticker'){const m=mkt(n.tkr);h='<b>'+esc(n.tkr)+' · '+esc(n.ref.co)+'</b>'+(m?'<div class="sub">'+m.ccy+' '+m.price+' ('+(m.chg_pct>0?'+':'')+m.chg_pct+'%) · '+esc(m.asof)+'</div>':'<div class="sub">no market snapshot</div>')}
+  else if(n.type==='factor'){h='<b>'+esc(n.ref.label)+'</b><div class="sub">'+esc(n.ref.desc)+'</div>'}
+  else h='<b>'+esc(n.ref.label)+'</b><div class="sub">'+n.count+' catalysts share this indication</div>';
+  t.innerHTML=h;t.style.display='block';const st=document.getElementById('stage').getBoundingClientRect();let x=e.clientX-st.left+14,y=e.clientY-st.top+14;if(x+290>st.width)x-=300;if(y+120>st.height)y-=130;t.style.left=x+'px';t.style.top=y+'px';
+}
+function hideTip(){document.getElementById('tip').style.display='none'}
+function select(n){selected=n;applyHighlight();if(mode==='timeline')drawWindows();renderCard(n);document.getElementById('main').classList.toggle('card-open',!!n)}
+function selectById(id){build();const n=nodes.find(x=>x.id===id);if(n)select(n)}
+
+/* ---------- card ---------- */
+function renderCard(n){
+  const card=document.getElementById('card');
+  if(!n){card.classList.remove('has');card.textContent='Select a ticker, catalyst or risk factor to open its MANTIS read.';return}
+  card.classList.add('has');
+  if(n.type==='catalyst')card.innerHTML=catalystCard(n.ref);
+  else if(n.type==='ticker')card.innerHTML=tickerCard(n);
+  else if(n.type==='factor')card.innerHTML=factorCard(n);
+  else card.innerHTML=indicationCard(n);
+  card.querySelector('.close')?.addEventListener('click',()=>select(null));
+  card.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',()=>selectById(el.dataset.go)));
+  card.querySelectorAll('[data-av]').forEach(el=>el.addEventListener('click',()=>AV.refresh(el.dataset.av,true)));
+  if(n.type==='catalyst'||n.type==='ticker'){const t=n.type==='ticker'?n.tkr:n.ref.tkr;AV.refresh(t,false)}
+  card.scrollTop=0;
+}
+function marketBlock(t){
+  const m=mkt(t);if(!m)return'<div class="sec"><h4>Market</h4><div class="prose">No market snapshot for '+esc(t)+'. Use Update market data to add one.</div></div>';
+  const rp=rangePos(m);const a=ageDays(m);
+  return '<div class="sec"><h4>Market · '+esc(m.asof||'undated')+(m.stale||(a!=null&&a>7)?' · <span style="color:var(--warn)">stale</span>':'')+'</h4>'+
+  '<div class="mkt"><div><div class="k">Last</div><div class="v">'+esc(m.ccy||'')+' '+esc(m.price)+'</div><div class="s">'+(m.chg_pct!=null?((m.chg_pct>0?'+':'')+Number(m.chg_pct).toFixed(2)+'% on the day'):'')+'</div></div>'+
+  '<div><div class="k">Market cap</div><div class="v">'+esc(m.mcap||'—')+'</div><div class="s">'+esc(capBand(m)||'')+'</div></div>'+
+  '<div><div class="k">Volume</div><div class="v">'+(m.vol!=null?Number(m.vol).toLocaleString('en-GB'):'—')+'</div><div class="s">'+(m.short_pct!=null?'SI '+m.short_pct+'% · DTC '+(m.days_to_cover??'—'):'short interest not loaded')+'</div></div></div>'+
+  (rp!=null?'<div class="range"><i style="left:'+(rp*100).toFixed(1)+'%"></i><span class="lo">52w low '+esc(m.lo52)+'</span><span class="hi">high '+esc(m.hi52)+'</span></div><div style="height:14px"></div>':'')+
+  ((m.sma200!=null||m.float!=null)?'<div class="kv" style="margin-top:6px">'+(m.sma200!=null?'<span class="k">200 day avg</span><span class="v">'+m.sma200+(m.sma50!=null?' <span style="color:var(--muted)">50 day '+m.sma50+(m.sma50<m.sma200?', below':', above')+'</span>':'')+(m.sma200_slope!=null?(m.sma200_slope<0?' (declining)':' (rising)'):'')+'</span>':'')+(m.float!=null?'<span class="k">Float</span><span class="v">'+Number(m.float).toLocaleString('en-GB')+(m.shares_out?' of '+Number(m.shares_out).toLocaleString('en-GB'):'')+'</span>':'')+'</div>':'')+
+  '<div class="btnrow" style="margin-top:8px"><span class="tag">'+esc(m.source||'snapshot')+'</span>'+(AV.ready&&tickerById[t]&&tickerById[t].listing==='NASDAQ'?'<button class="btn" data-av="'+esc(t)+'">Refresh from Alpha Vantage</button><span class="tag" id="avBudget">'+AV.budgetLabel()+'</span>':'')+'</div>'+
+  '</div>';
+}
+function signalsBlock(t){const s=marketSignals(t);if(!s.length)return'';return'<div class="sec"><h4>Same day reads from the snapshot</h4><div class="facts">'+s.map(x=>'<div class="fact '+(x.k==='ok'||x.k==='good'?'opp':x.k==='warn'?'record':'')+'"><i></i><span>'+esc(x.t)+'</span></div>').join('')+'</div></div>'}
+function timelineBlock(c){
+  const d=c.d;if(!d.pdufa||!d.entry)return'';
+  const lo=d3.min([d.entry.start,TODAY,addDays(d.pdufa,-160)]),hi=addDays(d.pdufa,8);const x=v=>((v-lo)/(hi-lo)*100).toFixed(1)+'%';
+  const inside=TODAY>=lo&&TODAY<=hi;
+  return '<div class="tl">'+
+  '<div class="bar" style="left:'+x(d.entry.start)+';width:calc('+x(d.entry.end)+' - '+x(d.entry.start)+');background:'+statusColor('entry')+';opacity:.8"></div>'+
+  '<div class="bar" style="left:'+x(d.entry.end)+';width:calc('+x(d.effExit)+' - '+x(d.entry.end)+');background:'+statusColor('manage')+';opacity:.45;height:3px;top:19.5px"></div>'+
+  '<div class="mk" style="left:'+x(d.entry.start)+'"></div><div class="ml" style="left:'+x(d.entry.start)+'">entry '+fmtS(d.entry.start)+'</div>'+
+  '<div class="mk" style="left:'+x(d.effExit)+';background:'+(d.riskExitFrom?'var(--loss)':'var(--text)')+'"></div><div class="ml top" style="left:'+x(d.effExit)+'">exit '+fmtS(d.effExit)+'</div>'+
+  '<div class="mk" style="left:'+x(d.pdufa)+';background:var(--label)"></div><div class="ml" style="left:'+x(d.pdufa)+'">action '+fmtS(d.pdufa)+'</div>'+
+  (inside?'<div class="mk today" style="left:'+x(TODAY)+'"></div><div class="ml top" style="left:'+x(TODAY)+';color:var(--accent-soft)">today</div>':'')+
+  '</div>';
+}
+function readText(c){
+  const t=tickerById[c.tkr];const d=c.d;const lines=[];
+  lines.push('MANTIS read: '+c.tkr+', '+t.co+', '+c.drug+', '+c.ind);
+  lines.push((d.pdufa?'Action date '+fmtD(d.pdufa)+'. ':'No dated action. ')+'As of '+fmtD(TODAY)+'.'+(d.daysTo!=null?' Days to action '+d.daysTo+'.':''));
+  lines.push('');
+  lines.push('Run-up score: '+(c.score?c.score+' of 5, '+TIER[c.tier].label.toLowerCase():'unscored')+'.'+(c.orig_score&&c.orig_score!==c.score?' Shadow revision from '+c.orig_score+'.':''));
+  lines.push('  Class: '+c.mantis_class+'.');
+  if(c.factors.length)lines.push('  Penalties and flags: '+c.factors.map(f=>factorById[f.id].label.toLowerCase()+(f.note?' ('+f.note+')':'')).join('; ')+'.');
+  lines.push('');
+  if(d.pdufa&&d.entry){lines.push('Window status: '+d.statusLabel.toLowerCase()+'. Entry band '+fmtS(d.entry.start)+' to '+fmtS(d.entry.end)+', fallback to '+fmtS(d.entry.fallback)+'.');
+    lines.push('Effective exit '+fmtD(d.effExit)+(d.riskExitFrom?', set by '+d.riskExitFrom.label+' on '+fmtD(iso(d.riskExitFrom.date))+' less three days, rolled back to a business day':', T-7, no scheduled risk date ahead')+'.')}
+  lines.push('Outcome risk: not scored here. Lower confidence. Not an approval prediction.');
+  lines.push('Lifecycle: '+c.lifecycle+'.');
+  lines.push('');
+  lines.push('Verified: '+(c.verified.length?c.verified.join(', '):'nothing yet')+'.');
+  lines.push('Assumed: '+(c.assumed.length?c.assumed.join(', '):'none')+'.'+(c.provisional?' Provisional row.':''));
+  return lines.join('\n');
+}
+function catalystCard(c){
+  const t=tickerById[c.tkr];const d=c.d;const tier=TIER[c.tier];
+  const facts=c.factors.map(f=>{const F=factorById[f.id];return'<div class="fact '+(F.kind==='opportunity'?'opp':F.kind==='record'?'record':'')+'"><i></i><span><b>'+esc(F.label)+'</b>'+(f.grounds?' <span class="tag">'+esc(f.grounds)+' grounds</span>':'')+(f.note?'<br>'+esc(f.note):'')+'</span></div>'}).join('');
+  const rd=(c.risk_dates||[]).map(r=>'<div class="fact"><i></i><span><b>'+esc(r.label)+'</b> '+fmtD(iso(r.date))+(r.derived?' (derived)':'')+(iso(r.date)<TODAY?' · passed':'')+'</span></div>').join('');
+  const rec=c.record?'<div class="sec"><h4>Record</h4><div class="kv">'+(c.record.return_pct!=null?'<span class="k">Return</span><span class="v '+(c.record.return_pct<0?'loss':'good')+'">'+(c.record.return_pct>0?'+':'')+c.record.return_pct.toFixed(2)+' per cent'+(c.record.alt_return_pct?' <span style="color:var(--warn)">(also logged '+c.record.alt_return_pct+'; reconcile)</span>':'')+'</span>':'')+(c.record.window?'<span class="k">Window</span><span class="v">'+esc(c.record.window)+'</span>':'')+(c.record.measure?'<span class="k">Measure</span><span class="v">'+esc(c.record.measure)+'</span>':'')+(c.record.decision?'<span class="k">Decision</span><span class="v">'+esc(c.record.decision)+'</span>':'')+(c.record.note?'<span class="k">Note</span><span class="v">'+esc(c.record.note)+'</span>':'')+'</div><div class="prose" style="margin-top:6px;font-size:10px;color:var(--muted)">Model recorded window measure, not a realised result and not a forecast.</div></div>':'';
+  return '<div class="cardin">'+
+  '<div class="chd"><div><div class="tk" style="color:'+tier.hex+'">'+esc(c.tkr)+'</div><div class="co">'+esc(t.co)+' · '+esc(t.listing)+'</div><div class="drug">'+esc(c.drug)+'</div><div class="ind">'+esc(c.ind)+'</div></div><button class="close" aria-label="Close">×</button></div>'+
+  '<div class="tierbox"><div class="big" style="color:'+tier.hex+'">'+(c.score||'—')+'</div><div><div class="lab">Run-up score · '+esc(tier.label)+'</div><div class="cls">'+esc(c.mantis_class)+'</div>'+(c.orig_score&&c.orig_score!==c.score?'<div class="was">Shadow revision '+c.orig_score+' → '+c.score+'</div>':'')+(c.provisional?'<div class="was">Provisional row, confirm against data.json</div>':'')+'</div></div>'+
+  '<div class="kv"><span class="k">Action date</span><span class="v hi">'+fmtD(d.pdufa)+(c.was_pdufa?' <span style="color:var(--warn);font-size:9px">was '+esc(c.was_pdufa)+'</span>':'')+'</span>'+
+  '<span class="k">Days to action</span><span class="v">'+(d.daysTo!=null?d.daysTo:'—')+'</span>'+
+  '<span class="k">Window</span><span class="v"><span class="status '+d.status+'">'+esc(d.statusLabel)+'</span></span>'+
+  (d.effExit?'<span class="k">Effective exit</span><span class="v '+(d.riskExitFrom?'loss':'')+'">'+fmtD(d.effExit)+(d.riskExitFrom?' · '+esc(d.riskExitFrom.label)+' less 3 days':' · T-7')+'</span>':'')+
+  (d.entry?'<span class="k">Entry band</span><span class="v">'+fmtS(d.entry.start)+' to '+fmtS(d.entry.end)+' <span style="color:var(--muted)">('+esc(c.entry)+', fallback '+fmtS(d.entry.fallback)+')</span></span>':'')+
+  (d.exit?'<span class="k">Exit window</span><span class="v">'+fmtS(d.exit.start)+' to '+fmtS(d.exit.end)+' <span style="color:var(--muted)">('+esc(c.exit)+')</span></span>':'')+
+  '<span class="k">Filing</span><span class="v">'+esc(c.catalyst_type)+(c.priority_review===true?' · priority review':c.priority_review===false?' · standard review':'')+(c.orph?' · orphan':'')+'</span>'+
+  '<span class="k">Therapy</span><span class="v">'+esc(c.therapy)+'</span>'+
+  '<span class="k">Lifecycle</span><span class="v">'+esc(LIFE[c.lifecycle]||c.lifecycle)+'</span>'+
+  '<span class="k">Sizing band</span><span class="v">'+esc(tier.size)+(c.factors.length>=2&&c.tier>=4?' · cut for stacked penalties':'')+'</span></div>'+
+  timelineBlock(c)+
+  marketBlock(c.tkr)+signalsBlock(c.tkr)+
+  (facts||rd?'<div class="sec"><h4>Penalties, flags and risk dates</h4><div class="facts">'+facts+rd+'</div></div>':'')+
+  '<div class="sec"><h4>Read</h4><div class="prose">'+esc(c.notes)+'</div></div>'+rec+
+  '<div class="sec"><h4>Verified · assumed</h4><div class="ul">'+c.verified.map(v=>'<span class="tag ok">'+esc(v)+'</span>').join('')+c.assumed.map(v=>'<span class="tag as">'+esc(v)+'</span>').join('')+'</div></div>'+
+  '<div class="sec"><h4>Card</h4><div class="read">'+esc(readText(c))+'</div></div>'+
+  '<div class="btnrow"><button class="btn" data-go="t:'+esc(c.tkr)+'">Open '+esc(c.tkr)+' issuer view</button>'+(t.listing!=='delisted'?'<a class="btn" href="https://www.tradingview.com/symbols/'+esc(t.tv)+'/" target="_blank" rel="noopener">TradingView</a>':'')+(c.source?'<a class="btn" href="'+esc(c.source)+'" target="_blank" rel="noopener">Primary source</a>':'')+'</div>'+
+  '</div>';
+}
+function tickerCard(n){
+  const t=n.ref;const cs=GRAPH.catalysts.filter(c=>c.tkr===t.tkr).sort((a,b)=>(a.d.pdufa||0)-(b.d.pdufa||0));
+  const allF={};cs.forEach(c=>c.factors.forEach(f=>{allF[f.id]=(allF[f.id]||0)+1}));
+  const corr=cs.filter(c=>c.group==='book').length>=2?'<div class="fact"><i></i><span><b>Aggregate issuer exposure</b><br>'+cs.filter(c=>c.group==='book').length+' live catalysts on one balance sheet. Size to the issuer, not to each filing.</span></div>':'';
+  return '<div class="cardin"><div class="chd"><div><div class="tk">'+esc(t.tkr)+'</div><div class="co">'+esc(t.co)+' · '+esc(t.listing)+' · '+esc(t.ccy)+'</div></div><button class="close" aria-label="Close">×</button></div>'+
+  marketBlock(t.tkr)+signalsBlock(t.tkr)+
+  '<div class="sec"><h4>Catalysts on this issuer</h4><div class="members">'+cs.map(c=>'<div class="member" data-go="c:'+esc(c.id)+'"><span class="t" style="color:'+TIER[c.tier].hex+'">'+(c.score||'·')+'</span><span class="d">'+esc(c.drug)+' · '+fmtD(c.d.pdufa)+'</span><span class="s">'+esc(c.d.statusLabel)+'</span></div>').join('')+'</div></div>'+
+  (corr||Object.keys(allF).length?'<div class="sec"><h4>Risk factors carried</h4><div class="facts">'+corr+Object.keys(allF).map(id=>'<div class="fact '+(factorById[id].kind==='opportunity'?'opp':factorById[id].kind==='record'?'record':'')+'"><i></i><span><b>'+esc(factorById[id].label)+'</b></span></div>').join('')+'</div></div>':'')+
+  '<div class="btnrow">'+(t.listing!=='delisted'?'<a class="btn" href="https://www.tradingview.com/symbols/'+esc(t.tv)+'/" target="_blank" rel="noopener">TradingView</a>':'')+'</div></div>';
+}
+function factorCard(n){
+  const f=n.ref;const cs=GRAPH.catalysts.filter(c=>c.factors.some(x=>x.id===f.id)).sort((a,b)=>(b.tier-a.tier)||((a.d.pdufa||0)-(b.d.pdufa||0)));
+  return '<div class="cardin factor-card"><div class="chd"><div><div class="big">'+esc(f.label)+'</div><div class="co">'+esc(f.kind==='opportunity'?'Opportunity trigger':f.kind==='record'?'Record integrity marker':'Penalty or veto input')+' · '+cs.length+' catalysts in the model</div></div><button class="close" aria-label="Close">×</button></div>'+
+  '<div class="prose">'+esc(f.desc)+'</div>'+
+  '<div class="sec"><h4>Names carrying it</h4><div class="members">'+cs.map(c=>{const fx=c.factors.find(x=>x.id===f.id);return'<div class="member" data-go="c:'+esc(c.id)+'"><span class="t" style="color:'+TIER[c.tier].hex+'">'+esc(c.tkr)+'</span><span class="d">'+esc(c.drug)+(fx.note?' · '+esc(fx.note):'')+'</span><span class="s">'+esc(LIFE[c.lifecycle])+'</span></div>'}).join('')+'</div></div>'+
+  '<div class="btnrow"><button class="btn primary" id="focusFactor">'+(F.factor===f.id?'Clear factor focus':'Focus graph on this factor')+'</button></div></div>';
+}
+function indicationCard(n){
+  const cs=GRAPH.catalysts.filter(c=>c.indications.includes(n.ref.id));
+  return '<div class="cardin"><div class="chd"><div><div class="big" style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--t3)">'+esc(n.ref.label)+'</div><div class="co">Shared indication · competitor data or dosing in one name is a deterioration signal for the others</div></div><button class="close" aria-label="Close">×</button></div><div class="sec"><h4>Names in the indication</h4><div class="members">'+cs.map(c=>'<div class="member" data-go="c:'+esc(c.id)+'"><span class="t">'+esc(c.tkr)+'</span><span class="d">'+esc(c.drug)+' · '+fmtD(c.d.pdufa)+'</span><span class="s">'+esc(LIFE[c.lifecycle])+'</span></div>').join('')+'</div></div></div>';
+}
+document.getElementById('card').addEventListener('click',e=>{if(e.target.id==='focusFactor'){F.factor=F.factor===selected.ref.id?null:selected.ref.id;syncFactorChips();build();const n=nodes.find(x=>x.id===selected.id);if(n)select(n)}});
+
+/* ---------- rail ---------- */
+function chip(label,on,extra){return'<button class="chip'+(on?' on':'')+'" '+extra+'>'+label+'</button>'}
+function buildRail(){
+  const lc=document.getElementById('lifeChips');
+  lc.innerHTML=[['book','Active book'],['watch','Watch, undated'],['resolved','Resolved and reference']].map(([g,l])=>{const n=GRAPH.catalysts.filter(c=>c.group===g).length;return chip(l+' <span class="n">'+n+'</span>',F.groups.has(g),'data-g="'+g+'"')}).join('');
+  lc.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.g;F.groups.has(g)?F.groups.delete(g):F.groups.add(g);b.classList.toggle('on');build()}));
+  const sc=document.getElementById('scoreChips');
+  sc.innerHTML=[5,4,3,2,0].map(s=>chip('<span class="dot" style="background:'+TIER[s].hex+'"></span>'+(s?'Score '+s:'Unscored'),F.scores.has(s),'data-s="'+s+'"')).join('');
+  sc.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{const s=+b.dataset.s;F.scores.has(s)?F.scores.delete(s):F.scores.add(s);b.classList.toggle('on');build()}));
+  const fc=document.getElementById('factorChips');
+  fc.innerHTML=GRAPH.factors.map(f=>{const n=GRAPH.catalysts.filter(c=>c.factors.some(x=>x.id===f.id)).length;return chip(shortFactor(f)+' <span class="n">'+n+'</span>',F.factor===f.id,'data-f="'+f.id+'" title="'+esc(f.label)+'"')}).join('');
+  fc.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{F.factor=F.factor===b.dataset.f?null:b.dataset.f;syncFactorChips();build()}));
+  document.getElementById('q').addEventListener('input',e=>{F.q=e.target.value;build()});
+  document.getElementById('legend').innerHTML=
+   '<div class="row"><svg width="22" height="22"><rect x="3" y="3" width="16" height="16" rx="3" fill="#110e19" stroke="#fcd34d" stroke-width="1.5"/><text x="11" y="15" text-anchor="middle" font-size="9" font-weight="700" fill="#fcd34d" font-family="JetBrains Mono,monospace">4</text></svg>Catalyst, numbered by run-up score, pinned to its action date</div>'+
+   '<div class="row"><svg width="22" height="22"><circle cx="11" cy="11" r="9" fill="#181424" stroke="#7dd3fc"/></svg>Issuer; colour follows its best live score</div>'+
+   '<div class="row"><svg width="22" height="22"><circle cx="11" cy="11" r="9" fill="rgba(255,61,117,.08)" stroke="#ff3d75" stroke-dasharray="3 2"/></svg>Shared risk factor hub, sized by how many names carry it</div>'+
+   '<div class="row"><svg width="22" height="22"><path d="M11,3L19,11L11,19L3,11Z" fill="#181424" stroke="#7dd3fc"/></svg>Shared indication</div>'+
+   '<div class="row"><svg width="22" height="12"><rect x="1" y="3" width="12" height="5" fill="#3ddc84"/><rect x="13" y="4.5" width="6" height="2" fill="#ffb757"/><line x1="20" x2="20" y1="0" y2="12" stroke="#e6e3ee" stroke-width="1.5"/></svg>Entry band, hold, then the effective exit tick (red when a risk date sets it)</div>';
+}
+function syncFactorChips(){document.querySelectorAll('#factorChips .chip').forEach(b=>b.classList.toggle('on',b.dataset.f===F.factor))}
+function updateCounts(){
+  const cats=visibleCatalysts();const inEntry=cats.filter(c=>c.d.status==='entry').length,manage=cats.filter(c=>c.d.status==='manage'||c.d.status==='exit').length;
+  document.getElementById('counts').innerHTML='<span><b>'+cats.length+'</b> catalysts</span><span><b>'+new Set(cats.map(c=>c.tkr)).size+'</b> issuers</span><span><b>'+inEntry+'</b> in entry band</span><span><b>'+manage+'</b> manage only</span>';
+  const book=GRAPH.catalysts.filter(c=>c.group==='book');
+  document.getElementById('bookStat').textContent=book.length+' live · '+book.filter(c=>c.score>=4).length+' at score 4 plus';
+}
+function updateExits(){
+  const el=document.getElementById('exitList');
+  const cs=GRAPH.catalysts.filter(c=>c.group==='book'&&c.d.effExit&&c.d.effExit>=TODAY).sort((a,b)=>a.d.effExit-b.d.effExit).slice(0,9);
+  el.innerHTML=cs.map(c=>{const n=days(TODAY,c.d.effExit);return'<div class="exit '+(n<=7?'now':n<=21?'soon':'')+'" data-go="c:'+esc(c.id)+'"><span class="t" style="color:'+TIER[c.tier].hex+'">'+esc(c.tkr)+'</span><span class="d">'+fmtS(c.d.effExit)+' · '+esc(c.drug)+'</span><span class="n">T-'+n+'</span></div>'}).join('')||'<div class="prose" style="font-size:10px">No live effective exits ahead.</div>';
+  el.querySelectorAll('[data-go]').forEach(x=>x.addEventListener('click',()=>selectById(x.dataset.go)));
+}
+
+/* ---------- modes, resize ---------- */
+document.querySelectorAll('.modes button').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;document.querySelectorAll('.modes button').forEach(x=>x.classList.toggle('on',x===b));nodes.forEach(n=>{n.fx=null;n.fy=null});render()}));
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{const st=document.getElementById('stage');W=st.clientWidth;H=st.clientHeight;render()},150)});
+new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(()=>{const st=document.getElementById('stage');if(st.clientWidth!==W||st.clientHeight!==H){W=st.clientWidth;H=st.clientHeight;render()}},200)}).observe(document.getElementById('stage'));
+
+/* ---------- data layer: claude.ai db, or GitHub Pages files, or embedded ---------- */
+function setFeed(label,cls){feedMode=cls;const p=document.getElementById('feedPill');p.textContent='feed: '+label;p.className='pill '+cls;document.getElementById('feedStat').textContent=label}
+function applyMacro(){const m=MACRO||{};document.getElementById('macroStat').textContent=(m.regime||'unset')+(m.asof?' · '+m.asof:'')}
+function newestAsof(){const a=Object.keys(MARKET).map(k=>MARKET[k]&&MARKET[k].asof||'').filter(Boolean).sort();return a[a.length-1]||''}
+function feedFreshness(prefix){const n=newestAsof();const age=n?days(iso(n),TODAY):null;setFeed(prefix+' · '+(n||'undated'),age!=null&&age>5?'stale':'live')}
+async function connectDb(){
+  const use=window.claude&&window.claude.use;
+  if(!use){await loadStaticFiles();return null}
+  let db=null;try{db=await window.claude.use('db')}catch(e){db=null}
+  if(!db){setFeed('embedded snapshot, 4 Sep close','off');return null}
+  db.collection('market').onSnapshot(snap=>{
+    if(snap.empty){setFeed('data layer empty, using embedded snapshot','stale');return}
+    snap.docs.forEach(d=>{const b=d.data();if(b)MARKET[d.id]=Object.assign({},MARKET[d.id]||{},b)});
+    feedFreshness('data layer');
+    if(selected)renderCard(selected);
+  },err=>setFeed('data layer unavailable ('+err.code+')','off'));
+  db.doc('meta/macro').onSnapshot(s=>{if(s.exists){MACRO=s.data();applyMacro()}});
+  return db;
+}
+/* GitHub Pages path: no window.claude, so read the repo's data files next to index.html */
+async function loadStaticFiles(){
+  if(location.protocol!=='file:')document.getElementById('dashLink').hidden=false;
+  if(location.protocol==='file:'){setFeed('embedded snapshot, 4 Sep close','off');return}
+  try{const r=await fetch('./data/market.json',{cache:'no-store'});if(r.ok){const j=await r.json();const meta=j._meta||{};delete j._meta;Object.keys(j).forEach(k=>{MARKET[k]=Object.assign({},MARKET[k]||{},j[k])});if(meta.macro){MACRO=meta.macro;applyMacro()}feedFreshness('repo data');if(selected)renderCard(selected)}else setFeed('embedded snapshot, 4 Sep close','off')}catch(e){setFeed('embedded snapshot, 4 Sep close','off')}
+  try{const r=await fetch('./data/graph-data.json',{cache:'no-store'});if(r.ok){const g=await r.json();if(g&&g.catalysts){Object.assign(GRAPH,g);GRAPH.catalysts.forEach(c=>{c.d=derive(c);c.tier=c.score?c.score:0;c.group=LIFE_GROUP[c.lifecycle]||'book'});document.getElementById('verLabel').textContent=GRAPH.meta.version+' · repo';buildRail();build()}}}catch(e){}
+}
+
+/* ---------- Alpha Vantage on demand (claude.ai only, via the viewer's connector) ---------- */
+const AV={server:'Alpha Vantage MCP Server',mcp:null,ready:false,inflight:{},budget:{day:'',n:0},
+  budgetLabel(){this.loadBudget();return this.budget.n+' of 25 free calls used today'},
+  loadBudget(){try{const b=JSON.parse(localStorage.getItem('mantis_av_budget')||'{}');const d=TODAY.toISOString().slice(0,10);this.budget=b.day===d?b:{day:d,n:0}}catch(e){this.budget={day:TODAY.toISOString().slice(0,10),n:0}}},
+  spend(k){this.loadBudget();this.budget.n+=k;try{localStorage.setItem('mantis_av_budget',JSON.stringify(this.budget))}catch(e){}const el=document.getElementById('avBudget');if(el)el.textContent=this.budgetLabel()},
+  async init(){const use=window.claude&&window.claude.use;if(!use)return;let mcp=null;try{mcp=await window.claude.use('mcp')}catch(e){mcp=null}if(!mcp)return;
+    try{const l=await mcp.listTools();const srv=(l.servers||[]).find(x=>x.server===this.server);if(!srv||!srv.tools||!srv.tools.length){this.note('Alpha Vantage not connected for this viewer; add it in claude.ai Settings, Connectors.');return}}catch(e){}
+    this.mcp=mcp;this.ready=true;setFeed((feedMode==='off'?'embedded snapshot':'data layer')+' + Alpha Vantage on demand',feedMode==='off'?'stale':'live');if(selected)renderCard(selected)},
+  note(msg){const el=document.getElementById('importMsg');if(el)el.textContent=msg;console.log('[AV]',msg)},
+  describe(e){const c=e&&e.code;if(c==='needs_reauth')return'Reconnect Alpha Vantage in claude.ai Settings, Connectors.';if(c==='server_not_connected'||c==='selection_required')return'Add or choose the Alpha Vantage connector in claude.ai Settings, Connectors.';if(c==='not_in_manifest')return'This page version is not allowed to call that Alpha Vantage tool.';if(c==='blocked_by_policy'||c==='approval_required')return'Your organisation blocks this connector call.';if(c==='server_unavailable')return'Alpha Vantage unreachable; showing the last saved values.';if(c==='tool_error')return'Alpha Vantage reported an error: '+(e.message||'');return(e&&e.message)||'Alpha Vantage call failed.'},
+  num(v){const n=parseFloat(String(v==null?'':v).replace('%',''));return isFinite(n)?n:null},
+  fmtCap(v){const n=this.num(v);if(n==null)return null;return n>=1e9?(n/1e9).toFixed(2)+'B':n>=1e6?(n/1e6).toFixed(0)+'M':String(n)},
+  async refresh(t,force){
+    if(!this.ready||!t)return;const tk=tickerById[t];if(!tk||tk.listing!=='NASDAQ')return;
+    const m=MARKET[t]||{};const fresh=m.source==='alpha_vantage'&&m.asof&&days(iso(m.asof),TODAY)<=0;
+    this.loadBudget();
+    if(!force&&(fresh||this.budget.n>=20))return; if(this.inflight[t])return; this.inflight[t]=true;
+    const opts={cache:{staleTime:300000,gcTime:86400000,refresh:!!force}};
+    try{
+      const q=await this.mcp.callTool(this.server,'GLOBAL_QUOTE',{symbol:t,datatype:'json'},opts);
+      if(!(q.cache&&!force))this.spend(1);
+      const p=q.payload||{};
+      if(p.error){this.note('Alpha Vantage: '+(p.error.message||p.error.type));this.inflight[t]=false;return}
+      const g=p['Global Quote']||{};
+      if(g['05. price']){Object.assign(m,{price:this.num(g['05. price']),prev_close:this.num(g['08. previous close']),chg_pct:this.num(g['10. change percent']),vol:this.num(g['06. volume']),asof:g['07. latest trading day'],ccy:'USD',source:'alpha_vantage',stale:false})}
+      const needOverview=force||m.overview_asof==null||days(iso(m.overview_asof),TODAY)>7;
+      if(needOverview){
+        const o=await this.mcp.callTool(this.server,'COMPANY_OVERVIEW',{symbol:t},opts);
+        if(!(o.cache&&!force))this.spend(1);
+        const v=o.payload||{};
+        if(v.error){this.note('Alpha Vantage: '+(v.error.message||v.error.type))}
+        else if(v.Symbol){Object.assign(m,{hi52:this.num(v['52WeekHigh']),lo52:this.num(v['52WeekLow']),sma50:this.num(v['50DayMovingAverage']),sma200:this.num(v['200DayMovingAverage']),mcap:this.fmtCap(v.MarketCapitalization),mcap_raw:this.num(v.MarketCapitalization),float:this.num(v.SharesFloat),shares_out:this.num(v.SharesOutstanding),analyst_target:this.num(v.AnalystTargetPrice),overview_asof:TODAY.toISOString().slice(0,10)})}
+      }
+      MARKET[t]=m;if(selected)renderCard(selected);
+      const db=await DBP;if(db){try{await db.doc('market/'+t).set(m)}catch(e){}}
+    }catch(e){this.note(this.describe(e))}
+    this.inflight[t]=false;
+  }
+};
+let DBP=connectDb();AV.init();
+const drawer=document.getElementById('drawer');
+document.getElementById('drawerBtn').addEventListener('click',()=>drawer.classList.toggle('open'));
+document.getElementById('importBtn').addEventListener('click',async()=>{
+  const msg=document.getElementById('importMsg');let obj;
+  try{obj=JSON.parse(document.getElementById('importBox').value)}catch(e){msg.textContent='Not valid JSON: '+e.message;return}
+  const db=await DBP;if(!db){msg.textContent='Data layer not available in this view; applied to this session only.';Object.keys(obj).forEach(k=>{MARKET[k]=Object.assign({},MARKET[k]||{},obj[k])});if(selected)renderCard(selected);return}
+  let n=0;for(const k of Object.keys(obj)){if(!/^[A-Z0-9.\-]{1,10}$/.test(k))continue;const body=Object.assign({},obj[k]);if(!body.asof)body.asof=TODAY.toISOString().slice(0,10);try{await db.doc('market/'+k).set(body);n++}catch(e){msg.textContent='Write failed on '+k+': '+e.code;return}}
+  msg.textContent='Wrote '+n+' tickers to the data layer.';
+});
+document.getElementById('macroBtn').addEventListener('click',async()=>{
+  const msg=document.getElementById('importMsg');const r=prompt('Macro regime for the book (risk on, risk off, or unset). Add a short reason after a comma.');if(r==null)return;
+  const [regime,...rest]=r.split(',');const body={regime:regime.trim(),note:rest.join(',').trim(),asof:TODAY.toISOString().slice(0,10)};
+  const db=await DBP;if(!db){MACRO=body;applyMacro();msg.textContent='Data layer not available; set for this session only.';return}
+  try{await db.doc('meta/macro').set(body);msg.textContent='Macro regime saved.'}catch(e){msg.textContent='Write failed: '+e.code}
+});
+
+/* ---------- boot ---------- */
+document.getElementById('todayLabel').textContent=fmtD(TODAY);
+document.getElementById('verLabel').textContent=GRAPH.meta.version;
+applyMacro();setFeed('embedded snapshot, 4 Sep close','off');
+buildRail();initSvg();build();
+</script>
+</body></html>
