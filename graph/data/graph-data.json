@@ -1,9 +1,9 @@
 {
  "meta": {
-  "version": "graph 0.1 on ws 2.7.1",
+  "version": "graph 0.2.1 on ws 2.7.1",
   "source_dashboard": "MANTIS ALPHA PHARMA ws 2.7.1, CAPR two-phase event correction, 2026-08-31",
   "built": "2026-09-07",
-  "note": "Rows reconstructed from the inline dashboard script (audit, overrides, new candidates, decisions). Base rows from data.json were not available; fields marked provisional come from the reconstruction and should be confirmed against data.json.",
+  "note": "Rows reconstructed from the ws 2.7.1 inline script (audit, overrides, new candidates, decisions). Base windows and original action dates for RCKT, DNLI, VERA, SVRA, RARE, NUVL, HNSA, MLYS and COGT confirmed against the 18 March 2026 data.json found on the user's computer. The second Praxis asset and the Stockholm reference cases remain provisional.",
   "defaults": {
    "entry": "T-150 to T-90",
    "entry_fallback": "T-60",
@@ -507,15 +507,16 @@
    "score": 3,
    "orig_score": 4,
    "mantis_class": "Tier 2, managed position",
-   "entry": "T-150 to T-90",
-   "exit": "T-14 to T-7",
+   "entry": "T-120 to T-60",
+   "exit": "T-20 to T-7",
    "lifecycle": "extended",
    "notes": "Extended three months; responses to FDA information requests deemed a major amendment. No advisory committee planned. Follows a May 2025 refuse to file on CMC, after which drug substance manufacture moved to Fujifilm. CMC history, a larger valuation and a well known positive narrative reduce the remaining attention premium. Manage, do not chase.",
    "source": "https://investors.savarapharma.com/news/news-details/2026/Savara-Announces-the-U-S--Food--Drug-Administration-FDA-Has-Extended-the-Review-Period-for-the-Molgramostim-Inhalation-Solution-Molgramostim-Biologics-License-Application-BLA-in-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP/default.aspx",
    "verified": [
     "action date",
     "extension",
-    "no AdCom"
+    "no AdCom",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
    "assumed": [
     "short interest"
@@ -540,7 +541,8 @@
     }
    ],
    "risk_dates": [],
-   "indications": []
+   "indications": [],
+   "provisional": false
   },
   {
    "id": "COGT:2026-11-30",
@@ -594,15 +596,16 @@
    "orph": true,
    "therapy": "KIT inhibitor (small molecule)",
    "score": 3,
-   "orig_score": 3,
+   "orig_score": 4,
    "mantis_class": "Tier 2, correlated asset risk",
-   "entry": "T-150 to T-90",
-   "exit": "T-14 to T-7",
+   "entry": "T-120 to T-60",
+   "exit": "T-20 to T-7",
    "lifecycle": "active",
    "notes": "Second decision for the same molecule and issuer; it cannot be treated as a second full strength position.",
    "source": "https://investors.cogentbio.com/news-releases/news-release-details/cogent-biosciences-announces-fda-acceptance-new-drug-0",
    "verified": [
-    "action date"
+    "action date",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
    "assumed": [
     "review classification"
@@ -619,7 +622,8 @@
    "risk_dates": [],
    "indications": [
     "systemic_mastocytosis"
-   ]
+   ],
+   "provisional": false
   },
   {
    "id": "MLYS:2026-12-22",
@@ -635,14 +639,15 @@
    "score": 3,
    "orig_score": 3,
    "mantis_class": "Tier 2, watch and managed",
-   "entry": "T-150 to T-90",
-   "exit": "T-14 to T-7",
+   "entry": "T-90 to T-45",
+   "exit": "T-20 to T-10",
    "lifecycle": "active",
    "notes": "Baxdrostat is already approved first in class and sell side consensus sits near ninety per cent, so there is very little uncertainty premium left to harvest even though the drug is probably fine. Reference case for an uncontested package.",
    "source": "https://www.globenewswire.com/news-release/2026/03/09/3252329/0/en/mineralys-therapeutics-announces-fda-acceptance-of-nda-for-lorundrostat-for-treatment-of-adults-with-hypertension-and-topline-explore-osa-trial-results.html",
    "verified": [
     "action date",
-    "no AdCom"
+    "no AdCom",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
    "assumed": [
     "consensus figure"
@@ -658,7 +663,8 @@
     }
    ],
    "risk_dates": [],
-   "indications": []
+   "indications": [],
+   "provisional": false
   },
   {
    "id": "HNSA:2026-12-19",
@@ -675,13 +681,14 @@
    "score": 3,
    "orig_score": 2,
    "mantis_class": "Tier 2, international watch, pullback only",
-   "entry": "T-150 to T-90",
-   "exit": "T-14 to T-7",
+   "entry": "T-90 to T-45",
+   "exit": "T-20 to T-10",
    "lifecycle": "active",
    "notes": "Promoted from blanket exclusion into the international template. First in class, exact date catalyst, but the stock is near its 52 week high after a strong one month move. Do not chase. Apply Stockholm liquidity, SEK and disclosure rules. Priority review was requested but a standard 12 month cycle was assigned.",
    "source": "https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/",
    "verified": [
-    "action date"
+    "action date",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
    "assumed": [
     "liquidity in three tranches"
@@ -699,7 +706,8 @@
    "risk_dates": [],
    "indications": [
     "kidney"
-   ]
+   ],
+   "provisional": false
   },
   {
    "id": "IMNM:2027-04-28",
@@ -1141,10 +1149,11 @@
    "entry": "T-150 to T-90",
    "exit": "T-14 to T-7",
    "lifecycle": "active",
-   "notes": "Company defining rare disease catalyst, offset by the prior CMC complete response history and issuer level correlation. The separate DTX401 filing was approved 19 August (GENGLYCOS). Window is mature: at T-12 today, execution belongs to exit management, not accumulation.",
+   "notes": "Company defining rare disease catalyst, offset by the prior CMC complete response history and issuer level correlation. Issuer shock on 3 September: the GTX-102 Phase 3 Aspire study in Angelman syndrome missed, the stock fell 44 per cent on 27 million shares and management opened a strategic review with significant expense reductions. That is issuer level risk landing on UX111 inside its exit window. Two deterioration signals are live (below the 200 day average; financing and strategic review risk on the same balance sheet); the playbook halves at two and closes at three. The effective exit of 11 September stands regardless.",
    "source": "https://ir.ultragenyx.com/news-releases/news-release-details/ultragenyx-announces-us-fda-approval-genglycostm-gene-therapy",
    "verified": [
-    "action date (dashboard)"
+    "action date (dashboard)",
+    "3 Sep Angelman miss and strategic review"
    ],
    "assumed": [
     "resubmission classification"
@@ -1165,10 +1174,22 @@
     },
     {
      "id": "largecap"
+    },
+    {
+     "id": "financing",
+     "note": "strategic review and expense cuts after the 3 Sep Angelman miss"
     }
    ],
    "risk_dates": [],
-   "indications": []
+   "indications": [],
+   "events": [
+    {
+     "date": "2026-09-03",
+     "kind": "issuer",
+     "label": "GTX-102 Phase 3 Angelman miss, down 44 per cent, strategic review",
+     "source": "https://www.fiercebiotech.com/biotech/ultragenyx-fails-phase-3-angelman-test-plots-significant-expenses-reduction"
+    }
+   ]
   },
   {
    "id": "IONS:2026-09-22",
@@ -1548,27 +1569,26 @@
    "drug": "Kresladi (marnetegragene autotemcel)",
    "ind": "Severe leukocyte adhesion deficiency type I, paediatric",
    "pdufa": "2026-03-28",
-   "date_type": "Exact date (reconstructed)",
+   "date_type": "Exact date",
    "catalyst_type": "BLA, accelerated approval, PRV",
    "priority_review": true,
    "orph": true,
    "therapy": "Autologous HSC gene therapy",
    "score": 5,
    "orig_score": 5,
-   "mantis_class": "Reference case, clean setup that ran",
+   "mantis_class": "M5 Prime (reference case, clean setup that ran)",
    "entry": "T-150 to T-90",
-   "exit": "T-14 to T-7",
+   "exit": "T-20 to T-7",
    "lifecycle": "approved",
-   "provisional": true,
+   "provisional": false,
    "notes": "Approved 26 March 2026. Calibration anchor for a clean setup. Record integrity: the run-up has been logged at both 46.32 and 47.51 per cent; reconcile to one sourced figure with a stated window before external use.",
    "source": null,
    "verified": [
     "approval",
-    "decision date"
+    "decision date",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
-   "assumed": [
-    "original action date"
-   ],
+   "assumed": [],
    "factors": [],
    "risk_dates": [],
    "indications": [],
@@ -1582,32 +1602,31 @@
    }
   },
   {
-   "id": "DNLI:2026-03-27",
+   "id": "DNLI:2026-04-05",
    "tkr": "DNLI",
    "drug": "Avlayah (tividenofusp alfa)",
    "ind": "Neurological manifestations of Hunter syndrome (MPS II)",
-   "pdufa": "2026-03-27",
-   "date_type": "Exact date (reconstructed)",
+   "pdufa": "2026-04-05",
+   "date_type": "Exact date",
    "catalyst_type": "BLA, accelerated approval, PRV",
    "priority_review": true,
    "orph": true,
    "therapy": "Blood brain barrier crossing enzyme replacement",
    "score": 5,
    "orig_score": 5,
-   "mantis_class": "Reference case, clean setup that ran",
+   "mantis_class": "M5 Prime (reference case, clean setup that ran)",
    "entry": "T-150 to T-90",
-   "exit": "T-14 to T-7",
+   "exit": "T-20 to T-7",
    "lifecycle": "approved",
-   "provisional": true,
-   "notes": "Approved 25 March 2026. Calibration anchor. Record integrity: logged at both 27.7 and 15.86 per cent; reconcile before external use.",
+   "provisional": false,
+   "notes": "Approved 25 March 2026, eleven days ahead of the 5 April action date. Calibration anchor. Record integrity: logged at both 27.7 and 15.86 per cent; reconcile before external use.",
    "source": null,
    "verified": [
     "approval",
-    "decision date"
+    "decision date",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
-   "assumed": [
-    "original action date"
-   ],
+   "assumed": [],
    "factors": [],
    "risk_dates": [],
    "indications": [],
@@ -1621,31 +1640,30 @@
    }
   },
   {
-   "id": "VERA:2026-07-08",
+   "id": "VERA:2026-07-07",
    "tkr": "VERA",
    "drug": "Trutakna (atacicept)",
    "ind": "Primary IgA nephropathy at risk of progression",
-   "pdufa": "2026-07-08",
-   "date_type": "Exact date (reconstructed)",
+   "pdufa": "2026-07-07",
+   "date_type": "Exact date",
    "catalyst_type": "BLA, accelerated approval, Breakthrough, Priority Review",
    "priority_review": true,
    "orph": false,
    "therapy": "Dual BAFF and APRIL inhibitor",
-   "score": 4,
-   "orig_score": 4,
-   "mantis_class": "Reference case, crowded field and hostile macro",
-   "entry": "T-150 to T-90",
-   "exit": "T-14 to T-7",
+   "score": 5,
+   "orig_score": 5,
+   "mantis_class": "M5 Prime (reference case, crowded field and hostile macro)",
+   "entry": "T-120 to T-60",
+   "exit": "T-20 to T-7",
    "lifecycle": "approved",
-   "provisional": true,
+   "provisional": false,
    "notes": "Approved 7 July 2026. The framework flagged three adverse signals in advance (declining 200 day average, crowded IgAN field, sector risk off) and had no mechanism to act on any of them. This case created the thesis deterioration exit rule.",
    "source": null,
    "verified": [
-    "approval"
+    "approval",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
-   "assumed": [
-    "original action date"
-   ],
+   "assumed": [],
    "factors": [
     {
      "id": "competition",
@@ -1669,27 +1687,26 @@
    "tkr": "NUVL",
    "drug": "zidesamtinib",
    "ind": "ROS1 positive NSCLC",
-   "pdufa": null,
-   "date_type": "Superseded by acquisition",
+   "pdufa": "2026-09-18",
+   "date_type": "Exact date (superseded by acquisition)",
    "catalyst_type": "NDA",
    "priority_review": null,
    "orph": true,
    "therapy": "ROS1 selective inhibitor",
-   "score": 4,
-   "orig_score": 4,
-   "mantis_class": "Reference case, acquisition",
-   "entry": null,
-   "exit": null,
+   "score": 5,
+   "orig_score": 5,
+   "mantis_class": "M5 Prime, reclassified acquisition",
+   "entry": "T-120 to T-60",
+   "exit": "T-20 to T-7",
    "lifecycle": "acquisition",
-   "provisional": true,
+   "provisional": false,
    "notes": "Acquired by GSK at 124 dollars a share. Leaves the run-up pool and becomes a spread trade with different mechanics. Drug and indication reconstructed.",
    "source": null,
    "verified": [
-    "acquisition"
+    "acquisition",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
-   "assumed": [
-    "asset details"
-   ],
+   "assumed": [],
    "factors": [],
    "risk_dates": [],
    "indications": [],
@@ -1747,15 +1764,16 @@
    "orph": true,
    "therapy": "AAV gene therapy",
    "score": 3,
-   "orig_score": 3,
+   "orig_score": 4,
    "mantis_class": "Watch only, window mature",
-   "entry": null,
-   "exit": null,
+   "entry": "T-120 to T-60",
+   "exit": "T-20 to T-7",
    "lifecycle": "approved",
    "notes": "Approved 19 August 2026, four days ahead of the action date.",
    "source": "https://ir.ultragenyx.com/news-releases/news-release-details/ultragenyx-announces-us-fda-approval-genglycostm-gene-therapy",
    "verified": [
-    "approval"
+    "approval",
+    "windows and dates from data.json (18 Mar 2026)"
    ],
    "assumed": [],
    "factors": [
@@ -1768,7 +1786,9 @@
    "indications": [],
    "record": {
     "decision": "approved 2026-08-19"
-   }
+   },
+   "events": [],
+   "provisional": false
   },
   {
    "id": "ACLX:2026-12-23",
