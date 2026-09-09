@@ -1,54 +1,7 @@
 {
-  "generated_at": "2026-08-31T12:00:00Z",
+  "generated_at": "2026-09-09T12:00:00Z",
   "brand": "MANTIS ALPHA PHARMA",
-  "model_version": "MANTIS 2.0 / workspace 2.7.1",
-  "locked_rallies": [
-    {
-      "tkr": "INBX",
-      "co": "Inhibrx Biosciences",
-      "asset": "Ozekibart · chondrosarcoma",
-      "score_at_signal": 4,
-      "baseline_date": "2026-08-03",
-      "baseline_price": 82.72,
-      "lock_date": "2026-08-27",
-      "lock_price": 123.93,
-      "return_pct": 49.82,
-      "currency": "USD",
-      "status": "Pre-pre-PDUFA cycle locked",
-      "method": "Aug 3 close to Aug 27 close",
-      "source": "https://stockanalysis.com/stocks/inbx/history/"
-    },
-    {
-      "tkr": "PHVS",
-      "co": "Pharvaris",
-      "asset": "Deucrictibant IR · HAE",
-      "score_at_signal": 4,
-      "baseline_date": "2026-08-03",
-      "baseline_price": 32.25,
-      "lock_date": "2026-08-27",
-      "lock_price": 37.0,
-      "return_pct": 14.73,
-      "currency": "USD",
-      "status": "Pre-pre-PDUFA cycle locked",
-      "method": "Aug 3 close to Aug 27 close",
-      "source": "https://stockanalysis.com/stocks/phvs/history/"
-    },
-    {
-      "tkr": "DYN",
-      "co": "Dyne Therapeutics",
-      "asset": "Z-rostudirsen · DMD exon 51",
-      "score_at_signal": 4,
-      "baseline_date": "2026-08-03",
-      "baseline_price": 25.24,
-      "lock_date": "2026-08-27",
-      "lock_price": 26.09,
-      "return_pct": 3.37,
-      "currency": "USD",
-      "status": "Pre-pre-PDUFA cycle locked",
-      "method": "Aug 3 close to Aug 27 close",
-      "source": "https://investors.dyne-tx.com/stock-information/historical-price-lookup"
-    }
-  ],
+  "model_version": "MANTIS 2.0 / workspace 2.8",
   "research_queue": [
     {
       "tkr": "HNSA",
@@ -1109,27 +1062,21 @@
       "ind": "Duchenne muscular dystrophy amenable to exon 51 skipping",
       "score": 3,
       "original_score": 4,
-      "mantis_class": "M3 Re-entry watch · pre-pre-PDUFA cycle locked",
+      "mantis_class": "Tier 2 · post-rally cooldown",
       "orph": true,
       "therapy": "Antibody-oligonucleotide conjugate",
       "catalyst_type": "BLA / Priority Review",
       "priority_review": true,
       "entry": "T-150 to T-90",
       "exit": "T-25 to T-7",
-      "notes": "The original Score 4 pre-pre-PDUFA cycle is locked at +3.37% from the Aug 3 close to the Aug 27 close. The Jan 21, 2027 Priority Review remains important, but the fresh-entry score is reduced to 3: cooldown and re-evaluation only, with no assumption that the first-cycle momentum repeats.",
+      "notes": "Re-rated 3.37 per cent between the 3 August and 27 August closes. The Jan 21, 2027 Priority Review remains important, but the fresh-entry score is reduced to 3: post-rally cooldown and re-evaluation only, with no assumption that the August move repeats.",
       "source": "https://investors.dyne-tx.com/news-releases/news-release-details/dyne-therapeutics-announces-us-fda-acceptance-biologics-license/",
       "is_new_candidate": true,
       "score_status": "cycle_locked_reentry_watch",
       "score_version": "MANTIS-2.0-review-2026-08-31",
       "active_candidate": true,
-      "score_change_reason": "The Score 4 cycle already produced a positive pre-pre-PDUFA move. Reduce fresh-entry conviction after the run-up while retaining the original score for outcome attribution.",
-      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE",
-      "cycle_a_return_pct": 3.37,
-      "cycle_a_score_at_signal": 4,
-      "cycle_a_baseline_date": "2026-08-03",
-      "cycle_a_baseline_price": 25.24,
-      "cycle_a_lock_date": "2026-08-27",
-      "cycle_a_lock_price": 26.09
+      "score_change_reason": " Reduce fresh-entry conviction after the run-up while retaining the original score for outcome attribution.",
+      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE"
     },
     {
       "tkr": "PRAX",
@@ -1189,28 +1136,22 @@
       "drug": "ozekibart",
       "ind": "Unresectable or metastatic conventional chondrosarcoma",
       "score": 3,
-      "mantis_class": "M3 Re-entry watch · pre-pre-PDUFA cycle locked",
+      "mantis_class": "Tier 2 · post-rally cooldown",
       "orph": false,
       "therapy": "DR5 agonist antibody / rare oncology",
       "catalyst_type": "BLA",
       "priority_review": false,
       "entry": "T-180 to T-90",
       "exit": "T-30 to T-7",
-      "notes": "The original Score 4 pre-pre-PDUFA cycle is locked at +49.82% from the Aug 3 close to the Aug 27 close. FDA reported no filing review issues and set Apr 14, 2027, but the fresh-entry score is reduced to 3 after the re-rating: cooldown and re-evaluation only; do not chase.",
+      "notes": "Re-rated 49.82 per cent between the 3 August and 27 August closes. FDA reported no filing review issues and set Apr 14, 2027, but the fresh-entry score is reduced to 3 after the re-rating: post-rally cooldown and re-evaluation only; do not chase.",
       "source": "https://www.prnewswire.com/news-releases/inhibrx-announces-us-fda-acceptance-of-bla-for-ozekibart-in-patients-with-conventional-chondrosarcoma-302800101.html",
       "is_new_candidate": true,
       "original_score": 5,
       "score_status": "cycle_locked_reentry_watch",
       "score_version": "MANTIS-2.0-review-2026-08-31",
       "active_candidate": true,
-      "score_change_reason": "The Score 4 cycle already produced a major pre-pre-PDUFA move. Reduce fresh-entry conviction after the re-rating while retaining the original score for outcome attribution.",
-      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE",
-      "cycle_a_return_pct": 49.82,
-      "cycle_a_score_at_signal": 4,
-      "cycle_a_baseline_date": "2026-08-03",
-      "cycle_a_baseline_price": 82.72,
-      "cycle_a_lock_date": "2026-08-27",
-      "cycle_a_lock_price": 123.93
+      "score_change_reason": " Reduce fresh-entry conviction after the re-rating while retaining the original score for outcome attribution.",
+      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE"
     },
     {
       "tkr": "PHVS",
@@ -1221,27 +1162,21 @@
       "ind": "On-demand treatment of hereditary angioedema attacks",
       "score": 3,
       "original_score": 4,
-      "mantis_class": "M3 Re-entry watch · pre-pre-PDUFA cycle locked",
+      "mantis_class": "Tier 2 · post-rally cooldown",
       "orph": true,
       "therapy": "Oral bradykinin B2 receptor antagonist",
       "catalyst_type": "NDA",
       "priority_review": false,
       "entry": "T-150 to T-90",
       "exit": "T-25 to T-7",
-      "notes": "The original Score 4 pre-pre-PDUFA cycle is locked at +14.73% from the Aug 3 close to the Aug 27 close. The differentiated oral HAE thesis remains intact, but the fresh-entry score is reduced to 3 after the move: cooldown and re-evaluation only; do not chase.",
+      "notes": "Re-rated 14.73 per cent between the 3 August and 27 August closes. The differentiated oral HAE thesis remains intact, but the fresh-entry score is reduced to 3 after the move: post-rally cooldown and re-evaluation only; do not chase.",
       "source": "https://ir.pharvaris.com/news-releases/news-release-details/pharvaris-announces-fda-acceptance-new-drug-application/",
       "is_new_candidate": true,
       "score_status": "cycle_locked_reentry_watch",
       "score_version": "MANTIS-2.0-review-2026-08-31",
       "active_candidate": true,
-      "score_change_reason": "The Score 4 cycle already produced a double-digit pre-pre-PDUFA move. Reduce fresh-entry conviction after the re-rating while retaining the original score for outcome attribution.",
-      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE",
-      "cycle_a_return_pct": 14.73,
-      "cycle_a_score_at_signal": 4,
-      "cycle_a_baseline_date": "2026-08-03",
-      "cycle_a_baseline_price": 32.25,
-      "cycle_a_lock_date": "2026-08-27",
-      "cycle_a_lock_price": 37.0
+      "score_change_reason": " Reduce fresh-entry conviction after the re-rating while retaining the original score for outcome attribution.",
+      "plan_status": "CYCLE LOCKED · COOLDOWN / NO CHASE"
     },
     {
       "tkr": "ORGO",
@@ -1810,7 +1745,7 @@
       "pdufa_after": "2027-04-14",
       "score_before": 4,
       "score_after": 3,
-      "reason": "The original Score 4 pre-pre-PDUFA cycle is locked at +49.82%. Fresh-entry conviction is reset to cooldown / no chase after the re-rating."
+      "reason": "Re-rated +49.82% between the 3 August and 27 August closes. Fresh-entry conviction is reset to cooldown / no chase after the re-rating."
     },
     {
       "tkr": "INO",
@@ -1873,7 +1808,7 @@
       "pdufa_after": "2027-01-21",
       "score_before": 4,
       "score_after": 3,
-      "reason": "The original Score 4 pre-pre-PDUFA cycle is locked at +3.37%. Fresh-entry conviction is reset to cooldown / no chase."
+      "reason": "Re-rated +3.37% between the 3 August and 27 August closes. Fresh-entry conviction is reset to cooldown / no chase."
     },
     {
       "tkr": "PHVS",
@@ -1882,7 +1817,7 @@
       "pdufa_after": "2027-04-23",
       "score_before": 4,
       "score_after": 3,
-      "reason": "The original Score 4 pre-pre-PDUFA cycle is locked at +14.73%. Fresh-entry conviction is reset to cooldown / no chase after the move."
+      "reason": "Re-rated +14.73% between the 3 August and 27 August closes. Fresh-entry conviction is reset to cooldown / no chase after the move."
     },
     {
       "tkr": "BLTE",
@@ -1906,16 +1841,6 @@
       "MLYS",
       "HNSA:international-pullback-only"
     ],
-    "locked_cycles": [
-      "INBX:+49.82%",
-      "PHVS:+14.73%",
-      "DYN:+3.37%"
-    ],
-    "reentry_watch_no_chase": [
-      "INBX",
-      "PHVS",
-      "DYN"
-    ],
     "secondary_diligence": [
       "COGT:GIST",
       "COGT:NonAdvSM",
@@ -1935,7 +1860,12 @@
       "QURE",
       "XENE"
     ],
-    "portfolio_note": "Lock the Aug 3 to Aug 27 INBX, PHVS and DYN model cycles; do not assume a repeat. CAPR is a two-phase control case: -26.00% Bloomberg-ledger use-case loss and a separate approximately 90% extension-pathway intraday rebound. Count COGT's two decisions as one asset exposure and PRAX's two decisions under one issuer-level cap. Archive RARE, BIIB and ROIV approvals."
+    "portfolio_note": "INBX, PHVS and DYN re-rated between 3 and 27 August and sit in post-rally cooldown; do not chase. CAPR is a two-phase control case: -26.00% Bloomberg-ledger use-case loss and a separate approximately 90% extension-pathway intraday rebound. Count COGT's two decisions as one asset exposure and PRAX's two decisions under one issuer-level cap. Archive RARE, BIIB and ROIV approvals.",
+    "post_rally_cooldown": [
+      "INBX",
+      "PHVS",
+      "DYN"
+    ]
   },
   "capr_use_case": {
     "definition": "Hold from the AdCom announcement-day close until the close two trading sessions before FDA briefing documents are released.",

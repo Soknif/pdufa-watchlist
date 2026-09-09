@@ -1,8 +1,8 @@
 {
  "meta": {
-  "version": "graph 0.2.1 on ws 2.7.1",
-  "source_dashboard": "MANTIS ALPHA PHARMA ws 2.7.1, CAPR two-phase event correction, 2026-08-31",
-  "built": "2026-09-07",
+  "version": "graph 0.3 on ws 2.8",
+  "source_dashboard": "MANTIS ALPHA PHARMA ws 2.8, windows board and results, 2026-09-09",
+  "built": "2026-09-09",
   "note": "Rows reconstructed from the ws 2.7.1 inline script (audit, overrides, new candidates, decisions). Base windows and original action dates for RCKT, DNLI, VERA, SVRA, RARE, NUVL, HNSA, MLYS and COGT confirmed against the 18 March 2026 data.json found on the user's computer. The second Praxis asset and the Stockholm reference cases remain provisional.",
   "defaults": {
    "entry": "T-150 to T-90",
@@ -865,7 +865,7 @@
    "entry": "T-150 to T-90",
    "exit": "T-14 to T-7",
    "lifecycle": "active",
-   "notes": "Original Score 4 pre pre PDUFA cycle locked at 3.37 per cent (3 Aug to 27 Aug close). Accelerated approval filing on dystrophin as a surrogate. A fresh position faces a multi billion dollar valuation and surrogate endpoint risk; require a reset before re-entry.",
+   "notes": "Re-rated 3.37 per cent between the 3 August and 27 August closes. Accelerated approval filing on dystrophin as a surrogate. A fresh position faces a multi billion dollar valuation and surrogate endpoint risk; require a reset before re-entry.",
    "source": "https://investors.dyne-tx.com/news-releases/news-release-details/dyne-therapeutics-announces-us-fda-acceptance-biologics-license/",
    "verified": [
     "action date",
@@ -877,7 +877,7 @@
    "factors": [
     {
      "id": "post_rally",
-     "note": "cycle A locked at 3.37 per cent"
+     "note": "re-rated 3.37 per cent, 3 to 27 Aug"
     },
     {
      "id": "surrogate",
@@ -890,14 +890,7 @@
    "risk_dates": [],
    "indications": [
     "dmd"
-   ],
-   "record": {
-    "window": "3 Aug to 27 Aug 2026",
-    "measure": "close to close, model observation",
-    "return_pct": 3.37,
-    "baseline_price": 25.24,
-    "lock_price": 26.09
-   }
+   ]
   },
   {
    "id": "PHVS:2027-04-23",
@@ -916,7 +909,7 @@
    "entry": "T-150 to T-90",
    "exit": "T-14 to T-7",
    "lifecycle": "active",
-   "notes": "Original Score 4 cycle locked at 14.73 per cent (3 Aug to 27 Aug close). The HAE thesis remains attractive, but competition and the August re-rating reduce fresh entry torque.",
+   "notes": "Re-rated 14.73 per cent between the 3 August and 27 August closes. The HAE thesis remains attractive, but competition and the August re-rating reduce fresh entry torque.",
    "source": "https://ir.pharvaris.com/news-releases/news-release-details/pharvaris-announces-fda-acceptance-new-drug-application/",
    "verified": [
     "action date"
@@ -927,7 +920,7 @@
    "factors": [
     {
      "id": "post_rally",
-     "note": "cycle A locked at 14.73 per cent"
+     "note": "re-rated 14.73 per cent, 3 to 27 Aug"
     },
     {
      "id": "competition",
@@ -937,14 +930,7 @@
    "risk_dates": [],
    "indications": [
     "hae"
-   ],
-   "record": {
-    "window": "3 Aug to 27 Aug 2026",
-    "measure": "close to close, model observation",
-    "return_pct": 14.73,
-    "baseline_price": 32.25,
-    "lock_price": 37.0
-   }
+   ]
   },
   {
    "id": "INBX:2027-04-14",
@@ -963,7 +949,7 @@
    "entry": "T-150 to T-90",
    "exit": "T-14 to T-7",
    "lifecycle": "active",
-   "notes": "Original Score 4 cycle locked at 49.82 per cent (3 Aug to 27 Aug close). BLA accepted 15 June with no filing review issues; would be the first systemic therapy in the indication. The August re-rating makes a fresh entry a no chase setup.",
+   "notes": "Re-rated 49.82 per cent between the 3 August and 27 August closes. BLA accepted 15 June with no filing review issues; would be the first systemic therapy in the indication. The August re-rating makes a fresh entry a no chase setup.",
    "source": "https://www.prnewswire.com/news-releases/inhibrx-announces-us-fda-acceptance-of-bla-for-ozekibart-in-patients-with-conventional-chondrosarcoma-302800101.html",
    "verified": [
     "action date"
@@ -974,18 +960,11 @@
    "factors": [
     {
      "id": "post_rally",
-     "note": "cycle A locked at 49.82 per cent"
+     "note": "re-rated 49.82 per cent, 3 to 27 Aug"
     }
    ],
    "risk_dates": [],
-   "indications": [],
-   "record": {
-    "window": "3 Aug to 27 Aug 2026",
-    "measure": "close to close, model observation",
-    "return_pct": 49.82,
-    "baseline_price": 82.72,
-    "lock_price": 123.93
-   }
+   "indications": []
   },
   {
    "id": "BLTE:2027-02-12",

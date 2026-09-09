@@ -19,6 +19,8 @@ This drop sits alongside the existing MANTIS ALPHA PHARMA dashboard (`index.html
 
 The page reads `graph/data/market.json` and `graph/data/graph-data.json` at load, so editing either file in the repo changes the live site without rebuilding. Opened from disk (file URL) the page falls back to the snapshot embedded at build time.
 
+Since ws 2.8 the dashboard's first section, the windows board, reads the same two files, so `graph-data.json` is the one book for both pages. A board row links to `graph/#c:<catalyst id>`; the graph also accepts `#t:<ticker>` and `#f:<factor id>`.
+
 ## Alpha Vantage budget
 
 The free tier allows 25 calls a day at one per second; bulk quotes are premium only. The refresh script spends the budget in priority order: active book by nearest effective exit, then watch names, then reference names. Each ticker costs one `GLOBAL_QUOTE`; a `COMPANY_OVERVIEW` (52 week range, 50 and 200 day averages, market cap, float) is added when the stored one is older than seven days. On a premium key raise `AV_BUDGET` in the workflow.
