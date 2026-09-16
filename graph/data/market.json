@@ -552,15 +552,15 @@
  },
  "_meta": {
   "source": "Alpha Vantage REST via scripts/refresh_market.py",
-  "refreshed": "2026-09-15T23:36:20Z",
+  "refreshed": "2026-09-16T23:44:02Z",
   "macro": {
    "regime": "risk on (provisional)",
    "note": "XBI within 4 per cent of its 52 week high on 4 Sep; moving averages and implied volatility not verified.",
    "asof": "2026-09-04"
   },
   "calls": {
-   "quotes": 14,
-   "overviews": 10,
+   "quotes": 0,
+   "overviews": 0,
    "dailies": 0
   }
  }
