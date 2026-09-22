@@ -531,6 +531,145 @@
     .board-foot b{color:var(--soft);font-weight:600}
     .board-empty{padding:18px;font:10px var(--mono);color:var(--muted)}
     .chip.bd-on{border-color:rgba(255,61,117,.5);background:rgba(255,61,117,.12);color:var(--accent-soft)}
+    /* ── ws 2.9 RESEARCH UPDATE (22 Sep 2026) ── */
+    :root{--g-active:#ff3d75;--g-sub:#00ff41;--g-pre:#22d3ee;--g-p3:#c4b5fd}
+    .u-sec{margin-bottom:22px}
+    .u-card{border:1px solid rgba(255,0,85,.14);border-radius:var(--r2);background:var(--sf);box-shadow:0 0 1px rgba(255,0,85,.08),inset 0 0 30px rgba(0,0,0,.3)}
+    .u-stamp{font:9px var(--mono);color:var(--label);letter-spacing:.08em}
+    .u-stamp b{color:var(--text);font-weight:600}
+    .ub{display:inline-block;font:600 9px var(--mono);letter-spacing:.06em;padding:2px 7px;border-radius:3px;border:1px solid var(--bd2);color:var(--soft);background:var(--sf2);white-space:nowrap;margin:0 4px 3px 0;vertical-align:middle}
+    .ub.b-active{border-color:rgba(255,61,117,.5);color:var(--accent-soft);background:rgba(255,61,117,.10)}
+    .ub.b-sub{border-color:rgba(0,255,65,.4);color:#00ff41;background:rgba(0,255,65,.07)}
+    .ub.b-pre{border-color:rgba(34,211,238,.45);color:#67e8f9;background:rgba(34,211,238,.07)}
+    .ub.b-lead{border-color:#22d3ee;color:#0a0016;background:#67e8f9}
+    .ub.b-roll{border-color:rgba(125,211,252,.45);color:#7dd3fc;background:rgba(125,211,252,.07)}
+    .ub.b-conf{border-color:rgba(245,158,11,.45);color:#fcd34d;background:rgba(245,158,11,.08)}
+    .ub.b-safe{border-color:rgba(239,68,68,.5);color:var(--loss);background:rgba(239,68,68,.10)}
+    .ub.b-watch{color:var(--muted)}
+    .ub.b-p3{border-color:rgba(196,181,253,.45);color:var(--g-p3);background:rgba(139,92,246,.08)}
+    /* what changed */
+    .wc{padding:14px 16px}
+    .wc-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+    .wc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:8px 18px}
+    .wc-item{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start;padding:7px 0;border-top:1px solid var(--bd)}
+    .wc-item a.tk{font:700 13px var(--mono);letter-spacing:.08em;color:#e2e8f0;text-decoration:none}
+    .wc-item a.tk:hover{color:var(--accent-soft)}
+    .wc-item .tx{font-size:12px;line-height:1.5;color:var(--soft)}
+    .disc{margin-top:12px;padding:9px 12px;border-left:2px solid var(--accent);background:rgba(255,61,117,.05);font-size:11px;line-height:1.55;color:var(--soft)}
+    .disc b{color:var(--text)}
+    /* group separation */
+    .grp{border-left:3px solid var(--bd2)}
+    .grp.active{border-left-color:var(--g-active)}.grp.sub{border-left-color:var(--g-sub)}.grp.pre{border-left-color:var(--g-pre)}.grp.p3{border-left-color:var(--g-p3)}
+    .grp-key{display:flex;gap:14px;flex-wrap:wrap;font:9px var(--mono);color:var(--soft);align-items:center}
+    .grp-key i{display:inline-block;width:3px;height:12px;margin-right:6px;vertical-align:middle}
+    /* active position */
+    .ap{padding:0;overflow:hidden}
+    .ap-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid var(--bd)}
+    .ap-hd .tk{font:700 22px var(--mono);letter-spacing:.12em;color:#e2e8f0;line-height:1}
+    .ap-hd .co{font-size:12px;color:var(--soft);margin-top:5px}
+    .ap-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--bd)}
+    .ap-kpis div{background:var(--bg1);padding:10px 12px}
+    .ap-kpis .k{font:9px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--label)}
+    .ap-kpis .v{font:700 14px var(--mono);color:#e2e8f0;margin-top:4px}
+    .ap-kpis .s{font:9px var(--mono);color:var(--muted);margin-top:3px}
+    .ap-body{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;padding:14px 16px}
+    @media(max-width:900px){.ap-body{grid-template-columns:1fr}}
+    .u-h{font:700 9px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin:0 0 8px}
+    .u-tbl{width:100%;border-collapse:collapse;font-size:12px}
+    .u-tbl th{font:9px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--label);text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd2);white-space:nowrap}
+    .u-tbl td{padding:8px;border-bottom:1px solid var(--bd);color:var(--soft);vertical-align:top;line-height:1.45}
+    .u-tbl td.area{font:600 11px var(--mono);color:#e2e8f0;white-space:nowrap}
+    .u-note{font-size:10px;color:var(--muted);margin-top:7px;line-height:1.5}
+    .callout{padding:10px 12px;border:1px solid rgba(245,158,11,.35);border-left:3px solid #f59e0b;background:rgba(245,158,11,.05);border-radius:2px;font-size:12px;line-height:1.55;color:var(--soft);margin-bottom:10px}
+    .callout b{color:#fcd34d;font:700 9px var(--mono);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:4px}
+    .callout.mute{border-color:var(--bd2);border-left-color:var(--muted);background:var(--sf)}
+    .callout.mute b{color:var(--label)}
+    .srcs{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+    .srcs a{font:10px var(--mono);color:#5ad1e6;text-decoration:none}
+    .srcs a:hover{text-decoration:underline}
+    .srcs .none{font:10px var(--mono);color:var(--muted)}
+    /* ranking */
+    .rk-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+    .rk-wrap{overflow-x:auto}
+    .rk{width:100%;border-collapse:collapse;min-width:1100px}
+    .rk thead th{position:sticky;top:0;background:#0a0016;font:9px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--label);text-align:left;padding:8px 9px;border-bottom:1px solid var(--bd2);white-space:nowrap;vertical-align:bottom}
+    .rk thead th.sortable{cursor:pointer;user-select:none}
+    .rk thead th.sortable:hover,.rk thead th.sortable:focus-visible{color:var(--accent-soft);outline:none}
+    .rk thead th .ar{opacity:.35;margin-left:3px}
+    .rk thead th.on .ar{opacity:1;color:var(--accent-soft)}
+    .rk thead th .qi{display:inline-block;width:12px;height:12px;line-height:11px;text-align:center;border:1px solid var(--bd2);border-radius:50%;font-size:8px;margin-left:4px;color:var(--soft);cursor:help}
+    .rk thead tr.grp-h th{font-size:8px;color:var(--muted);border-bottom:0;padding-bottom:0}
+    .rk thead th.snap{color:#fcd34d}
+    .rk tbody td{padding:9px;border-bottom:1px solid var(--bd);font-size:11px;color:var(--soft);vertical-align:top;line-height:1.45}
+    .rk tbody tr.r{cursor:pointer}
+    .rk tbody tr.r:hover td{background:rgba(255,255,255,.03)}
+    .rk tbody tr.r td:first-child{border-left:3px solid transparent}
+    .rk tbody tr.r.sub td:first-child{border-left-color:var(--g-sub)}
+    .rk tbody tr.r.pre td:first-child{border-left-color:var(--g-pre)}
+    .rk tbody tr.div td{padding:10px 9px 5px;font:700 9px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label);background:rgba(255,255,255,.02);border-bottom:1px solid var(--bd2)}
+    .rk .rn{font:700 13px var(--mono);color:#e2e8f0}
+    .rk .tk{font:700 13px var(--mono);letter-spacing:.08em;color:#e2e8f0}
+    .rk .co{font-size:9px;color:var(--muted);margin-top:2px}
+    .rk .pg{color:#e2e8f0;font-size:11px}
+    .rk .num{font-family:var(--mono);white-space:nowrap}
+    .rk .pr{font:600 11px var(--mono);color:#e2e8f0;white-space:nowrap}
+    .rk .pbar{position:relative;height:4px;background:var(--bd2);border-radius:2px;margin-top:5px;width:88px}
+    .rk .pbar i{position:absolute;top:0;bottom:0;border-radius:2px}
+    .rk .pbar.p i{background:#7dd3fc}.rk .pbar.a i{background:#00ff41}.rk .pbar.m i{background:#fcd34d}
+    .rk .up{color:#00ff41}.rk .dn{color:var(--loss)}
+    .rk .na{color:var(--muted);font-size:9px}
+    .rk-notes{margin:10px 0 0;padding:10px 12px;border-top:1px solid var(--bd);display:grid;gap:5px}
+    .rk-notes div{font-size:11px;line-height:1.5;color:var(--soft);padding-left:12px;position:relative}
+    .rk-notes div::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+    .snap-note{margin-top:8px;padding:8px 12px;border:1px solid rgba(245,158,11,.3);background:rgba(245,158,11,.04);font:10px/1.55 var(--mono);color:#fcd34d}
+    .snap-note span{color:var(--soft)}
+    @media(max-width:760px){
+      .rk{min-width:0}
+      .rk thead{display:none}
+      .rk tbody tr.div{display:block}
+      .rk tbody tr.div td{display:block}
+      .rk tbody tr.r{display:block;border:1px solid var(--bd);border-left:3px solid var(--bd2);border-radius:3px;margin:8px 0;padding:8px 10px}
+      .rk tbody tr.r.sub{border-left-color:var(--g-sub)}.rk tbody tr.r.pre{border-left-color:var(--g-pre)}
+      .rk tbody tr.r td{display:grid;grid-template-columns:118px 1fr;gap:8px;border:0;padding:4px 0}
+      .rk tbody tr.r td:first-child{border-left:0}
+      .rk tbody tr.r td::before{content:attr(data-l);font:9px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--label);padding-top:2px;white-space:normal;grid-column:1;grid-row:1 / span 3}
+      .rk tbody tr.r td > *{grid-column:2}
+      .rk tbody tr.r td > .ub{justify-self:start}
+      .rk tbody tr.r td.num{white-space:normal}
+      .rk .pbar{width:100%}
+    }
+    /* candidate updates */
+    .cu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:10px}
+    @media(max-width:520px){.cu-grid{grid-template-columns:1fr}}
+    .cu{padding:13px 15px;scroll-margin-top:12px}
+    .cu.flash{box-shadow:0 0 0 1px var(--accent)}
+    .cu-hd{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:6px}
+    .cu-hd .tk{font:700 16px var(--mono);letter-spacing:.1em;color:#e2e8f0}
+    .cu-hd .co{font-size:11px;color:var(--soft);margin-top:2px}
+    .cu-hd .dt{font:9px var(--mono);color:var(--label);white-space:nowrap}
+    .cu-title{font-size:12px;color:#e2e8f0;font-weight:600;margin:4px 0 8px}
+    .cu ul{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+    .cu li{font-size:11.5px;line-height:1.5;color:var(--soft);padding-left:12px;position:relative}
+    .cu li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:1px;background:var(--label)}
+    .cu ul.mi li::before{background:var(--accent)}
+    .cu-cls{font:600 10px var(--mono);color:#e2e8f0;padding:7px 9px;border:1px solid var(--bd2);border-radius:2px;background:var(--bg1);margin-bottom:6px}
+    .cu-cls span{color:var(--label);font-weight:400;letter-spacing:.1em;text-transform:uppercase;font-size:8px;display:block;margin-bottom:2px}
+    /* radar and method */
+    .rd-wrap{overflow-x:auto}
+    .rd{min-width:760px}
+    .rd td .tk{font:700 12px var(--mono);letter-spacing:.08em;color:#e2e8f0}
+    .rd td .co{font-size:9px;color:var(--muted)}
+    @media(max-width:760px){.rd{min-width:0}.rd thead{display:none}.rd tr{display:block;border:1px solid var(--bd);border-left:3px solid var(--g-p3);border-radius:3px;margin:8px 0;padding:6px 10px}.rd td{display:grid;grid-template-columns:100px 1fr;gap:8px;border:0;padding:3px 0}.rd td::before{content:attr(data-l);font:9px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--label)}}
+    .prereq{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:11px;color:var(--soft)}
+    .prereq span b{font:700 10px var(--mono);color:var(--g-p3);margin-right:4px}
+    .mth{padding:14px 18px}
+    .mth ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+    .mth li{font-size:12px;line-height:1.55;color:var(--soft)}
+    .mth li::marker{font-family:var(--mono);color:var(--accent-soft)}
+    .mth li ul{list-style:none;display:flex;flex-wrap:wrap;gap:4px 6px;margin:6px 0 0;padding:0}
+    .mth li ul li{font:10px var(--mono);border:1px solid var(--bd2);border-radius:2px;padding:2px 7px;color:var(--soft)}
+    .foot-disc{max-width:900px;margin:6px auto 0;font-size:10px;line-height:1.55;color:var(--muted)}
+    .board .act{display:inline-block;font:700 8px var(--mono);letter-spacing:.1em;color:var(--accent-soft);border:1px solid rgba(255,61,117,.5);border-radius:2px;padding:1px 4px;margin-left:5px;vertical-align:2px}
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
 </head>
@@ -539,7 +678,7 @@
   <div class="topbar">
     <div>
       <div class="brand-mark">MANTIS ALPHA PHARMA</div>
-      <div class="brand-sub">ws 2.8 · windows board and results · 2026-09-09</div>
+      <div class="brand-sub">ws 2.9 · analysis date 22 September 2026 · last updated 22 Sep 2026</div>
     </div>
     <div class="live-pill"><div class="live-dot"></div><span id="todayLabel">&#8212;</span></div>
         <a class="live-pill" href="#board" style="text-decoration:none">Windows board</a>
@@ -551,6 +690,14 @@
     <div class="leg-i"><div class="leg-d" style="background:#fcd34d"></div>4 = Full diligence / strong setup</div>
     <div class="leg-i"><div class="leg-d" style="background:#7dd3fc"></div>3 = Managed / conditional watch</div>
     <div class="leg-i"><div class="leg-d" style="background:#94a3b8"></div>2 = Background / excluded</div>
+  </div>
+  <div class="u-sec" id="whatChanged">
+    <div class="sec-hdr"><div><div class="sec-title">WHAT CHANGED</div><div class="sec-sub">MANTIS ALPHA PHARMA research update &#183; analysis date 22 September 2026</div></div><span class="stag" id="wcStamp">last updated 22 Sep 2026</span></div>
+    <div class="u-card wc">
+      <div class="wc-top"><div class="grp-key"><span><i style="background:var(--g-active)"></i>active position</span><span><i style="background:var(--g-sub)"></i>submission stage</span><span><i style="background:var(--g-pre)"></i>pre-submission</span><span><i style="background:var(--g-p3)"></i>Phase 3 radar</span></div><div class="u-stamp">Last updated <b>22 September 2026</b></div></div>
+      <div class="wc-list" id="wcList"></div>
+      <div class="disc" id="wcDisc"><b>Research, not advice.</b> MANTIS ALPHA PHARMA is research model output. It is not personalised financial advice, not a recommendation to buy or sell any security, and not a forecast of FDA decisions.</div>
+    </div>
   </div>
   <div class="board-section" id="board">
     <div class="sec-hdr"><div><div class="sec-title">WINDOWS BOARD</div><div class="sec-sub">Every dated catalyst on the book &#183; entry band, hold, exit window and effective exit &#183; same arithmetic as the catalyst graph &#183; prices nightly from Alpha Vantage</div></div><span class="stag" id="boardTag">loading</span></div>
@@ -565,13 +712,35 @@
   <div class="sec-hdr" id="results"><div><div class="sec-title">RESULTS</div><div class="sec-sub">Completed MANTIS transactions &#183; model recorded VWAP window measures, not broker realised returns &#183; CAPR is the Bloomberg ledger use case</div></div><span class="stag">closed cycles</span></div>
   <div class="heroes" id="heroes"></div>
   <div class="windows-row" id="windowsRow"></div>
+  <div class="u-sec" id="activePosition">
+    <div class="sec-hdr"><div><div class="sec-title">ACTIVE MANTIS POSITION: HANSA BIOPHARMA</div><div class="sec-sub">Assigned PDUFA date &#183; traded on the pre-PDUFA build-up &#183; not part of the candidate ranking</div></div><span class="stag">active position</span></div>
+    <div class="u-card ap grp active" id="apCard"></div>
+  </div>
+  <div class="u-sec" id="ranking">
+    <div class="sec-hdr"><div><div class="sec-title">PRE-PDUFA CANDIDATE RANKING</div><div class="sec-sub">Submission and pre-submission candidates without an assigned PDUFA date &#183; analytical screening estimates, not FDA forecasts &#183; analysis date 22 September 2026</div></div><span class="stag">ranking</span></div>
+    <div class="rk-tools">
+      <div class="crow" style="margin:0" id="rkChips"><div class="chip bd-on" data-g="all" tabindex="0">All candidates</div><div class="chip" data-g="sub" tabindex="0">Submission stage</div><div class="chip" data-g="pre" tabindex="0">Pre-submission</div></div>
+      <div class="grp-key"><span><i style="background:var(--g-sub)"></i>submission stage (filed)</span><span><i style="background:var(--g-pre)"></i>pre-submission</span><span>Click a column to sort; click a row for the candidate note</span></div>
+    </div>
+    <div class="u-card rk-wrap"><table class="rk" id="rkTable"></table></div>
+    <div class="snap-note" id="rkSnapNote"></div>
+    <div class="rk-notes" id="rkNotes"></div>
+  </div>
+  <div class="u-sec" id="candidateUpdates">
+    <div class="sec-hdr"><div><div class="sec-title">CANDIDATE UPDATES</div><div class="sec-sub">Clinical and regulatory facts, then the MANTIS interpretation &#183; market data is kept in the timestamped snapshot above</div></div><span class="stag">22 Sep 2026</span></div>
+    <div class="cu-grid" id="cuGrid"></div>
+  </div>
+  <div class="u-sec" id="phase3Radar">
+    <div class="sec-hdr"><div><div class="sec-title">EARLIER PHASE 3 RADAR</div><div class="sec-sub">Readout-stage names, kept apart from the submission-stage ranking &#183; not normal pre-filing entries yet</div></div><span class="stag">Phase 3 radar</span></div>
+    <div class="u-card grp p3" style="padding:12px 14px"><div class="rd-wrap"><table class="u-tbl rd" id="rdTable"></table></div><div class="prereq" id="rdPre"></div></div>
+  </div>
+  <div class="u-sec" id="methodology">
+    <div class="sec-hdr"><div><div class="sec-title">MANTIS METHODOLOGY</div><div class="sec-sub">How candidates are screened, entered and exited &#183; regulatory progression, approval probability and stock appreciation are separate questions</div></div><span class="stag">model logic</span></div>
+    <div class="u-card mth"><ol id="mthList"></ol></div>
+  </div>
   <div class="score-section" id="scoreUpdateSection">
     <div class="sec-hdr"><div><div class="sec-title">MANTIS 2.0 SCORE UPDATE</div><div class="sec-sub">Fresh-entry attractiveness · not approval probability · reviewed 2026-09-09</div></div><span class="stag">current scores</span></div>
     <div class="audit-grid" id="scorePlanGrid"></div>
-  </div>
-  <div class="research-section" id="researchQueueSection">
-    <div class="sec-hdr"><div><div class="sec-title">NEW RESEARCH QUEUE</div><div class="sec-sub">Fresh FDA filings plus international candidates · exact-date names separated from pending submissions</div></div><span class="stag">2026-08-31 scan</span></div>
-    <div class="audit-grid" id="researchQueueGrid"></div>
   </div>
   <!-- CAPR ADCOM POST-MORTEM -->
   <div id="caprAdcomPanel"></div>
@@ -604,23 +773,15 @@
   <div class="frow"><div class="sw"><span style="color:var(--muted);font-size:13px">&#9906;</span><input id="searchBox" type="text" placeholder="Search ticker, company, drug, indication…"/></div><select class="fsel" id="scoreFilter"><option value="0">Score: Any</option><option value="4">Score 4+</option><option value="5">Score 5</option></select><select class="fsel" id="sortSelect"><option value="score:desc">Score highest</option><option value="pdufa:asc">Date earliest</option><option value="pdufa:desc">Date latest</option></select></div>
   <div class="crow" id="chipRow"><div class="chip" data-c="hero0">Result 1</div><div class="chip" data-c="hero1">Result 2</div><div class="chip" data-c="hero2">Result 3</div><div class="chip" data-c="hero3">Result 4</div><div class="chip" data-c="s5">Score 5</div><div class="chip" data-c="s4">Score 4+</div><div class="chip" data-c="orph">Orphan Only</div><div class="chip" data-c="gene">Gene / Cell Therapy</div><div class="chip" data-c="rst">Reset</div></div>
   <div class="tbl-wrap"><table><thead><tr><th>Ticker</th><th>Company / Drug</th><th class="hide-m">Indication</th><th>PDUFA</th><th>Score</th><th class="hide-m">Class</th><th class="hide-m">Entry Window</th><th class="hide-m">Exit Window</th><th class="hide-m">Tags</th></tr></thead><tbody id="wl-tbody"></tbody></table><div id="wl-empty" class="empty-st" style="display:none">No matches &#8212; try broadening your filters.</div></div>
-  <div class="foot">MANTIS ALPHA PHARMA · G.V / S.N 2026 · Research model output, not investment advice</div>
+  <div class="foot">MANTIS ALPHA PHARMA · G.V / S.N 2026 · Analysis date 22 September 2026<div class="foot-disc">Research model output, not personalised financial advice and not a recommendation to buy or sell any security. Probabilities are structured screening estimates, not FDA forecasts. Regulatory progression, approval probability and stock appreciation are separate estimates. Intraday prices are labelled with their timestamp and are never used as closing prices or in historical charts.</div></div>
 </div>
 <script>
-const STATE={DATA:null,FUTURE_ROWS:[],HEROES:[],ANALOGS:[],DEAL_EVENTS:[],FDA_OUTCOMES:[],RESEARCH_QUEUE:[],CHIPS:{hero0:false,hero1:false,hero2:false,hero3:false,s5:false,s4:false,orph:false,gene:false}};
+const STATE={DATA:null,FUTURE_ROWS:[],HEROES:[],ANALOGS:[],DEAL_EVENTS:[],FDA_OUTCOMES:[],CHIPS:{hero0:false,hero1:false,hero2:false,hero3:false,s5:false,s4:false,orph:false,gene:false}};
 function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
 const TODAY=startOfDay(new Date());
 const TV_SYMBOLS={RCKT:'NASDAQ:RCKT',DNLI:'NASDAQ:DNLI',VERA:'NASDAQ:VERA',SVRA:'NASDAQ:SVRA',CAPR:'NASDAQ:CAPR',PRAX:'NASDAQ:PRAX',INBX:'NASDAQ:INBX',CGEM:'NASDAQ:CGEM',IBRX:'NASDAQ:IBRX',BIIB:'NASDAQ:BIIB',VRDN:'NASDAQ:VRDN',CELC:'NASDAQ:CELC',MNKD:'NASDAQ:MNKD',LNTH:'NASDAQ:LNTH',UNCY:'NASDAQ:UNCY',IONS:'NASDAQ:IONS',RARE:'NASDAQ:RARE',VTRS:'NASDAQ:VTRS',INO:'NASDAQ:INO',SMMT:'NASDAQ:SMMT',HNSA:'OMXSTO:HNSA',MLYS:'NASDAQ:MLYS',ACLX:'NASDAQ:ACLX',COGT:'NASDAQ:COGT',ROIV:'NASDAQ:ROIV',PTGX:'NASDAQ:PTGX',ACHV:'NASDAQ:ACHV',DYN:'NASDAQ:DYN',PHVS:'NASDAQ:PHVS',IMNM:'NASDAQ:IMNM',ORGO:'NASDAQ:ORGO',PYPD:'NASDAQ:PYPD',BTAI:'NASDAQ:BTAI',BBIO:'NASDAQ:BBIO',AXSM:'NASDAQ:AXSM',BLTE:'NASDAQ:BLTE',QURE:'NASDAQ:QURE',LRMR:'NASDAQ:LRMR',XENE:'NASDAQ:XENE',MLTX:'NASDAQ:MLTX'};
 const HERO_ORDER=['RCKT','DNLI','VERA','CAPR']; /* completed transactions only; live names sit on the windows board */
 const PINNED_CHARTS=['HNSA','PRAX','SVRA','COGT'];
-const RESEARCH_QUEUE_FALLBACK=[
-  {tkr:'HNSA',score:3,status:'International watch · pullback only',asset:'Imlifidase · kidney-transplant desensitization · Dec 19, 2026',note:'Promote from the old blanket exclusion to the international watchlist. The first-in-class, exact-date catalyst is attractive, but HNSA is already near its 52-week high after a strong one-month move; do not chase. Apply Stockholm liquidity, SEK and disclosure rules.',source:'https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/'},
-  {tkr:'BLTE',score:3,status:'Full diligence · valuation capped',asset:'Tinlarebant · Stargardt disease type 1 · Feb 12, 2027',note:'Priority Review, orphan/rare-paediatric designations, first potential treatment and positive Phase 3 data are strong. A multi-billion-dollar valuation and substantial prior re-rating limit residual run-up torque.',source:'https://www.globenewswire.com/news-release/2026/08/11/3343136/0/en/belite-bio-announces-u-s-food-and-drug-administration-acceptance-and-priority-review-of-new-drug-application-for-tinlarebant-for-the-treatment-of-stargardt-disease-type-1.html'},
-  {tkr:'ALCOX',score:2,status:'International / partnered control',asset:'NCX 470 · glaucoma · Apr 30, 2027',note:'Exact PDUFA and two positive Phase 3 studies merit tracking, but Nicox is Euronext-listed and Kowa owns the U.S. filing. Milestone/royalty economics dilute direct catalyst sensitivity.',source:'https://www.globenewswire.com/news-release/2026/08/27/3351772/0/en/nicox-announces-april-2027-pdufa-date-for-ncx-470-in-glaucoma.html'},
-  {tkr:'LRMR',score:null,status:'Pending full BLA acceptance',asset:'Nomlabofusp · Friedreich ataxia · rolling BLA',note:'Rare-disease and Breakthrough Therapy fit is strong, but the filing relies on a novel surrogate and accelerated-approval pathway. Do not assign a live score until the complete BLA is accepted and an exact action date is issued.',source:'https://investors.larimartx.com/news-releases/news-release-details/larimar-therapeutics-announces-fda-breakthrough-therapy'},
-  {tkr:'QURE',score:null,status:'Pending filing / regulatory watch',asset:'AMT-130 · Huntington disease · proposed accelerated BLA',note:'Potentially high-attention gene-therapy catalyst, but FDA position reversals and the historical-control debate create procedural risk. Track the filing; no live MANTIS position before formal acceptance.',source:'https://www.uniqure.com/programs-pipeline/huntingtons-disease'},
-  {tkr:'XENE',score:null,status:'Pre-filing watch',asset:'Azetukalner · focal-onset seizures · planned Q3 2026 NDA',note:'Strong Phase 3 efficacy and a differentiated mechanism qualify it for future scoring. Wait for NDA acceptance, exact PDUFA date, filing classification and current valuation review.',source:'https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-positive-topline-data-phase-3-x-tole2-study'}
-];
 const FDA_DECISIONS={
   'RCKT':{outcome:'approved',decisionDate:'Mar 26, 2026',brandName:'KRESLADI™',genericName:'marnetegragene autotemcel',approvalType:'Accelerated Approval',indication:'Pediatric severe LAD-I (Leukocyte Adhesion Deficiency-I)',mechanism:'Autologous hematopoietic stem cell-based gene therapy',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First Gene Therapy for LAD-I',cls:'first'}],pct:'+46.32%',exitDate:'Mar 18, 2026'},
   'DNLI':{outcome:'approved',decisionDate:'Mar 25, 2026',brandName:'AVLAYAH™',genericName:'tividenofusp alfa-eknm',approvalType:'Accelerated Approval',indication:'Neurologic manifestations of Hunter syndrome (MPS II)',mechanism:'First FDA-approved biologic to cross the blood-brain barrier',extras:[{label:'PRV Granted',cls:'prv'},{label:'Accelerated',cls:'accel'},{label:'First BBB-Crossing Biologic',cls:'first'}],pct:'+27.7%',exitDate:'Mar 25, 2026'},
@@ -657,7 +818,7 @@ const SCORE_OVERRIDES=[
   {tkr:'IBRX',pdufa:'2027-01-06',score:2,mantis_class:'Background · label expansion',reason:'This is a supplemental filing at a multi-billion-dollar issuer rather than a company-defining first approval.'},
   {tkr:'CGEM',pdufa:'2027-02-27',score:3,mantis_class:'Tier 2 · partner-adjusted',reason:'Small enough for torque, but Taiho is the applicant and partnership economics dilute the direct binary exposure.'},
   {tkr:'INBX',pdufa:'2027-04-14',score:3,mantis_class:'Tier 2 · post-rally cooldown',reason:'Re-rated 49.82% between the Aug 3 and Aug 27 closes. The scientific thesis remains attractive, but the August re-rating makes a fresh entry a no-chase setup.'},
-  {tkr:'HNSA',pdufa:'2026-12-19',score:3,mantis_class:'Tier 2 · international watch / pullback only',reason:'A separate international template now permits monitoring. First-in-class positioning is strong, but Stockholm liquidity, SEK exposure and a price near the 52-week high prevent a higher score.'},
+  {tkr:'HNSA',pdufa:'2026-12-19',score:3,mantis_class:'Active MANTIS position · entry SEK 41.51',reason:'Early, opening-window entry at SEK 41.51 under the international template. Planned exit 30 Nov to 9 Dec, before the 19 Dec decision. Stockholm liquidity, SEK exposure and a potential ADS listing with a European placement cap the score.'},
   {tkr:'BLTE',pdufa:'2027-02-12',score:3,mantis_class:'Tier 2 · clean catalyst / valuation capped',reason:'Priority Review, first-potential-treatment status and positive Phase 3 data are offset by a multi-billion-dollar valuation and substantial prior re-rating.'}
 ];
 
@@ -676,7 +837,7 @@ const SCORE_PLAN=[
   {tkr:'INBX',score:3,status:'Post-rally cooldown',asset:'Ozekibart · chondrosarcoma · Apr 14, 2027',note:'Re-rated 49.82% between the Aug 3 and Aug 27 closes. No chase. Re-open diligence only after consolidation or a new information event.'},
   {tkr:'PHVS',score:3,status:'Post-rally cooldown',asset:'Deucrictibant · HAE · Apr 23, 2027',note:'Re-rated 14.73% between the Aug 3 and Aug 27 closes. The catalyst remains valid, but competition and re-rating reduce fresh-entry torque.'},
   {tkr:'DYN',score:3,status:'Post-rally cooldown',asset:'Z-rostudirsen · DMD · Jan 21, 2027',note:'Re-rated 3.37% between the Aug 3 and Aug 27 closes. Multi-billion-dollar valuation plus accelerated-approval/surrogate risk now require a better reset.'},
-  {tkr:'HNSA',score:3,status:'International watch',asset:'Imlifidase · transplant · Dec 19, 2026',note:'Promoted from blanket exclusion into the international framework. Exact PDUFA and first-in-class potential are attractive; price near the 52-week high makes this pullback-only.'},
+  {tkr:'HNSA',score:3,status:'Active position',asset:'Imlifidase · transplant · Dec 19, 2026',note:'Entered early in the opening window at SEK 41.51. Planned exit 30 Nov to 9 Dec. Excluded from the pre-PDUFA candidate ranking because the PDUFA date is assigned; see Active MANTIS Position.'},
   {tkr:'BLTE',score:3,status:'New full diligence',asset:'Tinlarebant · STGD1 · Feb 12, 2027',note:'Strong regulatory and clinical package, but valuation and prior re-rating cap the score. Track rather than chase.'},
   {tkr:'PRAX',score:4,status:'Reduced-size watch',asset:'Relutrigine · DEEs · Dec 27, 2026',note:'Extension reset is attractive, but current valuation and the second Praxis catalyst cap aggregate issuer exposure.'},
   {tkr:'SVRA',score:3,status:'Manage, do not chase',asset:'MOLBREEVI · aPAP · Nov 22, 2026',note:'Approval probability may remain reasonable, but CMC history and reduced equity torque make a Rocket/Denali-style run-up an aggressive assumption.'},
@@ -713,15 +874,6 @@ function renderScorePlan(){
   grid.innerHTML=SCORE_PLAN.map(function(x){
     var cls=x.score>=4?'confirmed':(x.score===3?'corrected':'crl');
     return'<div class="aud-card '+cls+'"><div class="aud-top"><div><div class="aud-tkr">'+esc(x.tkr)+'</div><div class="aud-asset">'+esc(x.asset)+'</div></div><span class="aud-pill '+cls+'">Score '+esc(x.score)+' · '+esc(x.status)+'</span></div><div class="aud-note">'+esc(x.note)+'</div></div>';
-  }).join('');
-}
-function renderResearchQueue(){
-  var grid=document.getElementById('researchQueueGrid'),sec=document.getElementById('researchQueueSection'),items=STATE.RESEARCH_QUEUE||[];
-  if(!grid||!sec||!items.length){if(sec)sec.style.display='none';return}
-  sec.style.display='block';
-  grid.innerHTML=items.map(function(x){
-    var hasScore=x.score!==null&&x.score!==undefined&&Number.isFinite(Number(x.score)),score=hasScore?'Score '+x.score:'Unscored',cls=hasScore?(x.score>=4?'confirmed':(x.score===3?'corrected':'crl')):'review';
-    return'<div class="aud-card '+cls+'"><div class="aud-top"><div><div class="aud-tkr">'+esc(x.tkr)+'</div><div class="aud-asset">'+esc(x.asset)+'</div></div><span class="aud-pill '+cls+'">'+esc(score)+' · '+esc(x.status)+'</span></div><div class="aud-note">'+esc(x.note)+'</div>'+(x.source?'<a class="rq-link" href="'+esc(x.source)+'" target="_blank" rel="noopener">Open primary source →</a>':'')+'</div>';
   }).join('');
 }
 
@@ -1078,8 +1230,8 @@ function ensureCycleAnalogs(){
   if(!list.some(function(a){return String(a.name||'').toUpperCase()==='CAPR-X'}))list.push({name:'CAPR-X',label:'Deramiocel · FDA amendment/extension pathway',disease:'DMD upper-limb indication',return_pct:90.0,color:'#00ff41',outcome:'Intraday Extension Signal'});
   return list;
 }
-async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.RESEARCH_QUEUE=data.research_queue||RESEARCH_QUEUE_FALLBACK;STATE.FUTURE_ROWS=data.rows||[];mergeNewCandidates(STATE.FUTURE_ROWS);applyDateAudit(STATE.FUTURE_ROWS);applyScoreOverrides(STATE.FUTURE_ROWS);STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCycleAnalogs()}
-async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();renderScorePlan();renderResearchQueue();buildAdcomPanel();renderDateAudit();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable)}
+async function loadData(){var res=await fetch('./data.json',{cache:'no-store'});if(!res.ok)throw new Error('Failed to load data.json ('+res.status+')');var data=await res.json();STATE.DATA=data;STATE.ANALOGS=data.analogs||[];STATE.DEAL_EVENTS=data.deal_events||[];STATE.FDA_OUTCOMES=data.fda_outcomes||[];STATE.FUTURE_ROWS=data.rows||[];mergeNewCandidates(STATE.FUTURE_ROWS);applyDateAudit(STATE.FUTURE_ROWS);applyScoreOverrides(STATE.FUTURE_ROWS);STATE.HEROES=chooseHeroes(STATE.FUTURE_ROWS);STATE.ANALOGS=ensureCycleAnalogs()}
+async function init(){document.getElementById('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'2-digit',year:'numeric'});try{await loadData()}catch(err){document.querySelector('.wrap').innerHTML='<div class="load-err"><strong>Unable to load data.json.</strong><br>'+esc(err.message)+'<br><br>On GitHub Pages this file should sit next to index.html.</div>';return}renderHeroes();renderWindows();renderScorePlan();U29.render(STATE.DATA);buildAdcomPanel();renderDateAudit();renderDealEvents();renderFdaOutcomes();buildChips();setupChips();renderTable();buildChartPanels();drawAnalogChart();window.addEventListener('resize',drawAnalogChart);setInterval(updateHeroCountdowns,1000);document.getElementById('searchBox').addEventListener('input',renderTable);document.getElementById('scoreFilter').addEventListener('change',renderTable);document.getElementById('sortSelect').addEventListener('change',renderTable)}
 window.addEventListener('load',init);
 </script>
 <script>
@@ -1181,7 +1333,7 @@ const BOARD=(function(){
       var tn=d.daysTo!=null?'T-'+d.daysTo:'';
       var effTxt=d.eff?fD(d.eff)+(d.riskFrom?' · '+esc(d.riskFrom.label)+' less 3d':' · T-7'):'—';
       return'<div class="'+cls+'" data-go="'+esc(go)+'" title="Open the MANTIS read in the catalyst graph">'+
-      '<div class="bc"><div class="tk" style="color:'+hex+'">'+esc(c.tkr)+'</div><div class="co">'+esc(t.co)+(t.listing&&t.listing!=='NASDAQ'?' · '+esc(t.listing):'')+'</div><div class="dr">'+esc(c.drug)+'</div></div>'+
+      '<div class="bc"><div class="tk" style="color:'+hex+'">'+esc(c.tkr)+(/^Active MANTIS position/.test(c.mantis_class||'')?'<span class="act" title="Active MANTIS position">ACTIVE</span>':'')+'</div><div class="co">'+esc(t.co)+(t.listing&&t.listing!=='NASDAQ'?' · '+esc(t.listing):'')+'</div><div class="dr">'+esc(c.drug)+'</div></div>'+
       '<div class="bc" style="align-items:center"><span class="scb '+(c.score>=5?'s5':c.score>=4?'s4':c.score>=3?'s3':'s2')+'">'+(c.score||'·')+'</span></div>'+
       '<div class="bc"><div class="big">'+fDY(d.pdufa)+'</div><div class="sm">'+tn+(c.was_pdufa?' · was '+esc(/^\d{4}-\d{2}-\d{2}$/.test(String(c.was_pdufa))?fD(iso(c.was_pdufa)):String(c.was_pdufa)):'')+'</div></div>'+
       '<div class="bc"><span class="st '+d.status+'">'+esc(d.label)+'</span><div class="stsub">'+esc(d.sub||'')+'</div></div>'+
@@ -1231,6 +1383,111 @@ const BOARD=(function(){
   return{load:load,render:render};
 })();
 window.addEventListener('load',BOARD.load);
+</script>
+<script>
+/* ── ws 2.9 RESEARCH UPDATE (22 Sep 2026) ──
+   Reads data.json: analysis, active_positions, pre_pdufa_ranking, intraday_snapshot,
+   candidate_updates, phase3_radar, methodology. The intraday snapshot is display-only:
+   it is never written into market.json, the board, the charts or any performance figure. */
+var U29=(function(){
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function e(s){return String(s==null?'':s).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
+  function iso(s){return s?new Date(s+'T00:00:00'):null}
+  function fDY(d){return d?d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear():'—'}
+  function today(){var d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+  var BADGE={'Active position':'b-active','Filing submitted':'b-sub','Pre-NDA complete':'b-pre','Leading de-risked setup':'b-lead','Rolling submission':'b-roll','Confirmation required':'b-conf','Safety signal':'b-safe','Watch only':'b-watch','Phase 3 radar':'b-p3'};
+  function badge(b){return'<span class="ub '+(BADGE[b]||'')+'">'+e(b)+'</span>'}
+  var D=null,S={key:'rank',dir:1,group:'all'};
+  var TIP={
+    progression:'Regulatory progression: estimated probability of reaching submission and FDA filing acceptance. Screening estimate, not an FDA forecast.',
+    approval:'Approval probability: estimated probability of approval, conditional on filing acceptance. Screening estimate, not an FDA forecast.',
+    move10:'Stock appreciation: estimated probability of a gain of at least 10% around the next named catalyst. Separate from approval probability; not a price target.',
+    snap:'Intraday snapshot taken 22 Sep 2026, approximately 14:07 to 14:12 UTC. Not a closing price and not live.'
+  };
+  function mid(r){return r?(r[0]+r[1])/2:-1}
+  function capNum(s){if(!s)return -1;var n=parseFloat(s);return /B/i.test(s)?n*1e9:/M/i.test(s)?n*1e6:n}
+  function whatChanged(){
+    var a=D.analysis||{};var el=document.getElementById('wcList');if(!el)return;
+    el.innerHTML=(a.summary||[]).map(function(x){var href=x.tkr==='HNSA'?'#activePosition':'#cu-'+x.tkr;return'<div class="wc-item"><a class="tk" href="'+href+'">'+e(x.tkr)+'</a><div class="tx">'+badge(x.badge)+' '+e(x.text)+'</div></div>'}).join('');
+    if(a.disclaimer)document.getElementById('wcDisc').innerHTML='<b>Research, not advice.</b> '+e(a.disclaimer);
+    if(a.last_updated)document.getElementById('wcStamp').textContent='last updated '+a.last_updated;
+  }
+  function active(){
+    var p=(D.active_positions||[])[0];var el=document.getElementById('apCard');if(!p||!el){var s=document.getElementById('activePosition');if(s)s.style.display='none';return}
+    var pd=iso(p.pdufa),t=today(),dn=Math.round((pd-t)/864e5);
+    var w0=new Date(pd);w0.setDate(w0.getDate()-90);var w1=new Date(pd);w1.setDate(w1.getDate()-45);
+    var x0=iso(p.exit_period[0]),x1=iso(p.exit_period[1]);
+    el.innerHTML='<div class="ap-hd"><div><div class="tk">'+e(p.tkr)+'</div><div class="co">'+e(p.security)+' · '+e(p.listing)+' · '+e(p.program)+'</div><div class="co" style="color:var(--muted)">'+e(p.indication)+'</div></div><div>'+badge('Active position')+'</div></div>'+
+      '<div class="ap-kpis">'+
+      '<div><div class="k">FDA PDUFA date</div><div class="v">'+fDY(pd)+'</div><div class="s">'+(dn>=0?'T-'+dn+' days':'passed')+' · company announced</div></div>'+
+      '<div><div class="k">Entry price</div><div class="v">'+e(p.ccy)+' '+Number(p.entry_price).toFixed(2)+'</div><div class="s">'+e(p.entry_class)+'</div></div>'+
+      '<div><div class="k">MANTIS window</div><div class="v">'+e(p.window)+'</div><div class="s">about '+fDY(w0)+' to '+fDY(w1)+'</div></div>'+
+      '<div><div class="k">Planned exit period</div><div class="v">'+x0.getDate()+' '+MON[x0.getMonth()]+' to '+x1.getDate()+' '+MON[x1.getMonth()]+'</div><div class="s">before the '+pd.getDate()+' '+MON[pd.getMonth()]+' decision</div></div>'+
+      '<div><div class="k">Current price</div><div class="v" style="font-size:11px;color:var(--soft)">Not shown</div><div class="s">no verified same-day SEK quote in the feed</div></div>'+
+      '</div>'+
+      '<div class="ap-body"><div><div class="u-h">Strategy</div><div style="font-size:12px;line-height:1.55;color:var(--soft);margin-bottom:12px">'+e(p.strategy)+'</div>'+
+      '<div class="u-h">Risk-management framework</div><table class="u-tbl"><thead><tr><th>Price or event area</th><th>MANTIS action</th></tr></thead><tbody>'+
+      p.levels.map(function(l){return'<tr><td class="area">'+e(l.area)+'</td><td>'+e(l.action)+'</td></tr>'}).join('')+'</tbody></table>'+
+      '<div class="u-note">'+e(p.levels_note)+'</div></div>'+
+      '<div><div class="callout"><b>Financing risk</b>'+e(p.financing_risk)+'</div>'+
+      '<div class="callout mute"><b>Latest corporate update · 21 Sep 2026</b>'+e(p.corporate_update)+'</div>'+
+      '<div class="u-h">Sources</div><div class="srcs">'+p.sources.map(function(s){return'<a href="'+e(s.url)+'" target="_blank" rel="noopener">'+e(s.label)+' →</a>'}).join('')+'</div></div></div>';
+  }
+  function probCell(r,cls,lab,tip){if(!r)return'<td data-l="'+e(lab)+'"><span class="na">—</span></td>';return'<td data-l="'+e(lab)+'" title="'+e(tip)+'"><div class="pr">'+r[0]+'–'+r[1]+'%</div><div class="pbar '+cls+'"><i style="left:'+r[0]+'%;width:'+(r[1]-r[0])+'%"></i></div></td>'}
+  function ranking(){
+    var R=D.pre_pdufa_ranking;var tb=document.getElementById('rkTable');if(!R||!tb)return;
+    var snap=D.intraday_snapshot||{rows:{}};var SN=snap.rows||{};
+    var rows=R.rows.filter(function(r){return S.group==='all'||r.group===S.group});
+    var val=function(r){var s=SN[r.tkr]||{};switch(S.key){case'tkr':return r.tkr;case'progression':return mid(r.progression);case'approval':return mid(r.approval);case'move10':return mid(r.move10);case'price':return s.price==null?-1:s.price;case'chg':return s.chg_pct==null?-999:s.chg_pct;case'mcap':return capNum(s.mcap);default:return r.rank}};
+    rows.sort(function(a,b){var x=val(a),y=val(b);if(x===y)return a.rank-b.rank;return(x<y?-1:1)*S.dir});
+    var th=function(k,label,tip,cls){var on=S.key===k;return'<th class="sortable'+(on?' on':'')+(cls?' '+cls:'')+'" data-k="'+k+'" tabindex="0" aria-sort="'+(on?(S.dir>0?'ascending':'descending'):'none')+'"'+(tip?' title="'+e(tip)+'"':'')+'>'+label+(tip?'<span class="qi" aria-hidden="true">?</span>':'')+'<span class="ar">'+(on?(S.dir>0?'▲':'▼'):'↕')+'</span></th>'};
+    var slab='Intraday 22 Sep, ~14:07–14:12 UTC';
+    var head='<thead><tr class="grp-h"><th colspan="8"></th><th colspan="3" class="snap">'+e(snap.label||'Intraday snapshot')+'</th></tr><tr>'+
+      th('rank','Rank')+th('tkr','Ticker')+'<th>Program</th><th>Stage and next catalyst</th><th>Status</th>'+
+      th('progression','Regulatory<br>progression',TIP.progression)+th('approval','Approval<br>probability',TIP.approval)+th('move10','P(≥10% move)<br>next catalyst',TIP.move10)+
+      th('price','Price',TIP.snap,'snap')+th('chg','Move',TIP.snap,'snap')+th('mcap','Mkt cap',TIP.snap,'snap')+'</tr></thead>';
+    var showDiv=S.key==='rank'&&S.dir>0&&S.group==='all',last=null;
+    var body=rows.map(function(r){
+      var s=SN[r.tkr]||{};var dv='';
+      if(showDiv&&r.group!==last){dv='<tr class="div"><td colspan="11">'+(r.group==='sub'?'Submission stage · application filed, awaiting FDA filing decision':'Pre-submission · application not yet complete')+'</td></tr>';last=r.group}
+      return dv+'<tr class="r '+r.group+'" data-t="'+e(r.tkr)+'" tabindex="0">'+
+        '<td data-l="Rank"><span class="rn">'+r.rank+'</span></td>'+
+        '<td data-l="Ticker"><div class="tk">'+e(r.tkr)+'</div><div class="co">'+e(r.co)+'</div></td>'+
+        '<td data-l="Program"><span class="pg">'+e(r.program)+'</span></td>'+
+        '<td data-l="Stage, next catalyst">'+e(r.stage_next)+'</td>'+
+        '<td data-l="Status">'+r.badges.map(badge).join('')+'</td>'+
+        probCell(r.progression,'p','Regulatory progression',TIP.progression)+probCell(r.approval,'a','Approval probability',TIP.approval)+probCell(r.move10,'m','P(≥10% move)',TIP.move10)+
+        '<td class="num" data-l="Price · '+slab+'" title="'+e(TIP.snap)+'">'+(s.price!=null?'$'+s.price.toFixed(2):'<span class="na">—</span>')+'</td>'+
+        '<td class="num" data-l="Move · '+slab+'" title="'+e(TIP.snap)+'">'+(s.chg_pct!=null?'<span class="'+(s.chg_pct>=0?'up':'dn')+'">'+(s.chg_pct>0?'+':'')+s.chg_pct.toFixed(2)+'%</span>':'<span class="na">—</span>')+'</td>'+
+        '<td class="num" data-l="Mkt cap · '+slab+'" title="'+e(TIP.snap)+'">'+(s.mcap?'$'+e(s.mcap):'<span class="na">not verified</span>')+'</td></tr>';
+    }).join('');
+    tb.innerHTML=head+'<tbody>'+body+'</tbody>';
+    tb.querySelectorAll('th.sortable').forEach(function(h){var go=function(){var k=h.dataset.k;if(S.key===k)S.dir=-S.dir;else{S.key=k;S.dir=(k==='rank'||k==='tkr')?1:-1}ranking()};h.addEventListener('click',go);h.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go()}})});
+    tb.querySelectorAll('tr.r').forEach(function(tr){var go=function(){var c=document.getElementById('cu-'+tr.dataset.t);if(!c)return;c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.add('flash');setTimeout(function(){c.classList.remove('flash')},1600)};tr.addEventListener('click',go);tr.addEventListener('keydown',function(ev){if(ev.key==='Enter'){go()}})});
+    document.getElementById('rkSnapNote').innerHTML=e(snap.label||'')+'. <span>'+e(snap.stale_note||'')+' '+e(snap.mcap_note||'')+'</span>';
+    document.getElementById('rkNotes').innerHTML=(R.notes||[]).map(function(n){return'<div>'+e(n)+'</div>'}).join('');
+  }
+  function chips(){document.querySelectorAll('#rkChips .chip').forEach(function(ch){var go=function(){S.group=ch.dataset.g;document.querySelectorAll('#rkChips .chip').forEach(function(x){x.classList.toggle('bd-on',x===ch)});ranking()};ch.addEventListener('click',go);ch.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go()}})})}
+  function updates(){
+    var el=document.getElementById('cuGrid');if(!el)return;var grp={};(D.pre_pdufa_ranking&&D.pre_pdufa_ranking.rows||[]).forEach(function(r){grp[r.tkr]=r.group});
+    el.innerHTML=(D.candidate_updates||[]).map(function(u){
+      return'<div class="u-card cu grp '+(grp[u.tkr]||'pre')+'" id="cu-'+e(u.tkr)+'"><div class="cu-hd"><div><div class="tk">'+e(u.tkr)+'</div><div class="co">'+e(u.co)+'</div></div><div class="dt">'+(u.date?fDY(iso(u.date)):'')+'</div></div>'+
+        '<div>'+u.badges.map(badge).join('')+'</div><div class="cu-title">'+e(u.title)+'</div>'+
+        '<div class="u-h">Clinical and regulatory facts</div><ul>'+u.facts.map(function(f){return'<li>'+e(f)+'</li>'}).join('')+'</ul>'+
+        '<div class="u-h">MANTIS interpretation</div><ul class="mi">'+u.interpretation.map(function(f){return'<li>'+e(f)+'</li>'}).join('')+'</ul>'+
+        '<div class="cu-cls"><span>Classification</span>'+e(u.classification)+'</div>'+
+        '<div class="srcs">'+(u.sources.length?u.sources.map(function(s){return'<a href="'+e(s.url)+'" target="_blank" rel="noopener">'+e(s.label)+' →</a>'}).join(''):'<span class="none">'+e(u.note||'No source link attached.')+'</span>')+'</div></div>';
+    }).join('');
+  }
+  function radar(){
+    var R=D.phase3_radar;var tb=document.getElementById('rdTable');if(!R||!tb)return;
+    tb.innerHTML='<thead><tr><th>Ticker</th><th>Program</th><th>Expected catalyst</th><th>Classification</th></tr></thead><tbody>'+R.rows.map(function(r){return'<tr><td data-l="Ticker"><div class="tk">'+e(r.tkr)+'</div><div class="co">'+e(r.co)+'</div></td><td data-l="Program">'+e(r.program)+'</td><td data-l="Catalyst">'+e(r.catalyst)+'</td><td data-l="Class">'+badge('Phase 3 radar')+' '+e(r.classification)+'</td></tr>'}).join('')+'</tbody>';
+    document.getElementById('rdPre').innerHTML='<span style="color:#e2e8f0;font-weight:600">'+e(R.note)+' Each needs:</span>'+R.prerequisites.map(function(p,i){return'<span><b>'+(i+1)+'</b>'+e(p)+'</span>'}).join('');
+  }
+  function method(){var el=document.getElementById('mthList');if(!el)return;el.innerHTML=(D.methodology||[]).map(function(m){return'<li>'+e(m.t)+(m.sub?'<ul>'+m.sub.map(function(s){return'<li>'+e(s)+'</li>'}).join('')+'</ul>':'')+'</li>'}).join('')}
+  function render(data){D=data||{};try{whatChanged()}catch(x){console.error(x)}try{active()}catch(x){console.error(x)}try{chips();ranking()}catch(x){console.error(x)}try{updates()}catch(x){console.error(x)}try{radar()}catch(x){console.error(x)}try{method()}catch(x){console.error(x)}}
+  return{render:render};
+})();
 </script>
 </body>
 </html>

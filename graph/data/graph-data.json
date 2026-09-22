@@ -1,8 +1,8 @@
 {
  "meta": {
-  "version": "graph 0.3 on ws 2.8",
-  "source_dashboard": "MANTIS ALPHA PHARMA ws 2.8, windows board and results, 2026-09-09",
-  "built": "2026-09-09",
+  "version": "graph 0.3.1 on ws 2.9",
+  "source_dashboard": "MANTIS ALPHA PHARMA ws 2.9, research update, 2026-09-22",
+  "built": "2026-09-22",
   "note": "Rows reconstructed from the ws 2.7.1 inline script (audit, overrides, new candidates, decisions). Base windows and original action dates for RCKT, DNLI, VERA, SVRA, RARE, NUVL, HNSA, MLYS and COGT confirmed against the 18 March 2026 data.json found on the user's computer. The second Praxis asset and the Stockholm reference cases remain provisional.",
   "defaults": {
    "entry": "T-150 to T-90",
@@ -378,6 +378,12 @@
    "label": "Structural fit filter (mechanical exclusion)",
    "kind": "record",
    "desc": "Removed on listing and liquidity grounds, not by clinical scoring. The model cannot claim credit for these outcomes."
+  },
+  {
+   "id": "safety_signal",
+   "label": "Cross-program safety signal",
+   "kind": "risk",
+   "desc": "Adverse events in another indication for the same molecule. FDA may review the full safety database, so approval and labelling uncertainty rise even when the filed indication is unaffected."
   }
  ],
  "indications": [
@@ -680,14 +686,16 @@
    "therapy": "IgG cleaving enzyme",
    "score": 3,
    "orig_score": 2,
-   "mantis_class": "Tier 2, international watch, pullback only",
+   "mantis_class": "Active MANTIS position, early window entry at SEK 41.51",
    "entry": "T-90 to T-45",
-   "exit": "T-20 to T-10",
+   "exit": "T-19 to T-10",
    "lifecycle": "active",
-   "notes": "Promoted from blanket exclusion into the international template. First in class, exact date catalyst, but the stock is near its 52 week high after a strong one month move. Do not chase. Apply Stockholm liquidity, SEK and disclosure rules. Priority review was requested but a standard 12 month cycle was assigned.",
+   "notes": "Active MANTIS position since an early, opening-window entry at SEK 41.51. Planned pre-decision exit 30 November to 9 December; the full position is not carried into the 19 December decision. Risk areas: SEK 39 to 40 (stabilisation or reassess), SEK 46 to 48 (reassess, consider partial profit). Financing risk: a confidential draft F-1 for a potential US ADS listing with a concurrent European placement; size, timing and price not announced. Apply Stockholm liquidity, SEK and disclosure rules. Priority review was requested but a standard 12 month cycle was assigned.",
    "source": "https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/",
    "verified": [
     "action date",
+    "draft F-1 submission (21 Aug 2026)",
+    "entry SEK 41.51 (position record, 22 Sep 2026)",
     "windows and dates from data.json (18 Mar 2026)"
    ],
    "assumed": [
@@ -701,13 +709,31 @@
     {
      "id": "post_rally",
      "note": "near 52 week high"
+    },
+    {
+     "id": "financing",
+     "note": "potential US ADS listing and concurrent European placement, terms not announced"
     }
    ],
    "risk_dates": [],
    "indications": [
     "kidney"
    ],
-   "provisional": false
+   "provisional": false,
+   "events": [
+    {
+     "date": "2026-08-21",
+     "kind": "issuer",
+     "label": "Confidential draft F-1 for a potential US ADS listing and European placement",
+     "source": "https://www.hansabiopharma.com/media/press-releases/2026/hansa-biopharma-announces-confidential-submission-of-draft-registration-statement-to-the-sec-to-allow-for-a-potential-listing-of-adss-in-the-united-states/"
+    },
+    {
+     "date": "2026-09-21",
+     "kind": "issuer",
+     "label": "LSX Congress USA panel on 23 Sep announced; routine, not a catalyst",
+     "source": "https://www.hansabiopharma.com/media/press-releases/2026/hansa-biopharma-to-participate-in-lsx-congress-usa-in-boston/"
+    }
+   ]
   },
   {
    "id": "IMNM:2027-04-28",
@@ -1517,30 +1543,42 @@
    "drug": "azetukalner",
    "ind": "Focal onset seizures",
    "pdufa": null,
-   "date_type": "Pre filing",
-   "catalyst_type": "Planned Q3 2026 NDA",
+   "date_type": "NDA submitted 17 Sep 2026, no PDUFA date",
+   "catalyst_type": "NDA submitted; FDA filing decision expected about mid-November",
    "priority_review": null,
    "orph": false,
    "therapy": "Kv7 potassium channel opener",
    "score": null,
    "orig_score": null,
-   "mantis_class": "Unscored, pre filing watch",
+   "mantis_class": "High-volatility watch, confirmation required",
    "entry": null,
    "exit": null,
    "lifecycle": "watch",
-   "notes": "Strong Phase 3 X-TOLE2 efficacy and a differentiated mechanism qualify it for future scoring. Wait for NDA acceptance, exact date, filing classification and a valuation review.",
-   "source": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-positive-topline-data-phase-3-x-tole2-study",
-   "verified": [],
+   "notes": "NDA for focal-onset seizures submitted 17 September on two positive randomised trials. Enrollment paused in the MDD and bipolar depression trials after neuropsychiatric events (confusion, speech and coordination problems, a limited number of psychosis-coded events; one psychosis case reported in each of two epilepsy Phase 3 trials). Management says the epilepsy NDA is unaffected, but FDA may review the full safety database. Shares fell roughly 31 to 32 per cent from the 17 September close. A sharp fall is not an entry signal: require stabilisation, management clarification and, most of all, clean filing acceptance without a major safety request.",
+   "source": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-azetukalner-nda-submission-fda-focal-seizures",
+   "verified": [
+    "NDA submission 17 Sep 2026",
+    "psychiatry enrollment pause"
+   ],
    "assumed": [
-    "everything: no dated catalyst"
+    "filing decision timing (about mid-November)"
    ],
    "factors": [
     {
-     "id": "largecap"
+     "id": "safety_signal",
+     "note": "neuropsychiatric events in MDD and bipolar programs"
     }
    ],
    "risk_dates": [],
-   "indications": []
+   "indications": [],
+   "events": [
+    {
+     "date": "2026-09-17",
+     "kind": "issuer",
+     "label": "NDA submitted; psychiatry enrollment paused on neuropsychiatric events",
+     "source": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-azetukalner-nda-submission-fda-focal-seizures"
+    }
+   ]
   },
   {
    "id": "RCKT:2026-03-28",

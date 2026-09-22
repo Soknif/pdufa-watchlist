@@ -1,57 +1,7 @@
 {
-  "generated_at": "2026-09-09T12:00:00Z",
+  "generated_at": "2026-09-22T14:30:00Z",
   "brand": "MANTIS ALPHA PHARMA",
-  "model_version": "MANTIS 2.0 / workspace 2.8",
-  "research_queue": [
-    {
-      "tkr": "HNSA",
-      "score": 3,
-      "status": "International watch · pullback only",
-      "asset": "Imlifidase · kidney-transplant desensitization · Dec 19, 2026",
-      "note": "Promoted from the old blanket exclusion to the international watchlist. The first-in-class, exact-date catalyst is attractive, but HNSA is already near its 52-week high after a strong one-month move; do not chase. Apply Stockholm liquidity, SEK and disclosure rules.",
-      "source": "https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/"
-    },
-    {
-      "tkr": "BLTE",
-      "score": 3,
-      "status": "Full diligence · valuation capped",
-      "asset": "Tinlarebant · Stargardt disease type 1 · Feb 12, 2027",
-      "note": "Priority Review, orphan and rare-paediatric designations, first-potential-treatment status and positive Phase 3 data are strong. A multi-billion-dollar valuation and substantial prior re-rating limit residual run-up torque.",
-      "source": "https://www.globenewswire.com/news-release/2026/08/11/3343136/0/en/belite-bio-announces-u-s-food-and-drug-administration-acceptance-and-priority-review-of-new-drug-application-for-tinlarebant-for-the-treatment-of-stargardt-disease-type-1.html"
-    },
-    {
-      "tkr": "ALCOX",
-      "score": 2,
-      "status": "International / partnered control",
-      "asset": "NCX 470 · glaucoma · Apr 30, 2027",
-      "note": "Exact PDUFA and two positive Phase 3 studies merit tracking, but Nicox is Euronext-listed and Kowa owns the U.S. filing. Milestone and royalty economics dilute direct catalyst sensitivity.",
-      "source": "https://www.globenewswire.com/news-release/2026/08/27/3351772/0/en/nicox-announces-april-2027-pdufa-date-for-ncx-470-in-glaucoma.html"
-    },
-    {
-      "tkr": "LRMR",
-      "score": null,
-      "status": "Pending full BLA acceptance",
-      "asset": "Nomlabofusp · Friedreich ataxia · rolling BLA",
-      "note": "Rare-disease and Breakthrough Therapy fit is strong, but the filing relies on a novel surrogate and accelerated-approval pathway. Do not assign a live score until the complete BLA is accepted and an exact action date is issued.",
-      "source": "https://investors.larimartx.com/news-releases/news-release-details/larimar-therapeutics-announces-fda-breakthrough-therapy"
-    },
-    {
-      "tkr": "QURE",
-      "score": null,
-      "status": "Pending filing / regulatory watch",
-      "asset": "AMT-130 · Huntington disease · proposed accelerated BLA",
-      "note": "Potentially high-attention gene-therapy catalyst, but FDA position reversals and the historical-control debate create procedural risk. Track the filing; no live position before formal acceptance.",
-      "source": "https://www.uniqure.com/programs-pipeline/huntingtons-disease"
-    },
-    {
-      "tkr": "XENE",
-      "score": null,
-      "status": "Pre-filing watch",
-      "asset": "Azetukalner · focal-onset seizures · planned Q3 2026 NDA",
-      "note": "Strong Phase 3 efficacy and a differentiated mechanism qualify it for future scoring. Wait for NDA acceptance, an exact PDUFA date, filing classification and current valuation review.",
-      "source": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-positive-topline-data-phase-3-x-tole2-study"
-    }
-  ],
+  "model_version": "MANTIS 2.0 / workspace 2.9",
   "rows": [
     {
       "tkr": "FBIO",
@@ -924,7 +874,7 @@
       "drug": "imlifidase",
       "ind": "Desensitization of highly sensitized adult kidney-transplant candidates",
       "score": 3,
-      "mantis_class": "M3 International watch · pullback only",
+      "mantis_class": "Active MANTIS position · entry SEK 41.51",
       "orph": true,
       "therapy": "Enzyme-cleaving biologic",
       "entry": "T-90 to T-45",
@@ -1830,7 +1780,7 @@
     }
   ],
   "current_plan": {
-    "as_of": "2026-08-31",
+    "as_of": "2026-09-22",
     "score_5_active": [],
     "priority_full_diligence": [
       "PRAX:relutrigine",
@@ -1838,8 +1788,7 @@
     ],
     "manage_existing": [
       "SVRA",
-      "MLYS",
-      "HNSA:international-pullback-only"
+      "MLYS"
     ],
     "secondary_diligence": [
       "COGT:GIST",
@@ -1855,16 +1804,34 @@
       "NUVL",
       "ALCOX:international-partnered-control"
     ],
-    "research_queue_unscored": [
-      "LRMR",
-      "QURE",
-      "XENE"
-    ],
     "portfolio_note": "INBX, PHVS and DYN re-rated between 3 and 27 August and sit in post-rally cooldown; do not chase. CAPR is a two-phase control case: -26.00% Bloomberg-ledger use-case loss and a separate approximately 90% extension-pathway intraday rebound. Count COGT's two decisions as one asset exposure and PRAX's two decisions under one issuer-level cap. Archive RARE, BIIB and ROIV approvals.",
     "post_rally_cooldown": [
       "INBX",
       "PHVS",
       "DYN"
+    ],
+    "active_positions": [
+      "HNSA:entry SEK 41.51, planned exit 30 Nov to 9 Dec 2026"
+    ],
+    "pre_pdufa_ranking": [
+      "PVLA",
+      "BBIO",
+      "URGN",
+      "XENE",
+      "OCUL",
+      "CMPS",
+      "MLTX",
+      "ABVX",
+      "ALMS",
+      "KYTX",
+      "SPRB"
+    ],
+    "phase3_radar": [
+      "IVA",
+      "IMUX",
+      "VIR",
+      "RFL",
+      "AVIR"
     ]
   },
   "capr_use_case": {
@@ -1901,5 +1868,858 @@
     "regulatory_source": "https://www.capricor.com/investors/news-events/press-releases/detail/354/capricor-therapeutics-announces-extension-of-pdufa-target",
     "market_source": "https://stockanalysis.com/stocks/capr/history/",
     "news_source": "https://www.reuters.com/business/healthcare-pharmaceuticals/capricor-shares-skyrocket-fda-agrees-review-new-duchenne-drug-data-2026-08-14/"
-  }
+  },
+  "analysis": {
+    "date": "2026-09-22",
+    "label": "22 September 2026",
+    "version": "ws 2.9",
+    "last_updated": "22 September 2026",
+    "disclaimer": "MANTIS ALPHA PHARMA is research model output. It is not personalised financial advice, not a recommendation to buy or sell any security, and not a forecast of FDA decisions. Probabilities are structured screening estimates. Prices move; verify before acting.",
+    "summary": [
+      {
+        "tkr": "OCUL",
+        "badge": "Pre-NDA complete",
+        "text": "Cleanest newly de-risked pre-submission setup after a positive pre-NDA meeting; NDA targeted for Q4 2026."
+      },
+      {
+        "tkr": "PVLA",
+        "badge": "Filing submitted",
+        "text": "Nearest expected FDA filing-acceptance catalyst, but valuation and limited liquidity reduce the attractiveness of chasing an upward move."
+      },
+      {
+        "tkr": "URGN",
+        "badge": "Filing submitted",
+        "text": "Nearer small-cap filing-acceptance catalyst; the single-arm and bridging package remains the key FDA risk."
+      },
+      {
+        "tkr": "XENE",
+        "badge": "Confirmation required",
+        "text": "NDA submitted, but neuropsychiatric adverse events in other azetukalner programs weaken the approval and trading profile. High-volatility confirmation trade, not an automatic post-crash opportunity."
+      },
+      {
+        "tkr": "MLTX",
+        "badge": "Confirmation required",
+        "text": "Confirmation-only until the planned sonelokimab BLA is actually submitted and the share price shows stabilisation."
+      },
+      {
+        "tkr": "ABVX",
+        "badge": "Pre-NDA complete",
+        "text": "Clinically strong and well funded after the 21 September update, but valuation reduces the expected leverage of the NDA-submission catalyst."
+      },
+      {
+        "tkr": "HNSA",
+        "badge": "Active position",
+        "text": "Active MANTIS position; excluded from the pre-PDUFA ranking because its 19 December 2026 PDUFA date is already assigned."
+      }
+    ]
+  },
+  "pre_pdufa_ranking": {
+    "notes": [
+      "Regulatory progression estimates the probability of reaching submission and FDA filing acceptance.",
+      "Approval probability is conditional on filing acceptance.",
+      "Stock appreciation estimates the probability of a gain of at least 10% around the next named catalyst.",
+      "These ranges are structured screening judgments, not statistically validated probabilities and not FDA forecasts.",
+      "None of the ranked candidates currently has a company-announced PDUFA date.",
+      "HNSA is excluded because its PDUFA date has already been assigned; it appears under Active MANTIS Position."
+    ],
+    "rows": [
+      {
+        "rank": 1,
+        "tkr": "PVLA",
+        "co": "Palvella Therapeutics",
+        "program": "QTORIN rapamycin for microcystic lymphatic malformations",
+        "stage_next": "NDA completed August 31; FDA filing decision expected around late October",
+        "group": "sub",
+        "badges": [
+          "Filing submitted"
+        ],
+        "progression": [
+          93,
+          97
+        ],
+        "approval": [
+          72,
+          82
+        ],
+        "move10": [
+          25,
+          40
+        ],
+        "classification": "Nearest filing-acceptance catalyst, but do not chase an illiquid gap",
+        "sources": [
+          "https://ir.palvellatx.com/news-releases/news-release-details/palvella-therapeutics-completes-rolling-submission-new-drug"
+        ]
+      },
+      {
+        "rank": 2,
+        "tkr": "BBIO",
+        "co": "BridgeBio Pharma",
+        "program": "Infigratinib for achondroplasia",
+        "stage_next": "NDA submitted; FDA acceptance and PDUFA assignment are next",
+        "group": "sub",
+        "badges": [
+          "Filing submitted"
+        ],
+        "progression": [
+          93,
+          97
+        ],
+        "approval": [
+          72,
+          82
+        ],
+        "move10": [
+          15,
+          25
+        ],
+        "classification": "High regulatory quality, but limited pure-event leverage",
+        "sources": []
+      },
+      {
+        "rank": 3,
+        "tkr": "URGN",
+        "co": "UroGen Pharma",
+        "program": "UGN-103 for recurrent LG-IR-NMIBC",
+        "stage_next": "NDA submitted August 17; filing decision expected approximately mid-October",
+        "group": "sub",
+        "badges": [
+          "Filing submitted"
+        ],
+        "progression": [
+          90,
+          95
+        ],
+        "approval": [
+          60,
+          72
+        ],
+        "move10": [
+          30,
+          45
+        ],
+        "classification": "Attractive nearer-term small-cap catalyst, preferably on a quiet pullback or after clean filing acceptance",
+        "sources": [
+          "https://investors.urogen.com/news-releases/news-release-details/urogen-submits-nda-ugn-103-investigational-treatment-recurrent"
+        ]
+      },
+      {
+        "rank": 4,
+        "tkr": "XENE",
+        "co": "Xenon Pharmaceuticals",
+        "program": "Azetukalner for focal-onset seizures",
+        "stage_next": "NDA submitted September 17; filing decision expected approximately mid-November",
+        "group": "sub",
+        "badges": [
+          "Filing submitted",
+          "Safety signal",
+          "Confirmation required"
+        ],
+        "progression": [
+          90,
+          95
+        ],
+        "approval": [
+          58,
+          72
+        ],
+        "move10": [
+          40,
+          60
+        ],
+        "classification": "High-volatility watch; confirmation required",
+        "sources": [
+          "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-azetukalner-nda-submission-fda-focal-seizures"
+        ]
+      },
+      {
+        "rank": 5,
+        "tkr": "OCUL",
+        "co": "Ocular Therapeutix",
+        "program": "AXPAXLI for wet AMD",
+        "stage_next": "Positive pre-NDA meeting completed; NDA targeted for Q4 2026",
+        "group": "pre",
+        "badges": [
+          "Pre-NDA complete",
+          "Leading de-risked setup"
+        ],
+        "progression": [
+          88,
+          94
+        ],
+        "approval": [
+          60,
+          72
+        ],
+        "move10": [
+          35,
+          50
+        ],
+        "classification": "Cleanest new pre-submission setup",
+        "sources": [
+          "https://www.biospace.com/press-releases/ocular-therapeutix-announces-positive-pre-nda-meeting-with-u-s-fda-for-axpaxli-in-wet-amd"
+        ]
+      },
+      {
+        "rank": 6,
+        "tkr": "CMPS",
+        "co": "Compass Pathways",
+        "program": "COMP360 for treatment-resistant depression",
+        "stage_next": "Rolling NDA underway; completion targeted for Q4 2026",
+        "group": "pre",
+        "badges": [
+          "Rolling submission"
+        ],
+        "progression": [
+          85,
+          92
+        ],
+        "approval": [
+          50,
+          65
+        ],
+        "move10": [
+          35,
+          50
+        ],
+        "classification": "Good event leverage, but avoid chasing strength before final NDA completion",
+        "sources": []
+      },
+      {
+        "rank": 7,
+        "tkr": "MLTX",
+        "co": "MoonLake Immunotherapeutics",
+        "program": "Sonelokimab for hidradenitis suppurativa",
+        "stage_next": "BLA targeted around the end of September",
+        "group": "pre",
+        "badges": [
+          "Confirmation required"
+        ],
+        "progression": [
+          80,
+          88
+        ],
+        "approval": [
+          45,
+          60
+        ],
+        "move10": [
+          35,
+          50
+        ],
+        "classification": "Confirmation-only until BLA submission and price stabilisation",
+        "sources": [
+          "https://ir.moonlaketx.com/news-releases/news-release-details/moonlake-immunotherapeutics-announces-positive-outcome-its-final/"
+        ]
+      },
+      {
+        "rank": 8,
+        "tkr": "ABVX",
+        "co": "Abivax",
+        "program": "Obefazimod for ulcerative colitis",
+        "stage_next": "Positive pre-NDA interaction; NDA targeted by year-end",
+        "group": "pre",
+        "badges": [
+          "Pre-NDA complete"
+        ],
+        "progression": [
+          80,
+          88
+        ],
+        "approval": [
+          65,
+          78
+        ],
+        "move10": [
+          20,
+          30
+        ],
+        "classification": "High-quality regulatory candidate with moderate event leverage",
+        "sources": [
+          "https://ir.abivax.com/news-releases/news-release-details/abivax-presents-business-updates-and-first-half-2026-financial"
+        ]
+      },
+      {
+        "rank": 9,
+        "tkr": "ALMS",
+        "co": "Alumis",
+        "program": "Envudeucitinib for plaque psoriasis",
+        "stage_next": "NDA targeted for Q4 2026",
+        "group": "pre",
+        "badges": [
+          "Confirmation required"
+        ],
+        "progression": [
+          78,
+          86
+        ],
+        "approval": [
+          62,
+          74
+        ],
+        "move10": [
+          30,
+          45
+        ],
+        "classification": "Filing candidate with pipeline-repricing risk",
+        "sources": []
+      },
+      {
+        "rank": 10,
+        "tkr": "KYTX",
+        "co": "Kyverna Therapeutics",
+        "program": "Miv-cel for stiff person syndrome",
+        "stage_next": "Rolling BLA underway; completion targeted for Q4 2026",
+        "group": "pre",
+        "badges": [
+          "Rolling submission",
+          "Confirmation required"
+        ],
+        "progression": [
+          78,
+          87
+        ],
+        "approval": [
+          40,
+          58
+        ],
+        "move10": [
+          40,
+          60
+        ],
+        "classification": "High-upside speculative candidate; confirmation required",
+        "sources": []
+      },
+      {
+        "rank": 11,
+        "tkr": "SPRB",
+        "co": "Spruce Biosciences",
+        "program": "TA-ERT for MPS IIIB",
+        "stage_next": "Manufacturing work and BLA targeted for Q4 2026",
+        "group": "pre",
+        "badges": [
+          "Watch only"
+        ],
+        "progression": [
+          68,
+          80
+        ],
+        "approval": [
+          35,
+          52
+        ],
+        "move10": [
+          30,
+          50
+        ],
+        "classification": "Watch-only until PPQ completion and BLA submission",
+        "sources": []
+      }
+    ]
+  },
+  "intraday_snapshot": {
+    "label": "Intraday snapshot, 22 September 2026, approximately 14:07 to 14:12 UTC",
+    "window_utc": [
+      "2026-09-22T14:07:00Z",
+      "2026-09-22T14:12:00Z"
+    ],
+    "stale_note": "Prices become stale after this timestamp and are never presented as live. They are not closing prices and are excluded from charts, the nightly market file and all back-tested performance figures.",
+    "rows": {
+      "PVLA": {
+        "price": 157.19,
+        "chg_pct": 2.46,
+        "mcap": null
+      },
+      "BBIO": {
+        "price": 67.73,
+        "chg_pct": 1.73,
+        "mcap": "13.26B"
+      },
+      "URGN": {
+        "price": 43.77,
+        "chg_pct": 1.32,
+        "mcap": "2.14B"
+      },
+      "XENE": {
+        "price": 38.88,
+        "chg_pct": -0.28,
+        "mcap": "3.88B"
+      },
+      "OCUL": {
+        "price": 10.26,
+        "chg_pct": 2.7,
+        "mcap": "2.31B"
+      },
+      "CMPS": {
+        "price": 15.34,
+        "chg_pct": 2.2,
+        "mcap": "2.07B"
+      },
+      "MLTX": {
+        "price": 12.93,
+        "chg_pct": 3.03,
+        "mcap": "1.91B"
+      },
+      "ABVX": {
+        "price": 99.04,
+        "chg_pct": -4.26,
+        "mcap": null
+      },
+      "ALMS": {
+        "price": 7.95,
+        "chg_pct": 0.63,
+        "mcap": "1.02B"
+      },
+      "KYTX": {
+        "price": 7.24,
+        "chg_pct": 1.69,
+        "mcap": "441M"
+      },
+      "SPRB": {
+        "price": 54.41,
+        "chg_pct": 1.32,
+        "mcap": "2.24B"
+      }
+    },
+    "mcap_note": "Market capitalisation not displayed for PVLA and ABVX until independently verified."
+  },
+  "candidate_updates": [
+    {
+      "tkr": "XENE",
+      "co": "Xenon Pharmaceuticals",
+      "title": "NDA submitted, but safety concerns weaken the setup",
+      "date": "2026-09-17",
+      "facts": [
+        "Azetukalner NDA for focal-onset seizures submitted to FDA on 17 September 2026, supported by two positive randomised trials (X-TOLE and X-TOLE2).",
+        "New enrollment paused in the major depressive disorder and bipolar-depression trials after neuropsychiatric events, including confusion, speech and coordination problems and a limited number of psychosis-coded events.",
+        "Fierce Biotech reports one psychosis case in each of two epilepsy Phase 3 trials; events described as short and reversible.",
+        "Management states the epilepsy NDA and ongoing epilepsy studies are unaffected; FDA may still review the complete safety database across indications.",
+        "The shares fell roughly 31 to 32% from the 17 September close of $57.35 (see the timestamped intraday snapshot)."
+      ],
+      "interpretation": [
+        "Submission risk has fallen because the NDA is now filed.",
+        "Approval and labelling uncertainty have increased.",
+        "A sharp fall alone is not an entry signal.",
+        "Require several sessions of stabilisation and additional management clarification.",
+        "Clean FDA filing acceptance without a major safety-related request would be the strongest confirmation."
+      ],
+      "classification": "High-volatility watch; confirmation required",
+      "badges": [
+        "Filing submitted",
+        "Safety signal",
+        "Confirmation required"
+      ],
+      "sources": [
+        {
+          "label": "Xenon NDA submission release, 17 Sep 2026",
+          "url": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-azetukalner-nda-submission-fda-focal-seizures"
+        },
+        {
+          "label": "Fierce Biotech, event detail and reaction, 18 Sep 2026",
+          "url": "https://www.fiercebiotech.com/biotech/xenon-pauses-phase-3-depression-trials-after-psychosis-events"
+        }
+      ],
+      "note": null
+    },
+    {
+      "tkr": "OCUL",
+      "co": "Ocular Therapeutix",
+      "title": "Positive regulatory upgrade",
+      "date": "2026-09-15",
+      "facts": [
+        "Positive pre-NDA meeting for AXPAXLI completed; FDA aligned on the content and format of the planned NDA.",
+        "505(b)(2) application using Week-52 SOL-1 efficacy and safety, interim SOL-R safety, confirmatory evidence and repeat-dosing exposure.",
+        "SOL-1 was conducted under a Special Protocol Assessment and met its primary superiority endpoint.",
+        "NDA submission targeted for Q4 2026."
+      ],
+      "interpretation": [
+        "A meaningful regulatory de-risking event.",
+        "Remaining risks: reliance on one completed pivotal efficacy study, adequacy of interim SOL-R safety exposure, repeat-dosing evidence and implant manufacturing.",
+        "Preferred entry condition: stabilisation near the post-meeting range followed by relative-strength recovery, or confirmed NDA submission."
+      ],
+      "classification": "Cleanest new pre-submission setup",
+      "badges": [
+        "Pre-NDA complete",
+        "Leading de-risked setup"
+      ],
+      "sources": [
+        {
+          "label": "Ocular Therapeutix pre-NDA release, 15 Sep 2026",
+          "url": "https://www.biospace.com/press-releases/ocular-therapeutix-announces-positive-pre-nda-meeting-with-u-s-fda-for-axpaxli-in-wet-amd"
+        }
+      ],
+      "note": null
+    },
+    {
+      "tkr": "ABVX",
+      "co": "Abivax",
+      "title": "21 September financial and operational update",
+      "date": "2026-09-21",
+      "facts": [
+        "Obefazimod NDA for ulcerative colitis remains on track for submission by the end of 2026, with continued FDA alignment on NDA content and format.",
+        "Cash, cash equivalents and short-term investments of EUR 402.4 million at 30 June 2026.",
+        "EUR 767.1 million net proceeds from the early-July public offering; about EUR 1.17 billion combined pro forma liquidity.",
+        "Cash runway into Q4 2029 under current operating assumptions.",
+        "Tim Kelly appointed Chief Technical Officer to lead commercial CMC, quality and IT preparations."
+      ],
+      "interpretation": [
+        "Financing and near-term dilution risks are substantially reduced.",
+        "The appointment strengthens commercial-scale CMC readiness.",
+        "Clinical and submission quality remain strong.",
+        "The relatively high valuation reduces the expected percentage move from the filing event."
+      ],
+      "classification": "High-quality regulatory candidate with moderate event leverage",
+      "badges": [
+        "Pre-NDA complete"
+      ],
+      "sources": [
+        {
+          "label": "Abivax H1 2026 results and business update, 21 Sep 2026",
+          "url": "https://ir.abivax.com/news-releases/news-release-details/abivax-presents-business-updates-and-first-half-2026-financial"
+        },
+        {
+          "label": "Abivax H1 2026 presentation",
+          "url": "https://ir.abivax.com/static-files/46059e89-96c8-4dd5-aca8-d450fcb0db88"
+        }
+      ],
+      "note": null
+    },
+    {
+      "tkr": "MLTX",
+      "co": "MoonLake Immunotherapeutics",
+      "title": "Confirmation-only",
+      "date": "2026-05-10",
+      "facts": [
+        "BLA for sonelokimab in adult and adolescent hidradenitis suppurativa planned for the end of September 2026.",
+        "FDA previously identified no outstanding clinical, nonclinical or CMC issue precluding submission.",
+        "One VELA-2 prespecified analysis narrowly missed statistical significance (p=0.053).",
+        "The filing remains planned rather than completed; the share price has been in a prolonged decline."
+      ],
+      "interpretation": [
+        "Do not upgrade until the BLA submission is formally confirmed and price stabilisation is visible."
+      ],
+      "classification": "Confirmation-only",
+      "badges": [
+        "Confirmation required"
+      ],
+      "sources": [
+        {
+          "label": "MoonLake FDA meeting outcome release, 10 May 2026",
+          "url": "https://ir.moonlaketx.com/news-releases/news-release-details/moonlake-immunotherapeutics-announces-positive-outcome-its-final/"
+        }
+      ],
+      "note": null
+    },
+    {
+      "tkr": "PVLA",
+      "co": "Palvella Therapeutics",
+      "title": "Nearest filing-acceptance catalyst",
+      "date": "2026-08-31",
+      "facts": [
+        "Rolling NDA completed 31 August 2026.",
+        "SELVA met all six efficacy endpoints at p<0.001.",
+        "Breakthrough Therapy, Fast Track and Orphan Drug designations.",
+        "Cash, cash equivalents and short-term investments of $250.6 million at 30 June 2026.",
+        "Main remaining checks: topical-product CMC, inspection readiness and acceptance of the 505(b)(2) package.",
+        "The stock is relatively thinly traded and already strongly rerated."
+      ],
+      "interpretation": [
+        "Filing acceptance is the next binary, expected around late October.",
+        "Do not chase an illiquid gap."
+      ],
+      "classification": "Nearest filing-acceptance catalyst, but do not chase an illiquid gap",
+      "badges": [
+        "Filing submitted"
+      ],
+      "sources": [
+        {
+          "label": "Palvella rolling NDA completion, 31 Aug 2026",
+          "url": "https://ir.palvellatx.com/news-releases/news-release-details/palvella-therapeutics-completes-rolling-submission-new-drug"
+        },
+        {
+          "label": "Palvella Q2 2026 results (cash), 4 Aug 2026",
+          "url": "https://ir.palvellatx.com/news-releases/news-release-details/palvella-therapeutics-reports-second-quarter-2026-financial"
+        }
+      ],
+      "note": null
+    },
+    {
+      "tkr": "URGN",
+      "co": "UroGen Pharma",
+      "title": "Nearer small-cap filing catalyst",
+      "date": "2026-08-17",
+      "facts": [
+        "UGN-103 NDA submitted 17 August 2026.",
+        "UTOPIA: 77.8% three-month complete-response rate in 99 patients.",
+        "The submission bridges to the approved RTGel platform.",
+        "Main FDA question: adequacy of the 99-patient single-arm and bridging package.",
+        "Cash, cash equivalents and marketable securities of $108.0 million at 30 June 2026, against total liabilities of $385.0 million."
+      ],
+      "interpretation": [
+        "Prefer a quiet pullback or clean filing acceptance over chasing strength."
+      ],
+      "classification": "Attractive nearer-term small-cap catalyst, preferably on a quiet pullback or after clean filing acceptance",
+      "badges": [
+        "Filing submitted"
+      ],
+      "sources": [
+        {
+          "label": "UroGen UGN-103 NDA submission, 17 Aug 2026",
+          "url": "https://investors.urogen.com/news-releases/news-release-details/urogen-submits-nda-ugn-103-investigational-treatment-recurrent"
+        },
+        {
+          "label": "UroGen Q2 2026 results (cash, liabilities), 5 Aug 2026",
+          "url": "https://www.biospace.com/press-releases/urogen-reports-50-4-million-of-zusduri-revenue-and-provides-second-quarter-2026-financial-results-and-highlights"
+        }
+      ],
+      "note": null
+    },
+    {
+      "tkr": "BBIO",
+      "co": "BridgeBio Pharma",
+      "title": "High regulatory quality, limited event leverage",
+      "date": null,
+      "facts": [
+        "PROPEL-3 achieved its primary endpoint at p<0.0001.",
+        "Breakthrough Therapy, Fast Track, Orphan Drug and Rare Pediatric Disease designations.",
+        "The infigratinib NDA has been submitted.",
+        "Separate from the encaleret NDA (PDUFA 8 May 2027) already carried on the MANTIS book; same issuer."
+      ],
+      "interpretation": [
+        "BridgeBio's larger capitalisation and broader portfolio dilute the effect of a single filing catalyst."
+      ],
+      "classification": "High regulatory quality, but limited pure-event leverage",
+      "badges": [
+        "Filing submitted"
+      ],
+      "sources": [],
+      "note": "Primary source link not yet attached."
+    },
+    {
+      "tkr": "CMPS",
+      "co": "Compass Pathways",
+      "title": "Rolling NDA underway",
+      "date": null,
+      "facts": [
+        "Rolling NDA underway; completion targeted for Q4 2026.",
+        "Three positive late-stage studies.",
+        "Breakthrough Therapy designation, rolling review and a priority voucher.",
+        "About $433 million of June cash with runway into 2028."
+      ],
+      "interpretation": [
+        "Risks include treatment-setting requirements, safety monitoring and psychedelic scheduling."
+      ],
+      "classification": "Good event leverage, but avoid chasing strength before final NDA completion",
+      "badges": [
+        "Rolling submission"
+      ],
+      "sources": [],
+      "note": "Primary source link not yet attached."
+    },
+    {
+      "tkr": "ALMS",
+      "co": "Alumis",
+      "title": "Psoriasis filing candidate after the lupus miss",
+      "date": null,
+      "facts": [
+        "The psoriasis program has two positive Phase 3 trials.",
+        "The September lupus Phase 2b failure does not invalidate the psoriasis NDA.",
+        "The failed lupus study removes pipeline valuation support."
+      ],
+      "interpretation": [
+        "Wait for confirmed psoriasis NDA submission and visible price stabilisation."
+      ],
+      "classification": "Filing candidate with pipeline-repricing risk",
+      "badges": [
+        "Confirmation required"
+      ],
+      "sources": [],
+      "note": "Primary source link not yet attached."
+    },
+    {
+      "tkr": "KYTX",
+      "co": "Kyverna Therapeutics",
+      "title": "Speculative rolling BLA",
+      "date": null,
+      "facts": [
+        "FDA-aligned rolling BLA for miv-cel in stiff person syndrome.",
+        "High upside because there is no approved therapy.",
+        "Material risks: single-arm CAR-T evidence, autologous manufacturing, durability and vein-to-vein consistency."
+      ],
+      "interpretation": [
+        "Require final-module timing and updated durability data."
+      ],
+      "classification": "High-upside speculative candidate; confirmation required",
+      "badges": [
+        "Rolling submission",
+        "Confirmation required"
+      ],
+      "sources": [],
+      "note": "Primary source link not yet attached."
+    },
+    {
+      "tkr": "SPRB",
+      "co": "Spruce Biosciences",
+      "title": "Watch-only",
+      "date": null,
+      "facts": [
+        "FDA aligned with the proposed accelerated-approval approach and BLA format.",
+        "Evidence is based on only 22 treated patients, relying on a surrogate biomarker and natural-history comparison.",
+        "A second process-performance qualification (PPQ) manufacturing batch remains critical.",
+        "Liquidity is extremely limited."
+      ],
+      "interpretation": [
+        "Watch-only until PPQ completion and BLA submission."
+      ],
+      "classification": "Watch-only until PPQ completion and BLA submission",
+      "badges": [
+        "Watch only"
+      ],
+      "sources": [],
+      "note": "Primary source link not yet attached."
+    }
+  ],
+  "active_positions": [
+    {
+      "tkr": "HNSA",
+      "listing": "Nasdaq Stockholm",
+      "security": "Hansa Biopharma",
+      "program": "Imlifidase",
+      "indication": "Kidney transplant desensitisation in highly sensitised patients",
+      "pdufa": "2026-12-19",
+      "entry_price": 41.51,
+      "ccy": "SEK",
+      "entry_class": "Early, opening-window entry",
+      "window": "Approximately T-90 to T-45",
+      "exit_period": [
+        "2026-11-30",
+        "2026-12-09"
+      ],
+      "strategy": "Trade the pre-PDUFA build-up and avoid carrying the full position into the binary FDA decision.",
+      "levels": [
+        {
+          "area": "SEK 39 to 40",
+          "action": "Monitor for stabilisation. A sustained breakdown weakens the original entry thesis and requires reassessment."
+        },
+        {
+          "area": "SEK 46 to 48",
+          "action": "Reassess and consider locking in at least part of the profit. About 11 to 16% above the SEK 41.51 entry; overlaps the previous high area."
+        },
+        {
+          "area": "30 November to 9 December",
+          "action": "Planned exit window before the 19 December FDA decision."
+        },
+        {
+          "area": "Offering or placement announcement",
+          "action": "Reassess immediately; dilution or deal pricing could interrupt the pre-PDUFA rally."
+        },
+        {
+          "area": "Material FDA review issue",
+          "action": "Suspend the normal calendar-based strategy and reassess the thesis."
+        }
+      ],
+      "levels_note": "Observed trading and risk-management areas, not guaranteed support levels or price targets.",
+      "financing_risk": "Hansa confidentially submitted a draft registration statement (Form F-1) to the SEC to enable a potential US ADS listing and a concurrent European private placement. Size, timing and offer price have not been announced. A transaction could dilute existing shareholders or interrupt a pre-PDUFA rally.",
+      "corporate_update": "On 21 September Hansa announced that its VP of Business Development would join a panel at the LSX Congress USA in Boston on 23 September. Treated as a routine corporate and business-development appearance, not a new clinical, regulatory or trading catalyst.",
+      "sources": [
+        {
+          "label": "PDUFA date set for 19 December 2026",
+          "url": "https://www.hansabiopharma.com/media/press-releases/2026/pdufa-action-date-for-hansa-biopharmas-imlifidase-bla-set-for-december-19-2026/"
+        },
+        {
+          "label": "Confidential draft registration statement, 21 Aug 2026",
+          "url": "https://www.hansabiopharma.com/media/press-releases/2026/hansa-biopharma-announces-confidential-submission-of-draft-registration-statement-to-the-sec-to-allow-for-a-potential-listing-of-adss-in-the-united-states/"
+        },
+        {
+          "label": "LSX Congress USA participation, 21 Sep 2026",
+          "url": "https://www.hansabiopharma.com/media/press-releases/2026/hansa-biopharma-to-participate-in-lsx-congress-usa-in-boston/"
+        }
+      ]
+    }
+  ],
+  "phase3_radar": {
+    "rows": [
+      {
+        "tkr": "IVA",
+        "co": "Inventiva",
+        "program": "Lanifibranor for MASH",
+        "catalyst": "NATiV3 Phase 3 topline in Q4 2026; possible filing H1 2027",
+        "classification": "Phase 3 readout trade"
+      },
+      {
+        "tkr": "IMUX",
+        "co": "Immunic",
+        "program": "Vidofludimus calcium for multiple sclerosis",
+        "catalyst": "Two Phase 3 readouts expected by year-end 2026",
+        "classification": "Phase 3 readout trade"
+      },
+      {
+        "tkr": "VIR",
+        "co": "Vir Biotechnology",
+        "program": "Tobevibart plus elebsiran for hepatitis delta",
+        "catalyst": "First Phase 3 readout expected Q4 2026",
+        "classification": "Phase 3 readout trade"
+      },
+      {
+        "tkr": "RFL",
+        "co": "Rafael Holdings",
+        "program": "Trappsol Cyclo for NPC1",
+        "catalyst": "Phase 3 results expected H2 2026",
+        "classification": "Very high-risk binary readout"
+      },
+      {
+        "tkr": "AVIR",
+        "co": "Atea Pharmaceuticals",
+        "program": "Bemnifosbuvir plus ruzasvir for hepatitis C",
+        "catalyst": "Confirmatory Phase 3 data expected early Q1 2027; possible NDA Q2 2027",
+        "classification": "Later readout and submission candidate"
+      }
+    ],
+    "note": "These are not normal pre-filing entries yet.",
+    "prerequisites": [
+      "Positive topline results.",
+      "FDA alignment.",
+      "Assessment of CMC and submission readiness.",
+      "Review of cash runway and dilution.",
+      "Preferably a post-data retracement before entry."
+    ]
+  },
+  "methodology": [
+    {
+      "t": "Identify a regulatory or clinical catalyst."
+    },
+    {
+      "t": "Separate the probabilities of:",
+      "sub": [
+        "reaching submission",
+        "receiving filing acceptance",
+        "eventual approval",
+        "achieving a tradable stock rally"
+      ]
+    },
+    {
+      "t": "Assess:",
+      "sub": [
+        "trial quality and statistical strength",
+        "FDA designations and regulatory alignment",
+        "CMC and inspection risk",
+        "balance sheet and dilution risk",
+        "valuation",
+        "liquidity",
+        "recent price behaviour",
+        "catalyst timing"
+      ]
+    },
+    {
+      "t": "Prefer entries during an empirically observed run-up window or following a controlled pullback."
+    },
+    {
+      "t": "Do not enter solely because a stock has fallen sharply."
+    },
+    {
+      "t": "Require stabilisation, volume confirmation or a clean regulatory milestone where appropriate."
+    },
+    {
+      "t": "Plan exits before binary FDA decisions unless the strategy explicitly authorises holding through the event."
+    }
+  ]
 }
