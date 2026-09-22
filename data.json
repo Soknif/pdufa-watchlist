@@ -1873,45 +1873,7 @@
     "date": "2026-09-22",
     "label": "22 September 2026",
     "version": "ws 2.9",
-    "last_updated": "22 September 2026",
-    "disclaimer": "MANTIS ALPHA PHARMA is research model output. It is not personalised financial advice, not a recommendation to buy or sell any security, and not a forecast of FDA decisions. Probabilities are structured screening estimates. Prices move; verify before acting.",
-    "summary": [
-      {
-        "tkr": "OCUL",
-        "badge": "Pre-NDA complete",
-        "text": "Cleanest newly de-risked pre-submission setup after a positive pre-NDA meeting; NDA targeted for Q4 2026."
-      },
-      {
-        "tkr": "PVLA",
-        "badge": "Filing submitted",
-        "text": "Nearest expected FDA filing-acceptance catalyst, but valuation and limited liquidity reduce the attractiveness of chasing an upward move."
-      },
-      {
-        "tkr": "URGN",
-        "badge": "Filing submitted",
-        "text": "Nearer small-cap filing-acceptance catalyst; the single-arm and bridging package remains the key FDA risk."
-      },
-      {
-        "tkr": "XENE",
-        "badge": "Confirmation required",
-        "text": "NDA submitted, but neuropsychiatric adverse events in other azetukalner programs weaken the approval and trading profile. High-volatility confirmation trade, not an automatic post-crash opportunity."
-      },
-      {
-        "tkr": "MLTX",
-        "badge": "Confirmation required",
-        "text": "Confirmation-only until the planned sonelokimab BLA is actually submitted and the share price shows stabilisation."
-      },
-      {
-        "tkr": "ABVX",
-        "badge": "Pre-NDA complete",
-        "text": "Clinically strong and well funded after the 21 September update, but valuation reduces the expected leverage of the NDA-submission catalyst."
-      },
-      {
-        "tkr": "HNSA",
-        "badge": "Active position",
-        "text": "Active MANTIS position; excluded from the pre-PDUFA ranking because its 19 December 2026 PDUFA date is already assigned."
-      }
-    ]
+    "last_updated": "22 September 2026"
   },
   "pre_pdufa_ranking": {
     "notes": [

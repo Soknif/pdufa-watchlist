@@ -547,16 +547,6 @@
     .ub.b-safe{border-color:rgba(239,68,68,.5);color:var(--loss);background:rgba(239,68,68,.10)}
     .ub.b-watch{color:var(--muted)}
     .ub.b-p3{border-color:rgba(196,181,253,.45);color:var(--g-p3);background:rgba(139,92,246,.08)}
-    /* what changed */
-    .wc{padding:14px 16px}
-    .wc-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-    .wc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:8px 18px}
-    .wc-item{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start;padding:7px 0;border-top:1px solid var(--bd)}
-    .wc-item a.tk{font:700 13px var(--mono);letter-spacing:.08em;color:#e2e8f0;text-decoration:none}
-    .wc-item a.tk:hover{color:var(--accent-soft)}
-    .wc-item .tx{font-size:12px;line-height:1.5;color:var(--soft)}
-    .disc{margin-top:12px;padding:9px 12px;border-left:2px solid var(--accent);background:rgba(255,61,117,.05);font-size:11px;line-height:1.55;color:var(--soft)}
-    .disc b{color:var(--text)}
     /* group separation */
     .grp{border-left:3px solid var(--bd2)}
     .grp.active{border-left-color:var(--g-active)}.grp.sub{border-left-color:var(--g-sub)}.grp.pre{border-left-color:var(--g-pre)}.grp.p3{border-left-color:var(--g-p3)}
@@ -621,8 +611,6 @@
     .rk-notes{margin:10px 0 0;padding:10px 12px;border-top:1px solid var(--bd);display:grid;gap:5px}
     .rk-notes div{font-size:11px;line-height:1.5;color:var(--soft);padding-left:12px;position:relative}
     .rk-notes div::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-    .snap-note{margin-top:8px;padding:8px 12px;border:1px solid rgba(245,158,11,.3);background:rgba(245,158,11,.04);font:10px/1.55 var(--mono);color:#fcd34d}
-    .snap-note span{color:var(--soft)}
     @media(max-width:760px){
       .rk{min-width:0}
       .rk thead{display:none}
@@ -668,7 +656,6 @@
     .mth li::marker{font-family:var(--mono);color:var(--accent-soft)}
     .mth li ul{list-style:none;display:flex;flex-wrap:wrap;gap:4px 6px;margin:6px 0 0;padding:0}
     .mth li ul li{font:10px var(--mono);border:1px solid var(--bd2);border-radius:2px;padding:2px 7px;color:var(--soft)}
-    .foot-disc{max-width:900px;margin:6px auto 0;font-size:10px;line-height:1.55;color:var(--muted)}
     .board .act{display:inline-block;font:700 8px var(--mono);letter-spacing:.1em;color:var(--accent-soft);border:1px solid rgba(255,61,117,.5);border-radius:2px;padding:1px 4px;margin-left:5px;vertical-align:2px}
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--sf2);border-radius:3px}
   </style>
@@ -690,14 +677,6 @@
     <div class="leg-i"><div class="leg-d" style="background:#fcd34d"></div>4 = Full diligence / strong setup</div>
     <div class="leg-i"><div class="leg-d" style="background:#7dd3fc"></div>3 = Managed / conditional watch</div>
     <div class="leg-i"><div class="leg-d" style="background:#94a3b8"></div>2 = Background / excluded</div>
-  </div>
-  <div class="u-sec" id="whatChanged">
-    <div class="sec-hdr"><div><div class="sec-title">WHAT CHANGED</div><div class="sec-sub">MANTIS ALPHA PHARMA research update &#183; analysis date 22 September 2026</div></div><span class="stag" id="wcStamp">last updated 22 Sep 2026</span></div>
-    <div class="u-card wc">
-      <div class="wc-top"><div class="grp-key"><span><i style="background:var(--g-active)"></i>active position</span><span><i style="background:var(--g-sub)"></i>submission stage</span><span><i style="background:var(--g-pre)"></i>pre-submission</span><span><i style="background:var(--g-p3)"></i>Phase 3 radar</span></div><div class="u-stamp">Last updated <b>22 September 2026</b></div></div>
-      <div class="wc-list" id="wcList"></div>
-      <div class="disc" id="wcDisc"><b>Research, not advice.</b> MANTIS ALPHA PHARMA is research model output. It is not personalised financial advice, not a recommendation to buy or sell any security, and not a forecast of FDA decisions.</div>
-    </div>
   </div>
   <div class="board-section" id="board">
     <div class="sec-hdr"><div><div class="sec-title">WINDOWS BOARD</div><div class="sec-sub">Every dated catalyst on the book &#183; entry band, hold, exit window and effective exit &#183; same arithmetic as the catalyst graph &#183; prices nightly from Alpha Vantage</div></div><span class="stag" id="boardTag">loading</span></div>
@@ -723,7 +702,6 @@
       <div class="grp-key"><span><i style="background:var(--g-sub)"></i>submission stage (filed)</span><span><i style="background:var(--g-pre)"></i>pre-submission</span><span>Click a column to sort; click a row for the candidate note</span></div>
     </div>
     <div class="u-card rk-wrap"><table class="rk" id="rkTable"></table></div>
-    <div class="snap-note" id="rkSnapNote"></div>
     <div class="rk-notes" id="rkNotes"></div>
   </div>
   <div class="u-sec" id="candidateUpdates">
@@ -773,7 +751,7 @@
   <div class="frow"><div class="sw"><span style="color:var(--muted);font-size:13px">&#9906;</span><input id="searchBox" type="text" placeholder="Search ticker, company, drug, indication…"/></div><select class="fsel" id="scoreFilter"><option value="0">Score: Any</option><option value="4">Score 4+</option><option value="5">Score 5</option></select><select class="fsel" id="sortSelect"><option value="score:desc">Score highest</option><option value="pdufa:asc">Date earliest</option><option value="pdufa:desc">Date latest</option></select></div>
   <div class="crow" id="chipRow"><div class="chip" data-c="hero0">Result 1</div><div class="chip" data-c="hero1">Result 2</div><div class="chip" data-c="hero2">Result 3</div><div class="chip" data-c="hero3">Result 4</div><div class="chip" data-c="s5">Score 5</div><div class="chip" data-c="s4">Score 4+</div><div class="chip" data-c="orph">Orphan Only</div><div class="chip" data-c="gene">Gene / Cell Therapy</div><div class="chip" data-c="rst">Reset</div></div>
   <div class="tbl-wrap"><table><thead><tr><th>Ticker</th><th>Company / Drug</th><th class="hide-m">Indication</th><th>PDUFA</th><th>Score</th><th class="hide-m">Class</th><th class="hide-m">Entry Window</th><th class="hide-m">Exit Window</th><th class="hide-m">Tags</th></tr></thead><tbody id="wl-tbody"></tbody></table><div id="wl-empty" class="empty-st" style="display:none">No matches &#8212; try broadening your filters.</div></div>
-  <div class="foot">MANTIS ALPHA PHARMA · G.V / S.N 2026 · Analysis date 22 September 2026<div class="foot-disc">Research model output, not personalised financial advice and not a recommendation to buy or sell any security. Probabilities are structured screening estimates, not FDA forecasts. Regulatory progression, approval probability and stock appreciation are separate estimates. Intraday prices are labelled with their timestamp and are never used as closing prices or in historical charts.</div></div>
+  <div class="foot">MANTIS ALPHA PHARMA · G.V / S.N 2026 · Analysis date 22 September 2026</div>
 </div>
 <script>
 const STATE={DATA:null,FUTURE_ROWS:[],HEROES:[],ANALOGS:[],DEAL_EVENTS:[],FDA_OUTCOMES:[],CHIPS:{hero0:false,hero1:false,hero2:false,hero3:false,s5:false,s4:false,orph:false,gene:false}};
@@ -1406,12 +1384,6 @@ var U29=(function(){
   };
   function mid(r){return r?(r[0]+r[1])/2:-1}
   function capNum(s){if(!s)return -1;var n=parseFloat(s);return /B/i.test(s)?n*1e9:/M/i.test(s)?n*1e6:n}
-  function whatChanged(){
-    var a=D.analysis||{};var el=document.getElementById('wcList');if(!el)return;
-    el.innerHTML=(a.summary||[]).map(function(x){var href=x.tkr==='HNSA'?'#activePosition':'#cu-'+x.tkr;return'<div class="wc-item"><a class="tk" href="'+href+'">'+e(x.tkr)+'</a><div class="tx">'+badge(x.badge)+' '+e(x.text)+'</div></div>'}).join('');
-    if(a.disclaimer)document.getElementById('wcDisc').innerHTML='<b>Research, not advice.</b> '+e(a.disclaimer);
-    if(a.last_updated)document.getElementById('wcStamp').textContent='last updated '+a.last_updated;
-  }
   function active(){
     var p=(D.active_positions||[])[0];var el=document.getElementById('apCard');if(!p||!el){var s=document.getElementById('activePosition');if(s)s.style.display='none';return}
     var pd=iso(p.pdufa),t=today(),dn=Math.round((pd-t)/864e5);
@@ -1464,7 +1436,6 @@ var U29=(function(){
     tb.innerHTML=head+'<tbody>'+body+'</tbody>';
     tb.querySelectorAll('th.sortable').forEach(function(h){var go=function(){var k=h.dataset.k;if(S.key===k)S.dir=-S.dir;else{S.key=k;S.dir=(k==='rank'||k==='tkr')?1:-1}ranking()};h.addEventListener('click',go);h.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go()}})});
     tb.querySelectorAll('tr.r').forEach(function(tr){var go=function(){var c=document.getElementById('cu-'+tr.dataset.t);if(!c)return;c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.add('flash');setTimeout(function(){c.classList.remove('flash')},1600)};tr.addEventListener('click',go);tr.addEventListener('keydown',function(ev){if(ev.key==='Enter'){go()}})});
-    document.getElementById('rkSnapNote').innerHTML=e(snap.label||'')+'. <span>'+e(snap.stale_note||'')+' '+e(snap.mcap_note||'')+'</span>';
     document.getElementById('rkNotes').innerHTML=(R.notes||[]).map(function(n){return'<div>'+e(n)+'</div>'}).join('');
   }
   function chips(){document.querySelectorAll('#rkChips .chip').forEach(function(ch){var go=function(){S.group=ch.dataset.g;document.querySelectorAll('#rkChips .chip').forEach(function(x){x.classList.toggle('bd-on',x===ch)});ranking()};ch.addEventListener('click',go);ch.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go()}})})}
@@ -1485,7 +1456,7 @@ var U29=(function(){
     document.getElementById('rdPre').innerHTML='<span style="color:#e2e8f0;font-weight:600">'+e(R.note)+' Each needs:</span>'+R.prerequisites.map(function(p,i){return'<span><b>'+(i+1)+'</b>'+e(p)+'</span>'}).join('');
   }
   function method(){var el=document.getElementById('mthList');if(!el)return;el.innerHTML=(D.methodology||[]).map(function(m){return'<li>'+e(m.t)+(m.sub?'<ul>'+m.sub.map(function(s){return'<li>'+e(s)+'</li>'}).join('')+'</ul>':'')+'</li>'}).join('')}
-  function render(data){D=data||{};try{whatChanged()}catch(x){console.error(x)}try{active()}catch(x){console.error(x)}try{chips();ranking()}catch(x){console.error(x)}try{updates()}catch(x){console.error(x)}try{radar()}catch(x){console.error(x)}try{method()}catch(x){console.error(x)}}
+  function render(data){D=data||{};try{active()}catch(x){console.error(x)}try{chips();ranking()}catch(x){console.error(x)}try{updates()}catch(x){console.error(x)}try{radar()}catch(x){console.error(x)}try{method()}catch(x){console.error(x)}}
   return{render:render};
 })();
 </script>
