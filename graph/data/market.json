@@ -240,15 +240,15 @@
   "overview_asof": "2026-10-02"
  },
  "INO": {
-  "price": 1.13,
-  "chg_pct": -1.7391,
+  "price": 1.155,
+  "chg_pct": 2.2124,
   "lo52": 0.56,
   "hi52": 2.72,
   "mcap": "120M",
-  "vol": 2000676.0,
-  "asof": "2026-10-06",
+  "vol": 2789301.0,
+  "asof": "2026-10-07",
   "ccy": "USD",
-  "prev_close": 1.15,
+  "prev_close": 1.13,
   "source": "alpha_vantage",
   "stale": false,
   "sma50": 1.109,
@@ -552,7 +552,7 @@
  },
  "_meta": {
   "source": "Alpha Vantage REST via scripts/refresh_market.py",
-  "refreshed": "2026-10-07T00:54:58Z",
+  "refreshed": "2026-10-08T01:11:11Z",
   "macro": {
    "regime": "risk on (provisional)",
    "note": "XBI within 4 per cent of its 52 week high on 4 Sep; moving averages and implied volatility not verified.",
