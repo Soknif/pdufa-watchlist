@@ -374,15 +374,15 @@
   "overview_asof": "2026-10-01"
  },
  "CAPR": {
-  "price": 7.78,
-  "chg_pct": -13.0726,
+  "price": 8.03,
+  "chg_pct": -4.5184,
   "lo52": 2.96,
   "hi52": 40.37,
   "mcap": "520M",
-  "vol": 6733526.0,
-  "asof": "2026-10-05",
+  "vol": 8383545.0,
+  "asof": "2026-11-18",
   "ccy": "USD",
-  "prev_close": 8.95,
+  "prev_close": 8.41,
   "source": "alpha_vantage",
   "stale": false,
   "sma50": 7.74,
@@ -1060,7 +1060,7 @@
  },
  "_meta": {
   "source": "Alpha Vantage REST via scripts/refresh_market.py",
-  "refreshed": "2026-11-18T03:03:05Z",
+  "refreshed": "2026-11-19T02:43:27Z",
   "macro": {
    "regime": "risk on (provisional)",
    "note": "XBI within 4 per cent of its 52 week high on 4 Sep; moving averages and implied volatility not verified.",
